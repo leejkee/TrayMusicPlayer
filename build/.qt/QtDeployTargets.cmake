@@ -1,5 +1,0 @@
-set(__QT_DEPLOY_TARGET_tray_music_core_FILE C:/Users/cww/Documents/Workspace/TrayMusicPlayer/build/libtray_music_core.a)
-set(__QT_DEPLOY_TARGET_tray_music_core_TYPE STATIC_LIBRARY)
-set(__QT_DEPLOY_TARGET_TrayMusicPlayer_FILE C:/Users/cww/Documents/Workspace/TrayMusicPlayer/build/TrayMusicPlayer.exe)
-set(__QT_DEPLOY_TARGET_TrayMusicPlayer_TYPE EXECUTABLE)
-set(__QT_DEPLOY_TARGET_TrayMusicPlayer_RUNTIME_DLLS C:/Qt/6.8.2/mingw_64/bin/Qt6SvgWidgets.dll;C:/Qt/6.8.2/mingw_64/bin/Qt6Multimedia.dll;C:/Qt/6.8.2/mingw_64/bin/Qt6Network.dll;C:/Qt/6.8.2/mingw_64/bin/Qt6Sql.dll;C:/Qt/6.8.2/mingw_64/bin/Qt6Widgets.dll;C:/Qt/6.8.2/mingw_64/bin/Qt6Svg.dll;C:/Qt/6.8.2/mingw_64/bin/Qt6Gui.dll;C:/Qt/6.8.2/mingw_64/bin/Qt6Core.dll)

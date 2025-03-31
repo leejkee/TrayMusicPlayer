@@ -1,5 +1,0 @@
-set(__QT_DEPLOY_TARGET_tray_music_core_FILE C:/Users/cww/Documents/Workspace/TrayMusicPlayer/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/tray_music_core.lib)
-set(__QT_DEPLOY_TARGET_tray_music_core_TYPE STATIC_LIBRARY)
-set(__QT_DEPLOY_TARGET_TrayMusicPlayer_FILE C:/Users/cww/Documents/Workspace/TrayMusicPlayer/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/TrayMusicPlayer.exe)
-set(__QT_DEPLOY_TARGET_TrayMusicPlayer_TYPE EXECUTABLE)
-set(__QT_DEPLOY_TARGET_TrayMusicPlayer_RUNTIME_DLLS C:/Qt/6.8.2/msvc2022_64/bin/Qt6SvgWidgetsd.dll;C:/Qt/6.8.2/msvc2022_64/bin/Qt6Multimediad.dll;C:/Qt/6.8.2/msvc2022_64/bin/Qt6Networkd.dll;C:/Qt/6.8.2/msvc2022_64/bin/Qt6Sqld.dll;C:/Qt/6.8.2/msvc2022_64/bin/Qt6Widgetsd.dll;C:/Qt/6.8.2/msvc2022_64/bin/Qt6Svgd.dll;C:/Qt/6.8.2/msvc2022_64/bin/Qt6Guid.dll;C:/Qt/6.8.2/msvc2022_64/bin/Qt6Cored.dll)

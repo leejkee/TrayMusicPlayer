@@ -1,9 +1,0 @@
-C:/Users/cww/Documents/Workspace/TrayMusicPlayer/build/CMakeFiles/tray_music_core.dir
-C:/Users/cww/Documents/Workspace/TrayMusicPlayer/build/CMakeFiles/tray_music_interface.dir
-C:/Users/cww/Documents/Workspace/TrayMusicPlayer/build/CMakeFiles/TrayMusicPlayer.dir
-C:/Users/cww/Documents/Workspace/TrayMusicPlayer/build/CMakeFiles/edit_cache.dir
-C:/Users/cww/Documents/Workspace/TrayMusicPlayer/build/CMakeFiles/rebuild_cache.dir
-C:/Users/cww/Documents/Workspace/TrayMusicPlayer/build/CMakeFiles/tray_music_core_autogen_timestamp_deps.dir
-C:/Users/cww/Documents/Workspace/TrayMusicPlayer/build/CMakeFiles/tray_music_core_autogen.dir
-C:/Users/cww/Documents/Workspace/TrayMusicPlayer/build/CMakeFiles/TrayMusicPlayer_autogen_timestamp_deps.dir
-C:/Users/cww/Documents/Workspace/TrayMusicPlayer/build/CMakeFiles/TrayMusicPlayer_autogen.dir

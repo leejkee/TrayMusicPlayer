@@ -36,7 +36,1052 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="afbb406e-2bfc-4e73-8712-ffec79c4104c" name="更改" comment="" />
+    <list default="true" id="afbb406e-2bfc-4e73-8712-ffec79c4104c" name="更改" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/QtSettings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt.user" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakePresets.json" beforeDir="false" afterPath="$PROJECT_DIR$/CMakePresets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/.cmake/api/v1/query/cache-v2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/.cmake/api/v1/query/cmakeFiles-v1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/.cmake/api/v1/query/codemodel-v2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/.cmake/api/v1/query/toolchains-v1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/.cmake/api/v1/reply/cache-v2-14b3f841761cf228b196.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/.cmake/api/v1/reply/cmakeFiles-v1-e4de39c056ce16a3243d.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/.cmake/api/v1/reply/codemodel-v2-b9517784fad6e1269ff0.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/.cmake/api/v1/reply/directory-.-Debug-d0094a50bb2071803777.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/.cmake/api/v1/reply/index-2025-03-31T05-13-31-0233.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/.cmake/api/v1/reply/target-TrayMusicPlayer-Debug-42c3ff5b059df9966479.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/.cmake/api/v1/reply/target-TrayMusicPlayer_autogen-Debug-5ce1b11221ecca4bbe1d.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/.cmake/api/v1/reply/target-TrayMusicPlayer_autogen_timestamp_deps-Debug-0680c24aed96fb5ff0a3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/.cmake/api/v1/reply/target-tray_music_core-Debug-444ac449d592e322c74d.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/.cmake/api/v1/reply/target-tray_music_core_autogen-Debug-4515e5c9044896699a0a.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/.cmake/api/v1/reply/target-tray_music_core_autogen_timestamp_deps-Debug-a6438935fa1263b85594.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/.cmake/api/v1/reply/target-tray_music_interface-Debug-e4b789707c1dcc657b23.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/.cmake/api/v1/reply/toolchains-v1-29f1b8b9f3b0b27dd830.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/.qt/QtDeploySupport.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/.qt/QtDeployTargets.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeCache.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.30.5/CMakeCXXCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.30.5/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.30.5/CMakeRCCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.30.5/CMakeSystem.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.30.5/CompilerIdCXX/CMakeCXXCompilerId.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.30.5/CompilerIdCXX/a.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/CMakeConfigureLog.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/TargetDirectories.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/TrayMusicPlayer_autogen.dir/AutoRcc_systray_PNK5WDWK6L_Info.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/TrayMusicPlayer_autogen.dir/AutogenInfo.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/clean_additional.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/clion-environment.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/clion-windows-mingw - mingw-debug-log.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/cmake.check_cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/rules.ninja" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/tray_music_core_autogen.dir/AutogenInfo.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.cmake/api/v1/query/cache-v2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.cmake/api/v1/query/cmakeFiles-v1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.cmake/api/v1/query/codemodel-v2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.cmake/api/v1/reply/cache-v2-67852f7cce3edcc50110.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.cmake/api/v1/reply/cmakeFiles-v1-c6f8acbf01b1ea60fde4.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.cmake/api/v1/reply/codemodel-v2-6f51b09603f6a9570733.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.cmake/api/v1/reply/directory-.-Debug-d0094a50bb2071803777.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.cmake/api/v1/reply/index-2025-03-30T16-44-23-0661.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.cmake/api/v1/reply/target-TrayMusicPlayer-Debug-1f852d54f53a5d4e5258.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.cmake/api/v1/reply/target-TrayMusicPlayer_autogen-Debug-8e665f00718ba80b6564.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.cmake/api/v1/reply/target-TrayMusicPlayer_autogen_timestamp_deps-Debug-1cb6ab091928f3a2dd5d.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.cmake/api/v1/reply/target-tray_music_core-Debug-6e2d04e9f5216fbfffd6.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.cmake/api/v1/reply/target-tray_music_core_autogen-Debug-248abcf225b2e8b6071f.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.cmake/api/v1/reply/target-tray_music_core_autogen_timestamp_deps-Debug-a6438935fa1263b85594.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.ninja_deps" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.ninja_log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qt/QtDeploySupport.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qt/QtDeployTargets.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc/package-manager/LICENSE.conan" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc/package-manager/auto-setup.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc/package-manager/conan.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc/package-manager/conan_provider.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/Assets.h.C71ECD7896F58624.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/MainWindow.cpp.791AF974F160D74E.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/MainWindow.h.3CBF2B86EE901BAF.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/QApplication.DD08AFBA64AD8D86.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/QCloseEvent.A16B869A6F20C477.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/QList.BE21775CF3855F30.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/QMainWindow.796FF267CEE9C7AB.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/QMenu.D640E6D5C4C01416.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/QMessageBox.9DF1570D6E531DF3.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/QObject.7D4D8DCD78DC7E0E.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/QRect.25F404109659916C.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/QSize.4245BA90292A28DA.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/QSizeF.4E2268C4C8AD2F17.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/QString.4C04AB43B83E35C4.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/QStringList.FE17DD8FEC1EA8CB.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/QSystemTrayIcon.D62D9106FA9A7A22.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/QTransform.D8F990C116A4882D.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/__msvc_bit_utils.hpp.A0810E6B34EE7404.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/__msvc_chrono.hpp.4B1E2FB962A3DF24.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/__msvc_heap_algorithms.hpp.701C01AE79C6A78E.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/__msvc_iter_core.hpp.7D873729D2F9EC1C.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/__msvc_minmax.hpp.FE7D4648CBDFD974.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/__msvc_sanitizer_annotate_container.hpp.8392A15B8AC2A6D5.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/__msvc_string_view.hpp.528452BBB05EB5B4.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/__msvc_system_error_abi.hpp.390F9E4DFBACA1BC.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/__msvc_threads_core.hpp.210561066ADA3C20.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/__stdarg___gnuc_va_list.h.2CFBDAC8217C4CBA.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/__stdarg___va_copy.h.03DC845E846CBCE5.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/__stdarg_va_arg.h.3E423B51D8272BD6.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/__stdarg_va_copy.h.B1376E14674F4829.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/__stdarg_va_list.h.12063608514FC176.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/__stddef_max_align_t.h.A89FEAE3E6DB8AD2.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/__stddef_null.h.240D6D8D3C4815A9.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/__stddef_nullptr_t.h.41B16302CCA86ADB.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/__stddef_offsetof.h.5466DDE568B6B551.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/__stddef_ptrdiff_t.h.66F08E5E8436324D.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/__stddef_size_t.h.788AE29C3A6380F8.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/__stddef_wchar_t.h.B906C966C4377FE7.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/adcintrin.h.5F4A5282BA9D8428.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/algorithm.F0DCC7EFB0099228.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/array.6782F54312151A24.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/assert.h.D2225773A7639226.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/atomic.EC6FC03273A4BA8A.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/bmiintrin.h.FDFA04B8B2669FC5.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/cassert.8F950EB0AA3E5BAE.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/cctype.88F1AB27F2E51B8D.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/cerrno.C3982C6DEFC00864.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/cfloat.2D323D0835D4CD45.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/chrono.53F393E4210306A8.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/climits.97150F5625D88F32.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/cmath.C6F498FB96F22D48.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/concurrencysal.h.29785E5838D4A272.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/corecrt.h.A7EAE1036C2AD980.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/corecrt_malloc.h.40235A78A3880630.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/corecrt_math.h.B529233865104920.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/corecrt_memcpy_s.h.992FC116D8CC3796.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/corecrt_memory.h.921AF4C79D961632.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/corecrt_search.h.2B26E674B691DC81.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/corecrt_share.h.D7E8FC6BACF25E87.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/corecrt_stdio_config.h.9AE3C02E51708369.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/corecrt_terminate.h.65243AE401D56BA3.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/corecrt_wconio.h.66913AC211024781.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/corecrt_wctype.h.A18D29E8CA6245A7.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/corecrt_wdirect.h.6A6F575CACD7D84D.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/corecrt_wio.h.7DE1D4FA7C2B56A1.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/corecrt_wprocess.h.85160BED9CE0ABE8.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/corecrt_wstdio.h.16704FC6623AA872.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/corecrt_wstdlib.h.F3387DAB7030D77D.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/corecrt_wstring.h.86319785C05ABCE9.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/corecrt_wtime.h.19B4AE2847B88C8C.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/crtdbg.h.D7EBA690B39B3C02.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/crtdefs.h.8D93BA244886C5EA.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/cstddef.C181E9F258AB9BC7.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/cstdint.B2EF0E687B1BC655.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/cstdio.0D8ABAB2323B21E9.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/cstdlib.11C65F0717E9ED6F.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/cstring.9201D3F74993BE72.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/ctime.6154D5FB32C9DB59.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/ctype.h.DFED2DB93F10E550.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/cwchar.05100C9DD3484FB1.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/eh.h.BB033FFDA0EEC7C2.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/emmintrin.h.8D928A753C5A57AA.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/errno.h.159EE6E8406991BA.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/exception.5AA7E6E560C5B047.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/float.h.93E109B319281892.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/float.h.E76E1470C9222813.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/functional.43B30067E0013CEB.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/fxsrintrin.h.251B5288BA8E9282.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/ia32intrin.h.733BE66253093B96.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/immintrin.h.28D8ADD741C51406.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/initializer_list.FFE7BCEC88CE40F1.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/intrin.h.F2B3AD064D82D074.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/iosfwd.5EA057B25832F836.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/iterator.015F66A61EF8BFE4.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/limits.E014E2AEF994FF13.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/limits.h.3F03CAA0E129EC35.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/limits.h.6C54F50685B9191F.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/list.A988790E9A585DF5.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/main.cpp.659FB62165ABD504.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/malloc.h.D9D93D8DFFC35ED5.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/map.CF949623E986FDE1.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/math.h.DCAE32A953D9C7F3.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/memory.7DCD2F5D546C7B6F.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/mm_malloc.h.5B655D14AABD88C2.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/mmintrin.h.4041E02784E54718.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/new.4CBC8B71BF1FAD4F.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/numeric.7C86546EE04ED2A1.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/optional.35DB694A2C8AE34D.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/play.cpp.70DD74F4038AB3A6.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/q20functional.h.2A461A4F8D9A6A04.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/q20iterator.h.85A87FA959FEEF31.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/q20memory.h.C3B3C5699D8FDD5E.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/q20type_traits.h.0FBC3F8DE20480A0.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/q23utility.h.475E5F9F087B39E1.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qaction.h.B9054144EF3050C5.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qalgorithms.h.3A4971BA531AB91F.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qanystringview.h.CF1A7E09D5090756.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qapplication.h.E85BCEF816F969FA.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qarraydata.h.616A1081F292C922.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qarraydataops.h.4DD14501B378DD51.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qarraydatapointer.h.32616AA864B7DB70.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qassert.h.C8F45ED7E62D2E35.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qatomic.h.DC6377FA5F9D1D7F.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qatomic_cxx11.h.F04EC0D5FCB7E3B2.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qbasicatomic.h.876C2125B4EDD1BE.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qbindingstorage.h.71B8F006193C1F30.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qbitmap.h.00E576CFE675F229.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qbrush.h.0025C2A706F599AB.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qbytearray.h.56F7D707510BB212.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qbytearrayalgorithms.h.D09731E71310DC2A.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qbytearraylist.h.217994A5A130A08C.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qbytearrayview.h.C4FDC7DFE3E2B74A.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qchar.h.A8E5CAB1EED3B970.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qcolor.h.F99FBE804DE3F409.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qcompare.h.E31CD5317BF141E0.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qcompare_impl.h.635E3448053667EC.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qcomparehelpers.h.809C2776AE18F6A6.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qcompilerdetection.h.82B9909802608D6B.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qconfig.h.2443EBAE708C893C.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qconstructormacros.h.6B5E613F39F8BFF6.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qcontainerfwd.h.2FD87AF6F59E7D75.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qcontainerinfo.h.FBDD450E62FE8A86.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qcontainertools_impl.h.A45AFBFE71AC7814.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qcontiguouscache.h.4EBC137EC1587034.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qcoreapplication.h.52BBCA1550AED814.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qcoreapplication_platform.h.B338DCF2F84CB07A.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qcoreevent.h.984998E5767CE10B.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qcursor.h.57742233B78C6630.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qdarwinhelpers.h.F782B65418F012BC.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qdatastream.h.1F7D5AD2FA2533AA.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qdeadlinetimer.h.5C8C709EA35F45E6.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qdebug.h.01361B3F39AF38C4.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qdialog.h.555C98385F792E10.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qdialogbuttonbox.h.F0395576CC518EBD.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qelapsedtimer.h.2623CEF9DE60A2A3.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qendian.h.3124C579EED85F87.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qevent.h.EA96F9AEBCC1264F.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qeventloop.h.1DBFF997B3103381.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qeventpoint.h.DEDB3A8886366B4A.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qexceptionhandling.h.88C3BC18BD326203.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qflags.h.00AF11FDFB7DE67D.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qfloat16.h.D37D0ECAC5DB093B.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qfont.h.CC4474BC2F704D00.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qfontinfo.h.DF95C8B9947557FD.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qfontmetrics.h.C83BEE98E14F3D96.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qforeach.h.D512884955AEAE5A.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qfunctionaltools_impl.h.B0A6233EFF99F68A.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qfunctionpointer.h.B0DD432C04E82123.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qgenericatomic.h.CABE07D16E5BDB6A.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qglobal.h.20D220C9888B2FE0.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qglobalstatic.h.2A926CB2D79B67C0.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qguiapplication.h.EC6156C93533A279.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qguiapplication_platform.h.906E51CC821EF3E2.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qhash.h.4BE9388BC94735E7.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qhashfunctions.h.8109C266E4C8F1AD.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qicon.h.BF592454B6CBF10F.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qimage.h.82D12E4D6AA8F746.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qinputdevice.h.456C2C4E3EEC4D65.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qinputmethod.h.DF4C6E5DA69EBA04.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qiodevice.h.290A3A8F025D2B1B.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qiodevicebase.h.1A03B4B7C75247E3.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qiterable.h.0ABC3FBC4111D76E.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qiterator.h.2E79B6F93724E66F.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qkeysequence.h.96D7AF4A6372B4A5.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qlatin1stringview.h.361358E180E1BAD6.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qline.h.3D393A905DF42AE3.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qlist.h.3BCB1FADFA521B2C.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qlocale.h.8A242C7D22D3F70F.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qlogging.h.B316804D4519227A.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qmainwindow.h.835721F065EE263B.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qmalloc.h.B9CA7C7AB7C1ABDB.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qmap.h.FDA36317EF88F658.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qmargins.h.CAA54DB806A87B75.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qmath.h.C97976E1FDD9B1B0.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qmenu.h.EF90FBB341168B4D.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qmessagebox.h.7E80BEE71AE3D3EF.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qmetacontainer.h.25208F9B09EC63AA.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qmetatype.h.43B5AE6352A7D36D.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qminmax.h.5272B18CB1DBCE39.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qnamespace.h.D5F1F0F7288D25E9.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qnativeinterface.h.846C1F333C2876F5.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qnumeric.h.2300410444F1A492.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qobject.h.EF0EAA0B3504D2BF.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qobject_impl.h.107789870A5C360E.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qobjectdefs.h.28D6CF8CC43D4EEC.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qobjectdefs.h.F9475B70D9FC04BE.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qobjectdefs_impl.h.C83E9ABEE8DE20E8.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qoverload.h.1AB50311AD45182F.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qpaintdevice.h.662C34E0B5220EB1.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qpair.h.40E5F58B3853B5AC.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qpalette.h.E17384CDF995A3C2.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qpixelformat.h.461D9B223F47D632.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qpixmap.h.7E6F57C9120C489A.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qpoint.h.12D1EFE63FAF8FD5.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qpointingdevice.h.96A41F868CED6D72.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qpolygon.h.15954F826CB1B9B2.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qprocessordetection.h.B230AABFA29283CD.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qrect.h.DA162F7EA2BBBF51.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qrefcount.h.849740357D3E084A.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qregion.h.EE6AE8517323959F.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qrgb.h.65208A6EBAAD64F4.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qrgba64.h.31F191928B48C349.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qscopedpointer.h.07DEE837FFCDF895.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qscopeguard.h.576DE760089DBF1D.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qscreen.h.03C607D7852CB8E7.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qscreen_platform.h.79E7DFB20896321E.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qset.h.E0023149E501E433.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qshareddata.h.9972E7EFBA0A6C7E.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qshareddata_impl.h.3C98C50A37A232A6.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qsharedpointer.h.89F25D3EEEAC3A00.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qsharedpointer_impl.h.5DDC98B96C22E186.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qsize.h.C2A14F0BB0A4204C.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qsizepolicy.h.152CC9C640ECFC83.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qspan.h.7B1FCC8E22426320.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qstring.h.1972972BD7C1F7B3.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qstringalgorithms.h.EF16EDBED14AA581.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qstringbuilder.h.93D1DFE628A30A25.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qstringconverter.h.6D51F12DBF213C0B.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qstringconverter_base.h.AB2A92700CDD55D2.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qstringfwd.h.818583381DD094AD.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qstringlist.h.545EBF1A859C1DA2.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qstringliteral.h.E18D72BFD7ED03E8.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qstringmatcher.h.E6A4F771CB425688.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qstringtokenizer.h.C7EC7D5C9417E245.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qstringview.h.8D9E0A38F6CB7B8E.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qswap.h.A352B3EB0F3BE628.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qsysinfo.h.7902F0F60EE3B536.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qsystemdetection.h.97F0C1DCF073FB03.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qsystemtrayicon.h.86C723F7F82BE873.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qtabwidget.h.51AE7C9B48EE8A8F.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qtaggedpointer.h.DE81ED9FAF88E2BF.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qtclasshelpermacros.h.E11917106B45D525.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qtconfiginclude.h.2643FF6E14E42C6A.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qtconfigmacros.h.4141D3485DBCC6B0.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qtcore-config.h.0634593E2A50A6E2.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qtcoreexports.h.0A4167595549CCCF.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qtdeprecationdefinitions.h.44E0D0E2EDC054B8.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qtdeprecationmarkers.h.00A0CC433DD43F15.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qtenvironmentvariables.h.03292A06DADDF5DC.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qtextstream.h.B51948F391F77841.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qtgui-config.h.BBBA8434C95899E5.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qtguiexports.h.7118647D4C6D2568.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qtguiglobal.h.5E3DE90B821BF6B0.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qtmetamacros.h.7EFA935EA5A2F0D7.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qtnoop.h.1B435124CA904713.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qtpreprocessorsupport.h.22E952D2F4C1F0B1.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qtransform.h.3B8E2674EAC5A3B8.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qtresource.h.9F923B0597F1CCC4.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qttranslation.h.E58DFF4341D53624.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qttypetraits.h.C8E6F99E8BFA885B.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qtversion.h.9AC6BAA11F74ED64.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qtversionchecks.h.7EFA9C71A02BB160.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qtwidgets-config.h.8160ADDEF62D53F2.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qtwidgetsexports.h.B1833C97ED31A5CB.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qtwidgetsglobal.h.05ED2E0DA4095098.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qtypeinfo.h.29DB03D1110788ED.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qtypes.h.CA117411DE7D4F61.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qurl.h.8624C062DD2A749F.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qutf8stringview.h.C1B7E95547F482B1.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qvariant.h.9BEF679CF6E5B63C.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qvarlengtharray.h.9E5B25780360D8F3.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qvector2d.h.DCFEACD7B5963AF7.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qvectornd.h.4F20356A28D99751.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qversiontagging.h.0933F9CB6AB34BCC.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qwidget.h.95174C55012B1053.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qwindowdefs.h.DBCF44B850102711.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qwindowdefs_win.h.F72BA71657297591.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qxptype_traits.h.4EC1816392EE4C5A.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/qyieldcpu.h.30E39186D15AC062.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/ratio.1C6070343675F61B.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/sal.h.5EC927F8459B125A.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/setjmp.h.BF8BF7EBA764F71F.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/stat.h.8F6F2B054438DD19.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/stdarg.h.925B85E8CCACC6B1.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/stdbool.h.F3077319BB9E284F.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/stddef.h.74FCBE593E27147A.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/stdexcept.18DC40A47D891FFE.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/stdint.h.8A7599FEDED041E7.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/stdint.h.98AF7510CD207CBA.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/stdio.h.40D04684C9EDD79A.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/stdlib.h.AE98491DAC39665C.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/string.27E8F677A9F6F545.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/string.h.32C1C3181176707E.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/string_view.63B1464F740F7ED4.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/system_error.D7408FE175081E5D.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/time.h.2FBF7D17DFD124A0.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/tuple.0DA88FC430E9C148.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/type_traits.234F5DC6600A972F.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/typeinfo.672842205A4EAC25.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/types.h.1962666B7DBCAD83.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/unordered_map.AC96DD3EF6239E79.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/use_ansi.h.60BF393DDA9BA5D7.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/utility.06AC0A3BCB797E2F.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/vadefs.h.EC9E65CCD273CE88.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/vadefs.h.F8A1091EF9C47563.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/variant.24446FAE990A2D49.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/vcruntime.h.2222D67832EC38F6.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/vcruntime_exception.h.32C48E40DAC9B105.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/vcruntime_new.h.92C126F88708D0F4.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/vcruntime_new_debug.h.FE3E945CFC8785BE.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/vcruntime_string.h.1A47F80C2C918E85.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/vcruntime_typeinfo.h.ECC733E7B208DDFF.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/vector.90B6752D2AAF5795.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/version.ABE365DBF457F5DF.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/wchar.h.6DD24298F825F281.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/x86gprintrin.h.8C625DB48D456099.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/x86intrin.h.E0984B803741D2C0.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/xatomic.h.35B7C15F897ECC03.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/xbit_ops.h.11F3E97CD9C029BC.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/xcall_once.h.A0575B1A0A3EA311.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/xerrc.h.8DDE2A3EEACF4655.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/xfilesystem_abi.h.073BE9B516A4BA40.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/xhash.43BD62301A11D051.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/xkeycheck.h.2C9C1301D52A5662.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/xmemory.B38859322FCB88F1.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/xmmintrin.h.2E2E2C86AF3A123B.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/xnode_handle.h.10C49A45632FFCBF.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/xpolymorphic_allocator.h.D1BF0040D2E6F658.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/xsaveintrin.h.9236D94687B3C776.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/xsmf_control.h.AD9FC67D94DF8C3F.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/xstring.4A695B3A3DA89CCA.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/xthreads.h.487145603D7EB911.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/xtimec.h.5DDFE1D7C61D372E.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/xtr1common.2B4EFD8E245B4964.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/xtree.B6F7EA57870CDA12.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/xutility.61399E4D7290734D.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/yvals.h.4013472199E9032B.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/.cache/clangd/index/yvals_core.h.4214F13E1E19842C.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/.qtc_clangd/compile_commands.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/CMakeCache.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/CMakeFiles/3.29.3/CMakeCXXCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/CMakeFiles/3.29.3/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/CMakeFiles/3.29.3/CMakeRCCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/CMakeFiles/3.29.3/CMakeSystem.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/CMakeFiles/3.29.3/CompilerIdCXX/CMakeCXXCompilerId.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/CMakeFiles/3.29.3/CompilerIdCXX/CMakeCXXCompilerId.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/CMakeFiles/3.29.3/CompilerIdCXX/CMakeCXXCompilerId.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/CMakeFiles/CMakeConfigureLog.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/CMakeFiles/ShowIncludes/foo.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/CMakeFiles/ShowIncludes/main.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/CMakeFiles/ShowIncludes/main.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/CMakeFiles/TargetDirectories.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/CMakeFiles/TrayMusicPlayer.dir/TrayMusicPlayer_autogen/PNK5WDWK6L/qrc_systray.cpp.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/CMakeFiles/TrayMusicPlayer.dir/TrayMusicPlayer_autogen/mocs_compilation.cpp.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/CMakeFiles/TrayMusicPlayer.dir/embed.manifest" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/CMakeFiles/TrayMusicPlayer.dir/intermediate.manifest" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/CMakeFiles/TrayMusicPlayer.dir/manifest.rc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/CMakeFiles/TrayMusicPlayer.dir/manifest.res" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/CMakeFiles/TrayMusicPlayer.dir/src/main.cpp.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/CMakeFiles/TrayMusicPlayer.dir/src/ui/MainWindow.cpp.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/CMakeFiles/TrayMusicPlayer.dir/vc140.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/CMakeFiles/TrayMusicPlayer_autogen.dir/AutoRcc_systray_PNK5WDWK6L_Info.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/CMakeFiles/TrayMusicPlayer_autogen.dir/AutoRcc_systray_PNK5WDWK6L_Lock.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/CMakeFiles/TrayMusicPlayer_autogen.dir/AutoRcc_systray_PNK5WDWK6L_Used.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/CMakeFiles/TrayMusicPlayer_autogen.dir/AutogenInfo.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/CMakeFiles/TrayMusicPlayer_autogen.dir/AutogenUsed.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/CMakeFiles/TrayMusicPlayer_autogen.dir/ParseCache.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/CMakeFiles/clean_additional.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/CMakeFiles/cmake.check_cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/CMakeFiles/rules.ninja" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/CMakeFiles/tray_music_core.dir/src/core/play.cpp.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/CMakeFiles/tray_music_core.dir/tray_music_core.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/CMakeFiles/tray_music_core.dir/tray_music_core_autogen/mocs_compilation.cpp.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/CMakeFiles/tray_music_core_autogen.dir/AutogenInfo.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/CMakeFiles/tray_music_core_autogen.dir/AutogenUsed.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/CMakeFiles/tray_music_core_autogen.dir/ParseCache.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/Testing/Temporary/LastTest.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/TrayMusicPlayer.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/TrayMusicPlayer.ilk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/TrayMusicPlayer.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/TrayMusicPlayer_autogen/JCP2AIONHY/moc_MainWindow.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/TrayMusicPlayer_autogen/JCP2AIONHY/moc_MainWindow.cpp.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/TrayMusicPlayer_autogen/PNK5WDWK6L/qrc_systray.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/TrayMusicPlayer_autogen/deps" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/TrayMusicPlayer_autogen/mocs_compilation.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/TrayMusicPlayer_autogen/timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/build.ninja" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/cmake_install.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/compile_commands.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/qtcsettings.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/tray_music_core.lib" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/tray_music_core_autogen/deps" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/tray_music_core_autogen/mocs_compilation.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MSVC2022_64bit-Debug/tray_music_core_autogen/timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.cmake/api/v1/query/cache-v2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.cmake/api/v1/query/cmakeFiles-v1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.cmake/api/v1/query/codemodel-v2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.cmake/api/v1/reply/cache-v2-26152fa62ede3d8743fc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.cmake/api/v1/reply/cmakeFiles-v1-b5d5b726ad1ebee1601f.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.cmake/api/v1/reply/codemodel-v2-8937691b9fca5bd1a72b.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.cmake/api/v1/reply/directory-.-Debug-d0094a50bb2071803777.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.cmake/api/v1/reply/index-2025-03-30T16-45-41-0004.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.cmake/api/v1/reply/target-TrayMusicPlayer-Debug-8d6da146acc60a6fcc1f.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.cmake/api/v1/reply/target-TrayMusicPlayer_autogen-Debug-e863a0455cbc7f3c0d9f.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.cmake/api/v1/reply/target-TrayMusicPlayer_autogen_timestamp_deps-Debug-1cb6ab091928f3a2dd5d.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.cmake/api/v1/reply/target-tray_music_core-Debug-7010d2f4047166c7dd70.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.cmake/api/v1/reply/target-tray_music_core_autogen-Debug-6a2c036d661d822231e0.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.cmake/api/v1/reply/target-tray_music_core_autogen_timestamp_deps-Debug-a6438935fa1263b85594.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.ninja_deps" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.ninja_log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qt/QtDeploySupport.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qt/QtDeployTargets.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc/package-manager/LICENSE.conan" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc/package-manager/auto-setup.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc/package-manager/conan.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc/package-manager/conan_provider.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/Assets.h.C71ECD7896F58624.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/MainWindow.cpp.791AF974F160D74E.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/MainWindow.h.3CBF2B86EE901BAF.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/QApplication.EBBCAFA7E04082B6.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/QCloseEvent.66826B89A41BE793.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/QList.6A09643A7B7B49C9.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/QMainWindow.4B94382FDB6D1D0A.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/QMenu.4DA3C80FD25CC23F.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/QMessageBox.485AAAE7695EFD6C.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/QObject.5260F6D7FA05FB20.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/QRect.C771162BACC43E21.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/QSize.61DD901B8AC10A71.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/QSizeF.93C4924F27C4C14F.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/QString.19ED856A73FBBDF2.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/QStringList.F9B9C729FED98712.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/QSystemTrayIcon.6C32324436D2CDEF.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/QTransform.AAE5217F522E2B73.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stdarg___gnuc_va_list.h.2CFBDAC8217C4CBA.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stdarg___va_copy.h.03DC845E846CBCE5.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stdarg_va_arg.h.3E423B51D8272BD6.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stdarg_va_copy.h.B1376E14674F4829.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stdarg_va_list.h.12063608514FC176.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stddef_max_align_t.h.A89FEAE3E6DB8AD2.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stddef_null.h.240D6D8D3C4815A9.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stddef_nullptr_t.h.41B16302CCA86ADB.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stddef_offsetof.h.5466DDE568B6B551.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stddef_ptrdiff_t.h.66F08E5E8436324D.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stddef_size_t.h.788AE29C3A6380F8.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stddef_wchar_t.h.B906C966C4377FE7.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stddef_wint_t.h.65361540F2B93FD5.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/_mingw.h.75BB34BA84B2A213.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/_mingw_ddk.h.2333E15674C479EB.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/_mingw_mac.h.8A356FA6F7EB1363.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/_mingw_off_t.h.521527568D4BCEDB.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/_mingw_secapi.h.E4C488BA8BCCE365.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/_mingw_stat64.h.B04E3EF632232AA8.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/_timeval.h.78D222D4BB7985E2.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/algorithm.01B0D0E6BCB53B10.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/algorithmfwd.h.D1950F908D68F254.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/align.h.3D8385182FF30CDF.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/aligned_buffer.h.AF7C7ACC12BC05AD.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/alloc_traits.h.0BA315DFD87EA847.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/alloc_traits.h.212704B4885D48C6.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/allocated_ptr.h.A57423EFA212747D.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/allocator.h.6C0CB6F3838F908E.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/array.2DA1B79464041FBA.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/assert.h.C49BEAD39B927C16.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/assertions.h.A196E1715C73065E.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/atomic.473353E7441A33C8.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/atomic_base.h.659C25DD2FABDB2E.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/atomic_lockfree_defines.h.14646D1FD1601196.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/atomic_word.h.8B7E87795E32370D.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/atomicity.h.62C88B5D34613791.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/auto_ptr.h.F05761C508932B45.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/basic_string.h.F99E6B5FBB4E81CA.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/basic_string.tcc.00963C85C0135C99.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/bessel_function.tcc.60FD1F4054B7B8E0.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/beta_function.tcc.DD9A406C209FE62B.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/binders.h.1ECDCCF4D7981F03.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/bit.BAA351FEDA43E2AE.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/c++allocator.h.5EC6922D2D89A75D.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/c++config.h.3553E61C5A2BC90E.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/c++locale.h.0A53074D3612A654.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/cassert.987A088DB5C1CA9A.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/cctype.A3C0E99234B33955.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/cerrno.B39B5493F443CF37.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/char_traits.h.49CFCF6AFAD55817.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/charconv.h.D9113F5175C37DE5.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/chrono.6BA360BE363248BC.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/chrono.h.33C27C1DBCCA8008.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/climits.6D137A17ECA3E27F.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/clocale.66CE7BC9E09D9DE2.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/cmath.1FECC07277428FDA.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/compare.FE18C368C9E13B1D.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/concept_check.h.D1B00CE2EC0BD4B8.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/concurrence.h.6C240362E2050A81.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/corecrt.h.766A29CBA5AB88A5.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/corecrt_startup.h.A196CCE86D46A41E.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/corecrt_stdio_config.h.B476E494FB799313.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/corecrt_wstdlib.h.123624498A578265.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/cpp_type_traits.h.52CF46E33C8CA880.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/cpu_defines.h.12F6CEF07861BDE5.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/crtdefs.h.A89C588A5250B37D.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/cstddef.70DF83E0A3A964BE.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/cstdint.C178CFE95A5A0841.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/cstdio.4B9CD5C069E36A76.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/cstdlib.26BE4E55BD4FEBD6.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/cstring.C52427ED426EE739.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/ctime.C8FDD678C2D74060.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/ctype.h.AB7413EA2AEFBCF9.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/cwchar.CD9BA175CDAD258A.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/cxxabi_forced.h.DABD724135BB614A.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/cxxabi_init_exception.h.9A2BDE67CDBC4C85.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/debug.h.B858E273D805DE64.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/ell_integral.tcc.CCDD654A94B3D9BF.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/enable_special_members.h.2EC7C770288D702A.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/erase_if.h.327DA55AC5E9FC3E.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/errno.h.24852DCC0AFD4E19.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/error_constants.h.4451A98F2A327DA7.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/exception.6D91DEFD2900AC93.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/exception.h.CEE5E8D8594C1792.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/exception_defines.h.722BF40F6C74A927.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/exception_ptr.h.5B78258A7F58E806.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/execution_defs.h.979B3CCA23590C34.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/exp_integral.tcc.1816AFB8A9C3D655.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/functexcept.h.6FB3558E6D904D81.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/functional.8014F07854546629.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/functional_hash.h.A44ED3ED1ECBAE88.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/gamma.tcc.ADE5BD03AAE0634A.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/glue_algorithm_defs.h.CFE01F9088C4E1D7.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/glue_memory_defs.h.B60BF10856A25E62.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/glue_numeric_defs.h.0E4144A8CB2BD8A9.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/gthr-default.h.143A02FCEA46A61D.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/gthr.h.F0509CB9B2F9678A.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/hash_bytes.h.7D9B9097FDA2BC31.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/hashtable.h.494F1471D6FB1A4F.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/hashtable_policy.h.F5C5333AE7A1C9FB.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/hypergeometric.tcc.B8AFE1DFCD20CE05.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/initializer_list.DC94B72A2D8C84A5.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/invoke.h.B0192C3541A280FE.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/ios_base.h.1B766E8AC7F8D7CD.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/iosfwd.E3599E7C62DB21CE.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/iterator.E54761D9D8D6B8DB.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/legendre_function.tcc.2B551676D856B5D7.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/limits.67C3D8B906F95621.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/limits.h.0BBCBCFC952C288C.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/limits.h.6C54F50685B9191F.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/list.E7FA9F08FAA36DCB.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/list.tcc.D63A0C14FF13B78F.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/locale.h.E4617080CD38BD3E.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/locale_classes.h.E76EE3CCF7CA8580.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/locale_classes.tcc.C89D6E5B9C4BF2DC.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/localefwd.h.AC3F0F37F273D151.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/main.cpp.659FB62165ABD504.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/malloc.h.95BCA19EDFB2B5E5.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/map.37C674CD877E81C7.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/math.h.A36054AE771EF4FF.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/memory.875E720D55E916E1.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/memory_resource.h.F91717EF2B0F9079.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/memoryfwd.h.10C7F291438BD36A.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/mm_malloc.h.5B655D14AABD88C2.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/modified_bessel_func.tcc.F6321A298E6F8C54.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/move.h.C155485DB9240DB9.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/nested_exception.h.34DB8FB9F221EF2E.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/new.696500F089157DC1.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/new_allocator.h.1A4542CBF4CFC30A.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/node_handle.h.B5CC3EAC26D9A7E9.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/numeric.5BAD987E38DA82F7.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/numeric_traits.h.A0AFAB52C9EC255A.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/optional.D22632534D466830.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/os_defines.h.CEC942366705CD35.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/ostream_insert.h.D8E60FDFAD2A43D0.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/parse_numbers.h.687393864BDD943D.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/play.cpp.70DD74F4038AB3A6.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/poly_hermite.tcc.0FF01B234F01AF73.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/poly_laguerre.tcc.7B297708A63447E7.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/postypes.h.FE960DEADE444D94.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/predefined_ops.h.D00CBA962998E068.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/process.h.9D811944810CFD90.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/pstl_config.h.2686B2046FDC9136.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/pthread.h.DDC75C374879D3A3.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/pthread_compat.h.0EE285E88405FBA0.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/pthread_signal.h.3291881B1D87ADDE.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/pthread_time.h.F125D2674D0958BE.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/pthread_unistd.h.F8A3AC5FFE73434E.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/ptr_traits.h.0639A7DB3DE02BB3.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/q20functional.h.96EF055A2FAE16E6.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/q20iterator.h.9675815DE15CD93B.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/q20memory.h.6DB5E1CFBEF23EE6.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/q20type_traits.h.8462ABD2482453FF.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/q23utility.h.31BD3A15C4FE1EC3.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qaction.h.4F45AC6384943126.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qalgorithms.h.85D994A955F1B323.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qanystringview.h.7A5667D59D43D559.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qapplication.h.126EA383126C9D9A.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qarraydata.h.CF730BA4264D00D1.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qarraydataops.h.9166814C893714A5.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qarraydatapointer.h.B81045181CF1585E.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qassert.h.E88CEF2AE96FC4E3.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qatomic.h.0EFC43EA7C7B51DC.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qatomic_cxx11.h.DBF74A343CDC278C.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qbasicatomic.h.D691C4FA03538676.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qbindingstorage.h.4A5A643140CFC198.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qbitmap.h.D9DDDF883A13D7B8.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qbrush.h.7CADF63A17069A68.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qbytearray.h.4212116D637EE21C.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qbytearrayalgorithms.h.463F0AFD2E5529AA.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qbytearraylist.h.BF1846EA86274E60.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qbytearrayview.h.0A2EDC9E2B26883A.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qchar.h.7C7D7AD23328E518.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qcolor.h.4A209521610C94D7.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qcompare.h.1D4BDD380D648D1B.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qcompare_impl.h.00675F7D636D4D10.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qcomparehelpers.h.6B1912A7875EC4D2.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qcompilerdetection.h.DC99624FE5AFCF8D.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qconfig.h.13834D85C4D0836A.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qconstructormacros.h.536CB3CFE4F28080.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qcontainerfwd.h.E24F4E8A05E29DB8.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qcontainerinfo.h.C98852BD82E7E2F8.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qcontainertools_impl.h.E816F04D7FF094D5.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qcontiguouscache.h.10D6CF5D2A18B063.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qcoreapplication.h.9E6ED2F2698BC001.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qcoreapplication_platform.h.16341883CF6A897C.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qcoreevent.h.B9F0301C39150B32.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qcursor.h.C54FB02CB687D7F6.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qdarwinhelpers.h.CD514E6089859D49.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qdatastream.h.EB6359A70F2AC71A.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qdeadlinetimer.h.C790DB355F426531.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qdebug.h.A4DC8C84756643C5.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qdialog.h.BFE7CFA65A390BE7.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qdialogbuttonbox.h.BCB96E0FFB1A6FA5.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qelapsedtimer.h.AFD4916BD5FDCDE8.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qendian.h.EADB63AD9437F073.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qevent.h.0EDA3FA627664A10.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qeventloop.h.B4931366202DCEF3.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qeventpoint.h.D1B9EB39A54D553E.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qexceptionhandling.h.AF52CF5274514AA3.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qflags.h.1E2C3752C8BB5BF8.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qfloat16.h.1F6A7E90798260EB.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qfont.h.8F3514A4C984BAEF.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qfontinfo.h.A2A7D510658D6B10.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qfontmetrics.h.851C467969B0419B.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qforeach.h.630796827B9E5201.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qfunctionaltools_impl.h.D8FA1C7BC5A651D7.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qfunctionpointer.h.E040E4FD0A476B0C.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qgenericatomic.h.37B59B796A5A0838.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qglobal.h.066087730FD84973.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qglobalstatic.h.CAE49575FC0D28B4.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qguiapplication.h.BE9B8C2BABC932E7.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qguiapplication_platform.h.F78EF713DE916F84.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qhash.h.B7B86435473D86BD.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qhashfunctions.h.14531BEC80734799.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qicon.h.A9E20838B19C9643.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qimage.h.60DF4ABA07A0E604.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qinputdevice.h.809E77DE7CCBD4AE.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qinputmethod.h.74BBFC23C0DFF73B.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qiodevice.h.52D30DF80A7546F8.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qiodevicebase.h.409222CD72895B63.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qiterable.h.C8AA912AA613134F.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qiterator.h.9B3D9DEE21504586.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qkeysequence.h.1FA4095366FA5A00.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qlatin1stringview.h.1CB4479C183ECFC6.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qline.h.51850EE8D4B181D8.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qlist.h.232A21E419639114.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qlocale.h.EF18C79EF6C6CE92.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qlogging.h.44A577B142C64C88.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qmainwindow.h.9C72C7E064462C6B.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qmalloc.h.A02DE2CAEFE1C923.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qmap.h.746963CA504B64AA.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qmargins.h.E0265CF8ACA78B96.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qmath.h.9CD7B0DD87046E4C.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qmenu.h.EEFF6155DC074FBA.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qmessagebox.h.84F3ECA1DDF09799.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qmetacontainer.h.36747BEAB8DA054E.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qmetatype.h.4330196A439049C1.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qminmax.h.047EEF73B6F1B51D.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qnamespace.h.6E89498EC99FA6D6.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qnativeinterface.h.2D80AEAC77BDC450.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qnumeric.h.9A38C0B5AF102A17.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qobject.h.3FF1628174FB53B1.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qobject_impl.h.0E8AB63FF62D4217.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qobjectdefs.h.1C058834097CE125.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qobjectdefs.h.F9475B70D9FC04BE.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qobjectdefs_impl.h.C2D2B0951BD3CF31.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qoverload.h.5CBE391F88582F3D.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qpaintdevice.h.E0DC0EBB5E625A09.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qpair.h.71CE8843F2470DBF.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qpalette.h.2A97CFDC696236C4.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qpixelformat.h.BD03A84E09F03A0E.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qpixmap.h.EFF6C78236CF5CF9.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qpoint.h.8606099A58B9793C.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qpointingdevice.h.0C859B3593789632.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qpolygon.h.B55C1767F2B7584B.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qprocessordetection.h.569EB125F00E2190.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qrect.h.B6A151A611AB8A7F.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qrefcount.h.412921BC39999432.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qregion.h.A82D48EA5019CDB0.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qrgb.h.92A722AB43B5364E.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qrgba64.h.0DF9AE284A24F2BA.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qscopedpointer.h.BC531F868AB3D2E9.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qscopeguard.h.CC5653B3A5431ACE.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qscreen.h.08838EA50BE22028.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qscreen_platform.h.E30CC42D2DA7358A.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qset.h.702EBD6899E11E2A.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qshareddata.h.F3240D799B5A5DA8.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qshareddata_impl.h.B26BB707F6323F4C.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qsharedpointer.h.F574B40F59A7F083.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qsharedpointer_impl.h.A921E5EDA143ED49.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qsize.h.FBF09D03026D2FAF.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qsizepolicy.h.F91178EC12409EB9.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qspan.h.821CB9A6492F5D61.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qstring.h.C84968CF2C9DA619.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qstringalgorithms.h.4BB669E208671ADD.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qstringbuilder.h.A57D4EF82C72EE94.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qstringconverter.h.7CCE65321CAF7D8A.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qstringconverter_base.h.B797CBE195B19F62.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qstringfwd.h.64E1EA0F1E6EDC9A.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qstringlist.h.323FCCCBC1B9DF30.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qstringliteral.h.EB086A756F841722.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qstringmatcher.h.63197F7AA5D2AA5D.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qstringtokenizer.h.E4170E9490831562.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qstringview.h.2DD7296241B74B48.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qswap.h.6802A4E176EEECEB.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qsysinfo.h.09C1EBFEAC04609B.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qsystemdetection.h.80C49B5C3A184CEF.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qsystemtrayicon.h.31938E6FB01271CF.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtabwidget.h.7345013E5766FBA3.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtaggedpointer.h.A452C1C0BEBD5A0F.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtclasshelpermacros.h.4A909E560221D0E8.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtconfiginclude.h.AA609B84EDA66863.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtconfigmacros.h.6C8992C2FB5D28EB.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtcore-config.h.7EA6D2BA192FD23F.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtcoreexports.h.E5E2623527272FF1.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtdeprecationdefinitions.h.2DE04749BA2E4FD1.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtdeprecationmarkers.h.D3E422FD1892EAF4.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtenvironmentvariables.h.CAE59267ED6DE155.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtextstream.h.83118C5AD5184523.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtgui-config.h.B5E231B0E528E6F8.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtguiexports.h.30E54344FD7F686E.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtguiglobal.h.91B9F448E18E76CA.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtmetamacros.h.B6FA22B8988E894C.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtnoop.h.67AC1285D0CB179C.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtpreprocessorsupport.h.40899D61EB9676D3.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtransform.h.5D79B84FF185BAF8.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtresource.h.003B9AFF2EDBA70F.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qttranslation.h.68C14403BE9DF50E.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qttypetraits.h.211B2575244C9512.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtversion.h.9504D7CA487D87B3.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtversionchecks.h.89CF6B3935D5D11E.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtwidgets-config.h.552B42B2C5BEC74E.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtwidgetsexports.h.083D6870410AE2B3.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtwidgetsglobal.h.AF517B8A959236E6.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtypeinfo.h.96829A901DED5537.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtypes.h.6EE06155A2251E90.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qurl.h.F731D72284645CEA.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qutf8stringview.h.EAB4976DD133E170.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qvariant.h.6D0549161E5E2F7B.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qvarlengtharray.h.45112E700AD65FC9.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qvector2d.h.AAB977309E0EE5B5.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qvectornd.h.1A25D750A0D29532.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qversiontagging.h.A652591D8740DC08.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qwidget.h.9005ADBBB7D424D2.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qwindowdefs.h.CFC1E2D473F095DD.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qwindowdefs_win.h.8831C7E98E670688.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qxptype_traits.h.A85E70C77AA68690.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qyieldcpu.h.C42BE2FC7D492E53.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/range_access.h.8CFB7EBD5EE6D3DA.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/ratio.52DF7231840ECA6B.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/refwrap.h.1631E177B6E2C712.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/requires_hosted.h.78C7C7548EC3CB73.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/riemann_zeta.tcc.1721FEBDD0974993.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/shared_ptr.h.C63CAA6469609AD2.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/shared_ptr_atomic.h.EDD7CBF91676F67D.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/shared_ptr_base.h.CCA0A1B19B6219CE.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/signal.h.212DE45FAD08A5BD.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/specfun.h.375A48F061A09B04.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/special_function_util.h.90091D1400693804.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/std_abs.h.E2BD978D7A7168DB.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/std_function.h.1722C3E92CEBB288.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stdarg.h.925B85E8CCACC6B1.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stdbool.h.F3077319BB9E284F.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stddef.h.74FCBE593E27147A.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stdexcept.237B16892E4CB9B7.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stdint.h.8A7599FEDED041E7.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stdint.h.AF9FE9A5082225DF.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stdio.h.2C3ECDC4DD66081F.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stdio_s.h.0E5DB71911C8F719.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stdlib.h.85D5592FE140B672.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stdlib.h.CF4379D76B5E984D.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stdlib_s.h.539D4780D41C496E.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stl_algo.h.7BD522C57FDE228C.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stl_algobase.h.657F732D112F7309.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stl_bvector.h.F36F3176666D5388.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stl_construct.h.6B65D7B486A02235.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stl_function.h.3AEE4C0CFED4C100.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stl_heap.h.8AA6611833C2C721.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stl_iterator.h.47F3468DEBC5D21E.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stl_iterator_base_funcs.h.0EDD3519A314BA6F.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stl_iterator_base_types.h.8C460A52CC1CC893.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stl_list.h.04202F410B4F3DD6.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stl_map.h.0012C4EA5EFCA225.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stl_multimap.h.46BCD24AE4EDDD3F.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stl_numeric.h.183CBE0301EBF44B.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stl_pair.h.55263A85950DC23E.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stl_raw_storage_iter.h.DCE5BF8FEE748CDF.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stl_relops.h.3EF57D5BCB14D60E.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stl_tempbuf.h.D9741343384188A9.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stl_tree.h.A0958C534B35B808.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stl_uninitialized.h.5F5B97F569C37CE5.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stl_vector.h.08992652DC683A0F.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stream_iterator.h.DD474104C368497B.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/streambuf.6C52A2C5D4890008.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/streambuf.tcc.64D4DFC6CD01A245.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/streambuf_iterator.h.CA7A3A45C11EEB20.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/string.1EA66EA960E0B7DB.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/string.h.42B047DAE3D829EA.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/string_conversions.h.61A8E0539EB8D01B.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/string_s.h.7A80D51A9A8C196A.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/string_view.F14D8C69D3D3DCEB.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/string_view.tcc.2806B0473CEC8433.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stringfwd.h.74C55732704D7131.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/swprintf.inl.37AC95946544498A.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/system_error.19A50C9714DE8779.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/time.h.16F20BD18F33DE9D.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/timeb.h.3A6D2C5F7B33D64F.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/timeb_s.h.1A2DC760CEA8E299.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/tuple.433F264F953F23C4.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/type_traits.DEFEB13FC1D36252.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/type_traits.h.26BD41A65729CF0E.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/typeinfo.1F41323901F9C7AE.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/types.h.D50CCD296CD3EECC.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/uniform_int_dist.h.A7208D9FF345E096.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/unique_ptr.h.47E246F62AE677A5.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/unordered_map.49810596894B0306.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/unordered_map.h.DF28BF4E06C3FC02.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/uses_allocator.h.980D86C130D0761B.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/uses_allocator_args.h.BE7C57BDE7AE8C06.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/utility.598CD8BF025AB9CE.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/utility.h.B24389448EAC18C4.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/vadefs.h.C66BDF5D19B0D64D.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/vadefs.h.EC9E65CCD273CE88.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/variant.6FC61D8D860519A4.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/vector.9DB1CA4637C9A141.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/vector.tcc.D0AF8799980080A3.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/version.FCDE794146576385.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/wchar.h.8817E8F80D999EDD.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/.cache/clangd/index/wchar_s.h.C954E688D11AD70C.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/compile_commands.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/CMakeCache.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/CMakeFiles/3.29.3/CMakeCXXCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/CMakeFiles/3.29.3/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/CMakeFiles/3.29.3/CMakeRCCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/CMakeFiles/3.29.3/CMakeSystem.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/CMakeFiles/3.29.3/CompilerIdCXX/CMakeCXXCompilerId.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/CMakeFiles/3.29.3/CompilerIdCXX/a.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/CMakeFiles/CMakeConfigureLog.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/CMakeFiles/TargetDirectories.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/CMakeFiles/TrayMusicPlayer.dir/TrayMusicPlayer_autogen/PNK5WDWK6L/qrc_systray.cpp.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/CMakeFiles/TrayMusicPlayer.dir/TrayMusicPlayer_autogen/mocs_compilation.cpp.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/CMakeFiles/TrayMusicPlayer.dir/src/main.cpp.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/CMakeFiles/TrayMusicPlayer.dir/src/ui/MainWindow.cpp.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/CMakeFiles/TrayMusicPlayer_autogen.dir/AutoRcc_systray_PNK5WDWK6L_Info.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/CMakeFiles/TrayMusicPlayer_autogen.dir/AutoRcc_systray_PNK5WDWK6L_Lock.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/CMakeFiles/TrayMusicPlayer_autogen.dir/AutoRcc_systray_PNK5WDWK6L_Used.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/CMakeFiles/TrayMusicPlayer_autogen.dir/AutogenInfo.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/CMakeFiles/TrayMusicPlayer_autogen.dir/AutogenUsed.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/CMakeFiles/TrayMusicPlayer_autogen.dir/ParseCache.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/CMakeFiles/clean_additional.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/CMakeFiles/cmake.check_cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/CMakeFiles/rules.ninja" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/CMakeFiles/tray_music_core.dir/src/core/play.cpp.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/CMakeFiles/tray_music_core.dir/tray_music_core_autogen/mocs_compilation.cpp.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/CMakeFiles/tray_music_core_autogen.dir/AutogenInfo.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/CMakeFiles/tray_music_core_autogen.dir/AutogenUsed.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/CMakeFiles/tray_music_core_autogen.dir/ParseCache.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/Testing/Temporary/LastTest.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/TrayMusicPlayer.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/TrayMusicPlayer_autogen/JCP2AIONHY/moc_MainWindow.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/TrayMusicPlayer_autogen/JCP2AIONHY/moc_MainWindow.cpp.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/TrayMusicPlayer_autogen/PNK5WDWK6L/qrc_systray.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/TrayMusicPlayer_autogen/deps" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/TrayMusicPlayer_autogen/moc_predefs.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/TrayMusicPlayer_autogen/mocs_compilation.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/TrayMusicPlayer_autogen/timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/build.ninja" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/cmake_install.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/compile_commands.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/libtray_music_core.a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/qtcsettings.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/tray_music_core_autogen/deps" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/tray_music_core_autogen/moc_predefs.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/tray_music_core_autogen/mocs_compilation.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/tray_music_core_autogen/timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Testing/Temporary/LastTest.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/build.ninja" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/cmake_install.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/compile_commands.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/core/interface/IAudioBackend.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/ui/Assets.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/ui/MainWindow.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/images/add.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/images/addd.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/images/backpage.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/images/bad.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/images/btnpause.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/images/btnplay.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/images/down.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/images/heart.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/images/high-volume.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/images/icon.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/images/list.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/images/local.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/images/logo.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/images/next.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/images/nextpage.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/images/no-volume.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/images/pause.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/images/play.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/images/pre.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/images/remove.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/images/setting.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/images/trash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/images/up.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music.db" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music_logo/data/logo_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music_logo/data/logo_11.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music_logo/data/logo_13.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music_logo/data/logo_14.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music_logo/data/logo_15.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music_logo/data/logo_16.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music_logo/data/logo_17.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music_logo/data/logo_18.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music_logo/data/logo_19.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music_logo/data/logo_20.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music_logo/data/logo_21.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music_logo/data/logo_22.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music_logo/data/logo_23.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music_logo/data/logo_24.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music_logo/data/logo_25.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music_logo/data/logo_26.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music_logo/data/logo_28.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music_logo/data/logo_29.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music_logo/data/logo_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music_logo/data/logo_30.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music_logo/data/logo_32.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music_logo/data/logo_33.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music_logo/data/logo_34.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music_logo/data/logo_35.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music_logo/data/logo_36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music_logo/data/logo_37.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music_logo/data/logo_38.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music_logo/data/logo_39.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music_logo/data/logo_4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music_logo/data/logo_42.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music_logo/data/logo_44.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music_logo/data/logo_46.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music_logo/data/logo_47.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music_logo/data/logo_49.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music_logo/data/logo_5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music_logo/data/logo_6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music_logo/data/logo_7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music_logo/data/logo_8.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music_logo/data/logo_9.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/music_logo/rename.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/qss/ListView/PlayListView.qss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/qss/MusicListButton/ButtonAddList.qss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/qss/MusicListButton/ButtonExpand.qss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/qss/MusicListButton/ButtonNormal.qss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/qss/MusicListButton/ButtonSquare.qss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/settings/init.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/settings/init_linux.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/systray.qrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/play.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/MainWindow.cpp" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -46,9 +1091,21 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:windows-mingw - mingw-debug" />
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CMakeLists.txt" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/include/ui/MainWindow.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/ui/MainWindow.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ui/include/assets/Assets.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ui/include/mainwindow/MainWindow.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ui/src/MainWindow.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ui/src/main.cpp" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectApplicationVersion">
     <option name="ide" value="CLion" />
@@ -60,51 +1117,61 @@
   &quot;associatedIndex&quot;: 0
 }</component>
   <component name="ProjectId" id="2v2LxBWBgVHfwuO1mzJGWt6da7Z" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;CMake 应用程序.TrayMusic.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.RadMigrateCodeStyle&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.west.config.association.type.startup.service&quot;: &quot;true&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/cww/Documents/Workspace/TrayMusicPlayer/CMakeLists.txt&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;CMakeSettings&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "CMake 应用程序.TrayMusic.executor": "Run",
+    "CMake 应用程序.TrayMusicPlayer.executor": "Run",
+    "RunOnceActivity.RadMigrateCodeStyle": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "RunOnceActivity.west.config.association.type.startup.service": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/cww/Documents/Workspace/TrayMusicPlayer/ui",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "CMakeSettings",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager" selected="CMake 应用程序.TrayMusicPlayer">
-    <configuration name="TrayMusicPlayer" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TrayMusicPlayer" TARGET_NAME="TrayMusicPlayer" CONFIG_NAME="windows-mingw - mingw-debug" RUN_TARGET_PROJECT_NAME="TrayMusicPlayer" RUN_TARGET_NAME="TrayMusicPlayer">
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\cww\Documents\Workspace\TrayMusicPlayer\ui" />
+      <recent name="C:\Users\cww\Documents\Workspace\TrayMusicPlayer\ui\res" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\cww\Documents\Workspace\TrayMusicPlayer\ui\res" />
+      <recent name="C:\Users\cww\Documents\Workspace\TrayMusicPlayer\ui\src" />
+      <recent name="C:\Users\cww\Documents\Workspace\TrayMusicPlayer\ui" />
+      <recent name="C:\Users\cww\Documents\Workspace\TrayMusicPlayer\ui\include\assets" />
+      <recent name="C:\Users\cww\Documents\Workspace\TrayMusicPlayer\ui\include\mainwindow" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TrayMusicPlayer" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="true" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TrayMusicPlayer" TARGET_NAME="TrayMusicPlayer" CONFIG_NAME="windows-mingw - mingw-debug" RUN_TARGET_PROJECT_NAME="TrayMusicPlayer" RUN_TARGET_NAME="TrayMusicPlayer">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="tray_music_interface" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TrayMusicPlayer" TARGET_NAME="tray_music_interface" CONFIG_NAME="windows-mingw - mingw-debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <list>
-      <item itemvalue="CMake 应用程序.tray_music_interface" />
-      <item itemvalue="CMake 应用程序.TrayMusicPlayer" />
-    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -126,7 +1193,8 @@
       <workItem from="1743352172914" duration="68000" />
       <workItem from="1743352247894" duration="99000" />
       <workItem from="1743352354378" duration="176000" />
-      <workItem from="1743391217928" duration="3446000" />
+      <workItem from="1743391217928" duration="16884000" />
+      <workItem from="1743420316466" duration="4782000" />
     </task>
     <servers />
   </component>

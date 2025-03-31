@@ -1,0 +1,9 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource prefix="/">
+   <file>qss/MusicListButton/ButtonAddList.qss</file>
+   <file>qss/MusicListButton/ButtonExpand.qss</file>
+   <file>qss/MusicListButton/ButtonNormal.qss</file>
+   <file>qss/MusicListButton/ButtonSquare.qss</file>
+   <file>qss/ListView/PlayListView.qss</file>
+</qresource>
+</RCC>

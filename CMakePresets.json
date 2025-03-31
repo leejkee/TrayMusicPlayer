@@ -2,7 +2,7 @@
   "version": 3,
   "cmakeMinimumRequired": {
     "major": 3,
-    "minor": 16,
+    "minor": 20,
     "patch": 0
   },
   "configurePresets": [
@@ -12,7 +12,8 @@
       "binaryDir": "${sourceDir}/build",
       "cacheVariables": {
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
-      }
+      },
+      "cmakeExecutable": "C:Qt/Tools/CMake_64/bin/cmake.exe"
     },
 
     {
