@@ -1,0 +1,105 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "TrayMusicPlayer",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "TrayMusicPlayer::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-TrayMusicPlayer-Debug-8d6da146acc60a6fcc1f.json",
+					"name" : "TrayMusicPlayer",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "TrayMusicPlayer_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-TrayMusicPlayer_autogen-Debug-e863a0455cbc7f3c0d9f.json",
+					"name" : "TrayMusicPlayer_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "TrayMusicPlayer_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-TrayMusicPlayer_autogen_timestamp_deps-Debug-1cb6ab091928f3a2dd5d.json",
+					"name" : "TrayMusicPlayer_autogen_timestamp_deps",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "tray_music_core::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-tray_music_core-Debug-7010d2f4047166c7dd70.json",
+					"name" : "tray_music_core",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "tray_music_core_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-tray_music_core_autogen-Debug-6a2c036d661d822231e0.json",
+					"name" : "tray_music_core_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "tray_music_core_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-tray_music_core_autogen_timestamp_deps-Debug-a6438935fa1263b85594.json",
+					"name" : "tray_music_core_autogen_timestamp_deps",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/cww/Documents/Workspace/TrayMusicPlayer/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug",
+		"source" : "C:/Users/cww/Documents/Workspace/TrayMusicPlayer"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}

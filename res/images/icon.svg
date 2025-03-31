@@ -1,0 +1,15 @@
+<svg width="145.000000" height="145.000000" viewBox="0 0 145 145" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<desc>
+			Created with Pixso.
+	</desc>
+	<defs>
+		<clipPath id="clip2_1">
+			<rect id="画板 1" width="145.000000" height="145.000000" fill="white" fill-opacity="0"/>
+		</clipPath>
+	</defs>
+	<g clip-path="url(#clip2_1)">
+		<circle id="椭圆 1" cx="72.500000" cy="72.500000" r="72.500000" fill="#8A8A8A" fill-opacity="1.000000"/>
+		<path id="矢量 1" d="M61.89 23C78.82 23 110.66 59.62 88.31 43.71C67.17 27.14 59.35 25.11 58.08 26.16C58.43 24.16 59.62 23 61.89 23Z" fill="#000000" fill-opacity="1.000000" fill-rule="evenodd"/>
+		<path id="矢量 1" d="M58.08 26.16C59.35 25.11 67.17 27.14 88.31 43.71C110.66 59.62 78.82 23 61.89 23C59.62 23 58.43 24.16 58.08 26.16C55.8 39.14 88.31 87.54 88.31 87.54C91.02 92.67 96.22 102.48 94.06 110.95C92.27 118 85.09 124.57 70.02 122.66C54.58 120.71 49.71 104.86 49.01 96.54C48.22 86.97 72.14 84.2 88.31 87.54" stroke="#E5E5E5" stroke-opacity="1.000000" stroke-width="12.000000"/>
+	</g>
+</svg>

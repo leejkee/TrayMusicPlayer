@@ -1,0 +1,12 @@
+QPushButton {
+    font-size: 14px;
+    qproperty-iconSize: 15px;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    padding: 5;
+    text-align: left;
+}
+QPushButton:hover {
+    border: 2px solid transparent;
+    background-color: lightgray;
+}

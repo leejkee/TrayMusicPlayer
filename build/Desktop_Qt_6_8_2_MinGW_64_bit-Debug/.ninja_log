@@ -1,0 +1,19 @@
+# ninja log v6
+8	142	7650563484547069	tray_music_core_autogen/timestamp	927c4960cb3e024c
+8	142	7650563484547069	tray_music_core_autogen/mocs_compilation.cpp	927c4960cb3e024c
+8	142	7650563484547069	C:/Users/cww/Documents/Workspace/TrayMusicPlayer/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/tray_music_core_autogen/timestamp	927c4960cb3e024c
+8	142	7650563484547069	C:/Users/cww/Documents/Workspace/TrayMusicPlayer/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/tray_music_core_autogen/mocs_compilation.cpp	927c4960cb3e024c
+145	188	7650563485014302	CMakeFiles/tray_music_core.dir/tray_music_core_autogen/mocs_compilation.cpp.obj	81d74050d85ac7dc
+148	190	7650563485039338	CMakeFiles/tray_music_core.dir/src/core/play.cpp.obj	b340f34d70d347dc
+190	388	7650563485466339	libtray_music_core.a	f1612e05b43a56b0
+15	569	7650563488696634	TrayMusicPlayer_autogen/timestamp	8902a3059aecbb8c
+15	569	7650563488696634	TrayMusicPlayer_autogen/mocs_compilation.cpp	8902a3059aecbb8c
+15	569	7650563488696634	C:/Users/cww/Documents/Workspace/TrayMusicPlayer/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/TrayMusicPlayer_autogen/timestamp	8902a3059aecbb8c
+15	569	7650563488696634	C:/Users/cww/Documents/Workspace/TrayMusicPlayer/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/TrayMusicPlayer_autogen/mocs_compilation.cpp	8902a3059aecbb8c
+571	627	7650563489747092	TrayMusicPlayer_autogen/PNK5WDWK6L/qrc_systray.cpp	8c3dd1e9c3a82be7
+571	627	7650563489747092	C:/Users/cww/Documents/Workspace/TrayMusicPlayer/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/TrayMusicPlayer_autogen/PNK5WDWK6L/qrc_systray.cpp	8c3dd1e9c3a82be7
+637	726	7650563489933029	CMakeFiles/TrayMusicPlayer.dir/TrayMusicPlayer_autogen/PNK5WDWK6L/qrc_systray.cpp.obj	787eb98ace88ad13
+627	2341	7650563489836332	CMakeFiles/TrayMusicPlayer.dir/TrayMusicPlayer_autogen/mocs_compilation.cpp.obj	20244df38f232f0
+631	2454	7650563489867964	CMakeFiles/TrayMusicPlayer.dir/src/main.cpp.obj	b65627e35af755fd
+634	2652	7650563489907983	CMakeFiles/TrayMusicPlayer.dir/src/ui/MainWindow.cpp.obj	e854a27afb3222c1
+2652	2881	7650563510077527	TrayMusicPlayer.exe	da402996285c0157

@@ -1,0 +1,8 @@
+QListView {
+    font-size: 15px;
+    font-family: "Microsoft YaHei";
+    font-weight: 320;
+}
+QListView::item {
+    height: 40px;
+}

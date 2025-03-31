@@ -1,0 +1,11 @@
+{
+    "DatabaseDirectory": "../res/music.db",
+    "DefaultVolume": 0.10000000149011612,
+    "MusicDirectory": [
+        "C:/Users/cww/Music/lostgrace",
+        "C:/Users/cww/Music/music/MyMudic/ZhangJie"
+    ],
+    "UserLists": [
+        "我喜欢"
+    ]
+}

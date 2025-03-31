@@ -1,0 +1,8 @@
+C:/Users/cww/Documents/Workspace/TrayMusicPlayer/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/CMakeFiles/tray_music_core.dir
+C:/Users/cww/Documents/Workspace/TrayMusicPlayer/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/CMakeFiles/TrayMusicPlayer.dir
+C:/Users/cww/Documents/Workspace/TrayMusicPlayer/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/CMakeFiles/edit_cache.dir
+C:/Users/cww/Documents/Workspace/TrayMusicPlayer/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/CMakeFiles/rebuild_cache.dir
+C:/Users/cww/Documents/Workspace/TrayMusicPlayer/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/CMakeFiles/tray_music_core_autogen_timestamp_deps.dir
+C:/Users/cww/Documents/Workspace/TrayMusicPlayer/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/CMakeFiles/tray_music_core_autogen.dir
+C:/Users/cww/Documents/Workspace/TrayMusicPlayer/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/CMakeFiles/TrayMusicPlayer_autogen_timestamp_deps.dir
+C:/Users/cww/Documents/Workspace/TrayMusicPlayer/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/CMakeFiles/TrayMusicPlayer_autogen.dir
