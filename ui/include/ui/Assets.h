@@ -7,25 +7,25 @@
 
 namespace SvgRes {
 inline const auto TrayIconSVG = QStringLiteral(":/ui/images/icon.svg");
-inline const auto LogoSVG = QStringLiteral(":/images/logo.svg");
-inline const auto PlayIconSVG = QStringLiteral(":/images/play.svg");
-inline const auto PauseIconSVG = QStringLiteral(":/images/pause.svg");
-inline const auto PreIconSVG = QStringLiteral(":/images/pre.svg");
-inline const auto NextIconSVG = QStringLiteral(":/images/next.svg");
-inline const auto VolumeSVG = QStringLiteral(":/images/high-volume.svg");
-inline const auto VolumeMuteSVG = QStringLiteral(":/images/no-volume.svg");
-inline const auto UpSVG = QStringLiteral(":/images/up.svg");
-inline const auto DownSVG = QStringLiteral(":/images/down.svg");
-inline const auto AddSVG = QStringLiteral(":/images/add.svg");
-inline const auto AdddSVG = QStringLiteral(":/images/addd.svg");
-inline const auto NextPageSVG = QStringLiteral(":/images/nextpage.svg");
-inline const auto BackPageSVG = QStringLiteral(":/images/backpage.svg");
-inline const auto RemoveSVG = QStringLiteral(":/images/remove.svg");
-inline const auto LocalSVG = QStringLiteral(":/images/local.svg");
-inline const auto MusicListSVG = QStringLiteral(":/images/list.svg");
-inline const auto SettingSVG = QStringLiteral(":/images/setting.svg");
-inline const auto ViewPlaySVG = QStringLiteral(":/images/btnplay.svg");
-inline const auto ViewPauseSVG = QStringLiteral(":/images/btnpause.svg");
+inline const auto LogoSVG = QStringLiteral(":/ui/images/logo.svg");
+inline const auto PlayIconSVG = QStringLiteral(":/ui/images/play.svg");
+inline const auto PauseIconSVG = QStringLiteral(":/ui/images/pause.svg");
+inline const auto PreIconSVG = QStringLiteral(":/ui/images/pre.svg");
+inline const auto NextIconSVG = QStringLiteral(":/ui/images/next.svg");
+inline const auto VolumeSVG = QStringLiteral(":/ui/images/high-volume.svg");
+inline const auto VolumeMuteSVG = QStringLiteral(":/ui/images/no-volume.svg");
+inline const auto UpSVG = QStringLiteral(":/ui/images/up.svg");
+inline const auto DownSVG = QStringLiteral(":/ui/images/down.svg");
+inline const auto AddSVG = QStringLiteral(":/ui/images/add.svg");
+inline const auto AdddSVG = QStringLiteral(":/ui/images/addd.svg");
+inline const auto NextPageSVG = QStringLiteral(":/ui/images/nextpage.svg");
+inline const auto BackPageSVG = QStringLiteral(":/ui/images/backpage.svg");
+inline const auto RemoveSVG = QStringLiteral(":/ui/images/remove.svg");
+inline const auto LocalSVG = QStringLiteral(":/ui/images/local.svg");
+inline const auto MusicListSVG = QStringLiteral(":/ui/images/list.svg");
+inline const auto SettingSVG = QStringLiteral(":/ui/images/setting.svg");
+inline const auto ViewPlaySVG = QStringLiteral(":/ui/images/btnplay.svg");
+inline const auto ViewPauseSVG = QStringLiteral(":/ui/images/btnpause.svg");
 }
 
 namespace User {

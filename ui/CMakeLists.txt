@@ -23,10 +23,3 @@ target_link_libraries(tray_music_ui PUBLIC
 target_include_directories(tray_music_ui PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
-
-if(WIN32)
-    set_target_properties(tray_music_ui PROPERTIES
-            WIN32_EXECUTABLE TRUE
-    )
-endif()
-

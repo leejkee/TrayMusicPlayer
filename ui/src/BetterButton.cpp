@@ -1,33 +1,36 @@
 //
 // Created by cww on 25-4-1.
 //
-#include <ui/BetterButton.h>
+#include <panel/BetterButton.h>
 #include <ui/Assets.h>
 #include <QEvent>
 
-namespace UI::BetterButton {
+
+namespace UI::Panel {
+
+    void BetterButton::init() {
+        installEventFilter(this);
+    }
+
     BetterButton::BetterButton(const QString &name, QWidget *parent) : QPushButton(parent) {
         setIcon(QIcon(SvgRes::MusicListSVG));
-        // setFixedHeight(30);
         setText(name);
-        m_listName = name;
         loadStyleSheet(QssRes::BUTTON_LIST_QSS);
-        connect(this, &QPushButton::clicked, this , &BetterButton::onButtonClicked);
-        installEventFilter(this);
+        connect(this, &QPushButton::clicked, this, &BetterButton::onButtonClicked);
+        init();
     }
 
     BetterButton::BetterButton(QWidget *parent) : QPushButton(parent) {
-        installEventFilter(this);
+        init();
     }
 
-    BetterButton::BetterButton(const QIcon &icon, QWidget *parent, QString name) : QPushButton(parent)
-            , m_listName(std::move(name)){
+    BetterButton::BetterButton(const QIcon &icon, QWidget *parent, const QString &name) : QPushButton(parent) {
         setIcon(icon);
-        setText(m_listName);
+        setText(name);
+        setFixedSize(30, 30);
         loadStyleSheet(QssRes::BUTTON_LIST_QSS);
-        installEventFilter(this);
+        init();
     }
-
 
     void BetterButton::loadStyleSheet(const QString &qssPath) {
         this->setStyleSheet(Tools::readQSS(qssPath));
@@ -37,11 +40,14 @@ namespace UI::BetterButton {
         if (watched == this) {
             if (event->type() == QEvent::Enter) {
                 setCursor(Qt::PointingHandCursor);
-            }
-            else if (event->type() == QEvent::Leave) {
+            } else if (event->type() == QEvent::Leave) {
                 setCursor(Qt::ArrowCursor);
             }
         }
         return QPushButton::eventFilter(watched, event);
+    }
+
+    void BetterButton::onButtonClicked() {
+        Q_EMIT signalButtonClicked(this->text());
     }
 }

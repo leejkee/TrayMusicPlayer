@@ -5,14 +5,16 @@
 #pragma once
 #include <QPushButton>
 
-namespace UI::BetterButton {
+
+namespace UI::Panel {
     class BetterButton final : public QPushButton {
         Q_OBJECT
 
     public:
         // others
         explicit BetterButton(QWidget *parent = nullptr);
-        explicit BetterButton(const QIcon &icon, QWidget *parent = nullptr, QString name = "");
+
+        explicit BetterButton(const QIcon &icon, QWidget *parent = nullptr, const QString &name = "");
 
         // Music List buttons
         explicit BetterButton(const QString &name, QWidget *parent = nullptr);
@@ -21,16 +23,14 @@ namespace UI::BetterButton {
 
     protected:
         bool eventFilter(QObject *watched, QEvent *event) override;
-        signals:
-            void signalButtonClicked(const QString &listName);
 
-        private Q_SLOTS:
-            void onButtonClicked() {
-            emit signalButtonClicked(m_listName);
-        }
+    Q_SIGNALS:
+        void signalButtonClicked(const QString &listName);
+
+    private Q_SLOTS:
+        void onButtonClicked();
 
     private:
-        QString m_listName;
+        void init();
     };
-
 }
