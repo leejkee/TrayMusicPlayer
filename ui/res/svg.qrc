@@ -1,5 +1,5 @@
 <!DOCTYPE RCC><RCC version="1.0">
-<qresource prefix="/">
+<qresource prefix="/ui">
    <file>images/icon.svg</file>
    <file>images/logo.svg</file>
    <file>images/play.svg</file>

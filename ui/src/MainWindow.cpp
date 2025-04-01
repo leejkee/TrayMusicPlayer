@@ -2,8 +2,9 @@
 // Created by cww on 25-2-13.
 //
 
-#include <mainwindow/MainWindow.h>
-#include <assets/Assets.h>
+#include <ui/MainWindow.h>
+#include <ui/Assets.h>
+#include <ui/WindowManager.h>
 
 #include <QApplication>
 #include <QCloseEvent>
@@ -11,9 +12,22 @@
 #include <QMessageBox>
 #include <QSystemTrayIcon>
 
-namespace Mainwindow {
+inline void InitMyQRC() {
+    Q_INIT_RESOURCE(svg);
+    Q_INIT_RESOURCE(qss);
+}
+
+namespace UI::MainWindow {
     MainWindow::MainWindow(QWidget *parent)
-        : QMainWindow(parent) {
+        : QMainWindow(parent),
+          m_minimizeAction(nullptr),
+          m_maximizeAction(nullptr),
+          m_restoreAction(nullptr),
+          m_quitAction(nullptr),
+          m_systemTrayIcon(nullptr),
+          m_trayIconMenu(nullptr),
+        m_windowManager(nullptr){
+        InitMyQRC();
         initMainApplication();
     }
 
@@ -21,9 +35,9 @@ namespace Mainwindow {
 
     void MainWindow::initMainApplication() {
         createTrayIcon();
-        // m_windowManager = new WindowManager(this);
+        m_windowManager = new WindowManager::WindowManager(this);
+        setCentralWidget(m_windowManager);
         createConnections();
-        // setCentralWidget(m_windowManager);
         resize(600, 400);
     }
 
@@ -57,7 +71,6 @@ namespace Mainwindow {
         m_maximizeAction->setEnabled(!isMaximized());
         QMainWindow::setVisible(visible);
     }
-
 
 
     void MainWindow::createTrayIcon() {

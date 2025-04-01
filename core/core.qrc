@@ -1,5 +1,5 @@
 <!DOCTYPE RCC><RCC version="1.0">
-    <qresource prefix="/logo">
+    <qresource prefix="/core">
         <file>music_logo/data/logo_1.png</file>
         <file>music_logo/data/logo_2.png</file>
         <file>music_logo/data/logo_3.png</file>
@@ -30,5 +30,7 @@
         <file>music_logo/data/logo_28.png</file>
         <file>music_logo/data/logo_29.png</file>
         <file>music_logo/data/logo_30.png</file>
+        <file>settings/init_win32.json</file>
+        <file>settings/init_linux.json</file>
     </qresource>
 </RCC>

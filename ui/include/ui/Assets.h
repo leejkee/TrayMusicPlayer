@@ -3,10 +3,10 @@
 //
 #pragma once
 #include <QString>
-#include <QStringList>
+#include <QFile>
 
 namespace SvgRes {
-inline const auto TrayIconSVG = QStringLiteral(":/images/icon.svg");
+inline const auto TrayIconSVG = QStringLiteral(":/ui/images/icon.svg");
 inline const auto LogoSVG = QStringLiteral(":/images/logo.svg");
 inline const auto PlayIconSVG = QStringLiteral(":/images/play.svg");
 inline const auto PauseIconSVG = QStringLiteral(":/images/pause.svg");
@@ -29,37 +29,12 @@ inline const auto ViewPauseSVG = QStringLiteral(":/images/btnpause.svg");
 }
 
 namespace User {
-#if defined(__linux__)
-    inline const auto LINUX_SETTINGS_PATH = QStringLiteral("../settings/init_linux.json");
-#elif defined(_WIN32)
-    inline const auto WIN_SETTINGS_PATH = QStringLiteral("../settings/init.json");
-#endif
-
-    inline const auto LOGO_PNG_DIR = QStringLiteral("../res/music_logo/data");
-
     inline const auto PLAY_ALL_KEY = QStringLiteral("Play All");
     inline const auto LOCAL_LIST_KEY = QStringLiteral("Local");
-
     inline const auto EXPAND_BTN_TEXT = QStringLiteral("List");
 
 
-//    inline const QStringList MUSIC_FILTERS = {
-//        QStringLiteral("*.mp3"), QStringLiteral("*.flac"), QStringLiteral("*.wav"),
-//        QStringLiteral("*.ogg"), QStringLiteral("*.m4a"), QStringLiteral("*.aac")
-//    };
-    inline auto musicFilters() -> const QStringList& {
-        static const QStringList filters = {
-            QStringLiteral("*.mp3"),
-            QStringLiteral("*.flac")
-        };
-        return filters;
-    }
 
-    inline const QStringList IMAGE_FILTERS = {
-        QStringLiteral("*.png"), QStringLiteral("*.jpeg")
-    };
-
-    inline constexpr int UNINITIALIZED_VALUE = -1;
 }
 
 namespace QssRes {
@@ -78,5 +53,18 @@ namespace ViewConfig {
     constexpr int VIEW_BUTTON_SIZE = 20;
 
     constexpr int VIEW_LOGO_PADDING = 5;
+
+}
+namespace Tools {
+
+    inline QString readQSS(const QString &qssPath) {
+        if (QFile file(qssPath); file.open(QFile::ReadOnly)) {
+            QString qss = QString::fromUtf8(file.readAll()).trimmed();
+            file.close();
+            return std::move(qss);
+        }
+        qWarning() << "Failed to load QSS file:" << qssPath;
+        return {};
+    }
 
 }

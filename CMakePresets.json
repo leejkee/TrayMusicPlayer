@@ -13,7 +13,7 @@
       "cacheVariables": {
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
       },
-      "cmakeExecutable": "C:Qt/Tools/CMake_64/bin/cmake.exe"
+      "cmakeExecutable": "C:/Qt/Tools/CMake_64/bin/cmake.exe"
     },
 
     {

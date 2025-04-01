@@ -24,11 +24,12 @@ elseif(UNIX AND NOT APPLE)
 endif()
 
 find_package(Qt6 REQUIRED COMPONENTS
-    Core 
+    Multimedia
+    Core
     Widgets
     Svg
 )
-# 新版模块化配置
-#add_subdirectory(core)
+add_subdirectory(core)
 #add_subdirectory(services)
 add_subdirectory(ui)
+add_subdirectory(test)
