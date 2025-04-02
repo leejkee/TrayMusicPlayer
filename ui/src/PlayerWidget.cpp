@@ -6,6 +6,7 @@
 #include <panel/BetterButton.h>
 #include <panel/ProgressBar.h>
 #include <panel/VolumeController.h>
+
 #include <QLabel>
 #include <QPushButton>
 #include <QHBoxLayout>
@@ -96,12 +97,6 @@ namespace UI::PlayerWidget {
             m_pushButtonVolume->setIcon(QIcon(SvgRes::VolumeMuteSVG));
             m_volumeController->m_buttonMute->setIcon(QIcon(SvgRes::VolumeMuteSVG));
         }
-    }
-
-    void PlayerWidget::setButtonVisible(const bool b) {
-        m_pushButtonPlay->setEnabled(b);
-        m_pushButtonNext->setEnabled(b);
-        m_pushButtonPre->setEnabled(b);
     }
 
 

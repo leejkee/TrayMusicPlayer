@@ -54,8 +54,6 @@ namespace UI::PlayerWidget {
 
         void createConnections();
 
-        void setButtonVisible(bool b);
-
         void showVolumeSlider();
 
     Q_SIGNALS:

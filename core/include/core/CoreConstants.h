@@ -5,7 +5,7 @@
 
 #include <QStringList>
 
-namespace Core {
+namespace Core::Constants {
     inline auto musicFilters() -> const QStringList& {
         static const QStringList filters = {
             QStringLiteral("*.mp3"),

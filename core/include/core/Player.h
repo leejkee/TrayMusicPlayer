@@ -10,7 +10,7 @@ namespace Core::Player{
 class Player : public IPlayer {
 
 public:
-    Player();
+    explicit Player(QObject *parent = nullptr);
 
 private:
     QMediaPlayer* m_player;
