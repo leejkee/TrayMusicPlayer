@@ -13,7 +13,8 @@ target_include_directories(tray_music_core PUBLIC
 )
 
 target_include_directories(tray_music_core PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/include/core
+        ${CMAKE_CURRENT_SOURCE_DIR}/include/engine
+        ${CMAKE_CURRENT_SOURCE_DIR}/include/services
 )
 
 target_link_libraries(tray_music_core PUBLIC

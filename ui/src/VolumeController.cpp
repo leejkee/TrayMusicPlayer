@@ -1,8 +1,8 @@
 //
 // Created by cww on 25-4-2.
 //
-#include <Panel/VolumeController.h>
-#include <Panel/BetterButton.h>
+#include <panel/VolumeController.h>
+#include <panel/BetterButton.h>
 #include <ui/Assets.h>
 
 #include <QSlider>

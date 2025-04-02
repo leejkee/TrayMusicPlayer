@@ -4,6 +4,7 @@
 #pragma once
 #include <QString>
 #include <QFile>
+#include <QDebug>
 
 namespace SvgRes {
 inline const auto TrayIconSVG = QStringLiteral(":/ui/images/icon.svg");
@@ -61,7 +62,7 @@ namespace Tools {
         if (QFile file(qssPath); file.open(QFile::ReadOnly)) {
             QString qss = QString::fromUtf8(file.readAll()).trimmed();
             file.close();
-            return std::move(qss);
+            return qss;
         }
         qWarning() << "Failed to load QSS file:" << qssPath;
         return {};

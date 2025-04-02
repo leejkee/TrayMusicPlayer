@@ -6,7 +6,7 @@
 #include <QUrl>
 
 
-namespace Core::Player {
+namespace Core {
     class IPlayer : public QObject {
         Q_OBJECT
 

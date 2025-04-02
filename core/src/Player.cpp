@@ -3,8 +3,8 @@
 //
 #include <Player.h>
 
-namespace Core::Player {
-Player::Player(QObject *parent) : IPlayer(parent)
+namespace Core::Engine {
+Player::Player(QObject *parent)
 {
 
 }

@@ -2,12 +2,12 @@
 // Created by cww on 25-3-31.
 //
 #pragma once
-#include "IPlayer.h"
 #include <QMediaPlayer>
+#include <QObject>
 
-namespace Core::Player{
+namespace Core::Engine {
 
-class Player : public IPlayer {
+class Player : public QObject{
 
 public:
     explicit Player(QObject *parent = nullptr);
