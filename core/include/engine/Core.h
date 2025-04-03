@@ -8,6 +8,6 @@ public:
     Core(QObject* parent = nullptr);
 
 private:
-    Player::Player* m_player;
+    Engine::Player* m_player;
 };
 } // namespace Core

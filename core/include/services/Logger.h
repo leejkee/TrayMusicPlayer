@@ -1,59 +1,27 @@
 #pragma once
 
-#define QT
-#if defined(QT)
-#include <QString>
-#include <QDateTime>
-
+#include <string>
 namespace Core::Service {
+
 class Logger {
 public:
-    Logger();
-    Logger(const std::string);
+    explicit Logger(const std::string&);
     Logger(const Logger&) = delete;
-
+    Logger& operator=(const Logger&) = delete;
     enum class LogLevel {
         Debug,
         Info,
         Warning,
         Error
     };
-
-    void log(LogLevel level, const QString& message) const
-    {
-        QString levelStr = logLevelToString(level);
-        QString timestamp = QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss");
-        QString logMessage = QString("[%1] [%2] %3: %4")
-                                 .arg(levelStr, timestamp, m_moduleName, message);
-        outputToConsole(logMessage);
-    }
+    void logout(const LogLevel, const std::string& message);
+    std::string log(const LogLevel, const std::string& message);
+    static std::string logLevelToString(LogLevel level);
 
 private:
-    QString m_moduleName;
-    static QString logLevelToString(LogLevel level)
-    {
-        switch (level) {
-        case LogLevel::Debug:
-            return "DEBUG";
-        case LogLevel::Info:
-            return "INFO";
-        case LogLevel::Warning:
-            return "WARNING";
-        case LogLevel::Error:
-            return "ERROR";
-        default:
-            return "UNKNOWN";
-        }
-    }
+    std::string m_moduleName;
+    static std::string getCurrentTimestamp(); 
+    void outputToConsole(const std::string& logMessage) const;
 
-    void outputToConsole(const QString& logMessage) const
-    {
-        qDebug() << logMessage;
-    }
 };
-#else
-
-#include <string>
-
-#endif
 }

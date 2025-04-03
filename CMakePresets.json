@@ -58,10 +58,40 @@
     },
 
     {
+      "name": "linux-gcc-debug",
+      "inherits": "base",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/linux-debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_CXX_COMPILER": "/usr/bin/g++"
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      }
+    },
+    {
+      "name": "linux-gcc-release",
+      "inherits": "base",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/linux-release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_CXX_COMPILER": "/usr/bin/g++"
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      }
+    },
+    {
       "name": "linux-clang-debug",
       "inherits": "base",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/build/linux-clang-debug",
+      "binaryDir": "${sourceDir}/build/linux-debug",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "CMAKE_CXX_COMPILER": "/usr/bin/clang++"
@@ -76,7 +106,7 @@
       "name": "linux-clang-release",
       "inherits": "base",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/build/window-mingw-release",
+      "binaryDir": "${sourceDir}/build/linux-release",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
         "CMAKE_CXX_COMPILER": "/usr/bin/clang++"
@@ -90,12 +120,17 @@
   ],
   "buildPresets": [
     {
-      "name": "win-mingw-debug",
+      "name": "win-debug",
       "configurePreset": "windows-mingw-debug",
       "configuration": "Debug"
     },
     {
-      "name": "linux-debug",
+      "name": "linux-gcc",
+      "configurePreset": "linux-gcc-debug",
+      "configuration": "Debug"
+    },
+    {
+      "name": "linux-clang",
       "configurePreset": "linux-clang-debug",
       "configuration": "Debug"
     }

@@ -31,6 +31,11 @@ find_package(Qt6 REQUIRED COMPONENTS
     Widgets
     Svg
 )
+
+include(CTest)
+enable_testing()
+
 add_subdirectory(core)
 add_subdirectory(ui)
 add_subdirectory(test)
+add_subdirectory(3rdParty)
