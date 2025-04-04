@@ -14,14 +14,14 @@ public:
         Warning,
         Error
     };
-    void logout(const LogLevel, const std::string& message);
-    std::string log(const LogLevel, const std::string& message);
+    void logout(LogLevel, const std::string& message) const;
+    [[nodiscard]] std::string log(LogLevel, const std::string& message) const;
     static std::string logLevelToString(LogLevel level);
 
 private:
     std::string m_moduleName;
     static std::string getCurrentTimestamp(); 
-    void outputToConsole(const std::string& logMessage) const;
+    static void outputToConsole(const std::string& logMessage) ;
 
 };
 }

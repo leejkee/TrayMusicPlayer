@@ -1,59 +1,67 @@
 #pragma once
-#include <CoreConstants.h>
 #include <QObject>
 #include <QStringList>
 
+
 namespace Core::Service {
-class Settings final : public QObject {
-    Q_OBJECT
+    class Logger_QT;
+}
 
-public:
-    Settings(const QString& settingsPath);
 
-    Settings(const Settings&) = delete;
+namespace Core::Service {
+    class Settings final : public QObject {
+        Q_OBJECT
 
-    Settings& operator=(const Settings&) = delete;
+    public:
+        explicit Settings(const QString &settingsPath, QObject *parent = nullptr);
 
-    Settings(Settings&&) = delete;
+        Settings(const Settings &) = delete;
 
-    Settings& operator=(Settings&&) = delete;
+        Settings &operator=(const Settings &) = delete;
 
-    void loadFromJson();
+        Settings(Settings &&) = delete;
 
-    void saveToJson();
+        Settings &operator=(Settings &&) = delete;
 
-    [[nodiscard]] QStringList getLocalMusicDirectories() const { return m_localMusicPaths; }
+        void loadFromJson();
 
-    [[nodiscard]] QString getDatabaseDirectory() const { return m_dbPath; }
+        void saveToJson();
 
-    [[nodiscard]] QStringList getUserMusicList() const { return m_userMusicList; }
 
-    [[nodiscard]] float getDefaultVolume() const { return m_volume; }
+        [[nodiscard]] QStringList getLocalMusicDirectories() const { return m_localMusicPaths; }
 
-Q_SIGNALS:
-    void signalLocalSettingsChanged();
-    void signalUserListAdded(const QString&);
-    void signalUserListRemoved(const QString&);
 
-public Q_SLOTS:
-    void addLocalMusicDirectory(const QString& path);
+        [[nodiscard]] QString getDatabaseDirectory() const { return m_dbPath; }
 
-    void addUserMusicList(const QString& path);
 
-    void removeMusicDirectory(const QString& path);
+        [[nodiscard]] QStringList getUserMusicList() const { return m_userMusicList; }
 
-private:
-    QString m_settingsPath;
-    QString m_dbPath;
-    QStringList m_localMusicPaths;
-    QStringList m_userMusicList;
-    float m_volume {};
 
-    Settings()
-    {
-    }
+        [[nodiscard]] float getDefaultVolume() const { return m_volume; }
 
-    ~Settings() override = default;
-};
 
+    Q_SIGNALS:
+        void signalLocalSettingsChanged();
+
+        void signalUserListAdded(const QString &);
+
+        void signalUserListRemoved(const QString &);
+
+    public Q_SLOTS:
+        void addLocalMusicDirectory(const QString &path);
+
+        void addUserMusicList(const QString &path);
+
+        void removeMusicDirectory(const QString &path);
+
+    private:
+        QString m_settingsPath;
+        QString m_dbPath;
+        QStringList m_localMusicPaths;
+        QStringList m_userMusicList;
+        float m_volume{};
+        Logger_QT Log;
+
+        ~Settings() override = default;
+    };
 }

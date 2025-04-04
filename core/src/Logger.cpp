@@ -6,26 +6,27 @@
 
 namespace Core::Service {
 Logger::Logger(const std::string& module)
-    : m_moduleName(module)
 {
+    if (module.empty()) {
+        outputToConsole("[ERROR]: init error, null string");
+    }
 }
 
-void Logger::logout(const LogLevel level, const std::string& message)
+void Logger::logout(const LogLevel level, const std::string& message) const
 {
     outputToConsole(log(level, message));
 }
 
-std::string Logger::log(const LogLevel level, const std::string& message)
-{
+std::string Logger::log(const LogLevel level, const std::string& message) const {
     const std::string logLevel = logLevelToString(level);
-    std::string timestamp = getCurrentTimestamp();
+    const std::string timestamp = getCurrentTimestamp();
 
     auto str = "[" + logLevel + "] [" + timestamp + "] "
         + m_moduleName + ": " + message + "\n";
     return str;
 }
 
-std::string Logger::logLevelToString(LogLevel level)
+std::string Logger::logLevelToString(const LogLevel level)
 {
     switch (level) {
     case LogLevel::Debug:
@@ -50,7 +51,7 @@ std::string Logger::getCurrentTimestamp()
     ss << std::put_time(std::localtime(&in_time_t), "%Y-%m-%d %H:%M:%S");
     return ss.str();
 }
-void Logger::outputToConsole(const std::string& logMessage) const
+void Logger::outputToConsole(const std::string& logMessage)
 {
     std::cerr << logMessage;
 }
