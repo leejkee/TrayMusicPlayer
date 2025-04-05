@@ -75,6 +75,10 @@ namespace UI::PlayerWidget {
 
         // show the volume widget
         connect(m_pushButtonVolume, &QPushButton::clicked, this, &PlayerWidget::showVolumeSlider);
+        connect(m_pushButtonPlay, &QPushButton::clicked, this, [this]() {
+            Q_EMIT playToggle();
+            qDebug() << "playToggle";
+        });
 
         // check music
         // connect(m_pushButtonNext, &QPushButton::clicked, &PlayList::instance(), &PlayList::nextMusic);

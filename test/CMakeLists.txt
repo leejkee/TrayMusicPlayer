@@ -5,8 +5,6 @@ target_link_libraries(test_logger PRIVATE catch2)
 
 
 
-
-
 qt_add_executable(test_ui
         MANUAL_FINALIZATION
         main.cpp

@@ -31,6 +31,7 @@ find_package(Qt6 REQUIRED COMPONENTS
     Widgets
     Svg
 )
+find_package(TagLib REQUIRED)
 
 include(CTest)
 enable_testing()

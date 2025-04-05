@@ -19,6 +19,7 @@ namespace Core {
 
     inline constexpr int UNINITIALIZED_VALUE = -1;
 
+    // inline const QString SETTINGS_WIN32 = QStringLiteral("C:/Users/cww/Documents/Workspace/TrayMusicPlayer/core/settings/init_win32.json");
     inline const QString SETTINGS_WIN32 = QStringLiteral(":/core/settings/init_win32.json");
     inline const QString SETTINGS_LINUX = QStringLiteral(":/core/settings/init_linux.json");
 }

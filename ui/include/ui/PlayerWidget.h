@@ -56,12 +56,6 @@ namespace UI::PlayerWidget {
 
         void showVolumeSlider();
 
-    Q_SIGNALS:
-        void nextMusic();
-
-        void previousMusic();
-
-        void playToggle();
 
     public Q_SLOTS:
         void setPlayButtonIcon(bool playStatus);
@@ -69,5 +63,12 @@ namespace UI::PlayerWidget {
         void setVolumeCtrlButtonIcon(int volume);
 
         void setSongName(const QString &songName);
+
+    Q_SIGNALS:
+        void nextMusic();
+
+        void previousMusic();
+
+        void playToggle();
     };
 }

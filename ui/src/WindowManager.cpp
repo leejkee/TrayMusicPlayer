@@ -15,6 +15,7 @@ namespace UI::WindowManager {
         const auto layout = new QVBoxLayout();
         layout->addWidget(m_playerWidget);
         setLayout(layout);
+        createConnections();
     }
 
     WindowManager::~WindowManager() {

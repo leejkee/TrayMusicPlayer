@@ -6,22 +6,18 @@
 #include <Player.h>
 #include <Settings.h>
 #include <CoreConstants.h>
-#include <QUrl>
-#include <QDir>
 
-
+inline void initQRC() {
+    Q_INIT_RESOURCE(core);
+}
 namespace Core {
     Core::Core(QObject *parent) : ICore(parent) {
+        initQRC();
         this->setObjectName("Core");
         Log = Service::Logger_QT(this->objectName());
         m_player = new Engine::Player(this);
         m_settings = new Service::Settings(SETTINGS_WIN32, this);
-
         // test sgm
-        const auto musicpath = m_settings->getLocalMusicDirectories().at(0);
-        QDir dir(musicpath);
-
-        loadMusic(musicpath);
         // test sgm
     }
 

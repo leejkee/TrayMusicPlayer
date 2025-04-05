@@ -1,11 +1,9 @@
 #pragma once
+#include <Logger_qt.h>
 #include <QObject>
 #include <QStringList>
 
 
-namespace Core::Service {
-    class Logger_QT;
-}
 
 
 namespace Core::Service {
