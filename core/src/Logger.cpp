@@ -5,17 +5,20 @@
 #include <string>
 
 namespace Core::Service {
+
 Logger::Logger(const std::string& module)
 {
     if (module.empty()) {
-        outputToConsole("[ERROR]: init error, null string");
+        outputToConsole("[INFO]: init with null string");
     }
+    m_moduleName = module;
 }
 
 void Logger::logout(const LogLevel level, const std::string& message) const
 {
     outputToConsole(log(level, message));
 }
+
 
 std::string Logger::log(const LogLevel level, const std::string& message) const {
     const std::string logLevel = logLevelToString(level);
@@ -44,13 +47,14 @@ std::string Logger::logLevelToString(const LogLevel level)
 
 std::string Logger::getCurrentTimestamp()
 {
-    auto now = std::chrono::system_clock::now();
-    auto in_time_t = std::chrono::system_clock::to_time_t(now);
+    const auto now = std::chrono::system_clock::now();
+    const auto in_time_t = std::chrono::system_clock::to_time_t(now);
 
     std::stringstream ss;
     ss << std::put_time(std::localtime(&in_time_t), "%Y-%m-%d %H:%M:%S");
     return ss.str();
 }
+
 void Logger::outputToConsole(const std::string& logMessage)
 {
     std::cerr << logMessage;

@@ -8,10 +8,9 @@
 //     logger.logout(Logger::LogLevel::Error, "Test Error");
 // }
 
-#include <cstddef>
 #define CATCH_CONFIG_MAIN
 #include <catch.hpp>
-#include "Logger.h"
+#include <Logger.h>
 #include <regex>
 
 TEST_CASE("Logger::log return string format", "[logger]") {

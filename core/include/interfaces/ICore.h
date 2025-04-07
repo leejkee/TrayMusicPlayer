@@ -15,6 +15,24 @@ namespace Core {
             : QObject(parent) {
         }
 
+        static ICore *create(QObject *parent = nullptr);
+
+        enum class PlayMode {
+            Sequential,
+            LoopOne,
+            LoopAll,
+            Shuffle
+        };
+
+    Q_SIGNALS:
+        // emitted when the QMediaPlayer::positionChanged() emitted
+        void signalPositionChanged(qint64 position);
+
+        void signalCurrentMusicNameChanged(const QString &musicName);
+
+        void signalPlayingChanged(bool);
+
+    public Q_SLOTS:
         virtual void playToggle() = 0;
 
         virtual void nextMusic() = 0;
@@ -25,6 +43,7 @@ namespace Core {
 
         virtual void loadMusic(const QString &musicPath) = 0;
 
-        static ICore *create(QObject*parent = nullptr);
+        virtual void switchMusicListByName(const QString &listName) = 0;
+
     };
 } // namespace Core

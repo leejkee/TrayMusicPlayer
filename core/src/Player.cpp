@@ -5,7 +5,6 @@
 #include <QMediaPlayer>
 #include <QAudioOutput>
 
-
 namespace Core::Engine {
 
     Player::Player(QObject *parent) : QObject(parent) {
@@ -15,7 +14,7 @@ namespace Core::Engine {
     }
 
     void Player::setMusicSource(const QString &source) const {
-        auto url = QUrl::fromLocalFile(source);
+        const auto url = QUrl::fromLocalFile(source);
         m_player->setSource(url);
     }
 
@@ -23,13 +22,14 @@ namespace Core::Engine {
         m_output->setVolume(v);
     }
 
-    void Player::playTg() const {
+    void Player::playTg()  {
         if (m_player->isPlaying()) {
             m_player->pause();
         }
         else {
             m_player->play();
         }
+        Q_EMIT signalPlayingChanged(m_player->isPlaying());
     }
 
     bool Player::isPlaying() const {

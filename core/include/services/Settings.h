@@ -3,9 +3,6 @@
 #include <QObject>
 #include <QStringList>
 
-
-
-
 namespace Core::Service {
     class Settings final : public QObject {
         Q_OBJECT
@@ -25,15 +22,11 @@ namespace Core::Service {
 
         void saveToJson();
 
-
         [[nodiscard]] QStringList getLocalMusicDirectories() const { return m_localMusicPaths; }
-
 
         [[nodiscard]] QString getDatabaseDirectory() const { return m_dbPath; }
 
-
         [[nodiscard]] QStringList getUserMusicList() const { return m_userMusicList; }
-
 
         [[nodiscard]] float getDefaultVolume() const { return m_volume; }
 

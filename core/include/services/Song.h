@@ -1,48 +1,53 @@
 #pragma once
+#include <CoreConstants.h>
 #include <QString>
 
 namespace Core::Service {
-class Song {
-public:
-    Song() = default;
+    class Song {
+    public:
+        Song(const Song &song) = default;
 
-    Song(const Song& song) = default;
+        explicit Song(const QString &songFilePath);
 
-    Song(QString fullName, QString path, const int duration)
-        : m_fullName(fullName)
-        , m_path(path)
-        , m_duration(duration)
-    {
-    }
+        [[nodiscard]] int getDuration() const {
+            return m_duration;
+        }
 
-    explicit Song(const QString& songFilePath);
+        [[nodiscard]] QString getName() const {
+            return m_Name;
+        }
 
-    [[nodiscard]] int getDuration() const
-    {
-        return m_duration;
-    }
+        [[nodiscard]] QString getPath() const {
+            return m_path;
+        }
 
-    [[nodiscard]] QString getFullName() const
-    {
-        return m_fullName;
-    }
+        [[nodiscard]] QString getArtist() const {
+            return m_Artist;
+        }
 
-    [[nodiscard]] QString getPath() const
-    {
-        return m_path;
-    }
+        [[nodiscard]] QString getTitle() const {
+            return m_title;
+        }
 
-    static QString removeSuffix(const QString& str);
+        static QString removeSuffix(const QString &str);
 
-private:
-    QString m_fullName;
-    QString m_path;
-    int m_duration;
-    int m_logoIndex;
 
-    ///
-    /// @param path should be the @m_path
-    /// @return the length of this music(Format: 00:00)
-    static int musicLength(const QString& path);
-};
+    private:
+        QString m_Name;
+        QString m_Artist;
+        QString m_title;
+        QString m_path;
+        int m_duration{0};
+
+        ///
+        /// @param path should be the @m_path
+        /// @return the length of this music(Format: 00:00)
+        static int musicLength(const QString &path);
+
+        static QString convertToArtist(const QString &str);
+
+        static QString convertToName(const QString &str);
+
+        void songInitByTagLib(const QString &path);
+    };
 }

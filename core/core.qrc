@@ -1,35 +1,5 @@
 <!DOCTYPE RCC><RCC version="1.0">
     <qresource prefix="/core">
-        <file>music_logo/data/logo_1.png</file>
-        <file>music_logo/data/logo_2.png</file>
-        <file>music_logo/data/logo_3.png</file>
-        <file>music_logo/data/logo_4.png</file>
-        <file>music_logo/data/logo_5.png</file>
-        <file>music_logo/data/logo_6.png</file>
-        <file>music_logo/data/logo_7.png</file>
-        <file>music_logo/data/logo_8.png</file>
-        <file>music_logo/data/logo_9.png</file>
-        <file>music_logo/data/logo_10.png</file>
-        <file>music_logo/data/logo_11.png</file>
-        <file>music_logo/data/logo_12.png</file>
-        <file>music_logo/data/logo_13.png</file>
-        <file>music_logo/data/logo_14.png</file>
-        <file>music_logo/data/logo_15.png</file>
-        <file>music_logo/data/logo_16.png</file>
-        <file>music_logo/data/logo_17.png</file>
-        <file>music_logo/data/logo_18.png</file>
-        <file>music_logo/data/logo_19.png</file>
-        <file>music_logo/data/logo_20.png</file>
-        <file>music_logo/data/logo_21.png</file>
-        <file>music_logo/data/logo_22.png</file>
-        <file>music_logo/data/logo_23.png</file>
-        <file>music_logo/data/logo_24.png</file>
-        <file>music_logo/data/logo_25.png</file>
-        <file>music_logo/data/logo_26.png</file>
-        <file>music_logo/data/logo_27.png</file>
-        <file>music_logo/data/logo_28.png</file>
-        <file>music_logo/data/logo_29.png</file>
-        <file>music_logo/data/logo_30.png</file>
         <file>settings/init_win32.json</file>
         <file>settings/init_linux.json</file>
     </qresource>

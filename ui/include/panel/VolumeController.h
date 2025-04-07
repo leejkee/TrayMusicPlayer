@@ -17,11 +17,12 @@ namespace UI::Panel {
     public:
         explicit VolumeController(QWidget *parent = nullptr);
 
-        void setDefaultVolume(float v) const;
 
+    private:
         QSlider *m_sliderV;
         QLabel *m_labelVolume;
         BetterButton *m_buttonMute;
+        void setDefaultVolume(float v) const;
     };
 }
 

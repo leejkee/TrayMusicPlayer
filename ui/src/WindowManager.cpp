@@ -23,5 +23,10 @@ namespace UI::WindowManager {
 
     void WindowManager::createConnections() {
         connect(m_playerWidget, &PlayerWidget::PlayerWidget::playToggle, m_core, &Core::ICore::playToggle);
+        connect(m_core, &Core::ICore::signalCurrentMusicNameChanged, m_playerWidget, &PlayerWidget::PlayerWidget::setSongName);
+        connect(m_core, &Core::ICore::signalPlayingChanged, m_playerWidget, &PlayerWidget::PlayerWidget::setPlayButtonIcon);
+        connect(m_playerWidget, &PlayerWidget::PlayerWidget::nextMusic, m_core, &Core::ICore::nextMusic);
+        connect(m_playerWidget, &PlayerWidget::PlayerWidget::previousMusic, m_core, &Core::ICore::preMusic);
+        connect(m_playerWidget, &PlayerWidget::PlayerWidget::set)
     }
 }

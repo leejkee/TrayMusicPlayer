@@ -7,23 +7,26 @@
 class QMediaPlayer;
 class QAudioOutput;
 
+
 namespace Core::Engine {
+    class Player final : public QObject {
+        Q_OBJECT
+    public:
+        explicit Player(QObject *parent = nullptr);
 
-class Player final : public QObject{
-public:
-    explicit Player(QObject *parent = nullptr);
+        void setMusicSource(const QString &source) const;
 
-    void setMusicSource(const QString& source) const;
+        void setVolume(float) const;
 
-    void setVolume(float) const;
+        void playTg();
 
-    void playTg() const;
+        [[nodiscard]] bool isPlaying() const;
 
-    bool isPlaying() const;
+    Q_SIGNALS:
+        void signalPlayingChanged(bool b);
 
-
-private:
-    QMediaPlayer* m_player;
-    QAudioOutput* m_output;
-};
+    private:
+        QMediaPlayer *m_player;
+        QAudioOutput *m_output;
+    };
 }
