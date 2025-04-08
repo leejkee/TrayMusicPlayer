@@ -32,6 +32,8 @@ namespace Core {
 
         void signalPlayingChanged(bool);
 
+        void signalIsMuted(bool);
+
     public Q_SLOTS:
         virtual void playToggle() = 0;
 
@@ -39,7 +41,7 @@ namespace Core {
 
         virtual void preMusic() = 0;
 
-        virtual void setVolume(float) = 0;
+        virtual void setVolume(unsigned int) = 0;
 
         virtual void loadMusic(const QString &musicPath) = 0;
 

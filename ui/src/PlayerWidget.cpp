@@ -65,7 +65,7 @@ namespace UI::PlayerWidget {
         // VolumeCtrl Section End
     }
 
-    void PlayerWidget::setSongName(const QString &songName) {
+    void PlayerWidget::setSongName(const QString &songName) const {
         m_labelMusicName->setText(songName);
     }
 
@@ -75,9 +75,20 @@ namespace UI::PlayerWidget {
 
         // show the volume widget
         connect(m_pushButtonVolume, &QPushButton::clicked, this, &PlayerWidget::showVolumeSlider);
+
         connect(m_pushButtonPlay, &QPushButton::clicked, this, [this]() {
-            Q_EMIT playToggle();
-            qDebug() << "playToggle";
+            Q_EMIT signalPlayToggle();
+        });
+        connect(m_volumeController, &Panel::VolumeController::signalSetValue, this, [this](const int value) {
+            Q_EMIT signalSetVolume(value);
+        });
+
+        connect(m_pushButtonNext, &QPushButton::clicked, this, [this]() {
+            Q_EMIT signalNextMusic();
+        });
+
+        connect(m_pushButtonPre, &QPushButton::clicked, this, [this]() {
+            Q_EMIT signalPreviousMusic();
         });
 
         // check music
@@ -85,7 +96,7 @@ namespace UI::PlayerWidget {
         // connect(m_pushButtonPre, &QPushButton::clicked, &PlayList::instance(), &PlayList::previousMusic);
     }
 
-    void PlayerWidget::setPlayButtonIcon(const bool playStatus) {
+    void PlayerWidget::setPlayButtonIcon(const bool playStatus) const {
         if (playStatus) {
             m_pushButtonPlay->setIcon(QIcon(SvgRes::PauseIconSVG));
         } else {
@@ -93,18 +104,12 @@ namespace UI::PlayerWidget {
         }
     }
 
-    void PlayerWidget::setVolumeCtrlButtonIcon(const int volume) {
-        if (volume != 0) {
-            m_pushButtonVolume->setIcon(QIcon(SvgRes::VolumeSVG));
-            m_volumeController->m_buttonMute->setIcon(QIcon(SvgRes::VolumeSVG));
-        } else {
-            m_pushButtonVolume->setIcon(QIcon(SvgRes::VolumeMuteSVG));
-            m_volumeController->m_buttonMute->setIcon(QIcon(SvgRes::VolumeMuteSVG));
-        }
+    void PlayerWidget::setVolumeCtrlButtonIcon(const bool b) const {
+        m_pushButtonVolume->setIcon(QIcon(b ? SvgRes::VolumeMuteSVG : SvgRes::VolumeSVG));
+        m_volumeController->setVolumeButtonIcon(b);
     }
 
-
-    void PlayerWidget::showVolumeSlider() {
+    void PlayerWidget::showVolumeSlider() const {
         if (m_menuVolume->isVisible()) {
             m_menuVolume->hide();
             qDebug() << "Menu hide";

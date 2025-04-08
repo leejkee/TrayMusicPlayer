@@ -11,18 +11,31 @@ class QSlider;
 class QLabel;
 class QPushButton;
 
+
 namespace UI::Panel {
     class BetterButton;
+
     class VolumeController final : public QWidget {
+        Q_OBJECT
+
     public:
         explicit VolumeController(QWidget *parent = nullptr);
 
+        void setVolume(int v) const;
+
+
+    Q_SIGNALS:
+        void signalSetValue(int);
+
+    public Q_SLOTS:
+        void setVolumeButtonIcon(bool) const;
 
     private:
         QSlider *m_sliderV;
         QLabel *m_labelVolume;
         BetterButton *m_buttonMute;
-        void setDefaultVolume(float v) const;
+
+        void setDefaultVolume(int v) const;
     };
 }
 

@@ -28,7 +28,7 @@ namespace Core::Service {
 
         [[nodiscard]] QStringList getUserMusicList() const { return m_userMusicList; }
 
-        [[nodiscard]] float getDefaultVolume() const { return m_volume; }
+        [[nodiscard]] unsigned getDefaultVolume() const { return m_volume; }
 
 
     Q_SIGNALS:
@@ -50,7 +50,7 @@ namespace Core::Service {
         QString m_dbPath;
         QStringList m_localMusicPaths;
         QStringList m_userMusicList;
-        float m_volume{};
+        int m_volume;
         Logger_QT Log;
 
         ~Settings() override = default;

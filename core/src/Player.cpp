@@ -5,12 +5,18 @@
 #include <QMediaPlayer>
 #include <QAudioOutput>
 
-namespace Core::Engine {
 
+namespace Core::Engine {
     Player::Player(QObject *parent) : QObject(parent) {
+        setObjectName(QStringLiteral("Player"));
+        Log = Service::Logger_QT(this->objectName());
         m_player = new QMediaPlayer(this);
         m_output = new QAudioOutput(this);
         m_player->setAudioOutput(m_output);
+        connect(m_output, &QAudioOutput::volumeChanged, this, [this](const float v) {
+            Log.log(Service::Logger_QT::LogLevel::Info, "signal emitted, volume changed: " + QString::number(v));
+            Q_EMIT signalIsMuted(v == 0);
+        });
     }
 
     void Player::setMusicSource(const QString &source) const {
@@ -22,14 +28,15 @@ namespace Core::Engine {
         m_output->setVolume(v);
     }
 
-    void Player::playTg()  {
-        if (m_player->isPlaying()) {
+    void Player::playTg() {
+        const bool isPlaying = m_player->isPlaying();
+        if (isPlaying) {
             m_player->pause();
-        }
-        else {
+        } else {
             m_player->play();
         }
-        Q_EMIT signalPlayingChanged(m_player->isPlaying());
+        Log.log(Service::Logger_QT::LogLevel::Info, "playing status changed: " + QString::number(!isPlaying));
+        Q_EMIT signalPlayingChanged(!isPlaying);
     }
 
     bool Player::isPlaying() const {

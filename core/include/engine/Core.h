@@ -23,7 +23,7 @@ namespace Core {
 
         void loadMusic(const QString &musicPath) override;
 
-        void setVolume(float volume) override;
+        void setVolume(unsigned int volume) override;
 
         void playToggle() override;
 

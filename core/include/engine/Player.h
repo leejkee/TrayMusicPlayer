@@ -2,7 +2,9 @@
 // Created by cww on 25-3-31.
 //
 #pragma once
+#include <Logger_qt.h>
 #include <QObject>
+
 
 class QMediaPlayer;
 class QAudioOutput;
@@ -25,8 +27,11 @@ namespace Core::Engine {
     Q_SIGNALS:
         void signalPlayingChanged(bool b);
 
+        void signalIsMuted(bool);
+
     private:
         QMediaPlayer *m_player;
         QAudioOutput *m_output;
+        Service::Logger_QT Log;
     };
 }

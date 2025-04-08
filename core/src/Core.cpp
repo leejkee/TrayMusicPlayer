@@ -37,11 +37,19 @@ namespace Core {
         // test sgm
 
         connect(m_player, &Engine::Player::signalPlayingChanged, this, [this](const bool b) {
+            Log.log(Service::Logger_QT::LogLevel::Info, "signal emitted, to tell ui the playing status changed: " +
+            QString::number(b));
             Q_EMIT signalPlayingChanged(b);
         });
 
         connect(m_playList, &Service::PlayList::signalMusicNameChanged, this, [this](const QString &name) {
+            Log.log(Service::Logger_QT::LogLevel::Info, "signal emitted, to tell ui the current music name changed: " + name);
             Q_EMIT signalCurrentMusicNameChanged(name);
+        });
+
+        connect(m_player, &Engine::Player::signalIsMuted, this, [this](const bool b) {
+            Log.log(Service::Logger_QT::LogLevel::Info, "signal emitted, to tell ui the output is Muted: " + QString::number(b));
+            Q_EMIT signalIsMuted(b);
         });
 
     }
@@ -50,17 +58,19 @@ namespace Core {
         m_player->setMusicSource(musicPath);
     }
 
-    void Core::setVolume(const float volume) {
-        m_player->setVolume(volume);
+    void Core::setVolume(const unsigned volume) {
+        m_player->setVolume(static_cast<float>(volume) / 100);
     }
 
     void Core::nextMusic() {
+        Log.log(Service::Logger_QT::LogLevel::Info, "nextMusic");
         m_playList->setCurrentMusicIndex(m_playList->getCurrentMusicIndex() + 1);
         m_player->setMusicSource(m_playList->getCurrentMusicPath());
         m_player->playTg();
     }
 
     void Core::preMusic() {
+        Log.log(Service::Logger_QT::LogLevel::Info, "preMusic");
         m_playList->setCurrentMusicIndex(m_playList->getCurrentMusicIndex() - 1);
         m_player->setMusicSource(m_playList->getCurrentMusicPath());
         m_player->playTg();

@@ -54,21 +54,23 @@ namespace UI::PlayerWidget {
 
         void createConnections();
 
-        void showVolumeSlider();
+        void showVolumeSlider() const;
 
 
     public Q_SLOTS:
-        void setPlayButtonIcon(bool playStatus);
+        void setPlayButtonIcon(bool playStatus) const;
 
-        void setVolumeCtrlButtonIcon(int volume);
+        void setVolumeCtrlButtonIcon(bool b) const;
 
-        void setSongName(const QString &songName);
+        void setSongName(const QString &songName) const;
 
     Q_SIGNALS:
-        void nextMusic();
+        void signalNextMusic();
 
-        void previousMusic();
+        void signalPreviousMusic();
 
-        void playToggle();
+        void signalPlayToggle();
+
+        void signalSetVolume(int);
     };
 }
