@@ -12,7 +12,6 @@ inline void initMyQRC() {
     Q_INIT_RESOURCE(core);
 }
 
-
 namespace Core {
     Core::Core(QObject *parent) : ICore(parent) {
         initMyQRC();
@@ -23,19 +22,10 @@ namespace Core {
         m_settings = new Service::Settings(SETTINGS_WIN32, this);
         m_playList = new Service::PlayList({}, this);
         m_listCache = new Service::ListCache(m_settings->getLocalMusicDirectories(), this);
-        initDefaultSettings();
+        createConnections();
     }
 
-    void Core::initDefaultSettings() {
-        setVolume(m_settings->getDefaultVolume());
-
-        m_playList->loadMusicList(m_listCache->findList(LOCAL_LIST_KEY));
-
-        // test sgm
-        m_playList->setCurrentMusicIndex(0);
-        m_player->setMusicSource(m_playList->getCurrentMusicPath());
-        // test sgm
-
+    void Core::createConnections() {
         connect(m_player, &Engine::Player::signalPlayingChanged, this, [this](const bool b) {
             Log.log(Service::Logger_QT::LogLevel::Info, "signal emitted, to tell ui the playing status changed: " +
             QString::number(b));
@@ -51,7 +41,17 @@ namespace Core {
             Log.log(Service::Logger_QT::LogLevel::Info, "signal emitted, to tell ui the output is Muted: " + QString::number(b));
             Q_EMIT signalIsMuted(b);
         });
+    }
 
+    void Core::initDefaultSettings() {
+
+        setVolume(m_settings->getDefaultVolume());
+        m_playList->loadMusicList(m_listCache->findList(LOCAL_LIST_KEY));
+
+        // test sgm
+        m_playList->setCurrentMusicIndex(0);
+        m_player->setMusicSource(m_playList->getCurrentMusicPath());
+        // test sgm
     }
 
     void Core::loadMusic(const QString &musicPath) {
@@ -82,6 +82,10 @@ namespace Core {
 
     void Core::switchMusicListByName(const QString &listName) {
         m_playList->loadMusicList(m_listCache->findList(listName));
+    }
+
+    QString Core::getDefaultMusicName() {
+        return m_playList->getCurrentMusicTitle();
     }
 
     ICore *ICore::create(QObject *parent) {

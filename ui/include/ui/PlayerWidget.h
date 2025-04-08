@@ -12,12 +12,14 @@ class QGroupBox;
 class QLabel;
 class QSlider;
 class QPushButton;
+class QPropertyAnimation;
 
 
 namespace UI::Panel {
     class ProgressBar;
     class BetterButton;
     class VolumeController;
+    class RotatingLabel;
 }
 
 
@@ -28,11 +30,32 @@ namespace UI::PlayerWidget {
     public:
         explicit PlayerWidget(QWidget *parent = nullptr);
 
+
+
+    public Q_SLOTS:
+        void setPlayButtonIcon(bool playStatus) const;
+
+        void setVolumeCtrlButtonIcon(bool b) const;
+
+        void setSongName(const QString &songName) const;
+
+        void setRotationStatus(bool) const;
+
+    Q_SIGNALS:
+        void signalNextMusic();
+
+        void signalPreviousMusic();
+
+        void signalPlayToggle();
+
+        void signalSetVolume(int);
+
     private:
         // left
         QLabel *m_labelMusicName;
-        QLabel *m_labelLogo;
-        QHBoxLayout *m_leftLayout;
+        Panel::RotatingLabel *m_labelLogo;
+        QVBoxLayout *m_leftLayout;
+        QPropertyAnimation *m_animation;
 
         // center
         Panel::BetterButton *m_pushButtonPlay;
@@ -55,22 +78,5 @@ namespace UI::PlayerWidget {
         void createConnections();
 
         void showVolumeSlider() const;
-
-
-    public Q_SLOTS:
-        void setPlayButtonIcon(bool playStatus) const;
-
-        void setVolumeCtrlButtonIcon(bool b) const;
-
-        void setSongName(const QString &songName) const;
-
-    Q_SIGNALS:
-        void signalNextMusic();
-
-        void signalPreviousMusic();
-
-        void signalPlayToggle();
-
-        void signalSetVolume(int);
     };
 }

@@ -13,6 +13,7 @@ namespace Core::Service {
         Log = Logger_QT(objectName());
         if (m_settingsPath.isEmpty()) {
             Log.log(Logger_QT::LogLevel::Error, "the path of settings is empty");
+            return;
         }
         loadFromJson();
     }
@@ -20,14 +21,14 @@ namespace Core::Service {
     void Settings::loadFromJson() {
         QFile file(m_settingsPath);
         if (!file.open(QIODevice::ReadOnly)) {
-            qDebug() << "Failed to open file";
+            Log.log(Logger_QT::LogLevel::Error, "Failed to open file");
             return;
         }
         const QByteArray jsonData = file.readAll();
         file.close();
         const QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonData);
         if (jsonDoc.isNull() || !jsonDoc.isObject()) {
-            qDebug() << "Failed to parse JSON";
+            Log.log(Logger_QT::LogLevel::Error, "Failed to parse JSON");
             return;
         }
         QJsonObject json = jsonDoc.object();
@@ -47,7 +48,7 @@ namespace Core::Service {
         const QJsonDocument doc(jsonObj);
         QFile file(m_settingsPath);
         if (!file.open(QIODevice::WriteOnly)) {
-            qWarning() << "Could not write to JSON file:" << m_settingsPath;
+            Log.log(Logger_QT::LogLevel::Error, "Could not write to JSON file");
             return;
         }
         file.write(doc.toJson(QJsonDocument::Indented));

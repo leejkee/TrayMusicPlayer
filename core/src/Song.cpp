@@ -5,12 +5,15 @@
 namespace Core::Service {
     Song::Song(const QString &songFilePath) {
         m_path = songFilePath;
-        songInitByTagLib(m_path);
-        if (m_title.isEmpty()) {
-            m_title = removeSuffix(m_path);
-            m_Name = convertToName(m_title);
-            m_Artist = convertToArtist(m_title);
-        }
+        m_title = removeSuffix(m_path);
+        m_Name = convertToName(m_title);
+        m_Artist = convertToArtist(m_title);
+        m_duration = musicLength(m_path);
+
+        // todo
+        // songInitByTagLib(m_path);
+        // if (m_title.isEmpty()) {
+        // }
     }
 
     QString Song::removeSuffix(const QString &str) {

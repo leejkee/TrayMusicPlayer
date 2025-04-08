@@ -17,6 +17,8 @@ namespace Core::Service {
 
         [[nodiscard]] QString getCurrentMusicPath() const;
 
+        QString getCurrentMusicTitle() const;
+
         void loadMusicList(const QVector<Song> &musicList);
 
         void setCurrentMusicIndex(unsigned index);

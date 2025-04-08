@@ -1,5 +1,4 @@
 #pragma once
-#include <CoreConstants.h>
 #include <QString>
 
 namespace Core::Service {

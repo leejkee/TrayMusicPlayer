@@ -23,6 +23,8 @@ namespace Core {
             LoopAll,
             Shuffle
         };
+        // init the default settings
+        virtual void initDefaultSettings() = 0;
 
     Q_SIGNALS:
         // emitted when the QMediaPlayer::positionChanged() emitted
@@ -47,5 +49,6 @@ namespace Core {
 
         virtual void switchMusicListByName(const QString &listName) = 0;
 
+        virtual QString getDefaultMusicName() = 0;
     };
 } // namespace Core

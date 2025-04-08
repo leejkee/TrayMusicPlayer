@@ -21,6 +21,8 @@ namespace Core {
     public:
         explicit Core(QObject *parent = nullptr);
 
+        void createConnections();
+
         void loadMusic(const QString &musicPath) override;
 
         void setVolume(unsigned int volume) override;
@@ -33,6 +35,10 @@ namespace Core {
 
         void switchMusicListByName(const QString &listName) override;
 
+        QString getDefaultMusicName() override;
+        // init the default settings
+        void initDefaultSettings() override;
+
     private:
         Engine::Player *m_player;
         Service::Logger_QT Log;
@@ -40,7 +46,5 @@ namespace Core {
         Service::PlayList *m_playList;
         Service::ListCache *m_listCache;
 
-        // init the default settings
-        void initDefaultSettings();
     };
 } // namespace Core

@@ -6,16 +6,19 @@
 #include <panel/BetterButton.h>
 #include <panel/ProgressBar.h>
 #include <panel/VolumeController.h>
+#include <panel/RotatingLabel.h>
 
 #include <QLabel>
 #include <QPushButton>
 #include <QHBoxLayout>
 #include <QMenu>
 #include <QWidgetAction>
+#include <QPropertyAnimation>
 
 
 namespace UI::PlayerWidget {
     PlayerWidget::PlayerWidget(QWidget *parent) : QWidget(parent) {
+
         initLeft();
         initCenter();
         initRight();
@@ -24,26 +27,38 @@ namespace UI::PlayerWidget {
         layout->addLayout(m_leftLayout);
         layout->addLayout(m_centerLayout);
         layout->addWidget(m_pushButtonVolume);
+
         createConnections();
+        setFixedHeight(100);
     }
 
     void PlayerWidget::initLeft() {
         m_labelMusicName = new QLabel(this);
-        m_labelLogo = new QLabel(this);
-        m_labelLogo->setPixmap(SvgRes::TrayIconSVG);
-        m_leftLayout = new QHBoxLayout;
+        m_labelLogo = new Panel::RotatingLabel(this);
+        const QPixmap pixmap(SvgRes::TrayIconSVG);
+        m_labelLogo->setPixmapWithSmoothScale(pixmap, QSize(ViewConfig::CIRCLE_LOGO_SIZE, ViewConfig::CIRCLE_LOGO_SIZE));
+        m_animation = new QPropertyAnimation(m_labelLogo, "rotation", this);
+        m_animation->setStartValue(0);
+        m_animation->setEndValue(360);
+        m_animation->setDuration(3000);
+        m_animation->setLoopCount(-1);
+        m_animation->start();
+
+        m_leftLayout = new QVBoxLayout;
         m_leftLayout->setSpacing(0);
         m_leftLayout->setContentsMargins(0, 0, 0, 0);
-        m_leftLayout->addWidget(m_labelLogo);
         m_leftLayout->addWidget(m_labelMusicName);
+        m_leftLayout->addWidget(m_labelLogo);
     }
 
     void PlayerWidget::initCenter() {
+
         m_pushButtonPlay = new Panel::BetterButton(QIcon(SvgRes::PlayIconSVG), this);
         m_pushButtonPre = new Panel::BetterButton(QIcon(SvgRes::PreIconSVG), this);
         m_pushButtonNext = new Panel::BetterButton(QIcon(SvgRes::NextIconSVG), this);
         m_progressWidget = new Panel::ProgressBar(this);
         m_centerLayout = new QVBoxLayout;
+
         const auto buttonLayout = new QHBoxLayout;
         buttonLayout->addWidget(m_pushButtonPre);
         buttonLayout->addWidget(m_pushButtonPlay);
@@ -54,7 +69,6 @@ namespace UI::PlayerWidget {
     }
 
     void PlayerWidget::initRight() {
-
         // VolumeCtrl Section Begin
         m_volumeController = new Panel::VolumeController(this);
         m_pushButtonVolume = new Panel::BetterButton(QIcon(SvgRes::VolumeSVG), this);
@@ -101,6 +115,15 @@ namespace UI::PlayerWidget {
             m_pushButtonPlay->setIcon(QIcon(SvgRes::PauseIconSVG));
         } else {
             m_pushButtonPlay->setIcon(QIcon(SvgRes::PlayIconSVG));
+        }
+    }
+
+    void PlayerWidget::setRotationStatus(const bool b) const {
+        if (b) {
+            m_animation->start();
+        }
+        else {
+            m_animation->stop();
         }
     }
 

@@ -55,6 +55,8 @@ namespace ViewConfig {
 
     constexpr int VIEW_LOGO_PADDING = 5;
 
+    constexpr int CIRCLE_LOGO_SIZE = 30;
+
 }
 namespace Tools {
 

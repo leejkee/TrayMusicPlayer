@@ -23,7 +23,7 @@ target_link_options(test_taglib PRIVATE -municode)
 target_link_options(test_logger PRIVATE -municode)
 if(WIN32)
     set_target_properties(test_ui PROPERTIES
-            WIN32_EXECUTABLE TRUE
+            WIN32_EXECUTABLE OFF
     )
 endif()
 qt_finalize_target(test_ui)

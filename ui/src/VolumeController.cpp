@@ -14,6 +14,7 @@ namespace UI::Panel {
         m_sliderV = new QSlider(this);
         m_sliderV->setRange(0, 100);
         m_sliderV->setSingleStep(5);
+        m_sliderV->setValue(10);
         m_labelVolume = new QLabel(this);
         m_labelVolume->setStyleSheet("font-size: 7pt;");
         m_labelVolume->setAlignment(Qt::AlignCenter);
