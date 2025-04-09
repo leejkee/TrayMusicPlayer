@@ -26,7 +26,7 @@ namespace UI::Panel {
         m_labelVolume = new QLabel(this);
         m_labelVolume->setStyleSheet("font-size: 7pt;");
         m_labelVolume->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
-        m_buttonMute = new BetterButton(QIcon(SvgRes::VolumeSVG), this);
+        m_buttonMute = new BetterButton(QIcon(SvgRes::VolumeBtnSVG), this);
         m_buttonMute->setIconSize(QSize(10, 10));
 
         QVBoxLayout *layout = new QVBoxLayout;
@@ -55,7 +55,7 @@ namespace UI::Panel {
         if (isMuted) {
             m_buttonMute->setIcon(QIcon(SvgRes::VolumeMuteSVG));
         } else {
-            m_buttonMute->setIcon(QIcon(SvgRes::VolumeSVG));
+            m_buttonMute->setIcon(QIcon(SvgRes::VolumeBtnSVG));
         }
     }
 }

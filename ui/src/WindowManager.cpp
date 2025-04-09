@@ -11,9 +11,9 @@ namespace UI::WindowManager {
     WindowManager::WindowManager(QWidget *parent) : QWidget(parent), m_core(nullptr){
         m_playerWidget = new PlayerWidget::PlayerWidget(this);
         m_core = Core::ICore::create(this);
-        const auto layout = new QVBoxLayout;
-        layout->addWidget(m_playerWidget);
-        setLayout(layout);
+
+        const auto mainLayout = new QVBoxLayout(this);
+        mainLayout->addWidget(m_playerWidget);
         createConnections();
         m_core->initDefaultSettings();
     }
@@ -25,6 +25,7 @@ namespace UI::WindowManager {
         connect(m_playerWidget, &PlayerWidget::PlayerWidget::signalPlayToggle, m_core, &Core::ICore::playToggle);
         connect(m_core, &Core::ICore::signalCurrentMusicNameChanged, m_playerWidget, &PlayerWidget::PlayerWidget::setSongName);
         connect(m_core, &Core::ICore::signalPlayingChanged, m_playerWidget, &PlayerWidget::PlayerWidget::setPlayButtonIcon);
+        connect(m_core, &Core::ICore::signalPlayingChanged, m_playerWidget, &PlayerWidget::PlayerWidget::setRotationStatus);
         connect(m_playerWidget, &PlayerWidget::PlayerWidget::signalNextMusic, m_core, &Core::ICore::nextMusic);
         connect(m_playerWidget, &PlayerWidget::PlayerWidget::signalPreviousMusic, m_core, &Core::ICore::preMusic);
         connect(m_playerWidget, &PlayerWidget::PlayerWidget::signalSetVolume, m_core, &Core::ICore::setVolume);

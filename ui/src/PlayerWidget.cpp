@@ -13,89 +13,88 @@
 #include <QHBoxLayout>
 #include <QMenu>
 #include <QWidgetAction>
-#include <QPropertyAnimation>
 
 
 namespace UI::PlayerWidget {
     PlayerWidget::PlayerWidget(QWidget *parent) : QWidget(parent) {
-
-        initLeft();
-        initCenter();
-        initRight();
-
-        const auto layout = new QHBoxLayout(this);
-        const auto spaceH1 = new QSpacerItem(-1, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
-        const auto spaceH2 = new QSpacerItem(-1, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
-        layout->addLayout(m_leftLayout);
-        layout->addSpacerItem(spaceH1);
-        layout->addLayout(m_centerLayout);
-        layout->addSpacerItem(spaceH2);
-        layout->addWidget(m_pushButtonVolume);
-
+        initWidget();
         createConnections();
-        setFixedHeight(100);
     }
 
-    void PlayerWidget::initLeft() {
+    void PlayerWidget::initWidget() {
+        initLeftLayout();
+        initCenterLayout();
+        initVolumeControl();
+        initMainLayout();
+    }
+
+    void PlayerWidget::initLeftLayout() {
         m_labelMusicName = new QLabel(this);
+        m_labelMusicName->setAlignment(Qt::AlignVCenter);
+        m_labelMusicName->setFixedSize(WIDTH_TITLE_LABEL, HEIGHT_PLAYER_WIDGET - 10);
+
         const QPixmap pixmap(SvgRes::TrayIconSVG);
-        m_labelLogo = new Panel::RotatingLabel(pixmap, QSize(ViewConfig::CIRCLE_LOGO_SIZE, ViewConfig::CIRCLE_LOGO_SIZE));
-        m_labelLogo->initRotation(0, 360, 5000, -1);
-        m_labelLogo->setLabelMode(Panel::RotatingLabel::Rotating);
-        // m_labelLogo = new Panel::RotatingLabel(this);
-        // m_labelLogo->setPixmapWithSmoothScale(pixmap, QSize(ViewConfig::CIRCLE_LOGO_SIZE, ViewConfig::CIRCLE_LOGO_SIZE));
-        // m_animation = new QPropertyAnimation(m_labelLogo, "rotation", this);
-        // m_animation->setStartValue(0);
-        // m_animation->setEndValue(360);
-        // m_animation->setDuration(3000);
-        // m_animation->setLoopCount(-1);
-        // m_animation->start();
+        m_labelLogo = new Panel::RotatingLabel(pixmap, QSize(CIRCLE_LOGO_SIZE, CIRCLE_LOGO_SIZE));
+        m_labelLogo->initRotation(0, 360, 15000, -1);
+        m_labelLogo->setLabelMode(Panel::RotatingLabel::NoRotating);
 
-
-
-        m_leftLayout = new QVBoxLayout;
-        m_leftLayout->setSpacing(0);
-        m_leftLayout->setContentsMargins(0, 0, 0, 0);
-        m_leftLayout->addWidget(m_labelMusicName);
+        m_leftLayout = new QHBoxLayout;
         m_leftLayout->addWidget(m_labelLogo);
+        m_leftLayout->addWidget(m_labelMusicName);
     }
 
-    void PlayerWidget::initCenter() {
-
+    void PlayerWidget::initCenterLayout() {
         m_pushButtonPlay = new Panel::BetterButton(QIcon(SvgRes::PlayIconSVG), this);
         m_pushButtonPre = new Panel::BetterButton(QIcon(SvgRes::PreIconSVG), this);
         m_pushButtonNext = new Panel::BetterButton(QIcon(SvgRes::NextIconSVG), this);
         m_progressWidget = new Panel::ProgressBar(this);
-        m_centerLayout = new QVBoxLayout;
 
         const auto buttonLayout = new QHBoxLayout;
         buttonLayout->addWidget(m_pushButtonPre);
         buttonLayout->addWidget(m_pushButtonPlay);
         buttonLayout->addWidget(m_pushButtonNext);
 
+        m_centerLayout = new QVBoxLayout;
         m_centerLayout->addWidget(m_progressWidget);
         m_centerLayout->addLayout(buttonLayout);
+        m_centerLayout->setContentsMargins(0, 0, 0, 0);
     }
 
-    void PlayerWidget::initRight() {
-        // VolumeCtrl Section Begin
+    void PlayerWidget::initVolumeControl() {
         m_volumeController = new Panel::VolumeController(this);
-        m_pushButtonVolume = new Panel::BetterButton(QIcon(SvgRes::VolumeSVG), this);
+        m_pushButtonVolume = new Panel::BetterButton(QIcon(SvgRes::VolumeBtnSVG), this);
+        m_pushButtonVolume->loadStyleSheet(QssRes::BUTTON_VOLUME_QSS);
+
         m_menuVolume = new QMenu(this);
         auto *action = new QWidgetAction(this);
         action->setDefaultWidget(m_volumeController);
         m_menuVolume->addAction(action);
-        // VolumeCtrl Section End
     }
 
+    void PlayerWidget::initMainLayout() {
+        const auto mainLayout = new QHBoxLayout;
+        const auto spaceH1 = new QSpacerItem(-1, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        const auto spaceH2 = new QSpacerItem(-1, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        mainLayout->addLayout(m_leftLayout);
+        mainLayout->addSpacerItem(spaceH1);
+        mainLayout->addLayout(m_centerLayout);
+        mainLayout->addSpacerItem(spaceH2);
+        mainLayout->addWidget(m_pushButtonVolume);
+
+        setLayout(mainLayout);
+    }
+
+
     void PlayerWidget::setSongName(const QString &songName) {
-        m_labelMusicName->setText(songName);
+        const auto artist = songName.right(songName.length() - songName.indexOf("-") - 1).trimmed();
+        const auto name = songName.left(songName.indexOf("-")).trimmed();
+        const QString formattedText = QString("%1<br><font size='-1'>%2</font>")
+                .arg(name, artist);
+        m_labelMusicName->setText(formattedText);
     }
 
     void PlayerWidget::createConnections() {
-        // update the music name label
-        // connect(&PlayList::instance(), &PlayList::currentMusicNameChanged, m_labelMusicFileName, &QLabel::setText);
-
         // show the volume widget
         connect(m_pushButtonVolume, &QPushButton::clicked, this, &PlayerWidget::showVolumeSlider);
 
@@ -113,10 +112,6 @@ namespace UI::PlayerWidget {
         connect(m_pushButtonPre, &QPushButton::clicked, this, [this]() {
             Q_EMIT signalPreviousMusic();
         });
-
-        // check music
-        // connect(m_pushButtonNext, &QPushButton::clicked, &PlayList::instance(), &PlayList::nextMusic);
-        // connect(m_pushButtonPre, &QPushButton::clicked, &PlayList::instance(), &PlayList::previousMusic);
     }
 
     void PlayerWidget::setPlayButtonIcon(const bool playStatus) {
@@ -129,16 +124,15 @@ namespace UI::PlayerWidget {
 
     void PlayerWidget::setRotationStatus(const bool b) {
         if (b) {
-            m_animation->start();
-        }
-        else {
-            m_animation->stop();
+            m_labelLogo->setLabelMode(Panel::RotatingLabel::Rotating);
+        } else {
+            m_labelLogo->setLabelMode(Panel::RotatingLabel::NoRotating);
         }
     }
 
-    void PlayerWidget::setVolumeCtrlButtonIcon(const bool b) {
-        m_pushButtonVolume->setIcon(QIcon(b ? SvgRes::VolumeMuteSVG : SvgRes::VolumeSVG));
-        m_volumeController->setVolumeButtonIcon(b);
+    void PlayerWidget::setVolumeCtrlButtonIcon(const bool isMuted) {
+        m_pushButtonVolume->setIcon(QIcon(isMuted ? SvgRes::VolumeMuteSVG : SvgRes::VolumeBtnSVG));
+        m_volumeController->setVolumeButtonIcon(isMuted);
     }
 
     void PlayerWidget::showVolumeSlider() const {

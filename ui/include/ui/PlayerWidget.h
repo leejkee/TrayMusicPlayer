@@ -31,11 +31,10 @@ namespace UI::PlayerWidget {
         explicit PlayerWidget(QWidget *parent = nullptr);
 
 
-
     public Q_SLOTS:
         void setPlayButtonIcon(bool playStatus);
 
-        void setVolumeCtrlButtonIcon(bool b);
+        void setVolumeCtrlButtonIcon(bool isMuted);
 
         void setSongName(const QString &songName);
 
@@ -54,8 +53,7 @@ namespace UI::PlayerWidget {
         // left
         QLabel *m_labelMusicName;
         Panel::RotatingLabel *m_labelLogo;
-        QVBoxLayout *m_leftLayout;
-        QPropertyAnimation *m_animation;
+        QHBoxLayout *m_leftLayout;
 
         // center
         Panel::BetterButton *m_pushButtonPlay;
@@ -69,11 +67,16 @@ namespace UI::PlayerWidget {
         Panel::BetterButton *m_pushButtonVolume;
         QMenu *m_menuVolume;
 
-        void initLeft();
 
-        void initRight();
+        void initWidget();
 
-        void initCenter();
+        void initLeftLayout();
+
+        void initCenterLayout();
+
+        void initVolumeControl();
+
+        void initMainLayout();
 
         void createConnections();
 

@@ -56,6 +56,6 @@ namespace Core::Service {
     }
 
     QString Song::convertToName(const QString &str) {
-        return str.left(str.indexOf("-"));
+        return str.left(str.indexOf("-")).trimmed();
     }
 }

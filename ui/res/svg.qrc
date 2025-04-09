@@ -20,5 +20,7 @@
    <file>images/btnpause.svg</file>
    <file>images/list.svg</file>
    <file>images/setting.svg</file>
+   <file>images/volumeBtn.svg</file>
+   <file>images/volumeMute.svg</file>
 </qresource>
 </RCC>

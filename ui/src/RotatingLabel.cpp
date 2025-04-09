@@ -13,6 +13,7 @@ namespace UI::Panel {
         m_rotationAnimation = new QPropertyAnimation(this, "rotation", this);
         setPixmapWithSmoothScale(logo, targetSize);
         setAttribute(Qt::WA_TranslucentBackground);
+        setMinimumSize(50, 50);
     }
 
     RotatingLabel::RotatingLabel(QWidget *parent) : QWidget(parent) {
@@ -21,8 +22,8 @@ namespace UI::Panel {
     }
 
 
-    void RotatingLabel::initRotation(const QVariant &startV, const QVariant &endV, const int msecs, const int loopCount)
-    {
+    void RotatingLabel::initRotation(const QVariant &startV, const QVariant &endV, const int msecs,
+                                     const int loopCount) {
         m_rotationAnimation->setStartValue(startV);
         m_rotationAnimation->setEndValue(endV);
         m_rotationAnimation->setDuration(msecs);
@@ -82,6 +83,7 @@ namespace UI::Panel {
     }
 
     QSize RotatingLabel::sizeHint() const {
-        return m_pixmap.size().isEmpty() ? QSize(100, 100) : m_pixmap.size();
+        // return m_pixmap.size().isEmpty() ? QSize(100, 100) : m_pixmap.size();
+        return QSize(50, 50);
     }
 }
