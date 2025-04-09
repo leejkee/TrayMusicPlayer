@@ -33,13 +33,13 @@ namespace UI::PlayerWidget {
 
 
     public Q_SLOTS:
-        void setPlayButtonIcon(bool playStatus) const;
+        void setPlayButtonIcon(bool playStatus);
 
-        void setVolumeCtrlButtonIcon(bool b) const;
+        void setVolumeCtrlButtonIcon(bool b);
 
-        void setSongName(const QString &songName) const;
+        void setSongName(const QString &songName);
 
-        void setRotationStatus(bool) const;
+        void setRotationStatus(bool);
 
     Q_SIGNALS:
         void signalNextMusic();

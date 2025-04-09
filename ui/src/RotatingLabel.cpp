@@ -4,11 +4,42 @@
 
 #include <panel/RotatingLabel.h>
 #include <QPainter>
-namespace UI::Panel{
 
-    RotatingLabel::RotatingLabel(QWidget *parent)
+
+namespace UI::Panel {
+    RotatingLabel::RotatingLabel(const QPixmap &logo, const QSize &targetSize, const RotatingLabelMode mode,
+                                 QWidget *parent)
         : QWidget(parent) {
+        m_rotationAnimation = new QPropertyAnimation(this, "rotation", this);
+        setPixmapWithSmoothScale(logo, targetSize);
         setAttribute(Qt::WA_TranslucentBackground);
+    }
+
+    RotatingLabel::RotatingLabel(QWidget *parent) : QWidget(parent) {
+        m_rotationAnimation = new QPropertyAnimation(this, "rotation", this);
+        setAttribute(Qt::WA_TranslucentBackground);
+    }
+
+
+    void RotatingLabel::initRotation(const QVariant &startV, const QVariant &endV, const int msecs, const int loopCount)
+    {
+        m_rotationAnimation->setStartValue(startV);
+        m_rotationAnimation->setEndValue(endV);
+        m_rotationAnimation->setDuration(msecs);
+        m_rotationAnimation->setLoopCount(loopCount);
+    }
+
+    void RotatingLabel::setLabelMode(const RotatingLabelMode mode) {
+        switch (mode) {
+            case Rotating:
+                m_rotationAnimation->start();
+                break;
+            case NoRotating:
+                m_rotationAnimation->stop();
+                break;
+            default:
+                break;
+        }
     }
 
     void RotatingLabel::setPixmap(const QPixmap &pixmap) {
@@ -25,7 +56,7 @@ namespace UI::Panel{
         return m_rotation;
     }
 
-    void RotatingLabel::setRotation(qreal angle) {
+    void RotatingLabel::setRotation(const qreal angle) {
         if (!qFuzzyCompare(m_rotation, angle)) {
             m_rotation = angle;
             update();
@@ -46,14 +77,11 @@ namespace UI::Panel{
 
         painter.translate(center);
         painter.rotate(m_rotation);
-        painter.translate(-pixSize.width() / 2, -pixSize.height() / 2);
+        painter.translate(-static_cast<qreal>(pixSize.width()) / 2, -static_cast<qreal>(pixSize.height()) / 2);
         painter.drawPixmap(0, 0, m_pixmap);
     }
 
     QSize RotatingLabel::sizeHint() const {
         return m_pixmap.size().isEmpty() ? QSize(100, 100) : m_pixmap.size();
     }
-
-
-
 }

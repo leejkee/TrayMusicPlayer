@@ -33,7 +33,8 @@ namespace Core {
         });
 
         connect(m_playList, &Service::PlayList::signalMusicNameChanged, this, [this](const QString &name) {
-            Log.log(Service::Logger_QT::LogLevel::Info, "signal emitted, to tell ui the current music name changed: " + name);
+            Log.log(Service::Logger_QT::LogLevel::Info, "signal emitted, to tell ui the current music name changed: "
+             + name);
             Q_EMIT signalCurrentMusicNameChanged(name);
         });
 

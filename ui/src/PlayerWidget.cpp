@@ -24,8 +24,12 @@ namespace UI::PlayerWidget {
         initRight();
 
         const auto layout = new QHBoxLayout(this);
+        const auto spaceH1 = new QSpacerItem(-1, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        const auto spaceH2 = new QSpacerItem(-1, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
         layout->addLayout(m_leftLayout);
+        layout->addSpacerItem(spaceH1);
         layout->addLayout(m_centerLayout);
+        layout->addSpacerItem(spaceH2);
         layout->addWidget(m_pushButtonVolume);
 
         createConnections();
@@ -34,15 +38,20 @@ namespace UI::PlayerWidget {
 
     void PlayerWidget::initLeft() {
         m_labelMusicName = new QLabel(this);
-        m_labelLogo = new Panel::RotatingLabel(this);
         const QPixmap pixmap(SvgRes::TrayIconSVG);
-        m_labelLogo->setPixmapWithSmoothScale(pixmap, QSize(ViewConfig::CIRCLE_LOGO_SIZE, ViewConfig::CIRCLE_LOGO_SIZE));
-        m_animation = new QPropertyAnimation(m_labelLogo, "rotation", this);
-        m_animation->setStartValue(0);
-        m_animation->setEndValue(360);
-        m_animation->setDuration(3000);
-        m_animation->setLoopCount(-1);
-        m_animation->start();
+        m_labelLogo = new Panel::RotatingLabel(pixmap, QSize(ViewConfig::CIRCLE_LOGO_SIZE, ViewConfig::CIRCLE_LOGO_SIZE));
+        m_labelLogo->initRotation(0, 360, 5000, -1);
+        m_labelLogo->setLabelMode(Panel::RotatingLabel::Rotating);
+        // m_labelLogo = new Panel::RotatingLabel(this);
+        // m_labelLogo->setPixmapWithSmoothScale(pixmap, QSize(ViewConfig::CIRCLE_LOGO_SIZE, ViewConfig::CIRCLE_LOGO_SIZE));
+        // m_animation = new QPropertyAnimation(m_labelLogo, "rotation", this);
+        // m_animation->setStartValue(0);
+        // m_animation->setEndValue(360);
+        // m_animation->setDuration(3000);
+        // m_animation->setLoopCount(-1);
+        // m_animation->start();
+
+
 
         m_leftLayout = new QVBoxLayout;
         m_leftLayout->setSpacing(0);
@@ -79,7 +88,7 @@ namespace UI::PlayerWidget {
         // VolumeCtrl Section End
     }
 
-    void PlayerWidget::setSongName(const QString &songName) const {
+    void PlayerWidget::setSongName(const QString &songName) {
         m_labelMusicName->setText(songName);
     }
 
@@ -110,7 +119,7 @@ namespace UI::PlayerWidget {
         // connect(m_pushButtonPre, &QPushButton::clicked, &PlayList::instance(), &PlayList::previousMusic);
     }
 
-    void PlayerWidget::setPlayButtonIcon(const bool playStatus) const {
+    void PlayerWidget::setPlayButtonIcon(const bool playStatus) {
         if (playStatus) {
             m_pushButtonPlay->setIcon(QIcon(SvgRes::PauseIconSVG));
         } else {
@@ -118,7 +127,7 @@ namespace UI::PlayerWidget {
         }
     }
 
-    void PlayerWidget::setRotationStatus(const bool b) const {
+    void PlayerWidget::setRotationStatus(const bool b) {
         if (b) {
             m_animation->start();
         }
@@ -127,7 +136,7 @@ namespace UI::PlayerWidget {
         }
     }
 
-    void PlayerWidget::setVolumeCtrlButtonIcon(const bool b) const {
+    void PlayerWidget::setVolumeCtrlButtonIcon(const bool b) {
         m_pushButtonVolume->setIcon(QIcon(b ? SvgRes::VolumeMuteSVG : SvgRes::VolumeSVG));
         m_volumeController->setVolumeButtonIcon(b);
     }

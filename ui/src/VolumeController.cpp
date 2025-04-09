@@ -15,19 +15,30 @@ namespace UI::Panel {
         m_sliderV->setRange(0, 100);
         m_sliderV->setSingleStep(5);
         m_sliderV->setValue(10);
+        m_sliderV->setStyleSheet(Tools::readQSS(QssRes::VOLUME_SLIDER_QSS));
+
+        QHBoxLayout *hSliderLayout = new QHBoxLayout;
+        hSliderLayout->addStretch();
+        hSliderLayout->addWidget(m_sliderV);
+        hSliderLayout->addStretch();
+        hSliderLayout->setContentsMargins(0, 0, 0, 0);
+
         m_labelVolume = new QLabel(this);
         m_labelVolume->setStyleSheet("font-size: 7pt;");
-        m_labelVolume->setAlignment(Qt::AlignCenter);
+        m_labelVolume->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
         m_buttonMute = new BetterButton(QIcon(SvgRes::VolumeSVG), this);
         m_buttonMute->setIconSize(QSize(10, 10));
 
         QVBoxLayout *layout = new QVBoxLayout;
-        layout->addWidget(m_sliderV);
+        // layout->addWidget(m_sliderV);
+        layout->addItem(hSliderLayout);
         layout->addWidget(m_labelVolume);
+
         layout->addWidget(m_buttonMute);
-        layout->setContentsMargins(5, 5, 0, 0);
+        layout->setContentsMargins(1, 5, 0, 0);
+        layout->setSpacing(0);
         setLayout(layout);
-        this->setFixedSize(30, 110);
+        this->setFixedSize(30, 120);
 
         setVolume(10);
         connect(m_sliderV, &QSlider::valueChanged, this, &VolumeController::setVolume);

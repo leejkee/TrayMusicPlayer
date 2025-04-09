@@ -5,5 +5,6 @@
    <file>qss/MusicListButton/ButtonNormal.qss</file>
    <file>qss/MusicListButton/ButtonSquare.qss</file>
    <file>qss/ListView/PlayListView.qss</file>
+   <file>qss/Slider/QSlider.qss</file>
 </qresource>
 </RCC>

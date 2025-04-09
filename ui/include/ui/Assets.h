@@ -44,6 +44,7 @@ namespace QssRes {
     inline const auto BUTTON_LIST_QSS = QStringLiteral(":/qss/MusicListButton/ButtonNormal.qss");
     inline const auto BUTTON_SQUARE_QSS = QStringLiteral(":/qss/MusicListButton/ButtonSquare.qss");
     inline const auto LIST_VIEW_QSS = QStringLiteral(":/qss/ListView/PlayListView.qss");
+    inline const auto VOLUME_SLIDER_QSS = QStringLiteral(":/qss/Slider/QSlider.qss");
 }
 
 
@@ -55,9 +56,10 @@ namespace ViewConfig {
 
     constexpr int VIEW_LOGO_PADDING = 5;
 
-    constexpr int CIRCLE_LOGO_SIZE = 30;
+    constexpr int CIRCLE_LOGO_SIZE = 40;
 
 }
+
 namespace Tools {
 
     inline QString readQSS(const QString &qssPath) {

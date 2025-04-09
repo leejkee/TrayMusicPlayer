@@ -35,7 +35,6 @@ namespace UI::Panel {
         QLabel *m_labelVolume;
         BetterButton *m_buttonMute;
 
-        void setDefaultVolume(int v) const;
     };
 }
 
