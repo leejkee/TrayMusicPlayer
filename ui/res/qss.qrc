@@ -7,5 +7,6 @@
    <file>qss/MusicListButton/ButtonSquare.qss</file>
    <file>qss/ListView/PlayListView.qss</file>
    <file>qss/Slider/QSlider.qss</file>
+   <file>qss/Slider/ProgressBar.qss</file>
 </qresource>
 </RCC>

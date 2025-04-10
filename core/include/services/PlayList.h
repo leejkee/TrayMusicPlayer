@@ -17,21 +17,21 @@ namespace Core::Service {
 
         [[nodiscard]] QString getCurrentMusicPath() const;
 
-        QString getCurrentMusicTitle() const;
+        [[nodiscard]] QString getCurrentMusicTitle() const;
 
         void loadMusicList(const QVector<Song> &musicList);
 
-        void setCurrentMusicIndex(unsigned index);
+        void setCurrentMusicIndex(int index);
 
-        [[nodiscard]] unsigned getCurrentMusicIndex() const;
+        [[nodiscard]] int getCurrentMusicIndex() const;
 
     Q_SIGNALS:
         void signalMusicNameChanged(const QString &);
-
-        void signalMusicIndexChanged(unsigned);
+        void signalMusicIndexChanged(int);
+        void signalMusicDurationChanged(int);
 
     private:
-        unsigned m_index;
+        int m_index;
         QVector<Song> m_musicList;
         Logger_QT Log;
     };

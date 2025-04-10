@@ -86,13 +86,19 @@ namespace UI::PlayerWidget {
     }
 
 
-    void PlayerWidget::setSongName(const QString &songName) {
+    void PlayerWidget::updateMusicName(const QString &songName) {
+        // update name label
         const auto artist = songName.right(songName.length() - songName.indexOf("-") - 1).trimmed();
         const auto name = songName.left(songName.indexOf("-")).trimmed();
-        const QString formattedText = QString("%1<br><font size='-1'>%2</font>")
+        const QString formattedText = QString("%1<br><font size='-1'>%2</font><br>")
                 .arg(name, artist);
         m_labelMusicName->setText(formattedText);
     }
+
+    void PlayerWidget::updateMusicDuration(const int s){
+        m_progressWidget->updateLabelR(s);
+    }
+
 
     void PlayerWidget::createConnections() {
         // show the volume widget
@@ -111,6 +117,10 @@ namespace UI::PlayerWidget {
 
         connect(m_pushButtonPre, &QPushButton::clicked, this, [this]() {
             Q_EMIT signalPreviousMusic();
+        });
+
+        connect(m_progressWidget, &Panel::ProgressBar::signalProgressValueChanged, this, [this](const int value) {
+            Q_EMIT signalSetMusicPosition(value);
         });
     }
 
@@ -146,5 +156,9 @@ namespace UI::PlayerWidget {
             m_menuVolume->popup(pos);
             qDebug() << "Menu show";
         }
+    }
+
+    void PlayerWidget::updateProgressBarPosition(const qint64 position) {
+        m_progressWidget->updateSliderPosition(position);
     }
 }

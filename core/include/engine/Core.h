@@ -13,6 +13,7 @@ namespace Core::Service {
     class Settings;
     class PlayList;
     class ListCache;
+    class Song;
 }
 
 
@@ -34,6 +35,10 @@ namespace Core {
         void preMusic() override;
 
         void switchMusicListByName(const QString &listName) override;
+
+        void setMusicPosition(qint64 position) override;
+
+        QStringList getMusicListByName(const QString &name) override;
 
         QString getDefaultMusicName() override;
         // init the default settings

@@ -7,6 +7,8 @@
 #include <QWidget>
 
 
+
+
 class QHBoxLayout;
 class QGroupBox;
 class QLabel;
@@ -36,9 +38,13 @@ namespace UI::PlayerWidget {
 
         void setVolumeCtrlButtonIcon(bool isMuted);
 
-        void setSongName(const QString &songName);
+        void updateMusicName(const QString &songName);
+
+        void updateMusicDuration(int s);
 
         void setRotationStatus(bool);
+
+        void updateProgressBarPosition(qint64);
 
     Q_SIGNALS:
         void signalNextMusic();
@@ -48,6 +54,8 @@ namespace UI::PlayerWidget {
         void signalPlayToggle();
 
         void signalSetVolume(int);
+
+        void signalSetMusicPosition(qint64);
 
     private:
         // left

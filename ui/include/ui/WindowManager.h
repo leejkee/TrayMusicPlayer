@@ -6,25 +6,40 @@
 #include <QWidget>
 
 
+namespace UI::SettingsWidget {
+    class SettingsWidget;
+}
+
+
+namespace UI::TopBarWidget {
+    class TopBarWidget;
+}
+
+
 namespace UI::MusicListWidget {
     class MusicListWidget;
 }
+
 
 namespace UI::ViewWidget {
     class ViewWidget;
 }
 
+
 namespace UI::PlayerWidget {
     class PlayerWidget;
 }
+
 
 namespace Core {
     class ICore;
 }
 
-class QStackedWidget;
-namespace UI::WindowManager {
 
+class QStackedWidget;
+
+
+namespace UI::WindowManager {
     class WindowManager final : public QWidget {
     public:
         explicit WindowManager(QWidget *parent = Q_NULLPTR);
@@ -32,15 +47,17 @@ namespace UI::WindowManager {
         ~WindowManager() override;
 
     private:
-        PlayerWidget::PlayerWidget  *m_playerWidget;
-        ViewWidget::ViewWidget *m_viewWidget;
+        TopBarWidget::TopBarWidget *m_topBarWidget;
         MusicListWidget::MusicListWidget *m_musicListWidget;
-        Core::ICore *m_core;
+        ViewWidget::ViewWidget *m_viewWidget;
+        SettingsWidget::SettingsWidget *m_settingsWidget;
+        PlayerWidget::PlayerWidget *m_playerWidget;
 
         QStackedWidget *m_stackedMainWidget;
         QStackedWidget *m_stackedViewWidget;
+        QWidget *m_frontWidget;
 
-
+        Core::ICore *m_core;
 
         void createConnections();
     };

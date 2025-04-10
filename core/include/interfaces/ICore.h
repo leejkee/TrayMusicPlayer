@@ -7,6 +7,8 @@
 
 
 namespace Core {
+
+
     class ICore : public QObject {
         Q_OBJECT
 
@@ -34,9 +36,14 @@ namespace Core {
 
         void signalCurrentMusicNameChanged(const QString &musicName);
 
+        void signalCurrentMusicIndexChanged(int index);
+
+        void signalCurrentMusicDurationChanged(int seconds);
+
         void signalPlayingChanged(bool);
 
         void signalIsMuted(bool);
+
 
     public Q_SLOTS:
         virtual void playToggle() = 0;
@@ -52,5 +59,9 @@ namespace Core {
         virtual void switchMusicListByName(const QString &listName) = 0;
 
         virtual QString getDefaultMusicName() = 0;
+
+        virtual QStringList getMusicListByName(const QString &) = 0;
+
+        virtual void setMusicPosition(qint64) = 0;
     };
 } // namespace Core

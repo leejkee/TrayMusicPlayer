@@ -22,12 +22,16 @@ namespace Core::Engine {
 
         void playTg();
 
+        void setMusicPosition(qint64 position);
+
         [[nodiscard]] bool isPlaying() const;
 
     Q_SIGNALS:
         void signalPlayingChanged(bool b);
 
         void signalIsMuted(bool);
+
+        void signalPositionChanged(qint64 position);
 
     private:
         QMediaPlayer *m_player;

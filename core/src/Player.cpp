@@ -17,6 +17,9 @@ namespace Core::Engine {
             Log.log(Service::Logger_QT::LogLevel::Info, "signal emitted, volume changed: " + QString::number(v));
             Q_EMIT signalIsMuted(v == 0);
         });
+        connect(m_player, &QMediaPlayer::positionChanged, this, [this](const qint64 pos) {
+            Q_EMIT signalPositionChanged(pos);
+        });
     }
 
     void Player::setMusicSource(const QString &source) const {
@@ -37,6 +40,10 @@ namespace Core::Engine {
         }
         Log.log(Service::Logger_QT::LogLevel::Info, "playing status changed: " + QString::number(!isPlaying));
         Q_EMIT signalPlayingChanged(!isPlaying);
+    }
+
+    void Player::setMusicPosition(const qint64 position) {
+        m_player->setPosition(position);
     }
 
     bool Player::isPlaying() const {

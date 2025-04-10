@@ -7,6 +7,7 @@
 #include <Settings.h>
 #include <CoreConstants.h>
 #include <ListCache.h>
+#include <qscreen_platform.h>
 
 inline void initMyQRC() {
     Q_INIT_RESOURCE(core);
@@ -38,9 +39,19 @@ namespace Core {
             Q_EMIT signalCurrentMusicNameChanged(name);
         });
 
+        connect(m_playList, &Service::PlayList::signalMusicDurationChanged, this, [this](int seconds) {
+            Log.log(Service::Logger_QT::LogLevel::Info, "signal emitted, to tell ui the current music duration changed: "
+             + seconds);
+            Q_EMIT signalCurrentMusicDurationChanged(seconds);
+        });
+
         connect(m_player, &Engine::Player::signalIsMuted, this, [this](const bool b) {
             Log.log(Service::Logger_QT::LogLevel::Info, "signal emitted, to tell ui the output is Muted: " + QString::number(b));
             Q_EMIT signalIsMuted(b);
+        });
+
+        connect(m_player, &Engine::Player::signalPositionChanged, this, [this](const qint64 pos) {
+            Q_EMIT signalPositionChanged(pos);
         });
     }
 
@@ -88,6 +99,20 @@ namespace Core {
     QString Core::getDefaultMusicName() {
         return m_playList->getCurrentMusicTitle();
     }
+
+    QStringList Core::getMusicListByName(const QString &listName) {
+        const auto musicList = m_listCache->findList(listName);
+        QStringList list;
+        for (const auto &music : musicList) {
+            list.append(music.getTitle());
+        }
+        return list;
+    }
+
+    void Core::setMusicPosition(qint64 position) {
+        m_player->setMusicPosition(position);
+    }
+
 
     ICore *ICore::create(QObject *parent) {
         return new Core(parent);

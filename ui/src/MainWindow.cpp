@@ -38,7 +38,8 @@ namespace UI::MainWindow {
         m_windowManager = new WindowManager::WindowManager(this);
         setCentralWidget(m_windowManager);
         createConnections();
-        resize(600, 400);
+        setMinimumWidth(MAIN_MINIMUM_WIDTH);
+        setMinimumHeight(MAIN_MINIMUM_HEIGHT);
     }
 
     void MainWindow::createConnections() {

@@ -1,0 +1,35 @@
+QSlider::groove:horizontal {
+    border: none;
+    height: 4px;
+    background: #ccc; /* 背景灰色 */
+    border-radius: 2px;
+}
+
+QSlider::sub-page:horizontal {
+    background: #666; /* 已播放部分颜色 */
+    border-radius: 2px;
+}
+
+QSlider::add-page:horizontal {
+    background: #ccc; /* 未播放部分颜色 */
+    border-radius: 2px;
+}
+
+QSlider::handle:horizontal {
+    background: transparent; /* 拖动圆点 */
+    border: none;
+    width: 0px;
+    height: 0px;
+}
+
+/*QSlider::handle:horizontal:hover {*/
+/*    background: #333;*/
+/*    width: 10px;*/
+/*    height: 10px;*/
+/*    margin: -3px 0;*/
+/*    border-radius: 5px;*/
+/*}*/
+
+/*QSlider::handle:horizontal:pressed {*/
+/*    background: #222;*/
+/*}*/

@@ -58,4 +58,9 @@ namespace Core::Service {
     QString Song::convertToName(const QString &str) {
         return str.left(str.indexOf("-")).trimmed();
     }
+
+    SongInfo Song::toSongInfo() const {
+        SongInfo info(m_title, m_duration, 0);
+        return info;
+    }
 }

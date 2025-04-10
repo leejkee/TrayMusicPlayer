@@ -2,18 +2,22 @@
 // Created by cww on 25-4-1.
 //
 #include <panel/ProgressBar.h>
+#include <ui/Assets.h>
 #include <QHBoxLayout>
 #include <QSlider>
 #include <QLabel>
+
+
 namespace UI::Panel {
     ProgressBar::ProgressBar(QWidget *parent)
-    : QWidget(parent)
-      , m_sliderP(new QSlider(Qt::Horizontal, this))
-      , m_labelLeft(new QLabel(this))
-      , m_labelRight(new QLabel(this))
-      , m_isUpdatingSlider(false) {
-
+        : QWidget(parent)
+          , m_sliderP(new QSlider(Qt::Horizontal, this))
+          , m_labelLeft(new QLabel(this))
+          , m_labelRight(new QLabel(this))
+          , m_isUpdatingSlider(false) {
         const auto layout = new QHBoxLayout;
+        layout->setSpacing(2);
+        layout->setContentsMargins(0, 0, 0, 0);
         layout->addWidget(m_labelLeft);
         layout->addWidget(m_sliderP);
         layout->addWidget(m_labelRight);
@@ -21,21 +25,21 @@ namespace UI::Panel {
 
         m_labelLeft->setText("00:00");
         m_labelRight->setText("00:00");
+        m_sliderP->setStyleSheet(Tools::readQSS(PROGRESS_BAR_QSS));
+        setFixedWidth(PROGRESS_BAR_WIDTH);
+
+        connect(m_sliderP, &QSlider::valueChanged, this, [this](const int value) {
+            Q_EMIT signalProgressValueChanged(value);
+        });
     }
 
 
-    ///
-    /// @param position ms
     void ProgressBar::updateSliderPosition(const qint64 position) {
         // secure this function dismiss the signal @valueChanged
-        m_isUpdatingSlider = true;
+        QSignalBlocker blocker(m_sliderP);
         m_sliderP->setValue(static_cast<int>(position));
-        m_isUpdatingSlider = false;
-    }
-
-    void ProgressBar::updateLabelL(const qint64 duration) const {
-        const int s = duration / 1000;
-        const QString t = convertSecondsToTime(s);
+        const qint64 s = position / 1000;
+        const QString t = convertSecondsToTime(static_cast<int>(s));
         m_labelLeft->setText(t);
     }
 
@@ -45,6 +49,7 @@ namespace UI::Panel {
         m_sliderP->setMaximum(seconds * 1000);
         m_labelRight->setText(convertSecondsToTime(seconds));
     }
+
 
     QString ProgressBar::convertSecondsToTime(const int seconds) {
         const int m = seconds / 60;

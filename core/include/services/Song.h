@@ -1,7 +1,18 @@
 #pragma once
 #include <QString>
 
+
 namespace Core::Service {
+    struct SongInfo {
+        SongInfo(const QString &name, const int length, const unsigned index) : title(name), duration(length),
+            index(index) {
+        }
+
+        QString title;
+        int duration;
+        unsigned index;
+    };
+
     class Song {
     public:
         Song(const Song &song) = default;
@@ -28,8 +39,8 @@ namespace Core::Service {
             return m_title;
         }
 
+        [[nodiscard]] SongInfo toSongInfo() const;
         static QString removeSuffix(const QString &str);
-
 
     private:
         QString m_Name;
