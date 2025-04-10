@@ -30,14 +30,12 @@ namespace UI::ViewWidget {
     ViewWidget::ViewWidget(QWidget *parent): QWidget(parent) {
         m_labelName = new QLabel(this);
         m_playAllButton = new Panel::BetterButton(QIcon(SvgRes::PlayIconSVG), this, User::PLAY_ALL_KEY);
-        // m_playAllButton->setFixedWidth(80);
 
         const auto spaceH = new QSpacerItem(-1, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
         const auto layoutH = new QHBoxLayout;
         layoutH->addWidget(m_playAllButton);
         layoutH->addSpacerItem(spaceH);
 
-        // m_playListModel = new QStringListModel(this);
         m_dataModel = new Panel::DataModel(this);
 
         // init fun

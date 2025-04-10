@@ -28,7 +28,7 @@ find_package(Qt6 REQUIRED COMPONENTS
     Multimedia
     Core
     Widgets
-    Svg
+    SvgWidgets
 )
 find_package(TagLib REQUIRED)
 

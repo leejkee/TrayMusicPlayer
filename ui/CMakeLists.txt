@@ -16,8 +16,8 @@ add_library(tray_music_ui STATIC ${UI_SOURCES})
 target_link_libraries(tray_music_ui PUBLIC
         tray_music_core
         Qt6::Widgets
-        Qt6::Svg
         Qt6::Core
+        Qt6::SvgWidgets
 )
 
 target_include_directories(tray_music_ui PUBLIC

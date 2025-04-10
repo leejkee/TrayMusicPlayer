@@ -4,15 +4,24 @@
 
 #include <ui/WindowManager.h>
 #include <ui/PlayerWidget.h>
+#include <ui/ViewWidget.h>
+#include <ui/MusicListWidget.h>
 #include <ICore.h>
 #include <QVBoxLayout>
+#include <QStackedWidget>
 
 namespace UI::WindowManager {
     WindowManager::WindowManager(QWidget *parent) : QWidget(parent), m_core(nullptr){
+        m_stackedMainWidget = new QStackedWidget(this);
+        m_stackedViewWidget = new QStackedWidget(this);
+
         m_playerWidget = new PlayerWidget::PlayerWidget(this);
+        m_viewWidget = new ViewWidget::ViewWidget(this);
+        m_musicListWidget = new MusicListWidget::MusicListWidget(this);
         m_core = Core::ICore::create(this);
 
         const auto mainLayout = new QVBoxLayout(this);
+        mainLayout->addWidget(m_viewWidget);
         mainLayout->addWidget(m_playerWidget);
         createConnections();
         m_core->initDefaultSettings();

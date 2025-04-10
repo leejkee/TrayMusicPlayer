@@ -23,7 +23,9 @@ namespace Core {
             LoopAll,
             Shuffle
         };
-        // init the default settings
+        /// Init the default settings.
+        /// This function will init some objects to make ui looks great,
+        /// and make it can be used directly
         virtual void initDefaultSettings() = 0;
 
     Q_SIGNALS:

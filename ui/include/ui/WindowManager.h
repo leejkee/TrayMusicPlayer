@@ -3,14 +3,26 @@
 //
 #pragma once
 #include <ICore.h>
-#include <ui/PlayerWidget.h>
 #include <QWidget>
 
+
+namespace UI::MusicListWidget {
+    class MusicListWidget;
+}
+
+namespace UI::ViewWidget {
+    class ViewWidget;
+}
+
+namespace UI::PlayerWidget {
+    class PlayerWidget;
+}
 
 namespace Core {
     class ICore;
 }
 
+class QStackedWidget;
 namespace UI::WindowManager {
 
     class WindowManager final : public QWidget {
@@ -21,7 +33,14 @@ namespace UI::WindowManager {
 
     private:
         PlayerWidget::PlayerWidget  *m_playerWidget;
+        ViewWidget::ViewWidget *m_viewWidget;
+        MusicListWidget::MusicListWidget *m_musicListWidget;
         Core::ICore *m_core;
+
+        QStackedWidget *m_stackedMainWidget;
+        QStackedWidget *m_stackedViewWidget;
+
+
 
         void createConnections();
     };
