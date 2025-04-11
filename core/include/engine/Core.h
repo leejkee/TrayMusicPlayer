@@ -34,9 +34,13 @@ namespace Core {
 
         void preMusic() override;
 
+        void setPlayMode(const Service::PlayMode &) override;
+
         void switchMusicListByName(const QString &listName) override;
 
         void setMusicPosition(qint64 position) override;
+
+        void changePlayMode() override;
 
         QStringList getMusicListByName(const QString &name) override;
 
@@ -50,6 +54,5 @@ namespace Core {
         Service::Settings *m_settings;
         Service::PlayList *m_playList;
         Service::ListCache *m_listCache;
-
     };
 } // namespace Core

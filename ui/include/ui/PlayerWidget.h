@@ -44,6 +44,8 @@ namespace UI::PlayerWidget {
 
         void setRotationStatus(bool);
 
+        void updatePlayModeIcon(int mode);
+
         void updateProgressBarPosition(qint64);
 
     Q_SIGNALS:
@@ -57,6 +59,8 @@ namespace UI::PlayerWidget {
 
         void signalSetMusicPosition(qint64);
 
+        void signalPlayModeChanged();
+
     private:
         // left
         QLabel *m_labelMusicName;
@@ -67,6 +71,7 @@ namespace UI::PlayerWidget {
         Panel::BetterButton *m_pushButtonPlay;
         Panel::BetterButton *m_pushButtonPre;
         Panel::BetterButton *m_pushButtonNext;
+        Panel::BetterButton *m_checkPlayMode;
         Panel::ProgressBar *m_progressWidget;
         QVBoxLayout *m_centerLayout;
 

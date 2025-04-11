@@ -11,10 +11,14 @@ namespace UI::Panel {
         Q_OBJECT
 
     public:
+        enum StyleMode {
+            WithQss,
+            NoQss
+        };
         // others
         explicit BetterButton(QWidget *parent = nullptr);
 
-        explicit BetterButton(const QIcon &icon, QWidget *parent = nullptr, const QString &name = "");
+        explicit BetterButton(const QIcon &icon, QWidget *parent = nullptr, StyleMode = WithQss, const QString &name = "");
 
         // Music List buttons
         explicit BetterButton(const QString &name, QWidget *parent = nullptr);

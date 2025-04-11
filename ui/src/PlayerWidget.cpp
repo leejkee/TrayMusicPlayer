@@ -47,12 +47,14 @@ namespace UI::PlayerWidget {
         m_pushButtonPlay = new Panel::BetterButton(QIcon(SvgRes::PlayIconSVG), this);
         m_pushButtonPre = new Panel::BetterButton(QIcon(SvgRes::PreIconSVG), this);
         m_pushButtonNext = new Panel::BetterButton(QIcon(SvgRes::NextIconSVG), this);
+        m_checkPlayMode = new Panel::BetterButton(QIcon(SvgRes::SequentialModeSVG), this);
         m_progressWidget = new Panel::ProgressBar(this);
 
         const auto buttonLayout = new QHBoxLayout;
         buttonLayout->addWidget(m_pushButtonPre);
         buttonLayout->addWidget(m_pushButtonPlay);
         buttonLayout->addWidget(m_pushButtonNext);
+        buttonLayout->addWidget(m_checkPlayMode);
 
         m_centerLayout = new QVBoxLayout;
         m_centerLayout->addWidget(m_progressWidget);
@@ -85,7 +87,6 @@ namespace UI::PlayerWidget {
         setLayout(mainLayout);
     }
 
-
     void PlayerWidget::updateMusicName(const QString &songName) {
         // update name label
         const auto artist = songName.right(songName.length() - songName.indexOf("-") - 1).trimmed();
@@ -95,7 +96,7 @@ namespace UI::PlayerWidget {
         m_labelMusicName->setText(formattedText);
     }
 
-    void PlayerWidget::updateMusicDuration(const int s){
+    void PlayerWidget::updateMusicDuration(const int s) {
         m_progressWidget->updateLabelR(s);
     }
 
@@ -122,6 +123,10 @@ namespace UI::PlayerWidget {
         connect(m_progressWidget, &Panel::ProgressBar::signalProgressValueChanged, this, [this](const int value) {
             Q_EMIT signalSetMusicPosition(value);
         });
+
+        connect(m_checkPlayMode, &QPushButton::clicked, this, [this]() {
+            Q_EMIT signalPlayModeChanged();
+        });
     }
 
     void PlayerWidget::setPlayButtonIcon(const bool playStatus) {
@@ -137,6 +142,25 @@ namespace UI::PlayerWidget {
             m_labelLogo->setLabelMode(Panel::RotatingLabel::Rotating);
         } else {
             m_labelLogo->setLabelMode(Panel::RotatingLabel::NoRotating);
+        }
+    }
+
+    void PlayerWidget::updatePlayModeIcon(const int mode) {
+        switch (mode) {
+            case 0:
+                m_checkPlayMode->setIcon(QIcon(SvgRes::SequentialModeSVG));
+                break;
+            case 1:
+                m_checkPlayMode->setIcon(QIcon(SvgRes::LoopOneModeSVG));
+                break;
+            case 2:
+                m_checkPlayMode->setIcon(QIcon(SvgRes::LoopAllModeSVG));
+                break;
+            case 3:
+                m_checkPlayMode->setIcon(QIcon(SvgRes::ShuffleModeSVG));
+                break;
+            default:
+                break;
         }
     }
 

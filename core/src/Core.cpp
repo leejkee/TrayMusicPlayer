@@ -39,9 +39,9 @@ namespace Core {
             Q_EMIT signalCurrentMusicNameChanged(name);
         });
 
-        connect(m_playList, &Service::PlayList::signalMusicDurationChanged, this, [this](int seconds) {
+        connect(m_playList, &Service::PlayList::signalMusicDurationChanged, this, [this](const int seconds) {
             Log.log(Service::Logger_QT::LogLevel::Info, "signal emitted, to tell ui the current music duration changed: "
-             + seconds);
+             + QString::number(seconds) + " s.");
             Q_EMIT signalCurrentMusicDurationChanged(seconds);
         });
 
@@ -51,7 +51,14 @@ namespace Core {
         });
 
         connect(m_player, &Engine::Player::signalPositionChanged, this, [this](const qint64 pos) {
+            Log.log(Service::Logger_QT::LogLevel::Info, "signal emitted, to tell ui the music position is updated: " + QString::number(pos));
             Q_EMIT signalPositionChanged(pos);
+        });
+
+        connect(m_playList, &Service::PlayList::signalPlayModeChanged, this, [this](const Service::PlayMode mode) {
+            Log.log(Service::Logger_QT::LogLevel::Info, "signal emitted, to notice the ui to update the play mode" +
+            PlayModeToString(mode));
+            Q_EMIT signalPlayModeChanged(static_cast<int>(mode));
         });
     }
 
@@ -76,16 +83,23 @@ namespace Core {
 
     void Core::nextMusic() {
         Log.log(Service::Logger_QT::LogLevel::Info, "nextMusic");
-        m_playList->setCurrentMusicIndex(m_playList->getCurrentMusicIndex() + 1);
+
+        m_playList->nextMusic();
+        // m_playList->setCurrentMusicIndex(m_playList->getCurrentMusicIndex() + 1);
         m_player->setMusicSource(m_playList->getCurrentMusicPath());
         m_player->playTg();
     }
 
     void Core::preMusic() {
         Log.log(Service::Logger_QT::LogLevel::Info, "preMusic");
-        m_playList->setCurrentMusicIndex(m_playList->getCurrentMusicIndex() - 1);
+        // m_playList->setCurrentMusicIndex(m_playList->getCurrentMusicIndex() - 1);
+        m_playList->preMusic();
         m_player->setMusicSource(m_playList->getCurrentMusicPath());
         m_player->playTg();
+    }
+
+    void Core::setPlayMode(const Service::PlayMode &mode) {
+        m_playList->setPlayMode(mode);
     }
 
     void Core::playToggle() {
@@ -109,10 +123,13 @@ namespace Core {
         return list;
     }
 
-    void Core::setMusicPosition(qint64 position) {
+    void Core::setMusicPosition(const qint64 position) {
         m_player->setMusicPosition(position);
     }
 
+    void Core::changePlayMode() {
+        m_playList->changePlayMode();
+    }
 
     ICore *ICore::create(QObject *parent) {
         return new Core(parent);

@@ -75,5 +75,7 @@ namespace UI::WindowManager {
         connect(m_playerWidget, &PlayerWidget::PlayerWidget::signalSetVolume, m_core, &Core::ICore::setVolume);
         connect(m_core, &Core::ICore::signalIsMuted, m_playerWidget, &PlayerWidget::PlayerWidget::setVolumeCtrlButtonIcon);
         connect(m_playerWidget, &PlayerWidget::PlayerWidget::signalSetMusicPosition, m_core, &Core::ICore::setMusicPosition);
+        connect(m_core, &Core::ICore::signalPlayModeChanged, m_playerWidget, &PlayerWidget::PlayerWidget::updatePlayModeIcon);
+        connect(m_playerWidget,&PlayerWidget::PlayerWidget::signalPlayModeChanged, m_core, &Core::ICore::changePlayMode);
     }
 }

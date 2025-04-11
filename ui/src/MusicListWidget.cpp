@@ -14,7 +14,7 @@ MusicListWidget::MusicListWidget(QWidget *parent)
     : QWidget(parent) {
     m_localListButton = new Panel::BetterButton(User::LOCAL_LIST_KEY, this);
 
-    m_expandButton = new Panel::BetterButton(QIcon(SvgRes::UpSVG), this, User::EXPAND_BTN_TEXT);
+    m_expandButton = new Panel::BetterButton(QIcon(SvgRes::UpSVG), this, Panel::BetterButton::WithQss, User::EXPAND_BTN_TEXT);
     m_expandButton->loadStyleSheet(QssRes::BUTTON_EXPAND_QSS);
 
     m_addButton = new Panel::BetterButton(QIcon(SvgRes::AddSVG), this);

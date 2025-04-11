@@ -7,7 +7,6 @@
 
 
 namespace UI::Panel {
-
     void BetterButton::init() {
         installEventFilter(this);
     }
@@ -24,11 +23,14 @@ namespace UI::Panel {
         init();
     }
 
-    BetterButton::BetterButton(const QIcon &icon, QWidget *parent, const QString &name) : QPushButton(parent) {
+    BetterButton::BetterButton(const QIcon &icon, QWidget *parent, const StyleMode style, const QString &name)
+        : QPushButton(parent) {
         setIcon(icon);
         setText(name);
         setFixedSize(30, 30);
-        loadStyleSheet(QssRes::BUTTON_LIST_QSS);
+        if (style == WithQss) {
+            loadStyleSheet(QssRes::BUTTON_LIST_QSS);
+        }
         init();
     }
 

@@ -2,6 +2,7 @@
 // Created by cww on 25-4-2.
 //
 #pragma once
+#include <PlayMode.h>
 #include <QObject>
 #include <QString>
 
@@ -19,12 +20,6 @@ namespace Core {
 
         static ICore *create(QObject *parent = nullptr);
 
-        enum class PlayMode {
-            Sequential,
-            LoopOne,
-            LoopAll,
-            Shuffle
-        };
         /// Init the default settings.
         /// This function will init some objects to make ui looks great,
         /// and make it can be used directly
@@ -36,13 +31,15 @@ namespace Core {
 
         void signalCurrentMusicNameChanged(const QString &musicName);
 
-        void signalCurrentMusicIndexChanged(int index);
+        void signalCurrentMusicIndexChanged(qsizetype index);
 
         void signalCurrentMusicDurationChanged(int seconds);
 
         void signalPlayingChanged(bool);
 
         void signalIsMuted(bool);
+
+        void signalPlayModeChanged(int);
 
 
     public Q_SLOTS:
@@ -56,6 +53,8 @@ namespace Core {
 
         virtual void loadMusic(const QString &musicPath) = 0;
 
+        virtual void setPlayMode(const Service::PlayMode&) = 0;
+
         virtual void switchMusicListByName(const QString &listName) = 0;
 
         virtual QString getDefaultMusicName() = 0;
@@ -63,5 +62,7 @@ namespace Core {
         virtual QStringList getMusicListByName(const QString &) = 0;
 
         virtual void setMusicPosition(qint64) = 0;
+
+        virtual void changePlayMode() = 0;
     };
 } // namespace Core
