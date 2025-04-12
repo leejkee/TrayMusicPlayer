@@ -9,8 +9,6 @@ qt_add_executable(test_ui
         main.cpp
 )
 
-add_executable(test_string testString.cpp)
-target_link_libraries(test_string PRIVATE Qt6::Core)
 
 target_link_libraries(test_ui PUBLIC tray_music_ui)
 

@@ -14,12 +14,16 @@ namespace Core::Service {
           , m_musicList(musicList) {
         setObjectName(QStringLiteral("PlayList"));
         Log = Logger_QT(this->objectName());
+        Log.log(Logger_QT::LogLevel::Info, "PlayList initialized with " +
+                                           QString::number(musicList.size()) +
+                                           " songs, Sequential mode in constructor");
     }
 
     void PlayList::loadMusicList(const QVector<Song> &musicList) {
         if (musicList.isEmpty()) {
             Log.log(Logger_QT::LogLevel::Warning, "load empty musicList");
         }
+        Log.log(Logger_QT::LogLevel::Info, "load musicList successfully");
         m_musicList.clear();
         m_musicList = musicList;
     }
@@ -60,7 +64,6 @@ namespace Core::Service {
             default:
                 return 0;
         }
-
     }
 
     QString PlayList::getCurrentMusicPath() const {
