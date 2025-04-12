@@ -33,6 +33,8 @@ namespace Core::Engine {
 
         void signalPositionChanged(qint64 position);
 
+        void signalMusicOver();
+
     private:
         QMediaPlayer *m_player;
         QAudioOutput *m_output;

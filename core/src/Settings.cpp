@@ -53,6 +53,7 @@ namespace Core::Service {
         }
         file.write(doc.toJson(QJsonDocument::Indented));
         file.close();
+        Log.log(Logger_QT::LogLevel::Info, "Saved JSON successfully");
     }
 
     void Settings::addLocalMusicDirectory(const QString &path) {

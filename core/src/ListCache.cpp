@@ -24,6 +24,7 @@ namespace Core::Service {
         setObjectName(QStringLiteral("ListCache"));
         Log = Logger_QT(this->objectName());
         m_listCache[LOCAL_LIST_KEY] = loadLocalMusic(localDir);
+        Log.log(Service::Logger_QT::LogLevel::Info, "ListCache: Local list has been initialized.");
     }
 
     QList<Song> ListCache::findList(const QString &listName) const {

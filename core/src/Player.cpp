@@ -20,11 +20,19 @@ namespace Core::Engine {
         connect(m_player, &QMediaPlayer::positionChanged, this, [this](const qint64 pos) {
             Q_EMIT signalPositionChanged(pos);
         });
+
+        connect(m_player, &QMediaPlayer::mediaStatusChanged, this, [this](const QMediaPlayer::MediaStatus state) {
+           if (state == QMediaPlayer::EndOfMedia) {
+               Q_EMIT signalMusicOver();
+           }
+        });
+        Log.log(Service::Logger_QT::LogLevel::Info, "Player initialized successfully");
     }
 
     void Player::setMusicSource(const QString &source) const {
         const auto url = QUrl::fromLocalFile(source);
         m_player->setSource(url);
+        Log.log(Service::Logger_QT::LogLevel::Info, "set song url to " + url.toString());
     }
 
     void Player::setVolume(const float v) const {
