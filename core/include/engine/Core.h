@@ -44,7 +44,8 @@ namespace Core {
 
         QStringList getMusicListByName(const QString &name) override;
 
-        QString getDefaultMusicName() override;
+        void requestMusicListByName(const QString &) override;
+
         // init the default settings
         void initDefaultSettings() override;
 

@@ -8,8 +8,6 @@
 
 
 namespace Core {
-
-
     class ICore : public QObject {
         Q_OBJECT
 
@@ -41,28 +39,44 @@ namespace Core {
 
         void signalPlayModeChanged(int);
 
+        void signalMusicListChanged(const QStringList &nameList);
 
     public Q_SLOTS:
+        /// Toggles between play and pause states of the current music.
         virtual void playToggle() = 0;
 
+        /// Skips to the next track in the current playlist.
         virtual void nextMusic() = 0;
 
+        /// Returns to the previous track in the current playlist.
         virtual void preMusic() = 0;
 
-        virtual void setVolume(unsigned int) = 0;
+        /// Adjusts the playback volume (0-100 range expected).
+        virtual void setVolume(unsigned int volume) = 0;
 
+        /// Loads and prepares a music file from the given path for playback.
         virtual void loadMusic(const QString &musicPath) = 0;
 
-        virtual void setPlayMode(const Service::PlayMode&) = 0;
+        /// Sets the playback mode (e.g., Repeat, Shuffle, Sequential).
+        virtual void setPlayMode(const Service::PlayMode &mode) = 0;
 
+        /// Switches the active playlist to the specified list name.
         virtual void switchMusicListByName(const QString &listName) = 0;
 
-        virtual QString getDefaultMusicName() = 0;
+        /// todo: not interface?
+        /// Retrieves the music titles belonging to the specified playlist.
+        /// @return QStringList of music titles, empty if playlist doesn't exist.
+        virtual QStringList getMusicListByName(const QString &name) = 0;
 
-        virtual QStringList getMusicListByName(const QString &) = 0;
+        /// Handles UI request to fetch music list by name.
+        /// Triggers a signal with the corresponding QStringList of music titles.
+        /// If no cached data exists for the given name, an empty list is emitted.
+        virtual void requestMusicListByName(const QString &name) = 0;
 
-        virtual void setMusicPosition(qint64) = 0;
+        /// Seeks the current track to the specified position (in milliseconds).
+        virtual void setMusicPosition(qint64 position) = 0;
 
+        /// Cycles to the next available playback mode (e.g., Repeat → Shuffle → ...).
         virtual void changePlayMode() = 0;
     };
 } // namespace Core

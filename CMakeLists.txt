@@ -29,6 +29,7 @@ find_package(Qt6 REQUIRED COMPONENTS
     Core
     Widgets
     SvgWidgets
+    Test
 )
 find_package(TagLib REQUIRED)
 

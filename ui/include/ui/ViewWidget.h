@@ -39,7 +39,7 @@ namespace UI::ViewWidget {
 
         void updateCurrentIndex(int);
 
-        void showMusicList(const QString &listName) const;
+        void showMusicList(const QStringList &nameList) ;
 
         ///
         /// init function
@@ -58,6 +58,10 @@ namespace UI::ViewWidget {
         void refreshForLocalMusic() const;
 
         void playingStatusChange(bool b) const;
+
+        void setViewTitle(const QString &title);
+
+        void setModeMusicList(const QStringList &nameList);
 
     private:
         QLabel *m_labelName;

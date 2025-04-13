@@ -16,9 +16,8 @@
 #include <QGroupBox>
 
 
-
 namespace UI::WindowManager {
-    WindowManager::WindowManager(QWidget *parent) : QWidget(parent), m_core(nullptr){
+    WindowManager::WindowManager(QWidget *parent) : QWidget(parent), m_core(nullptr) {
         m_stackedMainWidget = new QStackedWidget(this);
         m_stackedViewWidget = new QStackedWidget(this);
         m_frontWidget = new QWidget(this);
@@ -64,18 +63,52 @@ namespace UI::WindowManager {
     }
 
     void WindowManager::createConnections() {
-        connect(m_playerWidget, &PlayerWidget::PlayerWidget::signalPlayToggle, m_core, &Core::ICore::playToggle);
-        connect(m_core, &Core::ICore::signalCurrentMusicNameChanged, m_playerWidget, &PlayerWidget::PlayerWidget::updateMusicName);
-        connect(m_core, &Core::ICore::signalCurrentMusicDurationChanged, m_playerWidget, &PlayerWidget::PlayerWidget::updateMusicDuration);
-        connect(m_core, &Core::ICore::signalPositionChanged, m_playerWidget,&PlayerWidget::PlayerWidget::updateProgressBarPosition);
-        connect(m_core, &Core::ICore::signalPlayingChanged, m_playerWidget, &PlayerWidget::PlayerWidget::setPlayButtonIcon);
-        connect(m_core, &Core::ICore::signalPlayingChanged, m_playerWidget, &PlayerWidget::PlayerWidget::setRotationStatus);
-        connect(m_playerWidget, &PlayerWidget::PlayerWidget::signalNextMusic, m_core, &Core::ICore::nextMusic);
-        connect(m_playerWidget, &PlayerWidget::PlayerWidget::signalPreviousMusic, m_core, &Core::ICore::preMusic);
-        connect(m_playerWidget, &PlayerWidget::PlayerWidget::signalSetVolume, m_core, &Core::ICore::setVolume);
-        connect(m_core, &Core::ICore::signalIsMuted, m_playerWidget, &PlayerWidget::PlayerWidget::setVolumeCtrlButtonIcon);
-        connect(m_playerWidget, &PlayerWidget::PlayerWidget::signalSetMusicPosition, m_core, &Core::ICore::setMusicPosition);
-        connect(m_core, &Core::ICore::signalPlayModeChanged, m_playerWidget, &PlayerWidget::PlayerWidget::updatePlayModeIcon);
-        connect(m_playerWidget,&PlayerWidget::PlayerWidget::signalPlayModeChanged, m_core, &Core::ICore::changePlayMode);
+        connect(m_playerWidget, &PlayerWidget::PlayerWidget::signalPlayToggle,
+                m_core, &Core::ICore::playToggle);
+
+        connect(m_core, &Core::ICore::signalCurrentMusicNameChanged,
+                m_playerWidget, &PlayerWidget::PlayerWidget::updateMusicName);
+
+        connect(m_core, &Core::ICore::signalCurrentMusicDurationChanged,
+                m_playerWidget, &PlayerWidget::PlayerWidget::updateMusicDuration);
+
+        connect(m_core, &Core::ICore::signalPositionChanged,
+                m_playerWidget, &PlayerWidget::PlayerWidget::updateProgressBarPosition);
+
+        connect(m_core, &Core::ICore::signalPlayingChanged,
+                m_playerWidget, &PlayerWidget::PlayerWidget::setPlayButtonIcon);
+
+        connect(m_core, &Core::ICore::signalPlayingChanged,
+                m_playerWidget, &PlayerWidget::PlayerWidget::setRotationStatus);
+
+        connect(m_playerWidget, &PlayerWidget::PlayerWidget::signalNextMusic,
+                m_core, &Core::ICore::nextMusic);
+
+        connect(m_playerWidget, &PlayerWidget::PlayerWidget::signalPreviousMusic,
+                m_core, &Core::ICore::preMusic);
+
+        connect(m_playerWidget, &PlayerWidget::PlayerWidget::signalSetVolume,
+                m_core, &Core::ICore::setVolume);
+
+        connect(m_core, &Core::ICore::signalIsMuted,
+                m_playerWidget, &PlayerWidget::PlayerWidget::setVolumeCtrlButtonIcon);
+
+        connect(m_playerWidget, &PlayerWidget::PlayerWidget::signalSetMusicPosition,
+                m_core, &Core::ICore::setMusicPosition);
+
+        connect(m_core, &Core::ICore::signalPlayModeChanged,
+                m_playerWidget, &PlayerWidget::PlayerWidget::updatePlayModeIcon);
+
+        connect(m_playerWidget, &PlayerWidget::PlayerWidget::signalPlayModeChanged,
+                m_core, &Core::ICore::changePlayMode);
+
+        connect(m_musicListWidget, &MusicListWidget::MusicListWidget::signalMusicListButtonClicked,
+                m_core, &Core::ICore::requestMusicListByName);
+
+        connect(m_core, &Core::ICore::signalMusicListChanged,
+                m_viewWidget, &ViewWidget::ViewWidget::showMusicList);
+
+        connect(m_musicListWidget, &MusicListWidget::MusicListWidget::signalMusicListButtonClicked,
+                m_viewWidget, &ViewWidget::ViewWidget::setViewTitle);
     }
 }

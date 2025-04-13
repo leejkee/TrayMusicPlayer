@@ -10,7 +10,8 @@
 
 
 namespace UI::Panel {
-    ViewDelegate::ViewDelegate(QObject *parent) : QStyledItemDelegate(parent), m_previousIndex(UNINITIALIZED_VALUE)
+    ViewDelegate::ViewDelegate(QObject *parent) : QStyledItemDelegate(parent)
+                                                  , m_previousIndex(UNINITIALIZED_VALUE)
                                                   , m_isPlaying(false) {
         connect(this, &ViewDelegate::signalPreviousIndexChanged, this, [this](const int index) {
             if (auto *view = qobject_cast<QListView *>(this->parent())) {
@@ -41,7 +42,6 @@ namespace UI::Panel {
         painter->save();
 
         const QRect rect = option.rect;
-        const auto cover = index.data(Qt::DecorationRole).value<QPixmap>();
         const QString title = index.data(Qt::DisplayRole).toString();
         const QString artist = index.data(Qt::UserRole).toString();
 

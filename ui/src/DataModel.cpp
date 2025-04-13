@@ -5,15 +5,13 @@
 
 
 namespace UI::Panel {
-    void DataModel::setSongs(const QStringList &list) {
+    DataModel::DataModel(const QStringList &list, QObject *parent): QAbstractListModel(parent), m_list(list) {
+    }
+
+    void DataModel::setMusicList(const QStringList &list) {
         beginResetModel();
         m_list.clear();
-        for (const auto &song: list) {
-            SongInfo info;
-            info.name = convertToName(song);
-            info.artist = convertToArtist(song);
-            m_list.append(info);
-        }
+        m_list = list;
         endResetModel();
     }
 
@@ -23,10 +21,10 @@ namespace UI::Panel {
 
     QVariant DataModel::data(const QModelIndex &index, const int role) const {
         if (!index.isValid() || index.row() >= m_list.size()) return {};
-        const auto &[name, artist] = m_list[index.row()];
+        const auto str = m_list[index.row()];
         switch (role) {
-            case Qt::DisplayRole: return name;
-            case Qt::UserRole: return artist;
+            case Qt::DisplayRole: return convertToName(str);
+            case Qt::UserRole: return convertToArtist(str);
             default: return {};
         }
     }
@@ -40,16 +38,9 @@ namespace UI::Panel {
     }
 
     bool DataModel::setData(const QModelIndex &index, const QVariant &value, const int role) {
-        if (!index.isValid())
-            return false;
-
-        switch (role) {
-            case Qt::DisplayRole: m_list[index.row()].name = value.toString();
-                break;
-            case Qt::UserRole: m_list[index.row()].artist = value.toString();
-                break;
-            default: break;
-        }
-        return QAbstractListModel::setData(index, value, role);
+        Q_UNUSED(role);
+        Q_UNUSED(index);
+        Q_UNUSED(value);
+        return false;
     }
 }

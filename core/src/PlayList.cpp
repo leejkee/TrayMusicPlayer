@@ -39,7 +39,6 @@ namespace Core::Service {
     qsizetype PlayList::getNextMusicIndex() const {
         switch (m_playMode) {
             case PlayMode::Sequential:
-                return (m_index + 1) % m_musicList.size();
             case PlayMode::LoopAll:
                 return (m_index + 1) % m_musicList.size();
             case PlayMode::LoopOne:
@@ -54,7 +53,6 @@ namespace Core::Service {
     qsizetype PlayList::getPreMusicIndex() const {
         switch (m_playMode) {
             case PlayMode::Sequential:
-                return (m_index == 0) ? m_musicList.size() - 1 : m_index - 1;
             case PlayMode::LoopAll:
                 return (m_index == 0) ? m_musicList.size() - 1 : m_index - 1;
             case PlayMode::LoopOne:

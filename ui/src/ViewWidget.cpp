@@ -36,10 +36,9 @@ namespace UI::ViewWidget {
         layoutH->addWidget(m_playAllButton);
         layoutH->addSpacerItem(spaceH);
 
-        m_dataModel = new Panel::DataModel(this);
+        m_dataModel = new Panel::DataModel({}, this);
 
         // init fun
-        // m_playListModel->setStringList(PlayList::instance()->getMusicNameWithoutSuffixList());
         m_playListView = new QListView(this);
         m_viewDelegate = new Panel::ViewDelegate(m_playListView);
         m_playListView->setModel(m_dataModel);
@@ -49,8 +48,6 @@ namespace UI::ViewWidget {
 
 
         // Delegate Func
-        // m_viewItemDelegate = new PlayListDelegate(this);
-        // m_playListView->setItemDelegate(m_viewItemDelegate);
         m_playListView->setItemDelegate(m_viewDelegate);
 
         auto *Layout = new QVBoxLayout;
@@ -59,7 +56,7 @@ namespace UI::ViewWidget {
         Layout->addWidget(m_playListView);
         this->setLayout(Layout);
         createConnections();
-        setDefaultList();
+        // setDefaultList();
     }
 
     void ViewWidget::viewDoubleClick(const QModelIndex &index) {
@@ -106,10 +103,8 @@ namespace UI::ViewWidget {
     }
 
 
-    void ViewWidget::showMusicList(const QString &listName) const {
-        if (listName == m_labelName->text()) {
-            return;
-        }
+    void ViewWidget::showMusicList(const QStringList &nameList) {
+        m_dataModel->setMusicList(nameList);
         // const auto songNameList = MusicListCache::instance().getSongNameListByName(listName);
         // if (songNameList.isEmpty()) {
         //     qDebug() << "ViewWidget::showMusicList" << "MusicList is empty(MusicListCache::getSongNameListByName)";
@@ -125,18 +120,26 @@ namespace UI::ViewWidget {
     }
 
     void ViewWidget::setDefaultList() const {
-        showMusicList(User::LOCAL_LIST_KEY);
+        // showMusicList(User::LOCAL_LIST_KEY);
     }
 
 
     void ViewWidget::refreshForLocalMusic() const {
         if (m_labelName->text() == User::LOCAL_LIST_KEY) {
-            showMusicList(User::LOCAL_LIST_KEY);
+            // showMusicList(User::LOCAL_LIST_KEY);
             qDebug() << "ViewWidget::refreshForLocalMusic";
         }
     }
 
     void ViewWidget::playingStatusChange(const bool b) const {
         m_viewDelegate->setPlayStatus(b);
+    }
+
+    void ViewWidget::setViewTitle(const QString &title) {
+        m_labelName->setText(title);
+    }
+
+    void ViewWidget::setModeMusicList(const QStringList &nameList) {
+        m_dataModel->setMusicList(nameList);
     }
 }

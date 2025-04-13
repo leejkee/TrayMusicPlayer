@@ -8,15 +8,9 @@
 namespace UI::Panel {
     class DataModel final : public QAbstractListModel {
     public:
-        explicit DataModel(QObject *parent = nullptr) : QAbstractListModel(parent) {
-        }
+        explicit DataModel(const QStringList &list = {}, QObject *parent = nullptr);
 
-        struct SongInfo {
-            QString name;
-            QString artist;
-        };
-
-        void setSongs(const QStringList &list);
+        void setMusicList(const QStringList &list);
 
     protected:
         [[nodiscard]] int rowCount(const QModelIndex &parent) const override;
@@ -26,7 +20,7 @@ namespace UI::Panel {
         bool setData(const QModelIndex &index, const QVariant &value, int role) override;
 
     private:
-        QList<SongInfo> m_list{};
+        QStringList m_list;
 
         /// @param str should be the @m_fullName
         /// @return the artist name

@@ -107,12 +107,8 @@ namespace Core {
         m_playList->loadMusicList(m_listCache->findList(listName));
     }
 
-    QString Core::getDefaultMusicName() {
-        return m_playList->getCurrentMusicTitle();
-    }
-
-    QStringList Core::getMusicListByName(const QString &listName) {
-        const auto musicList = m_listCache->findList(listName);
+    QStringList Core::getMusicListByName(const QString &name) {
+        const auto musicList = m_listCache->findList(name);
         QStringList list;
         for (const auto &music : musicList) {
             list.append(music.getTitle());
@@ -126,6 +122,10 @@ namespace Core {
 
     void Core::changePlayMode() {
         m_playList->changePlayMode();
+    }
+
+    void Core::requestMusicListByName(const QString &listName) {
+        Q_EMIT signalMusicListChanged(getMusicListByName(listName));
     }
 
     ICore *ICore::create(QObject *parent) {
