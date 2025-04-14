@@ -1,15 +1,18 @@
 QPushButton {
     max-width: 60px;
     max-height: 30px;
-/*    icon-size: 10px;*/
-    font-size: 15px;
-    qproperty-iconSize: 12px;
+
+    font-size: 12px;
     font-weight: bold;
+    color: grey;
+
+    qproperty-iconSize: 12px;
     border: 2px solid transparent;
     border-radius: 5px;
     padding: 3;
 }
 QPushButton:hover {
+    color: black;
     border: 2px solid transparent;
-    background-color: lightgray;
+    background-color: transparent;
 }

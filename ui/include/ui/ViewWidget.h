@@ -15,11 +15,13 @@ namespace UI::Panel {
     class ViewDelegate;
 }
 
+
 namespace UI::ViewWidget {
     class ViewWidget final : public QWidget {
         Q_OBJECT
 
     public:
+
         explicit ViewWidget(QWidget *parent = nullptr);
 
     Q_SIGNALS:
@@ -39,7 +41,7 @@ namespace UI::ViewWidget {
 
         void updateCurrentIndex(int);
 
-        void showMusicList(const QStringList &nameList) ;
+        void showMusicList(const QStringList &nameList);
 
         ///
         /// init function

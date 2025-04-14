@@ -37,9 +37,7 @@ namespace SvgRes {
 
 
 namespace User {
-    inline const auto PLAY_ALL_KEY = QStringLiteral("Play All");
     inline const auto LOCAL_LIST_KEY = QStringLiteral("Local");
-    inline const auto EXPAND_BTN_TEXT = QStringLiteral("List");
 }
 
 
@@ -55,30 +53,10 @@ namespace QssRes {
 }
 
 
-namespace UI::MainWindow {
-    constexpr int MAIN_MINIMUM_WIDTH = 600;
-    constexpr int MAIN_MINIMUM_HEIGHT = 450;
-}
-
-
 namespace UI::Panel {
-    inline const auto FONT_MIRC_HEI = QStringLiteral("Microsoft YaHei");
-
-
-    constexpr int VIEW_BUTTON_SIZE = 20;
-
-    constexpr int VIEW_LOGO_PADDING = 5;
-
+    inline const auto PLAY_ALL_KEY = QStringLiteral("Play All");
+    inline const auto EXPAND_BTN_TEXT = QStringLiteral("List");
     constexpr int UNINITIALIZED_VALUE = -1;
-}
-
-
-namespace UI::PlayerWidget {
-    constexpr int CIRCLE_LOGO_SIZE = 45;
-
-    constexpr int HEIGHT_PLAYER_WIDGET = 80;
-
-    constexpr int WIDTH_TITLE_LABEL = 210;
 }
 
 

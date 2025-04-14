@@ -76,7 +76,13 @@ namespace Core {
         /// Seeks the current track to the specified position (in milliseconds).
         virtual void setMusicPosition(qint64 position) = 0;
 
-        /// Cycles to the next available playback mode (e.g., Repeat → Shuffle → ...).
+        /// Cycles to the next available playback mode (e.g., Sequential -> LoopAll -> LoopOne -> Shuffle
+        /// -> Sequential ... ).
         virtual void changePlayMode() = 0;
+
+        /// Gets all keys of user playlist, which can be used to create the ui components
+        /// UI can also request fetching music list by these keys
+        /// @return QStringList of all keys of user playlist
+        virtual QStringList getKeysUserList() = 0;
     };
 } // namespace Core

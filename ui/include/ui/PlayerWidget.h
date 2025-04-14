@@ -7,8 +7,6 @@
 #include <QWidget>
 
 
-
-
 class QHBoxLayout;
 class QGroupBox;
 class QLabel;
@@ -30,8 +28,13 @@ namespace UI::PlayerWidget {
         Q_OBJECT
 
     public:
-        explicit PlayerWidget(QWidget *parent = nullptr);
+        constexpr static int CIRCLE_LOGO_SIZE = 45;
 
+        constexpr static int HEIGHT_PLAYER_WIDGET = 80;
+
+        constexpr static int WIDTH_TITLE_LABEL = 210;
+
+        explicit PlayerWidget(QWidget *parent = nullptr);
 
     public Q_SLOTS:
         void setPlayButtonIcon(bool playStatus);

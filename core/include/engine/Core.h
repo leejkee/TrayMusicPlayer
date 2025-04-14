@@ -49,6 +49,8 @@ namespace Core {
         // init the default settings
         void initDefaultSettings() override;
 
+        QStringList getKeysUserList() override;
+
     private:
         Engine::Player *m_player;
         Service::Logger_QT Log;

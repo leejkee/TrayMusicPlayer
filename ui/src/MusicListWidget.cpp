@@ -14,7 +14,8 @@ MusicListWidget::MusicListWidget(QWidget *parent)
     : QWidget(parent) {
     m_localListButton = new Panel::BetterButton(User::LOCAL_LIST_KEY, this);
 
-    m_expandButton = new Panel::BetterButton(QIcon(SvgRes::UpSVG), this, Panel::BetterButton::WithQss, User::EXPAND_BTN_TEXT);
+    m_expandButton = new Panel::BetterButton(QIcon(SvgRes::UpSVG), this, Panel::BetterButton::NoQss,
+    Panel::EXPAND_BTN_TEXT);
     m_expandButton->loadStyleSheet(QssRes::BUTTON_EXPAND_QSS);
 
     m_addButton = new Panel::BetterButton(QIcon(SvgRes::AddSVG), this);
@@ -23,9 +24,8 @@ MusicListWidget::MusicListWidget(QWidget *parent)
     const auto buttonLayout = new QHBoxLayout;
     const auto spaceH = new QSpacerItem(-1, 0, QSizePolicy::Expanding);
     buttonLayout->addWidget(m_expandButton);
-
-    buttonLayout->addWidget(m_addButton);
     buttonLayout->addItem(spaceH);
+    buttonLayout->addWidget(m_addButton);
 
     m_buttonWidget = new QWidget(this);
     m_buttonLayout = new QVBoxLayout;
@@ -56,9 +56,7 @@ MusicListWidget::MusicListWidget(QWidget *parent)
     layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
     setLayout(layout);
-    // setFixedWidth(110);
     setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding);
-    // setMaximumWidth(150);
     createConnections();
     initUserListButtons();
 }

@@ -7,11 +7,11 @@
 #include <Settings.h>
 #include <CoreConstants.h>
 #include <ListCache.h>
-#include <qscreen_platform.h>
 
 inline void initMyQRC() {
     Q_INIT_RESOURCE(core);
 }
+
 
 namespace Core {
     Core::Core(QObject *parent) : ICore(parent) {
@@ -65,7 +65,6 @@ namespace Core {
     }
 
     void Core::initDefaultSettings() {
-
         setVolume(m_settings->getDefaultVolume());
         m_playList->loadMusicList(m_listCache->findList(LOCAL_LIST_KEY));
 
@@ -110,7 +109,7 @@ namespace Core {
     QStringList Core::getMusicListByName(const QString &name) {
         const auto musicList = m_listCache->findList(name);
         QStringList list;
-        for (const auto &music : musicList) {
+        for (const auto &music: musicList) {
             list.append(music.getTitle());
         }
         return list;
@@ -126,6 +125,10 @@ namespace Core {
 
     void Core::requestMusicListByName(const QString &listName) {
         Q_EMIT signalMusicListChanged(getMusicListByName(listName));
+    }
+
+    QStringList Core::getKeysUserList() {
+        return m_settings->getUserMusicList();
     }
 
     ICore *ICore::create(QObject *parent) {

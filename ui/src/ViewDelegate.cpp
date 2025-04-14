@@ -12,7 +12,10 @@
 namespace UI::Panel {
     ViewDelegate::ViewDelegate(QObject *parent) : QStyledItemDelegate(parent)
                                                   , m_previousIndex(UNINITIALIZED_VALUE)
-                                                  , m_isPlaying(false) {
+                                                  , m_isPlaying(false)
+                                                  , m_svgPlayingRenderer(new QSvgRenderer(SvgRes::ViewPlaySVG))
+                                                  , m_svgPauseRenderer(new QSvgRenderer(SvgRes::ViewPauseSVG)) {
+        // todo this segment should be writen as a function
         connect(this, &ViewDelegate::signalPreviousIndexChanged, this, [this](const int index) {
             if (auto *view = qobject_cast<QListView *>(this->parent())) {
                 qDebug() << "Song index: " << index;
@@ -46,52 +49,49 @@ namespace UI::Panel {
         const QString artist = index.data(Qt::UserRole).toString();
 
         // font
-        const QFont titleFont(FONT_MIRC_HEI, 12, QFont::Normal);
-        const QFont artistFont(FONT_MIRC_HEI, 9);
+        const QFont titleFont(FONT_MIRC_HEI, NAME_FONT_SIZE, QFont::Normal);
+        const QFont artistFont(FONT_MIRC_HEI, ARTIST_FONT_SIZE, QFont::Bold);
 
-        const int coverSize = rect.height() - 2 * VIEW_LOGO_PADDING;
 
         // background
         if (option.state & QStyle::State_Selected) {
-            painter->fillRect(rect, QColor(224, 224, 224)); // 选中背景颜色
+            painter->fillRect(rect, QColor(224, 224, 224));
         }
 
 
         // name of song
         painter->setFont(titleFont);
-        painter->drawText(rect.left() + coverSize + 8 * VIEW_LOGO_PADDING,
-                          rect.top() + VIEW_LOGO_PADDING * 4, title);
+        painter->drawText(rect.left() + VIEW_TEXT_LEFT_PADDING,
+                          rect.top() + VIEW_TEXT_TOP_PADDING, title);
 
         // Artist
         painter->setFont(artistFont);
         painter->setPen(Qt::gray);
-        painter->drawText(rect.left() + coverSize + 8 * VIEW_LOGO_PADDING,
-                          rect.top() + VIEW_LOGO_PADDING * 7, artist);
+        painter->drawText(rect.left() + VIEW_TEXT_LEFT_PADDING,
+                          rect.top() + rect.height() - VIEW_TEXT_BOTTOM_PADDING, artist);
 
         // Play/pause
-        const QRect buttonPlayRect(rect.left() + VIEW_LOGO_PADDING,
+        const QRect buttonPlayRect(rect.left() + VIEW_PLAY_BUTTON_PADDING,
                                    rect.center().y() - VIEW_BUTTON_SIZE / 2,
                                    VIEW_BUTTON_SIZE,
                                    VIEW_BUTTON_SIZE);
 
-        const QRect buttonRect(rect.right() - 80,
+        const QRect buttonAddToListRect(rect.right() - VIEW_ADD_BUTTON_PADDING,
                                rect.center().y() - VIEW_BUTTON_SIZE / 2,
                                VIEW_BUTTON_SIZE,
                                VIEW_BUTTON_SIZE);
 
         static QSvgRenderer svgAddToListRender(SvgRes::AdddSVG);
-        svgAddToListRender.render(painter, buttonRect);
+        svgAddToListRender.render(painter, buttonAddToListRect);
 
-        static QSvgRenderer svgPlayingRenderer(SvgRes::ViewPlaySVG);
-        static QSvgRenderer svgPauseRenderer(SvgRes::ViewPauseSVG);
 
         if (index.row() != m_previousIndex) {
-            svgPlayingRenderer.render(painter, buttonPlayRect);
+            m_svgPlayingRenderer->render(painter, buttonPlayRect);
         } else {
             if (m_isPlaying) {
-                svgPauseRenderer.render(painter, buttonPlayRect);
+                m_svgPauseRenderer->render(painter, buttonPlayRect);
             } else {
-                svgPlayingRenderer.render(painter, buttonPlayRect);
+                m_svgPlayingRenderer->render(painter, buttonPlayRect);
             }
         }
 
@@ -102,13 +102,13 @@ namespace UI::Panel {
                                    const QModelIndex &index) {
         if (!index.isValid()) return false;
 
-        const QRect buttonRect(option.rect.left() + VIEW_LOGO_PADDING,
+        const QRect buttonPlayRect(option.rect.left() + VIEW_TEXT_TOP_PADDING,
                                option.rect.center().y() - VIEW_BUTTON_SIZE / 2,
                                VIEW_BUTTON_SIZE,
                                VIEW_BUTTON_SIZE);
 
         if (event->type() == QEvent::MouseButtonPress || event->type() == QEvent::MouseButtonRelease) {
-            if (const auto *mouseEvent = dynamic_cast<QMouseEvent *>(event); buttonRect.contains(mouseEvent->pos())) {
+            if (const auto *mouseEvent = dynamic_cast<QMouseEvent *>(event); buttonPlayRect.contains(mouseEvent->pos())) {
                 if (event->type() == QEvent::MouseButtonRelease) {
                     if (index.row() == m_previousIndex) {
                         m_isPlaying = !m_isPlaying;
@@ -140,4 +140,5 @@ namespace UI::Panel {
             Q_EMIT signalPlayingStatusChanged(playable);
         }
     }
+
 }

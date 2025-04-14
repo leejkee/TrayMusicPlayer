@@ -29,7 +29,7 @@ namespace UI::ViewWidget {
 
     ViewWidget::ViewWidget(QWidget *parent): QWidget(parent) {
         m_labelName = new QLabel(this);
-        m_playAllButton = new Panel::BetterButton(QIcon(SvgRes::PlayIconSVG), this, Panel::BetterButton::WithQss, User::PLAY_ALL_KEY);
+        m_playAllButton = new Panel::BetterButton(QIcon(SvgRes::PlayIconSVG), this, Panel::BetterButton::WithQss);
 
         const auto spaceH = new QSpacerItem(-1, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
         const auto layoutH = new QHBoxLayout;

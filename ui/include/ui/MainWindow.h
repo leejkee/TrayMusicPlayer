@@ -14,6 +14,9 @@ namespace UI::MainWindow {
         Q_OBJECT
 
     public:
+        static constexpr int MAIN_MINIMUM_WIDTH = 600;
+        static constexpr int MAIN_MINIMUM_HEIGHT = 450;
+
         explicit MainWindow(QWidget *parent = nullptr);
 
         ~MainWindow() override;
@@ -37,7 +40,6 @@ namespace UI::MainWindow {
         QSystemTrayIcon *m_systemTrayIcon;
         QMenu *m_trayIconMenu;
 
-        //
         QWidget *m_windowManager;
     };
 }
