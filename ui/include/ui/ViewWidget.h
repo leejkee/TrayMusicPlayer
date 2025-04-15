@@ -25,11 +25,10 @@ namespace UI::ViewWidget {
         explicit ViewWidget(QWidget *parent = nullptr);
 
     Q_SIGNALS:
-        void signalViewDoubleClicked(int);
+
+        void signalPlayToggle(int);
 
         void signalPlayAllClicked(const QString &name);
-
-        void signalPlayToggle();
 
     private Q_SLOTS:
         void showContextMenu(const QPoint &pos);
@@ -37,11 +36,12 @@ namespace UI::ViewWidget {
         void handleAction(int);
 
     public Q_SLOTS:
-        void viewDoubleClick(const QModelIndex &index);
 
+        /// update the current selection when the current music changed
         void updateCurrentIndex(int);
 
-        void showMusicList(const QStringList &nameList);
+        /// update the view when a music list button is pressed to check the current list
+        void showMusicList(const QString &name, const QStringList &nameList);
 
         ///
         /// init function
@@ -59,11 +59,8 @@ namespace UI::ViewWidget {
         ///       local music.
         void refreshForLocalMusic() const;
 
-        void playingStatusChange(bool b) const;
+        void updatePlayingStatus(bool b);
 
-        void setViewTitle(const QString &title);
-
-        void setModeMusicList(const QStringList &nameList);
 
     private:
         QLabel *m_labelName;

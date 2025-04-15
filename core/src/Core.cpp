@@ -33,6 +33,7 @@ namespace Core {
             Q_EMIT signalPlayingChanged(b);
         });
 
+        // music changed
         connect(m_playList, &Service::PlayList::signalMusicNameChanged, this, [this](const QString &name) {
             // Log.log(Service::Logger_QT::LogLevel::Info, "signal emitted, to tell ui the current music name changed: "
             //  + name);
@@ -44,6 +45,13 @@ namespace Core {
             //  + QString::number(seconds) + " s.");
             Q_EMIT signalCurrentMusicDurationChanged(seconds);
         });
+
+        connect(m_playList, &Service::PlayList::signalMusicChanged, this, [this](
+            const qsizetype index, const QString &name,
+            const int duration) {
+                    Q_EMIT signalCurrentMusicChanged(static_cast<int>(index), name, duration);
+                });
+        // music changed
 
         connect(m_player, &Engine::Player::signalIsMuted, this, [this](const bool b) {
             // Log.log(Service::Logger_QT::LogLevel::Info, "signal emitted, to tell ui the output is Muted: " + QString::number(b));
@@ -102,6 +110,14 @@ namespace Core {
         m_player->playTg();
     }
 
+    void Core::playToggleIndex(const int index) {
+        if (index != m_playList->getCurrentMusicIndex()) {
+            m_playList->setCurrentMusicIndex(index);
+            m_player->setMusicSource(m_playList->getCurrentMusicPath());
+        }
+        m_player->playTg();
+    }
+
     void Core::switchMusicListByName(const QString &listName) {
         m_playList->loadMusicList(m_listCache->findList(listName));
     }
@@ -124,7 +140,7 @@ namespace Core {
     }
 
     void Core::requestMusicListByName(const QString &listName) {
-        Q_EMIT signalMusicListChanged(getMusicListByName(listName));
+        Q_EMIT signalMusicListChanged(listName, getMusicListByName(listName));
     }
 
     QStringList Core::getKeysUserList() {

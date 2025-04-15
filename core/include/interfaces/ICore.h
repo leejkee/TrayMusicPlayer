@@ -33,13 +33,15 @@ namespace Core {
 
         void signalCurrentMusicDurationChanged(int seconds);
 
+        void signalCurrentMusicChanged(int, const QString &, int);
+
         void signalPlayingChanged(bool);
 
         void signalIsMuted(bool);
 
         void signalPlayModeChanged(int);
 
-        void signalMusicListChanged(const QStringList &nameList);
+        void signalMusicListChanged(const QString &name, const QStringList &nameList);
 
     public Q_SLOTS:
         /// Toggles between play and pause states of the current music.
@@ -50,6 +52,9 @@ namespace Core {
 
         /// Returns to the previous track in the current playlist.
         virtual void preMusic() = 0;
+
+        /// Plays the music with index.
+        virtual void playToggleIndex(int) = 0;
 
         /// Adjusts the playback volume (0-100 range expected).
         virtual void setVolume(unsigned int volume) = 0;

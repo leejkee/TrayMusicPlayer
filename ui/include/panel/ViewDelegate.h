@@ -35,19 +35,16 @@ namespace UI::Panel {
 
         void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
-        void setPreviousIndex(int index);
+        void updatePreviousIndex(int index);
 
-        void setPlayStatus(bool playable);
+        void updatePlayingStatus(bool playable);
 
     protected:
         bool editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option,
                          const QModelIndex &index) override;
 
-
     Q_SIGNALS:
-        void signalViewPlayButtonClick(int);
-
-        void signalPlayToggle();
+        void signalViewPlayButtonClicked(int);
 
         void signalPreviousIndexChanged(int);
 
@@ -58,5 +55,6 @@ namespace UI::Panel {
         bool m_isPlaying;
         QSvgRenderer *m_svgPlayingRenderer;
         QSvgRenderer *m_svgPauseRenderer;
+        QSvgRenderer *m_svgAddToListRender;
     };
 }

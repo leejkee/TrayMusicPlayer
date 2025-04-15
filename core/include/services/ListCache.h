@@ -8,6 +8,7 @@
 #include <QObject>
 #include <QHash>
 
+
 namespace Core::Service {
     class ListCache final : public QObject {
         Q_OBJECT
@@ -22,6 +23,18 @@ namespace Core::Service {
     private:
         QHash<QString, QList<Song> > m_listCache;
         Logger_QT Log;
+
         static QList<Song> loadLocalMusic(const QStringList &localDir);
+    };
+
+    class List {
+    public:
+        List() = default;
+
+        List(const QString &name, const QVector<Song> &list, QObject *parent = nullptr);
+
+    private:
+        QString m_listName;
+        QVector<Song> m_list;
     };
 }

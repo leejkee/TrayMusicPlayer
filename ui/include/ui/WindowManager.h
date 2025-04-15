@@ -44,6 +44,10 @@ namespace UI::WindowManager {
     public:
         explicit WindowManager(QWidget *parent = Q_NULLPTR);
 
+        void updateCurrentMusic(int index, const QString &name, int duration);
+
+        void updatePlayingStatus(bool b);
+
         ~WindowManager() override;
 
     private:

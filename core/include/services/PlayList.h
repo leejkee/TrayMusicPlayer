@@ -41,6 +41,8 @@ namespace Core::Service {
 
         void signalMusicDurationChanged(int);
 
+        void signalMusicChanged(qsizetype, const QString &, int);
+
         void signalPlayModeChanged(PlayMode);
 
 

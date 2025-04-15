@@ -59,6 +59,18 @@ namespace UI::WindowManager {
         m_core->initDefaultSettings();
     }
 
+    void WindowManager::updateCurrentMusic(const int index, const QString &name, const int duration) {
+        m_viewWidget->updateCurrentIndex(index);
+        m_playerWidget->updateMusicName(name);
+        m_playerWidget->updateMusicDuration(duration);
+    }
+
+    void WindowManager::updatePlayingStatus(const bool b) {
+        m_playerWidget->setRotationStatus(b);
+        m_playerWidget->setPlayButtonIcon(b);
+        m_viewWidget->updatePlayingStatus(b);
+    }
+
     WindowManager::~WindowManager() {
     }
 
@@ -66,20 +78,27 @@ namespace UI::WindowManager {
         connect(m_playerWidget, &PlayerWidget::PlayerWidget::signalPlayToggle,
                 m_core, &Core::ICore::playToggle);
 
-        connect(m_core, &Core::ICore::signalCurrentMusicNameChanged,
-                m_playerWidget, &PlayerWidget::PlayerWidget::updateMusicName);
+        // connect(m_core, &Core::ICore::signalCurrentMusicNameChanged,
+        //         m_playerWidget, &PlayerWidget::PlayerWidget::updateMusicName);
+        //
+        // connect(m_core, &Core::ICore::signalCurrentMusicDurationChanged,
+        //         m_playerWidget, &PlayerWidget::PlayerWidget::updateMusicDuration);
 
-        connect(m_core, &Core::ICore::signalCurrentMusicDurationChanged,
-                m_playerWidget, &PlayerWidget::PlayerWidget::updateMusicDuration);
+
+        connect(m_core, &Core::ICore::signalCurrentMusicChanged,
+                this, &WindowManager::updateCurrentMusic);
 
         connect(m_core, &Core::ICore::signalPositionChanged,
                 m_playerWidget, &PlayerWidget::PlayerWidget::updateProgressBarPosition);
 
-        connect(m_core, &Core::ICore::signalPlayingChanged,
-                m_playerWidget, &PlayerWidget::PlayerWidget::setPlayButtonIcon);
+        // connect(m_core, &Core::ICore::signalPlayingChanged,
+        //         m_playerWidget, &PlayerWidget::PlayerWidget::setPlayButtonIcon);
+        //
+        // connect(m_core, &Core::ICore::signalPlayingChanged,
+        //         m_playerWidget, &PlayerWidget::PlayerWidget::setRotationStatus);
 
         connect(m_core, &Core::ICore::signalPlayingChanged,
-                m_playerWidget, &PlayerWidget::PlayerWidget::setRotationStatus);
+                this, &WindowManager::updatePlayingStatus);
 
         connect(m_playerWidget, &PlayerWidget::PlayerWidget::signalNextMusic,
                 m_core, &Core::ICore::nextMusic);
@@ -108,7 +127,7 @@ namespace UI::WindowManager {
         connect(m_core, &Core::ICore::signalMusicListChanged,
                 m_viewWidget, &ViewWidget::ViewWidget::showMusicList);
 
-        connect(m_musicListWidget, &MusicListWidget::MusicListWidget::signalMusicListButtonClicked,
-                m_viewWidget, &ViewWidget::ViewWidget::setViewTitle);
+        connect(m_viewWidget, &ViewWidget::ViewWidget::signalPlayToggle,
+                m_core, &Core::ICore::playToggleIndex);
     }
 }

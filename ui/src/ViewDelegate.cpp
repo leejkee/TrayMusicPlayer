@@ -14,30 +14,8 @@ namespace UI::Panel {
                                                   , m_previousIndex(UNINITIALIZED_VALUE)
                                                   , m_isPlaying(false)
                                                   , m_svgPlayingRenderer(new QSvgRenderer(SvgRes::ViewPlaySVG))
-                                                  , m_svgPauseRenderer(new QSvgRenderer(SvgRes::ViewPauseSVG)) {
-        // todo this segment should be writen as a function
-        connect(this, &ViewDelegate::signalPreviousIndexChanged, this, [this](const int index) {
-            if (auto *view = qobject_cast<QListView *>(this->parent())) {
-                qDebug() << "Song index: " << index;
-                if (m_previousIndex >= 0) {
-                    view->update(view->model()->index(m_previousIndex, 0));
-                }
-                if (index >= 0) {
-                    view->update(view->model()->index(index, 0));
-                }
-            }
-        });
-
-        connect(this, &ViewDelegate::signalPlayingStatusChanged, this, [this](const bool b) {
-            qDebug() << "signalPlayingStatusChanged emitted. b =" << b << "m_previousIndex =" << m_previousIndex;
-            Q_UNUSED(b);
-            if (auto *view = qobject_cast<QListView *>(this->parent())) {
-                if (m_previousIndex >= 0) {
-                    qDebug() << "signalPlayingStatusChanged:" << m_previousIndex;
-                    view->update(view->model()->index(m_previousIndex, 0));
-                }
-            }
-        });
+                                                  , m_svgPauseRenderer(new QSvgRenderer(SvgRes::ViewPauseSVG))
+                                                  , m_svgAddToListRender(new QSvgRenderer(SvgRes::AdddSVG)) {
     }
 
     void ViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
@@ -52,12 +30,10 @@ namespace UI::Panel {
         const QFont titleFont(FONT_MIRC_HEI, NAME_FONT_SIZE, QFont::Normal);
         const QFont artistFont(FONT_MIRC_HEI, ARTIST_FONT_SIZE, QFont::Bold);
 
-
         // background
         if (option.state & QStyle::State_Selected) {
             painter->fillRect(rect, QColor(224, 224, 224));
         }
-
 
         // name of song
         painter->setFont(titleFont);
@@ -77,14 +53,11 @@ namespace UI::Panel {
                                    VIEW_BUTTON_SIZE);
 
         const QRect buttonAddToListRect(rect.right() - VIEW_ADD_BUTTON_PADDING,
-                               rect.center().y() - VIEW_BUTTON_SIZE / 2,
-                               VIEW_BUTTON_SIZE,
-                               VIEW_BUTTON_SIZE);
+                                        rect.center().y() - VIEW_BUTTON_SIZE / 2,
+                                        VIEW_BUTTON_SIZE,
+                                        VIEW_BUTTON_SIZE);
 
-        static QSvgRenderer svgAddToListRender(SvgRes::AdddSVG);
-        svgAddToListRender.render(painter, buttonAddToListRect);
-
-
+        m_svgAddToListRender->render(painter, buttonAddToListRect);
         if (index.row() != m_previousIndex) {
             m_svgPlayingRenderer->render(painter, buttonPlayRect);
         } else {
@@ -94,7 +67,6 @@ namespace UI::Panel {
                 m_svgPlayingRenderer->render(painter, buttonPlayRect);
             }
         }
-
         painter->restore();
     }
 
@@ -102,23 +74,16 @@ namespace UI::Panel {
                                    const QModelIndex &index) {
         if (!index.isValid()) return false;
 
-        const QRect buttonPlayRect(option.rect.left() + VIEW_TEXT_TOP_PADDING,
-                               option.rect.center().y() - VIEW_BUTTON_SIZE / 2,
-                               VIEW_BUTTON_SIZE,
-                               VIEW_BUTTON_SIZE);
+        const QRect buttonPlayRect(option.rect.left() + VIEW_PLAY_BUTTON_PADDING,
+                                   option.rect.center().y() - VIEW_BUTTON_SIZE / 2,
+                                   VIEW_BUTTON_SIZE,
+                                   VIEW_BUTTON_SIZE);
 
         if (event->type() == QEvent::MouseButtonPress || event->type() == QEvent::MouseButtonRelease) {
-            if (const auto *mouseEvent = dynamic_cast<QMouseEvent *>(event); buttonPlayRect.contains(mouseEvent->pos())) {
+            if (const auto *mouseEvent = dynamic_cast<QMouseEvent *>(event); buttonPlayRect.
+                contains(mouseEvent->pos())) {
                 if (event->type() == QEvent::MouseButtonRelease) {
-                    if (index.row() == m_previousIndex) {
-                        m_isPlaying = !m_isPlaying;
-                        Q_EMIT signalPlayToggle();
-                        qDebug() << "signalPlayTg";
-                    } else {
-                        m_previousIndex = index.row();
-                        Q_EMIT signalViewPlayButtonClick(index.row());
-                        qDebug() << "signalViewPlayButtonClick";
-                    }
+                    Q_EMIT signalViewPlayButtonClicked(index.row());
                 }
                 return true;
             }
@@ -126,19 +91,28 @@ namespace UI::Panel {
         return false;
     }
 
-    void ViewDelegate::setPreviousIndex(const int index) {
+    void ViewDelegate::updatePreviousIndex(const int index) {
         if (index != m_previousIndex) {
+            if (auto *view = qobject_cast<QListView *>(this->parent())) {
+                if (m_previousIndex >= 0) {
+                    view->update(view->model()->index(m_previousIndex, 0));
+                }
+                if (index >= 0) {
+                    view->update(view->model()->index(index, 0));
+                }
+            }
             m_previousIndex = index;
-            Q_EMIT signalPreviousIndexChanged(index);
         }
     }
 
-    void ViewDelegate::setPlayStatus(const bool playable) {
+    void ViewDelegate::updatePlayingStatus(const bool playable) {
         if (playable != m_isPlaying) {
-            qDebug() << "ViewDelegate::setPlayStatus" << playable;
             m_isPlaying = playable;
-            Q_EMIT signalPlayingStatusChanged(playable);
+            if (auto *view = qobject_cast<QListView *>(this->parent())) {
+                if (m_previousIndex >= 0) {
+                    view->update(view->model()->index(m_previousIndex, 0));
+                }
+            }
         }
     }
-
 }

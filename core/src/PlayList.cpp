@@ -83,9 +83,10 @@ namespace Core::Service {
         if (m_index != index) {
             m_index = index;
             Log.log(Logger_QT::LogLevel::Info, "index changed: " + QString::number(m_index));
-            Q_EMIT signalMusicNameChanged(m_musicList.at(m_index).getTitle());
-            Q_EMIT signalMusicDurationChanged(m_musicList.at(m_index).getDuration());
-            Q_EMIT signalMusicIndexChanged(m_index);
+            Q_EMIT signalMusicChanged(m_index, m_musicList.at(m_index).getTitle(), m_musicList.at(m_index).getDuration());
+            // Q_EMIT signalMusicNameChanged(m_musicList.at(m_index).getTitle());
+            // Q_EMIT signalMusicDurationChanged(m_musicList.at(m_index).getDuration());
+            // Q_EMIT signalMusicIndexChanged(m_index);
         }
     }
 

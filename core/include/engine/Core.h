@@ -30,6 +30,8 @@ namespace Core {
 
         void playToggle() override;
 
+        void playToggleIndex(int) override;
+
         void nextMusic() override;
 
         void preMusic() override;
