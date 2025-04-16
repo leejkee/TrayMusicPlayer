@@ -32,6 +32,8 @@ namespace UI::MusicListWidget {
         // expand icon
         void toggleExpand() const;
 
+        void removeButton(const QString &name);
+
     private:
         Panel::BetterButton *m_expandButton;
         Panel::BetterButton *m_addButton;
@@ -50,6 +52,8 @@ namespace UI::MusicListWidget {
         void addButton();
 
         void newButton(const QString &playlistName);
+
+        void deleteButton(const QString &playlistName);
 
         // buttons created by user from settings
         void initUserListButtons();

@@ -27,6 +27,7 @@ endif()
 find_package(Qt6 REQUIRED COMPONENTS
     Multimedia
     Core
+    Sql
     Widgets
     SvgWidgets
     Test

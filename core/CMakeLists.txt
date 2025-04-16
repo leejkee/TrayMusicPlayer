@@ -22,4 +22,5 @@ target_include_directories(tray_music_core PRIVATE
 target_link_libraries(tray_music_core PUBLIC
         Qt6::Multimedia
         TagLib::tag
+        Qt6::Sql
 )
