@@ -9,11 +9,11 @@ qt_add_executable(test_ui
         main.cpp
 )
 
-qt_add_executable(test_core
-        TestCore.cpp
+qt_add_executable(test_db
+        TestDB.cpp
 )
 
-target_link_libraries(test_core PRIVATE tray_music_core Qt6::Test Qt6::Core)
+target_link_libraries(test_db PRIVATE tray_music_core Qt6::Test Qt6::Core)
 
 target_link_libraries(test_ui PUBLIC tray_music_ui)
 

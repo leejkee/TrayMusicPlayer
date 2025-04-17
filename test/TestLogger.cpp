@@ -1,13 +1,4 @@
 
-
-// int main(){
-//     Logger logger("Main");
-//     logger.logout(Logger::LogLevel::Debug, "Test Debug");
-//     logger.logout(Logger::LogLevel::Info, "Test Info");
-//     logger.logout(Logger::LogLevel::Warning, "Test Warning");
-//     logger.logout(Logger::LogLevel::Error, "Test Error");
-// }
-
 #define CATCH_CONFIG_MAIN
 #include <catch.hpp>
 #include <Logger.h>
