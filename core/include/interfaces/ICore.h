@@ -89,5 +89,7 @@ namespace Core {
         /// UI can also request fetching music list by these keys
         /// @return QStringList of all keys of user playlist
         virtual QStringList getKeysUserList() = 0;
+
+        virtual void addUserList(const QString &) = 0;
     };
 } // namespace Core

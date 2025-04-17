@@ -1,6 +1,6 @@
 #include <Logger_qt.h>
 #include <Settings.h>
-#include <QFile>
+#include <QFileInfo>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -8,8 +8,9 @@
 
 
 namespace Core::Service {
-    Settings::Settings(const QString &settingsPath, QObject *parent): QObject(parent), m_settingsPath(settingsPath){
+    Settings::Settings(const QString &settingsPath, QObject *parent): QObject(parent) {
         setObjectName(QStringLiteral("Settings"));
+        m_settingsPath = QFileInfo(settingsPath).absoluteFilePath();
         Log = Logger_QT(objectName());
         if (m_settingsPath.isEmpty()) {
             Log.log(Logger_QT::LogLevel::Error, "the path of settings is empty");
@@ -32,19 +33,19 @@ namespace Core::Service {
             return;
         }
         QJsonObject json = jsonDoc.object();
-        m_localMusicPaths = json["MusicDirectory"].toVariant().toStringList();
+        m_localMusicList = json["MusicDirectory"].toVariant().toStringList();
         m_dbPath = json["DatabaseDirectory"].toString();
-        m_userMusicList = json["UserLists"].toVariant().toStringList();
+        m_userList = json["UserLists"].toVariant().toStringList();
         m_volume = json["DefaultVolume"].toInt();
     };
 
 
     void Settings::saveToJson() {
         QJsonObject jsonObj;
-        jsonObj["MusicDirectory"] = QJsonArray::fromStringList(m_localMusicPaths);
+        jsonObj["MusicDirectory"] = QJsonArray::fromStringList(m_localMusicList);
         jsonObj["DatabaseDirectory"] = QJsonValue(m_dbPath);
         jsonObj["DefaultVolume"] = QJsonValue(m_volume);
-        jsonObj["UserLists"] = QJsonArray::fromStringList(m_userMusicList);
+        jsonObj["UserLists"] = QJsonArray::fromStringList(m_userList);
         const QJsonDocument doc(jsonObj);
         QFile file(m_settingsPath);
         if (!file.open(QIODevice::WriteOnly)) {
@@ -57,23 +58,28 @@ namespace Core::Service {
     }
 
     void Settings::addLocalMusicDirectory(const QString &path) {
-        if (!m_localMusicPaths.contains(path)) {
-            m_localMusicPaths.append(path);
+        if (!m_localMusicList.contains(path)) {
+            m_localMusicList.append(path);
             saveToJson();
+            Log.log(Logger_QT::LogLevel::Info, "Added local music: " + path);
             Q_EMIT signalLocalSettingsChanged();
         }
     }
 
     void Settings::addUserMusicList(const QString &path) {
-        if (!m_userMusicList.contains(path)) {
-            m_userMusicList.append(path);
+        if (!m_userList.contains(path)) {
+            m_userList.append(path);
             saveToJson();
             Q_EMIT signalUserListAdded(path);
         }
     }
 
+    void Settings::removeUserMusicList(const QString &path) {
+        if (!m_userList.contains(path)) {}
+    }
+
     void Settings::removeMusicDirectory(const QString &path) {
-        if (m_localMusicPaths.removeOne(path)) {
+        if (m_localMusicList.removeOne(path)) {
             saveToJson();
             Q_EMIT signalLocalSettingsChanged();
         }

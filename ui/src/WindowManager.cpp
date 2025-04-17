@@ -78,24 +78,11 @@ namespace UI::WindowManager {
         connect(m_playerWidget, &PlayerWidget::PlayerWidget::signalPlayToggle,
                 m_core, &Core::ICore::playToggle);
 
-        // connect(m_core, &Core::ICore::signalCurrentMusicNameChanged,
-        //         m_playerWidget, &PlayerWidget::PlayerWidget::updateMusicName);
-        //
-        // connect(m_core, &Core::ICore::signalCurrentMusicDurationChanged,
-        //         m_playerWidget, &PlayerWidget::PlayerWidget::updateMusicDuration);
-
-
         connect(m_core, &Core::ICore::signalCurrentMusicChanged,
                 this, &WindowManager::updateCurrentMusic);
 
         connect(m_core, &Core::ICore::signalPositionChanged,
                 m_playerWidget, &PlayerWidget::PlayerWidget::updateProgressBarPosition);
-
-        // connect(m_core, &Core::ICore::signalPlayingChanged,
-        //         m_playerWidget, &PlayerWidget::PlayerWidget::setPlayButtonIcon);
-        //
-        // connect(m_core, &Core::ICore::signalPlayingChanged,
-        //         m_playerWidget, &PlayerWidget::PlayerWidget::setRotationStatus);
 
         connect(m_core, &Core::ICore::signalPlayingChanged,
                 this, &WindowManager::updatePlayingStatus);
@@ -129,5 +116,18 @@ namespace UI::WindowManager {
 
         connect(m_viewWidget, &ViewWidget::ViewWidget::signalPlayToggle,
                 m_core, &Core::ICore::playToggleIndex);
+
+        connect(m_topBarWidget, &TopBarWidget::TopBarWidget::signalPreButtonClicked,
+                this, [this]() {
+                    m_stackedViewWidget->setCurrentIndex(0);
+                });
+        connect(m_topBarWidget, &TopBarWidget::TopBarWidget::signalSettingsButtonClicked,
+                this, [this]() {
+                    m_stackedViewWidget->setCurrentIndex(1);
+                });
+
+        // add button
+        connect(m_musicListWidget, &MusicListWidget::MusicListWidget::signalMusicListButtonAdded,
+                m_core, &Core::ICore::addUserList);
     }
 }

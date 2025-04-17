@@ -22,11 +22,11 @@ namespace Core::Service {
 
         void saveToJson();
 
-        [[nodiscard]] QStringList getLocalMusicDirectories() const { return m_localMusicPaths; }
+        [[nodiscard]] QStringList getLocalMusicDirectories() const { return m_localMusicList; }
 
         [[nodiscard]] QString getDatabaseDirectory() const { return m_dbPath; }
 
-        [[nodiscard]] QStringList getUserMusicList() const { return m_userMusicList; }
+        [[nodiscard]] QStringList getUserMusicList() const { return m_userList; }
 
         [[nodiscard]] unsigned getDefaultVolume() const { return m_volume; }
 
@@ -43,13 +43,15 @@ namespace Core::Service {
 
         void addUserMusicList(const QString &path);
 
+        void removeUserMusicList(const QString &path);
+
         void removeMusicDirectory(const QString &path);
 
     private:
         QString m_settingsPath;
         QString m_dbPath;
-        QStringList m_localMusicPaths;
-        QStringList m_userMusicList;
+        QStringList m_localMusicList;
+        QStringList m_userList;
         int m_volume;
         Logger_QT Log;
 

@@ -81,7 +81,6 @@ void MusicListWidget::toggleExpand() const {
 
 
 void MusicListWidget::addButton() {
-    qDebug() << "buttonWidget addButton";
     bool ok;
     const QString playlistName = QInputDialog::getText(this,
                                                        "New a music list",
@@ -90,7 +89,7 @@ void MusicListWidget::addButton() {
                                                        "",
                                                        &ok);
     if (ok && !playlistName.isEmpty() && !playlistName.begin()->isDigit()) {
-        qDebug() << "playlist: [" << playlistName << "] added.";
+        qDebug() << "MusicListWidget: [" << playlistName << "] added.";
         newButton(playlistName);
         Q_EMIT signalMusicListButtonAdded(playlistName);
     }

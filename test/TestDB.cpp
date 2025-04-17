@@ -1,8 +1,8 @@
 //
 // Created by cww on 25-4-14.
 //
+#include <DatabaseManager.h>
 #include <QTest>
-#include <DatabaseManager.h> // assuming your header is named this
 
 using DBM = Core::Service::DatabaseManager;
 using Music = Core::Service::Song;
@@ -36,11 +36,9 @@ void TestDatabaseManager::initTestCase() {
     connectionName = "TestConnection";
     tableName = "QTestTable";
 
-    // Windows 路径转为 Qt 可用路径
     const QString absPath = QDir::fromNativeSeparators("C:\\Users\\cww\\Music\\lostgrace\\知我-国风堂,哦漏.mp3");
 
-    // 构造测试用 Song
-    testSong = Music(absPath); // Song(absPath) 构造函数会自动填充其他字段
+    testSong = Music(absPath);
 
     dbManager = new DBM(dbPath, connectionName);
     QVERIFY(dbManager->isOpen());

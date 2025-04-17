@@ -3,7 +3,6 @@ cmake_minimum_required(VERSION 3.20)
 file(GLOB_RECURSE CORE_SOURCES CONFIGURE_DEPENDS
         include/*.h
         src/*.cpp
-        core.qrc
 )
 
 add_library(tray_music_core STATIC ${CORE_SOURCES})

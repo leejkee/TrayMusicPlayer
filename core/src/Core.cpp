@@ -7,15 +7,10 @@
 #include <Settings.h>
 #include <CoreConstants.h>
 #include <ListCache.h>
-
-inline void initMyQRC() {
-    Q_INIT_RESOURCE(core);
-}
-
+#include <DatabaseManager.h>
 
 namespace Core {
     Core::Core(QObject *parent) : ICore(parent) {
-        initMyQRC();
         this->setObjectName(QStringLiteral("Core"));
         Log = Service::Logger_QT(this->objectName());
         m_player = new Engine::Player(this);
@@ -70,6 +65,8 @@ namespace Core {
         });
 
         connect(m_player, &Engine::Player::signalMusicOver, this, &Core::nextMusic);
+
+        connect(m_settings, &Service::Settings::signalUserListAdded, this, &Core::addUserListToDB);
     }
 
     void Core::initDefaultSettings() {
@@ -146,6 +143,19 @@ namespace Core {
     QStringList Core::getKeysUserList() {
         return m_settings->getUserMusicList();
     }
+
+    void Core::addUserList(const QString &listName) {
+        m_settings->addUserMusicList(listName);
+    }
+
+    void Core::addUserListToDB(const QString &listName) { {
+            if (auto dbConnection = Service::DatabaseManager(DB_PATH, listName); !dbConnection.createTable(listName)) {
+                Log.log(Service::Logger_QT::LogLevel::Error, "createTable failed: " + listName);
+            }
+        }
+        QSqlDatabase::removeDatabase(listName);
+    }
+
 
     ICore *ICore::create(QObject *parent) {
         return new Core(parent);

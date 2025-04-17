@@ -32,7 +32,7 @@ namespace UI::MusicListWidget {
         // expand icon
         void toggleExpand() const;
 
-        void removeButton(const QString &name);
+        // void removeButton(const QString &name);
 
     private:
         Panel::BetterButton *m_expandButton;

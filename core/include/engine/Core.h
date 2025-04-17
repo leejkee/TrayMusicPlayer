@@ -13,7 +13,7 @@ namespace Core::Service {
     class Settings;
     class PlayList;
     class ListCache;
-    class Song;
+    struct Song;
 }
 
 
@@ -53,11 +53,15 @@ namespace Core {
 
         QStringList getKeysUserList() override;
 
+        void addUserList(const QString &) override;
+
     private:
         Engine::Player *m_player;
         Service::Logger_QT Log;
         Service::Settings *m_settings;
         Service::PlayList *m_playList;
         Service::ListCache *m_listCache;
+
+        void addUserListToDB(const QString &listName);
     };
 } // namespace Core

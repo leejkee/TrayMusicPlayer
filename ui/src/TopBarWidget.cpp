@@ -24,6 +24,13 @@ TopBarWidget::TopBarWidget(QWidget *parent) : QWidget(parent) {
     layout->addWidget(m_preButton);
     layout->addWidget(m_settingsButton);
     setFixedHeight(40);
+
+    connect(m_preButton, &Panel::BetterButton::clicked, this, [this]() {
+        Q_EMIT signalPreButtonClicked();
+    });
+    connect(m_settingsButton, &Panel::BetterButton::clicked, this, [this]() {
+        Q_EMIT signalSettingsButtonClicked();
+    });
 }
 
 void TopBarWidget::setPreBtnShow(const bool b) {
