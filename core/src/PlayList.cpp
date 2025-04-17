@@ -65,11 +65,11 @@ namespace Core::Service {
     }
 
     QString PlayList::getCurrentMusicPath() const {
-        return m_musicList.at(m_index).getPath();
+        return m_musicList.at(m_index).m_path;
     }
 
     QString PlayList::getCurrentMusicTitle() const {
-        return m_musicList.at(m_index).getTitle();
+        return m_musicList.at(m_index).m_title;
     }
 
     qsizetype PlayList::getCurrentMusicIndex() const {
@@ -83,7 +83,7 @@ namespace Core::Service {
         if (m_index != index) {
             m_index = index;
             Log.log(Logger_QT::LogLevel::Info, "index changed: " + QString::number(m_index));
-            Q_EMIT signalMusicChanged(m_index, m_musicList.at(m_index).getTitle(), m_musicList.at(m_index).getDuration());
+            Q_EMIT signalMusicChanged(m_index, m_musicList.at(m_index).m_title, m_musicList.at(m_index).m_duration);
             // Q_EMIT signalMusicNameChanged(m_musicList.at(m_index).getTitle());
             // Q_EMIT signalMusicDurationChanged(m_musicList.at(m_index).getDuration());
             // Q_EMIT signalMusicIndexChanged(m_index);

@@ -7,8 +7,8 @@
 
 
 namespace Core::Service {
-    QList<Song> ListCache::loadLocalMusic(const QStringList &localDir) {
-        QList<Song> localList;
+    QVector<Song> ListCache::loadLocalMusic(const QStringList &localDir) {
+        QVector<Song> localList;
         for (const auto &filePath: localDir) {
             QDirIterator it(filePath, MUSIC_FILTERS, QDir::Files, QDirIterator::Subdirectories);
             while (it.hasNext()) {
@@ -27,7 +27,7 @@ namespace Core::Service {
         Log.log(Logger_QT::LogLevel::Info, "ListCache: Local list has been initialized.");
     }
 
-    QList<Song> ListCache::findList(const QString &listName) const {
+    QVector<Song> ListCache::findList(const QString &listName) const {
         if (m_listCache.contains(listName)) {
             return m_listCache.value(listName);
         }

@@ -5,8 +5,8 @@ namespace Core::Service {
     Song::Song(const QString &songFilePath) {
         m_path = songFilePath;
         m_title = removeSuffix(m_path);
-        m_Name = convertToName(m_title);
-        m_Artist = convertToArtist(m_title);
+        m_name = convertToName(m_title);
+        m_artist = convertToArtist(m_title);
         m_duration = musicLength(m_path);
     }
 
@@ -25,8 +25,8 @@ namespace Core::Service {
             const TagLib::AudioProperties *properties = f.audioProperties();
             const TagLib::Tag *tag = f.tag();
             m_duration = properties->lengthInSeconds();
-            m_Name = QString::fromStdString(tag->title().to8Bit());
-            m_Artist = QString::fromStdString(tag->artist().to8Bit());
+            m_name = QString::fromStdString(tag->title().to8Bit());
+            m_artist = QString::fromStdString(tag->artist().to8Bit());
             m_title = QString::fromStdString(tag->title().to8Bit());
         }
     }
@@ -53,8 +53,4 @@ namespace Core::Service {
         return str.left(str.indexOf("-")).trimmed();
     }
 
-    SongInfo Song::toSongInfo() const {
-        SongInfo info(m_title, m_duration, 0);
-        return info;
-    }
 }

@@ -2,9 +2,10 @@
 // Created by cww on 25-4-14.
 //
 #include <QtTest>
-#include <DBManager.h> // assuming your header is named this
+#include <DatabaseManager.h> // assuming your header is named this
 class TestDBManager : public QObject
 {
+    using DBM = Core::Service::DatabaseManager;
     Q_OBJECT
 
 private slots:
@@ -20,7 +21,7 @@ private slots:
 
 private:
     QString testDbPath;
-    Core::Service::DBManager* dbManager;
+    DBM* dbManager;
 };
 void TestDBManager::initTestCase()
 {
@@ -41,7 +42,7 @@ void TestDBManager::cleanupTestCase()
 void TestDBManager::init()
 {
     // Code that runs before each test
-    dbManager = new Core::Service::DBManager(testDbPath);
+    dbManager = new DBM(testDbPath);
 }
 
 void TestDBManager::cleanup()

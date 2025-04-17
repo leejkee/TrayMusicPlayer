@@ -126,7 +126,7 @@ namespace Core {
         const auto musicList = m_listCache->findList(name);
         QStringList list;
         for (const auto &music: musicList) {
-            list.append(music.getTitle());
+            list.append(music.m_title);
         }
         return list;
     }
