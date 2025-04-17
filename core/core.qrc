@@ -1,6 +1,0 @@
-<!DOCTYPE RCC><RCC version="1.0">
-    <qresource prefix="/core">
-        <file>settings/init_win32.json</file>
-        <file>settings/init_linux.json</file>
-    </qresource>
-</RCC>

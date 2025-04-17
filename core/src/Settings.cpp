@@ -1,6 +1,6 @@
 #include <Logger_qt.h>
 #include <Settings.h>
-#include <QFileInfo>
+#include <QFile>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -8,9 +8,8 @@
 
 
 namespace Core::Service {
-    Settings::Settings(const QString &settingsPath, QObject *parent): QObject(parent) {
+    Settings::Settings(const QString &settingsPath, QObject *parent): QObject(parent), m_settingsPath(settingsPath) {
         setObjectName(QStringLiteral("Settings"));
-        m_settingsPath = QFileInfo(settingsPath).absoluteFilePath();
         Log = Logger_QT(objectName());
         if (m_settingsPath.isEmpty()) {
             Log.log(Logger_QT::LogLevel::Error, "the path of settings is empty");
