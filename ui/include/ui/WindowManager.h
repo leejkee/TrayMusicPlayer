@@ -44,6 +44,7 @@ namespace UI::WindowManager {
     public:
         explicit WindowManager(QWidget *parent = Q_NULLPTR);
 
+
         void updateCurrentMusic(int index, const QString &name, int duration);
 
         void updatePlayingStatus(bool b);
@@ -64,5 +65,7 @@ namespace UI::WindowManager {
         Core::ICore *m_core;
 
         void createConnections();
+
+        void initDefaultSettings();
     };
 }

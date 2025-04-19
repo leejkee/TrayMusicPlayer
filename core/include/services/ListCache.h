@@ -20,11 +20,13 @@ namespace Core::Service {
 
         [[nodiscard]] QVector<Song> findList(const QString &listName) const;
 
+        void reloadMusicList(const QString &key, const QStringList &paths);
+
     private:
         QHash<QString, QVector<Song> > m_listCache;
         Logger_QT Log;
-
         static QVector<Song> loadLocalMusic(const QStringList &localDir);
+
     };
 
 }

@@ -9,6 +9,7 @@
 #include <ListCache.h>
 #include <DatabaseManager.h>
 
+
 namespace Core {
     Core::Core(QObject *parent) : ICore(parent) {
         this->setObjectName(QStringLiteral("Core"));
@@ -67,6 +68,11 @@ namespace Core {
         connect(m_player, &Engine::Player::signalMusicOver, this, &Core::nextMusic);
 
         connect(m_settings, &Service::Settings::signalUserListAdded, this, &Core::addUserListToDB);
+
+        connect(m_settings, &Service::Settings::signalLocalSettingsChanged, this, [this]() {
+            Q_EMIT signalLocalPathsChanged();
+        });
+        connect(m_settings, &Service::Settings::signalLocalSettingsChanged, this, &Core::updateLocalMusicList);
     }
 
     void Core::initDefaultSettings() {
@@ -119,7 +125,7 @@ namespace Core {
         m_playList->loadMusicList(m_listCache->findList(listName));
     }
 
-    QStringList Core::getMusicListByName(const QString &name) {
+    QStringList Core::getMusicListByName(const QString &name) const {
         const auto musicList = m_listCache->findList(name);
         QStringList list;
         for (const auto &music: musicList) {
@@ -148,14 +154,31 @@ namespace Core {
         m_settings->addUserMusicList(listName);
     }
 
-    void Core::addUserListToDB(const QString &listName) { {
-            if (auto dbConnection = Service::DatabaseManager(DB_PATH, listName); !dbConnection.createTable(listName)) {
+    void Core::addUserListToDB(const QString &listName) const {
+        const auto connectName = "c_" + listName;
+        {
+            if (auto dbConnection = Service::DatabaseManager(DB_PATH, connectName); !dbConnection.createTable(listName)) {
                 Log.log(Service::Logger_QT::LogLevel::Error, "createTable failed: " + listName);
             }
         }
-        QSqlDatabase::removeDatabase(listName);
+        QSqlDatabase::removeDatabase(connectName);
     }
 
+    void Core::updateLocalMusicList() {
+        m_listCache->reloadMusicList(LOCAL_LIST_KEY, m_settings->getLocalMusicDirectories());
+    }
+
+    QStringList Core::getLocalMusicPaths() {
+        return m_settings->getLocalMusicDirectories();
+    }
+
+    void Core::addLocalMusicPath(const QString &path) {
+        m_settings->addLocalMusicDirectory(path);
+    }
+
+    void Core::removeLocalMusicPath(const QString &path) {
+        m_settings->removeLocalMusicDirectory(path);
+    }
 
     ICore *ICore::create(QObject *parent) {
         return new Core(parent);

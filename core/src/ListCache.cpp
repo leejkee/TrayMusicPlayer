@@ -35,4 +35,8 @@ namespace Core::Service {
         return {};
     }
 
+    void ListCache::reloadMusicList(const QString &key, const QStringList &paths) {
+        m_listCache.value(key) = loadLocalMusic(paths);
+    }
+
 }

@@ -8,10 +8,7 @@ file(GLOB_RECURSE UI_SOURCES CONFIGURE_DEPENDS
 
 add_library(tray_music_ui STATIC ${UI_SOURCES})
 
-#qt_add_executable(TrayMusicPlayer
-#        MANUAL_FINALIZATION
-#        ${UI_SOURCES}
-#)
+
 
 target_link_libraries(tray_music_ui PUBLIC
         tray_music_core

@@ -24,7 +24,7 @@ namespace Core {
         virtual void initDefaultSettings() = 0;
 
     Q_SIGNALS:
-        // emitted when the QMediaPlayer::positionChanged() emitted
+        /// signal emitted when the QMediaPlayer::positionChanged() is emitted
         void signalPositionChanged(qint64 position);
 
         void signalCurrentMusicNameChanged(const QString &musicName);
@@ -41,7 +41,21 @@ namespace Core {
 
         void signalPlayModeChanged(int);
 
+        ///
+        /// @brief Signal emitted when the music list changes
+        ///
+        /// This signal is triggered to notify when a specific music playlist has been
+        /// updated or loaded. It carries both the name of the playlist and the
+        /// actual list of music items.
+        ///
+        /// @param name The name of the playlist that has changed
+        /// @param nameList The content of the playlist as a list of music items
+        ///
         void signalMusicListChanged(const QString &name, const QStringList &nameList);
+
+        ///
+        /// @brief Signal emitted when the local music paths in init_win32.json/init_linux.json changes
+        void signalLocalPathsChanged();
 
     public Q_SLOTS:
         /// Toggles between play and pause states of the current music.
@@ -68,11 +82,6 @@ namespace Core {
         /// Switches the active playlist to the specified list name.
         virtual void switchMusicListByName(const QString &listName) = 0;
 
-        /// todo: not interface?
-        /// Retrieves the music titles belonging to the specified playlist.
-        /// @return QStringList of music titles, empty if playlist doesn't exist.
-        virtual QStringList getMusicListByName(const QString &name) = 0;
-
         /// Handles UI request to fetch music list by name.
         /// Triggers a signal with the corresponding QStringList of music titles.
         /// If no cached data exists for the given name, an empty list is emitted.
@@ -91,5 +100,11 @@ namespace Core {
         virtual QStringList getKeysUserList() = 0;
 
         virtual void addUserList(const QString &) = 0;
+
+        virtual QStringList getLocalMusicPaths() = 0;
+
+        virtual void addLocalMusicPath(const QString &) = 0;
+
+        virtual void removeLocalMusicPath(const QString &) = 0;
     };
 } // namespace Core

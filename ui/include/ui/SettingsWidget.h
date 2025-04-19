@@ -17,8 +17,6 @@ namespace UI::SettingsWidget {
     public:
         explicit SettingsWidget(QWidget *parent = nullptr);
 
-        void loadSettings();
-
     private:
         QPushButton *m_addButton;
         QPushButton *m_removeButton;
@@ -26,11 +24,6 @@ namespace UI::SettingsWidget {
         QLabel *m_messageLabel;
 
     Q_SIGNALS:
-        // signals for settings changed
-        // 1, send to the settings
-        // 2, send to the  viewWidget to refresh if the shown widget is "local"
-        void signalLocalMusicPathSettingsChanged();
-
         void signalAddButton(const QString &);
 
         void signalRemoveButton(const QString &);
@@ -39,5 +32,8 @@ namespace UI::SettingsWidget {
         void addMusicPath();
 
         void removeMusicPath();
+
+    public Q_SLOTS:
+        void updateLocalPaths(const QStringList &paths);
     };
 }

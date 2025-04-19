@@ -57,6 +57,11 @@ namespace UI::WindowManager {
 
         createConnections();
         m_core->initDefaultSettings();
+        this->initDefaultSettings();
+    }
+
+    void WindowManager::initDefaultSettings() {
+        m_settingsWidget->updateLocalPaths(m_core->getLocalMusicPaths());
     }
 
     void WindowManager::updateCurrentMusic(const int index, const QString &name, const int duration) {
@@ -129,5 +134,17 @@ namespace UI::WindowManager {
         // add button
         connect(m_musicListWidget, &MusicListWidget::MusicListWidget::signalMusicListButtonAdded,
                 m_core, &Core::ICore::addUserList);
+
+
+        connect(m_settingsWidget, &SettingsWidget::SettingsWidget::signalAddButton,
+                m_core, &Core::ICore::addLocalMusicPath);
+
+        connect(m_settingsWidget, &SettingsWidget::SettingsWidget::signalRemoveButton,
+                m_core, &Core::ICore::removeLocalMusicPath);
+
+
+        connect(m_core, &Core::ICore::signalLocalPathsChanged, this, [this]() {
+            m_settingsWidget->updateLocalPaths(m_core->getLocalMusicPaths());
+        });
     }
 }

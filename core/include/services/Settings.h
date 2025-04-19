@@ -45,7 +45,7 @@ namespace Core::Service {
 
         void removeUserMusicList(const QString &path);
 
-        void removeMusicDirectory(const QString &path);
+        void removeLocalMusicDirectory(const QString &path);
 
     private:
         QString m_settingsPath;
