@@ -18,8 +18,6 @@ namespace Core::Service {
 
         [[nodiscard]] QString getCurrentMusicPath() const;
 
-        [[nodiscard]] QString getCurrentMusicTitle() const;
-
         void loadMusicList(const QVector<Song> &musicList);
 
         void nextMusic();
@@ -28,23 +26,15 @@ namespace Core::Service {
 
         void setCurrentMusicIndex(qsizetype index);
 
-        void setPlayMode(PlayMode playMode);
-
         [[nodiscard]] qsizetype getCurrentMusicIndex() const;
 
         void changePlayMode();
 
     Q_SIGNALS:
-        void signalMusicNameChanged(const QString &);
 
-        void signalMusicIndexChanged(qsizetype);
-
-        void signalMusicDurationChanged(int);
-
-        void signalMusicChanged(qsizetype, const QString &, int);
+        void signalMusicChanged(qsizetype index, const QString &title, int duration);
 
         void signalPlayModeChanged(PlayMode);
-
 
     private:
         qsizetype m_index;
@@ -55,5 +45,7 @@ namespace Core::Service {
         [[nodiscard]] qsizetype getNextMusicIndex() const;
 
         [[nodiscard]] qsizetype getPreMusicIndex() const;
+
+        void setPlayMode(PlayMode playMode);
     };
 }

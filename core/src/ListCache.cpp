@@ -7,7 +7,7 @@
 
 
 namespace Core::Service {
-    QVector<Song> ListCache::loadLocalMusic(const QStringList &localDir) {
+    void ListCache::loadLocalMusic(const QStringList &localDir) {
         QVector<Song> localList;
         for (const auto &filePath: localDir) {
             QDirIterator it(filePath, MUSIC_FILTERS, QDir::Files, QDirIterator::Subdirectories);
@@ -17,13 +17,13 @@ namespace Core::Service {
                 localList.append(song);
             }
         }
-        return localList;
+        m_listCache[LOCAL_LIST_KEY] = localList;
     }
 
     ListCache::ListCache(const QStringList &localDir, QObject *parent) : QObject(parent) {
         setObjectName(QStringLiteral("ListCache"));
         Log = Logger_QT(this->objectName());
-        m_listCache[LOCAL_LIST_KEY] = loadLocalMusic(localDir);
+        loadLocalMusic(localDir);
         Log.log(Logger_QT::LogLevel::Info, "ListCache: Local list has been initialized.");
     }
 
@@ -35,8 +35,14 @@ namespace Core::Service {
         return {};
     }
 
-    void ListCache::reloadMusicList(const QString &key, const QStringList &paths) {
-        m_listCache.value(key) = loadLocalMusic(paths);
+    void ListCache::loadUserList(const QString &key, const QVector<Song> &list) {
+        if (!m_listCache.contains(key)) {
+            m_listCache[key] = list;
+        }
+        else {
+            m_listCache[key].append(list);
+        }
     }
+
 
 }

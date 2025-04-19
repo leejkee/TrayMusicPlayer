@@ -27,12 +27,6 @@ namespace Core {
         /// signal emitted when the QMediaPlayer::positionChanged() is emitted
         void signalPositionChanged(qint64 position);
 
-        void signalCurrentMusicNameChanged(const QString &musicName);
-
-        void signalCurrentMusicIndexChanged(qsizetype index);
-
-        void signalCurrentMusicDurationChanged(int seconds);
-
         void signalCurrentMusicChanged(int, const QString &, int);
 
         void signalPlayingChanged(bool);
@@ -75,9 +69,6 @@ namespace Core {
 
         /// Loads and prepares a music file from the given path for playback.
         virtual void loadMusic(const QString &musicPath) = 0;
-
-        /// Sets the playback mode (e.g., Repeat, Shuffle, Sequential).
-        virtual void setPlayMode(const Service::PlayMode &mode) = 0;
 
         /// Switches the active playlist to the specified list name.
         virtual void switchMusicListByName(const QString &listName) = 0;

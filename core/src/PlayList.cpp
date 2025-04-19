@@ -68,10 +68,6 @@ namespace Core::Service {
         return m_musicList.at(m_index).m_path;
     }
 
-    QString PlayList::getCurrentMusicTitle() const {
-        return m_musicList.at(m_index).m_title;
-    }
-
     qsizetype PlayList::getCurrentMusicIndex() const {
         return m_index;
     }

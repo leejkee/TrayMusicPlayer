@@ -16,6 +16,7 @@ namespace Core::Service {
     struct Song;
 }
 
+
 namespace Core {
     class Core final : public ICore {
     public:
@@ -35,14 +36,11 @@ namespace Core {
 
         void preMusic() override;
 
-        void setPlayMode(const Service::PlayMode &) override;
-
         void switchMusicListByName(const QString &listName) override;
 
         void setMusicPosition(qint64 position) override;
 
         void changePlayMode() override;
-
 
         void requestMusicListByName(const QString &) override;
 
@@ -52,8 +50,6 @@ namespace Core {
         QStringList getKeysUserList() override;
 
         void addUserList(const QString &) override;
-
-        void updateLocalMusicList();
 
         QStringList getLocalMusicPaths() override;
 
@@ -73,5 +69,7 @@ namespace Core {
         /// Retrieves the music titles belonging to the specified playlist.
         /// @return QStringList of music titles, empty if playlist doesn't exist.
         [[nodiscard]] QStringList getMusicListByName(const QString &name) const;
+
+        void updateLocalMusicList();
     };
 } // namespace Core

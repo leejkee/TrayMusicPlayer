@@ -29,18 +29,7 @@ namespace Core {
             Q_EMIT signalPlayingChanged(b);
         });
 
-        // music changed
-        connect(m_playList, &Service::PlayList::signalMusicNameChanged, this, [this](const QString &name) {
-            // Log.log(Service::Logger_QT::LogLevel::Info, "signal emitted, to tell ui the current music name changed: "
-            //  + name);
-            Q_EMIT signalCurrentMusicNameChanged(name);
-        });
 
-        connect(m_playList, &Service::PlayList::signalMusicDurationChanged, this, [this](const int seconds) {
-            // Log.log(Service::Logger_QT::LogLevel::Info, "signal emitted, to tell ui the current music duration changed: "
-            //  + QString::number(seconds) + " s.");
-            Q_EMIT signalCurrentMusicDurationChanged(seconds);
-        });
 
         connect(m_playList, &Service::PlayList::signalMusicChanged, this, [this](
             const qsizetype index, const QString &name,
@@ -105,9 +94,6 @@ namespace Core {
         m_player->playTg();
     }
 
-    void Core::setPlayMode(const Service::PlayMode &mode) {
-        m_playList->setPlayMode(mode);
-    }
 
     void Core::playToggle() {
         m_player->playTg();
@@ -165,7 +151,7 @@ namespace Core {
     }
 
     void Core::updateLocalMusicList() {
-        m_listCache->reloadMusicList(LOCAL_LIST_KEY, m_settings->getLocalMusicDirectories());
+        m_listCache->loadLocalMusic(m_settings->getLocalMusicDirectories());
     }
 
     QStringList Core::getLocalMusicPaths() {
