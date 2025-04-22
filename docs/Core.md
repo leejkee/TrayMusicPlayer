@@ -1,13 +1,29 @@
 ### Core负责组成一个完整的支持播放列表的播放器
 
 #### init
-- 将PlayList初始化为Local Music
-
+- 初始化Core模块的全部子模块，统一管理它们同ui层的通信逻辑 
 
 #### todo
 - 从ViewWidget加入歌单的功能
 
 #### 期望的初始化流程
-- ui上默认按一次Local来加载歌单到PlayList
-- Core会将PlayList的第一首歌曲的信息发到ui
-- 补全ViewWidget播放按钮的逻辑
+- ui: 默认将`Local`本地歌单显示到ViewWidget
+- Core: `initDefaultSettings()`函数会将PlayList的第一首歌曲的信息发到ui，该函数模拟用户操作，全部init过程完成后，由`WindowManager`调用
+- 默认`PlayList`不加载任何歌单
+- 加载和显示歌曲列表不绑定，ui的播放按钮发送歌单Key的信号，Core可以根据Key是否被加载到PlayList来进行处理
+
+#### 提供的API
+- 初始化用户设置
+  - 播放器初始音量
+  - 播放器初始加载的歌单
+
+- 加载指定歌单中的指定索引号的歌曲到Player并播放
+- 下一曲，上一曲
+- 切换播放列表的模式，顺序，列表循环，单曲循环，随机播放
+- 设置音量
+- 更改一次播放模式
+- 提供获取包含用户歌单名称的列表
+- 提供从ui添加用户歌单的接口
+- 提供从ui删除用户歌单的接口
+- 提供修改本地扫描目录的接口
+- 提供设置歌曲播放进度的接口

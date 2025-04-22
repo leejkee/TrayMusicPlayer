@@ -66,9 +66,6 @@ namespace Core {
         /// Adjusts the playback volume (0-100 range expected).
         virtual void setVolume(unsigned int volume) = 0;
 
-        /// Loads and prepares a music file from the given path for playback.
-        virtual void loadMusic(const QString &musicPath) = 0;
-
         /// Switches the active playlist to the specified list name.
         virtual void switchMusicListByName(const QString &listName) = 0;
 

@@ -65,17 +65,9 @@ namespace Core {
 
     void Core::initDefaultSettings() {
         setVolume(m_settings->getDefaultVolume());
-        // m_playList->loadMusicList(LOCAL_LIST_KEY, m_listCache->findList(LOCAL_LIST_KEY));
-
-        // test sgm
-        // m_playList->setCurrentMusicIndex(0);
-        // m_player->setMusicSource(m_playList->getCurrentMusicPath());
-        // test sgm
+        playLocalMusicFromFirst();
     }
 
-    void Core::loadMusic(const QString &musicPath) {
-        m_player->setMusicSource(musicPath);
-    }
 
     void Core::setVolume(const unsigned volume) {
         m_player->setVolume(static_cast<float>(volume) / 100);
@@ -100,7 +92,7 @@ namespace Core {
 
     void Core::playToggleWithListAndIndex(const QString &listKey, const int index) {
         if (m_playList->getListKey() != listKey) {
-            Log.log(Service::Logger_QT::LogLevel::Info, "Current list is not \"" + listKey + "\", switch to it");
+            Log.log(Service::Logger_QT::LogLevel::Info, "Current list is not [" + listKey + "], switch to it");
             m_playList->loadMusicList(listKey, m_listCache->findList(listKey));
         }
         if (index != m_playList->getCurrentMusicIndex()) {
@@ -110,6 +102,9 @@ namespace Core {
         m_player->playTg();
     }
 
+    void Core::playLocalMusicFromFirst() {
+        Q_EMIT signalMusicListChanged(LOCAL_LIST_KEY, m_listCache->getMusicTitleList(LOCAL_LIST_KEY));
+    }
     void Core::switchMusicListByName(const QString &listName) {
         m_playList->loadMusicList(listName, m_listCache->findList(listName));
     }

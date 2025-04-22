@@ -67,5 +67,7 @@ namespace Core {
         void addUserListToDB(const QString &listName) const;
 
         void updateLocalMusicList();
+
+        void playLocalMusicFromFirst();
     };
 } // namespace Core
