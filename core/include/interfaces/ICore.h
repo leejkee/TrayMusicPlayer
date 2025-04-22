@@ -94,5 +94,7 @@ namespace Core {
 
         virtual void removeLocalMusicPath(const QString &) = 0;
 
+        virtual QStringList getLocalMusicTitleList() = 0;
+
     };
 } // namespace Core

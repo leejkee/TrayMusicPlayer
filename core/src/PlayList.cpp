@@ -26,7 +26,8 @@ namespace Core::Service {
         m_currentListKey = listKey;
         m_musicList.clear();
         m_musicList = musicList;
-        m_index = UNINITIALIZED_VALUE;
+        // m_index = 0;
+        // m_index = UNINITIALIZED_VALUE;
     }
 
     void PlayList::nextMusic() {
@@ -77,11 +78,9 @@ namespace Core::Service {
         if (index >= m_musicList.size()) {
             Log.log(Logger_QT::LogLevel::Error, "index out of range");
         }
-        if (m_index != index) {
-            m_index = index;
-            Log.log(Logger_QT::LogLevel::Info, "index changed: " + QString::number(m_index));
-            Q_EMIT signalMusicChanged(m_index, m_musicList.at(m_index).m_title, m_musicList.at(m_index).m_duration);
-        }
+        m_index = index;
+        Log.log(Logger_QT::LogLevel::Info, "index changed: " + QString::number(m_index));
+        Q_EMIT signalMusicChanged(m_index, m_musicList.at(m_index).m_title, m_musicList.at(m_index).m_duration);
     }
 
     void PlayList::setPlayMode(const PlayMode playMode) {

@@ -24,8 +24,6 @@ namespace Core {
 
         void createConnections();
 
-        void loadMusic(const QString &musicPath) override;
-
         void setVolume(unsigned int volume) override;
 
         void playToggle() override;
@@ -37,6 +35,8 @@ namespace Core {
         void preMusic() override;
 
         void switchMusicListByName(const QString &listName) override;
+
+        QStringList getLocalMusicTitleList() override;
 
         void setMusicPosition(qint64 position) override;
 
@@ -56,6 +56,7 @@ namespace Core {
         void addLocalMusicPath(const QString &) override;
 
         void removeLocalMusicPath(const QString &) override;
+
 
     private:
         Engine::Player *m_player;

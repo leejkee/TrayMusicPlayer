@@ -57,9 +57,16 @@ namespace Core {
 
         connect(m_settings, &Service::Settings::signalUserListAdded, this, &Core::addUserListToDB);
 
-        connect(m_settings, &Service::Settings::signalLocalSettingsChanged, this, [this] {
+        // update the local paths in UI
+        connect(m_settings, &Service::Settings::signalLocalSettingsChanged, this, [this]() {
             Q_EMIT signalLocalPathsChanged();
         });
+
+        // connect(m_settings, &Service::Settings::signalLocalSettingsChanged, this, [this]() {
+        //     Q_EMIT signalMusicListChanged(LOCAL_LIST_KEY, m_listCache->getMusicTitleList(LOCAL_LIST_KEY));
+        // });
+
+        // update the local paths in Core::Settings
         connect(m_settings, &Service::Settings::signalLocalSettingsChanged, this, &Core::updateLocalMusicList);
     }
 
@@ -94,19 +101,26 @@ namespace Core {
         if (m_playList->getListKey() != listKey) {
             Log.log(Service::Logger_QT::LogLevel::Info, "Current list is not [" + listKey + "], switch to it");
             m_playList->loadMusicList(listKey, m_listCache->findList(listKey));
+            m_playList->setCurrentMusicIndex(0);
+        } else {
+            if (index != m_playList->getCurrentMusicIndex()) {
+                m_playList->setCurrentMusicIndex(index);
+            }
         }
-        if (index != m_playList->getCurrentMusicIndex()) {
-            m_playList->setCurrentMusicIndex(index);
-            m_player->setMusicSource(m_playList->getCurrentMusicPath());
-        }
+        m_player->setMusicSource(m_playList->getCurrentMusicPath());
         m_player->playTg();
     }
 
     void Core::playLocalMusicFromFirst() {
         Q_EMIT signalMusicListChanged(LOCAL_LIST_KEY, m_listCache->getMusicTitleList(LOCAL_LIST_KEY));
     }
+
     void Core::switchMusicListByName(const QString &listName) {
         m_playList->loadMusicList(listName, m_listCache->findList(listName));
+    }
+
+    QStringList Core::getLocalMusicTitleList() {
+        return m_listCache->getMusicTitleList(LOCAL_LIST_KEY);
     }
 
 
@@ -131,9 +145,9 @@ namespace Core {
     }
 
     void Core::addUserListToDB(const QString &listName) const {
-        const auto connectName = "c_" + listName;
-        {
-            if (auto dbConnection = Service::DatabaseManager(DB_PATH, connectName); !dbConnection.createTable(listName)) {
+        const auto connectName = "c_" + listName; {
+            if (auto dbConnection = Service::DatabaseManager(DB_PATH, connectName); !dbConnection.
+                createTable(listName)) {
                 Log.log(Service::Logger_QT::LogLevel::Error, "createTable failed: " + listName);
             }
         }
@@ -142,6 +156,10 @@ namespace Core {
 
     void Core::updateLocalMusicList() {
         m_listCache->loadLocalMusic(m_settings->getLocalMusicDirectories());
+        if (m_playList->getListKey() == LOCAL_LIST_KEY) {
+            m_playList->loadMusicList(LOCAL_LIST_KEY, m_listCache->findList(LOCAL_LIST_KEY));
+        }
+        Q_EMIT signalMusicListChanged(LOCAL_LIST_KEY, m_listCache->getMusicTitleList(LOCAL_LIST_KEY));
     }
 
     QStringList Core::getLocalMusicPaths() {

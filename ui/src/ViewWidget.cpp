@@ -105,7 +105,6 @@ namespace UI::ViewWidget {
     }
 
 
-
     void ViewWidget::refreshForLocalMusic() const {
         if (m_labelName->text() == User::LOCAL_LIST_KEY) {
             // showMusicList(User::LOCAL_LIST_KEY);
