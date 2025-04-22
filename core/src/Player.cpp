@@ -46,7 +46,7 @@ namespace Core::Engine {
         } else {
             m_player->play();
         }
-        Log.log(Service::Logger_QT::LogLevel::Info, "playing status changed: " + QString::number(!isPlaying));
+        Log.log(Service::Logger_QT::LogLevel::Info, "playing status changed: " + Service::Logger_QT::boolToString(!isPlaying));
         Q_EMIT signalPlayingChanged(!isPlaying);
     }
 

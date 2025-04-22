@@ -2,7 +2,6 @@
 // Created by cww on 25-4-2.
 //
 #pragma once
-#include <PlayMode.h>
 #include <QObject>
 #include <QString>
 
@@ -61,8 +60,8 @@ namespace Core {
         /// Returns to the previous track in the current playlist.
         virtual void preMusic() = 0;
 
-        /// Plays the music with index.
-        virtual void playToggleIndex(int) = 0;
+        /// Plays the music with index in the list whose name is listKey.
+        virtual void playToggleWithListAndIndex(const QString &, int) = 0;
 
         /// Adjusts the playback volume (0-100 range expected).
         virtual void setVolume(unsigned int volume) = 0;
@@ -97,5 +96,6 @@ namespace Core {
         virtual void addLocalMusicPath(const QString &) = 0;
 
         virtual void removeLocalMusicPath(const QString &) = 0;
+
     };
 } // namespace Core

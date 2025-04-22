@@ -49,20 +49,22 @@ namespace UI::ViewWidget {
 
         connect(m_playListView, &QListView::doubleClicked,
                 this, [this](const QModelIndex &index) {
-                    Q_EMIT signalPlayToggle(index.row());
+                    Q_EMIT signalViewItemPlayButtonClicked(m_labelName->text(), index.row());
                 });
 
         connect(m_playAllButton, &QPushButton::clicked,
                 this, [this]() {
-                    Q_EMIT signalPlayAllClicked(m_labelName->text());
+                    Q_EMIT signalViewItemPlayButtonClicked(m_labelName->text(), 0);
                 });
 
-        connect(m_viewDelegate, &Panel::ViewDelegate::signalViewPlayButtonClicked,
-                this, [this](const int index) {
-                    Q_EMIT signalPlayToggle(index);
-                });
+        connect(m_viewDelegate, &Panel::ViewDelegate::signalViewItemPlayButtonClicked,
+                this, &ViewWidget::handleViewItemPlayButton);
     }
 
+
+    void ViewWidget::handleViewItemPlayButton(const int index) {
+        Q_EMIT signalViewItemPlayButtonClicked(m_labelName->text(), index);
+    }
 
     void ViewWidget::updateCurrentIndex(const int row) {
         const auto index = m_dataModel->index(row, 0);
@@ -102,9 +104,6 @@ namespace UI::ViewWidget {
         m_dataModel->setMusicList(nameList);
     }
 
-    void ViewWidget::setDefaultList() const {
-        // showMusicList(User::LOCAL_LIST_KEY);
-    }
 
 
     void ViewWidget::refreshForLocalMusic() const {

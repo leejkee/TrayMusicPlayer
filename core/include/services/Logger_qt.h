@@ -27,6 +27,10 @@ namespace Core::Service {
             outputToConsole(logMessage);
         }
 
+        static QString boolToString(const bool b) {
+            return b ? "true" : "false";
+        }
+
     private:
         QString m_moduleName;
 
@@ -48,5 +52,6 @@ namespace Core::Service {
         static void outputToConsole(const QString &logMessage) {
             qDebug() << logMessage;
         }
+
     };
 }

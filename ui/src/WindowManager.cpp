@@ -119,8 +119,9 @@ namespace UI::WindowManager {
         connect(m_core, &Core::ICore::signalMusicListChanged,
                 m_viewWidget, &ViewWidget::ViewWidget::showMusicList);
 
-        connect(m_viewWidget, &ViewWidget::ViewWidget::signalPlayToggle,
-                m_core, &Core::ICore::playToggleIndex);
+            /// ViewWidget: ItemPlayButton -> Core: play music with index
+        connect(m_viewWidget, &ViewWidget::ViewWidget::signalViewItemPlayButtonClicked,
+                m_core, &Core::ICore::playToggleWithListAndIndex);
 
         connect(m_topBarWidget, &TopBarWidget::TopBarWidget::signalPreButtonClicked,
                 this, [this]() {

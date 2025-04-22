@@ -83,7 +83,7 @@ namespace UI::Panel {
             if (const auto *mouseEvent = dynamic_cast<QMouseEvent *>(event); buttonPlayRect.
                 contains(mouseEvent->pos())) {
                 if (event->type() == QEvent::MouseButtonRelease) {
-                    Q_EMIT signalViewPlayButtonClicked(index.row());
+                    Q_EMIT signalViewItemPlayButtonClicked(index.row());
                 }
                 return true;
             }

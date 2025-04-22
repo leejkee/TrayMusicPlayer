@@ -30,7 +30,7 @@ namespace Core {
 
         void playToggle() override;
 
-        void playToggleIndex(int) override;
+        void playToggleWithListAndIndex(const QString &listKey, int) override;
 
         void nextMusic() override;
 
@@ -65,10 +65,6 @@ namespace Core {
         Service::ListCache *m_listCache;
 
         void addUserListToDB(const QString &listName) const;
-
-        /// Retrieves the music titles belonging to the specified playlist.
-        /// @return QStringList of music titles, empty if playlist doesn't exist.
-        [[nodiscard]] QStringList getMusicListByName(const QString &name) const;
 
         void updateLocalMusicList();
     };

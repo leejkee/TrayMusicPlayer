@@ -44,5 +44,14 @@ namespace Core::Service {
         }
     }
 
+    QStringList ListCache::getMusicTitleList(const QString &name) const {
+        const auto musicList = findList(name);
+        QStringList list;
+        for (const auto &music: musicList) {
+            list.append(music.m_title);
+        }
+        return list;
+    }
+
 
 }

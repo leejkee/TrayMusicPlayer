@@ -30,6 +30,11 @@ namespace Core::Service {
         ///        If the key already exists, songs will be appended to the existing list.
         void loadUserList(const QString &key, const QVector<Song> &list);
 
+        /// Retrieves the title list of songs by list name
+        /// @param name The name of the song list
+        /// @return The title list of songs associated with the given name, using findList()
+        QStringList getMusicTitleList(const QString &name) const;
+
         /// Loads local music files from the given directories into the cache.
         /// @param localDir A list of directories to scan for music files.
         ///        All matching files will be added under the LOCAL_LIST_KEY.

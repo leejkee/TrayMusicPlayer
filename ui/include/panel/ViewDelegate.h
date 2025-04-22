@@ -44,7 +44,7 @@ namespace UI::Panel {
                          const QModelIndex &index) override;
 
     Q_SIGNALS:
-        void signalViewPlayButtonClicked(int);
+        void signalViewItemPlayButtonClicked(int);
 
         void signalPreviousIndexChanged(int);
 

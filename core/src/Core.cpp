@@ -16,7 +16,7 @@ namespace Core {
         Log = Service::Logger_QT(this->objectName());
         m_player = new Engine::Player(this);
         m_settings = new Service::Settings(SETTINGS_WIN32, this);
-        m_playList = new Service::PlayList({}, this);
+        m_playList = new Service::PlayList(this);
         m_listCache = new Service::ListCache(m_settings->getLocalMusicDirectories(), this);
         Log.log(Service::Logger_QT::LogLevel::Info, "Initializing Core successfully");
         createConnections();
@@ -28,7 +28,6 @@ namespace Core {
             // QString::number(b));
             Q_EMIT signalPlayingChanged(b);
         });
-
 
 
         connect(m_playList, &Service::PlayList::signalMusicChanged, this, [this](
@@ -58,7 +57,7 @@ namespace Core {
 
         connect(m_settings, &Service::Settings::signalUserListAdded, this, &Core::addUserListToDB);
 
-        connect(m_settings, &Service::Settings::signalLocalSettingsChanged, this, [this]() {
+        connect(m_settings, &Service::Settings::signalLocalSettingsChanged, this, [this] {
             Q_EMIT signalLocalPathsChanged();
         });
         connect(m_settings, &Service::Settings::signalLocalSettingsChanged, this, &Core::updateLocalMusicList);
@@ -66,11 +65,11 @@ namespace Core {
 
     void Core::initDefaultSettings() {
         setVolume(m_settings->getDefaultVolume());
-        m_playList->loadMusicList(m_listCache->findList(LOCAL_LIST_KEY));
+        // m_playList->loadMusicList(LOCAL_LIST_KEY, m_listCache->findList(LOCAL_LIST_KEY));
 
         // test sgm
-        m_playList->setCurrentMusicIndex(0);
-        m_player->setMusicSource(m_playList->getCurrentMusicPath());
+        // m_playList->setCurrentMusicIndex(0);
+        // m_player->setMusicSource(m_playList->getCurrentMusicPath());
         // test sgm
     }
 
@@ -99,7 +98,11 @@ namespace Core {
         m_player->playTg();
     }
 
-    void Core::playToggleIndex(const int index) {
+    void Core::playToggleWithListAndIndex(const QString &listKey, const int index) {
+        if (m_playList->getListKey() != listKey) {
+            Log.log(Service::Logger_QT::LogLevel::Info, "Current list is not \"" + listKey + "\", switch to it");
+            m_playList->loadMusicList(listKey, m_listCache->findList(listKey));
+        }
         if (index != m_playList->getCurrentMusicIndex()) {
             m_playList->setCurrentMusicIndex(index);
             m_player->setMusicSource(m_playList->getCurrentMusicPath());
@@ -108,17 +111,9 @@ namespace Core {
     }
 
     void Core::switchMusicListByName(const QString &listName) {
-        m_playList->loadMusicList(m_listCache->findList(listName));
+        m_playList->loadMusicList(listName, m_listCache->findList(listName));
     }
 
-    QStringList Core::getMusicListByName(const QString &name) const {
-        const auto musicList = m_listCache->findList(name);
-        QStringList list;
-        for (const auto &music: musicList) {
-            list.append(music.m_title);
-        }
-        return list;
-    }
 
     void Core::setMusicPosition(const qint64 position) {
         m_player->setMusicPosition(position);
@@ -129,7 +124,7 @@ namespace Core {
     }
 
     void Core::requestMusicListByName(const QString &listName) {
-        Q_EMIT signalMusicListChanged(listName, getMusicListByName(listName));
+        Q_EMIT signalMusicListChanged(listName, m_listCache->getMusicTitleList(listName));
     }
 
     QStringList Core::getKeysUserList() {

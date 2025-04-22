@@ -7,25 +7,26 @@
 
 
 namespace Core::Service {
-    PlayList::PlayList(const QVector<Song> &musicList, QObject *parent)
+    PlayList::PlayList(QObject *parent)
         : QObject(parent)
           , m_index(UNINITIALIZED_VALUE)
-          , m_playMode(PlayMode::Sequential)
-          , m_musicList(musicList) {
+          , m_playMode(PlayMode::Sequential) {
+        m_currentListKey = {};
+        m_musicList = {};
         setObjectName(QStringLiteral("PlayList"));
         Log = Logger_QT(this->objectName());
-        Log.log(Logger_QT::LogLevel::Info, "PlayList initialized with " +
-                                           QString::number(musicList.size()) +
-                                           " songs, Sequential mode in constructor");
+        Log.log(Logger_QT::LogLevel::Info, "PlayList initialized with empty list, Sequential mode in constructor");
     }
 
-    void PlayList::loadMusicList(const QVector<Song> &musicList) {
+    void PlayList::loadMusicList(const QString &listKey, const QVector<Song> &musicList) {
         if (musicList.isEmpty()) {
             Log.log(Logger_QT::LogLevel::Warning, "load empty musicList");
         }
         Log.log(Logger_QT::LogLevel::Info, "load musicList successfully");
+        m_currentListKey = listKey;
         m_musicList.clear();
         m_musicList = musicList;
+        m_index = UNINITIALIZED_VALUE;
     }
 
     void PlayList::nextMusic() {
@@ -80,9 +81,6 @@ namespace Core::Service {
             m_index = index;
             Log.log(Logger_QT::LogLevel::Info, "index changed: " + QString::number(m_index));
             Q_EMIT signalMusicChanged(m_index, m_musicList.at(m_index).m_title, m_musicList.at(m_index).m_duration);
-            // Q_EMIT signalMusicNameChanged(m_musicList.at(m_index).getTitle());
-            // Q_EMIT signalMusicDurationChanged(m_musicList.at(m_index).getDuration());
-            // Q_EMIT signalMusicIndexChanged(m_index);
         }
     }
 
@@ -111,5 +109,9 @@ namespace Core::Service {
             default:
                 break;
         }
+    }
+
+    QString PlayList::getListKey() const {
+        return m_currentListKey;
     }
 }
