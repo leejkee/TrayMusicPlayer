@@ -50,6 +50,8 @@ namespace UI::Panel {
 
         void signalPlayingStatusChanged(bool);
 
+        void signalViewItemAddToList(int);
+
     private:
         int m_previousIndex;
         bool m_isPlaying;

@@ -33,6 +33,8 @@ namespace UI::ViewWidget {
 
         void handleViewItemPlayButton(int index);
 
+        void handleViewItemAddToList(int index);
+
     public Q_SLOTS:
 
         /// update the current selection when the current music changed

@@ -15,8 +15,6 @@
 #include <QStackedWidget>
 #include <QGroupBox>
 
-#include "ui/Assets.h"
-
 
 namespace UI::WindowManager {
     WindowManager::WindowManager(QWidget *parent) : QWidget(parent), m_core(nullptr) {
@@ -148,7 +146,6 @@ namespace UI::WindowManager {
 
         connect(m_core, &Core::ICore::signalLocalPathsChanged, this, [this]() {
             m_settingsWidget->updateLocalPaths(m_core->getLocalMusicPaths());
-            // m_viewWidget->showMusicList(User::LOCAL_LIST_KEY, m_core->getLocalMusicTitleList());
         });
     }
 }

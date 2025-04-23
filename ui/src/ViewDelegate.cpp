@@ -79,14 +79,24 @@ namespace UI::Panel {
                                    VIEW_BUTTON_SIZE,
                                    VIEW_BUTTON_SIZE);
 
+        const QRect buttonAddToListRect(option.rect.right() - VIEW_ADD_BUTTON_PADDING,
+                                        option.rect.center().y() - VIEW_BUTTON_SIZE / 2,
+                                        VIEW_BUTTON_SIZE,
+                                        VIEW_BUTTON_SIZE);
+
         if (event->type() == QEvent::MouseButtonPress || event->type() == QEvent::MouseButtonRelease) {
-            if (const auto *mouseEvent = dynamic_cast<QMouseEvent *>(event); buttonPlayRect.
-                contains(mouseEvent->pos())) {
+            const auto *mouseEvent = dynamic_cast<QMouseEvent *>(event);
+            if (buttonPlayRect.contains(mouseEvent->pos())) {
                 if (event->type() == QEvent::MouseButtonRelease) {
                     Q_EMIT signalViewItemPlayButtonClicked(index.row());
                 }
-                return true;
             }
+            if (buttonAddToListRect.contains(mouseEvent->pos())) {
+                if (event->type() == QEvent::MouseButtonRelease) {
+                    Q_EMIT signalViewItemAddToList(index.row());
+                }
+            }
+            return true;
         }
         return false;
     }

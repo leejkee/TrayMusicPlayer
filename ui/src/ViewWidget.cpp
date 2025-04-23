@@ -59,8 +59,15 @@ namespace UI::ViewWidget {
 
         connect(m_viewDelegate, &Panel::ViewDelegate::signalViewItemPlayButtonClicked,
                 this, &ViewWidget::handleViewItemPlayButton);
+
+        connect(m_viewDelegate, &Panel::ViewDelegate::signalViewItemAddToList,
+                this, &ViewWidget::handleViewItemAddToList);
     }
 
+    // todo: add to list
+    void ViewWidget::handleViewItemAddToList(const int index) {
+
+    }
 
     void ViewWidget::handleViewItemPlayButton(const int index) {
         Q_EMIT signalViewItemPlayButtonClicked(m_labelName->text(), index);
