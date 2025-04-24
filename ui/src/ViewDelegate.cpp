@@ -7,6 +7,7 @@
 #include <QPainter>
 #include <QSvgRenderer>
 #include <QMouseEvent>
+#include <QApplication>
 
 
 namespace UI::Panel {
@@ -18,6 +19,27 @@ namespace UI::Panel {
                                                   , m_svgAddToListRender(new QSvgRenderer(SvgRes::AdddSVG)) {
     }
 
+    void ViewDelegate::drawText(QPainter *painter, const QFont &font, const QColor &color, const int x, const int y,
+                                const QString &text) {
+        painter->save();
+        painter->setPen(QPen(color, Qt::SolidLine));
+        painter->setFont(font);
+        painter->drawText(x, y, text);
+        painter->restore();
+    }
+
+    void ViewDelegate::drawPlayButton(QPainter *painter, const QRect &rect, const bool isCurrent) const {
+        if (isCurrent) {
+            if (m_isPlaying) {
+                m_svgPauseRenderer->render(painter, rect);
+            } else {
+                m_svgPlayingRenderer->render(painter, rect);
+            }
+        } else {
+            m_svgPlayingRenderer->render(painter, rect);
+        }
+    }
+
     void ViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
                              const QModelIndex &index) const {
         painter->save();
@@ -26,25 +48,10 @@ namespace UI::Panel {
         const QString title = index.data(Qt::DisplayRole).toString();
         const QString artist = index.data(Qt::UserRole).toString();
 
-        // font
-        const QFont titleFont(FONT_MIRC_HEI, NAME_FONT_SIZE, QFont::Normal);
-        const QFont artistFont(FONT_MIRC_HEI, ARTIST_FONT_SIZE, QFont::Bold);
-
         // background
         if (option.state & QStyle::State_Selected) {
-            painter->fillRect(rect, QColor(224, 224, 224));
+            painter->fillRect(rect, COLOR_SELECTED_BACKGROUND);
         }
-
-        // name of song
-        painter->setFont(titleFont);
-        painter->drawText(rect.left() + VIEW_TEXT_LEFT_PADDING,
-                          rect.top() + VIEW_TEXT_TOP_PADDING, title);
-
-        // Artist
-        painter->setFont(artistFont);
-        painter->setPen(Qt::gray);
-        painter->drawText(rect.left() + VIEW_TEXT_LEFT_PADDING,
-                          rect.top() + rect.height() - VIEW_TEXT_BOTTOM_PADDING, artist);
 
         // Play/pause
         const QRect buttonPlayRect(rect.left() + VIEW_PLAY_BUTTON_PADDING,
@@ -59,13 +66,29 @@ namespace UI::Panel {
 
         m_svgAddToListRender->render(painter, buttonAddToListRect);
         if (index.row() != m_previousIndex) {
-            m_svgPlayingRenderer->render(painter, buttonPlayRect);
+            drawText(painter, TitleFontNormal, COLOR_TEXT_PRIMARY,
+                     rect.left() + VIEW_TEXT_LEFT_PADDING,
+                     rect.top() + VIEW_TEXT_TOP_PADDING,
+                     title);
+
+            drawText(painter, ArtistFontNormal, COLOR_TEXT_SECONDARY,
+                     rect.left() + VIEW_TEXT_LEFT_PADDING,
+                     rect.top() + rect.height() - VIEW_TEXT_BOTTOM_PADDING,
+                     artist);
+
+            drawPlayButton(painter, buttonPlayRect, false);
         } else {
-            if (m_isPlaying) {
-                m_svgPauseRenderer->render(painter, buttonPlayRect);
-            } else {
-                m_svgPlayingRenderer->render(painter, buttonPlayRect);
-            }
+            drawText(painter, TitleFontBold, COLOR_HIGHLIGHT_TEXT_PRIMARY,
+                     rect.left() + VIEW_TEXT_LEFT_PADDING,
+                     rect.top() + VIEW_TEXT_TOP_PADDING,
+                     title);
+
+            drawText(painter, ArtistFontBold, COLOR_HIGHLIGHT_TEXT_SECONDARY,
+                     rect.left() + VIEW_TEXT_LEFT_PADDING,
+                     rect.top() + rect.height() - VIEW_TEXT_BOTTOM_PADDING,
+                     artist);
+
+            drawPlayButton(painter, buttonPlayRect, true);
         }
         painter->restore();
     }
@@ -83,21 +106,57 @@ namespace UI::Panel {
                                         option.rect.center().y() - VIEW_BUTTON_SIZE / 2,
                                         VIEW_BUTTON_SIZE,
                                         VIEW_BUTTON_SIZE);
+        switch (event->type()) {
+            case QEvent::MouseMove: {
+                const auto *mouseEvent = dynamic_cast<QMouseEvent *>(event);
+                if (!mouseEvent) return false;
 
-        if (event->type() == QEvent::MouseButtonPress || event->type() == QEvent::MouseButtonRelease) {
-            const auto *mouseEvent = dynamic_cast<QMouseEvent *>(event);
-            if (buttonPlayRect.contains(mouseEvent->pos())) {
-                if (event->type() == QEvent::MouseButtonRelease) {
-                    Q_EMIT signalViewItemPlayButtonClicked(index.row());
+                const bool overPlay = buttonPlayRect.contains(mouseEvent->pos());
+                const bool overAdd = buttonAddToListRect.contains(mouseEvent->pos());
+
+                if (overPlay || overAdd) {
+                    QApplication::setOverrideCursor(Qt::PointingHandCursor);
+                } else {
+                    QApplication::restoreOverrideCursor();
                 }
+                break;
             }
-            if (buttonAddToListRect.contains(mouseEvent->pos())) {
-                if (event->type() == QEvent::MouseButtonRelease) {
-                    Q_EMIT signalViewItemAddToList(index.row());
+            case QEvent::MouseButtonPress:
+            case QEvent::MouseButtonRelease: {
+                const auto *mouseEvent = dynamic_cast<QMouseEvent *>(event);
+                if (!mouseEvent) return false;
+
+                if (buttonPlayRect.contains(mouseEvent->pos())) {
+                    if (event->type() == QEvent::MouseButtonRelease) {
+                        Q_EMIT signalViewItemPlayButtonClicked(index.row());
+                    }
+                    return true;
                 }
+                if (buttonAddToListRect.contains(mouseEvent->pos())) {
+                    if (event->type() == QEvent::MouseButtonRelease) {
+                        Q_EMIT signalViewItemAddToList(index.row());
+                    }
+                    return true;
+                }
+                break;
             }
-            return true;
+            default:
+                break;
         }
+        // if (event->type() == QEvent::MouseButtonPress || event->type() == QEvent::MouseButtonRelease) {
+        //     const auto *mouseEvent = dynamic_cast<QMouseEvent *>(event);
+        //     if (buttonPlayRect.contains(mouseEvent->pos())) {
+        //         if (event->type() == QEvent::MouseButtonRelease) {
+        //             Q_EMIT signalViewItemPlayButtonClicked(index.row());
+        //         }
+        //     }
+        //     if (buttonAddToListRect.contains(mouseEvent->pos())) {
+        //         if (event->type() == QEvent::MouseButtonRelease) {
+        //             Q_EMIT signalViewItemAddToList(index.row());
+        //         }
+        //     }
+        //     return true;
+        // }
         return false;
     }
 

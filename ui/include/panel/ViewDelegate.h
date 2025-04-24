@@ -4,6 +4,7 @@
 #pragma once
 
 #include <QStyledItemDelegate>
+#include <QFont>
 
 class QSvgRenderer;
 
@@ -30,8 +31,28 @@ namespace UI::Panel {
         constexpr static int NAME_FONT_SIZE = 12;
 
         constexpr static int ARTIST_FONT_SIZE = 9;
+        // 通用文字色
+        inline static const auto COLOR_TEXT_PRIMARY = QStringLiteral("#1C1C1E");           // 标准主文字色（非当前项）
+        inline static const auto COLOR_TEXT_SECONDARY = QStringLiteral("#5E5E5E");         // 次文字色（非当前项副标题）
+
+        // 当前播放项文字色
+        inline static const auto COLOR_HIGHLIGHT_TEXT_PRIMARY = QStringLiteral("#0078D4"); // 当前项标题
+        inline static const auto COLOR_HIGHLIGHT_TEXT_SECONDARY = QStringLiteral("#005999"); // 当前项副标题
+
+        // 背景选中色
+        inline static const auto COLOR_SELECTED_BACKGROUND = QStringLiteral("#E0E0E0");
+
+        const QFont TitleFontNormal = QFont(FONT_MIRC_HEI, NAME_FONT_SIZE, QFont::Normal);
+        const QFont TitleFontBold = QFont(FONT_MIRC_HEI, NAME_FONT_SIZE, QFont::Bold);
+        const QFont ArtistFontNormal = QFont(FONT_MIRC_HEI, ARTIST_FONT_SIZE, QFont::Normal);
+        const QFont ArtistFontBold = QFont(FONT_MIRC_HEI, ARTIST_FONT_SIZE, QFont::Bold);
 
         explicit ViewDelegate(QObject *parent = nullptr);
+
+        static void drawText(QPainter *painter, const QFont &font, const QColor &color, int x, int y,
+                             const QString &text);
+
+        void drawPlayButton(QPainter *painter, const QRect &rect, bool isCurrent) const;
 
         void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 

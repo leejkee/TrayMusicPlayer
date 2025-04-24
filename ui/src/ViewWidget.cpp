@@ -30,6 +30,7 @@ namespace UI::ViewWidget {
         m_playListView->setEditTriggers(QAbstractItemView::NoEditTriggers);
         m_playListView->setContextMenuPolicy(Qt::CustomContextMenu);
         m_playListView->setStyleSheet(Tools::readQSS(QssRes::LIST_VIEW_QSS));
+        m_playListView->viewport()->setMouseTracking(true);
 
         // Delegate Func
         m_playListView->setItemDelegate(m_viewDelegate);

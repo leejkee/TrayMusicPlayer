@@ -98,7 +98,7 @@ namespace Core {
         if (m_playList->getListKey() != listKey) {
             Log.log(Service::Logger_QT::LogLevel::Info, "Current list is not [" + listKey + "], switch to it");
             m_playList->loadMusicList(listKey, m_listCache->findList(listKey));
-            m_playList->setCurrentMusicIndex(0);
+            m_playList->setCurrentMusicIndex(index);
         } else {
             if (index != m_playList->getCurrentMusicIndex()) {
                 m_playList->setCurrentMusicIndex(index);
