@@ -22,7 +22,6 @@ namespace Core {
     public:
         explicit Core(QObject *parent = nullptr);
 
-        void createConnections();
 
         void setVolume(unsigned int volume) override;
 
@@ -70,5 +69,7 @@ namespace Core {
         void updateLocalMusicList();
 
         void playLocalMusicFromFirst();
+
+        void createConnections();
     };
 } // namespace Core

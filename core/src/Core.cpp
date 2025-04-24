@@ -62,9 +62,6 @@ namespace Core {
             Q_EMIT signalLocalPathsChanged();
         });
 
-        // connect(m_settings, &Service::Settings::signalLocalSettingsChanged, this, [this]() {
-        //     Q_EMIT signalMusicListChanged(LOCAL_LIST_KEY, m_listCache->getMusicTitleList(LOCAL_LIST_KEY));
-        // });
 
         // update the local paths in Core::Settings
         connect(m_settings, &Service::Settings::signalLocalSettingsChanged, this, &Core::updateLocalMusicList);
