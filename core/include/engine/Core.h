@@ -1,6 +1,6 @@
 #pragma once
 #include <ICore.h>
-#include <Logger_QT.h>
+#include <Logger_qt.h>
 #include <PlayList.h>
 
 
@@ -46,7 +46,7 @@ namespace Core {
         // init the default settings
         void initDefaultSettings() override;
 
-        QStringList getKeysUserList() override;
+        QStringList getKeysOfUserPlaylist() override;
 
         void addUserList(const QString &) override;
 

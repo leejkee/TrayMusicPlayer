@@ -38,6 +38,7 @@ namespace UI::ViewWidget {
     public Q_SLOTS:
 
         /// update the current selection when the current music changed
+        /// keep the current item is shown in the visible area
         void updateCurrentIndex(int);
 
         /// update the view when a music list button is pressed to check the current list
@@ -63,6 +64,8 @@ namespace UI::ViewWidget {
         Panel::BetterButton *m_playAllButton;
         Panel::DataModel *m_dataModel;
         Panel::ViewDelegate *m_viewDelegate;
+
+        QStringList m_userPlaylistKeys;
 
         void createConnections();
 

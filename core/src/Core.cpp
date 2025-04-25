@@ -95,16 +95,22 @@ namespace Core {
     }
 
     void Core::playToggleWithListAndIndex(const QString &listKey, const int index) {
+        /// check playlist ?
         if (m_playList->getListKey() != listKey) {
+            // yes
             Log.log(Service::Logger_QT::LogLevel::Info, "Current list is not [" + listKey + "], switch to it");
             m_playList->loadMusicList(listKey, m_listCache->findList(listKey));
             m_playList->setCurrentMusicIndex(index);
+            m_player->setMusicSource(m_playList->getCurrentMusicPath());
         } else {
+            // no
+            /// check music ?
             if (index != m_playList->getCurrentMusicIndex()) {
+                // yes
                 m_playList->setCurrentMusicIndex(index);
+                m_player->setMusicSource(m_playList->getCurrentMusicPath());
             }
         }
-        m_player->setMusicSource(m_playList->getCurrentMusicPath());
         m_player->playTg();
     }
 
@@ -133,7 +139,7 @@ namespace Core {
         Q_EMIT signalMusicListChanged(listName, m_listCache->getMusicTitleList(listName));
     }
 
-    QStringList Core::getKeysUserList() {
+    QStringList Core::getKeysOfUserPlaylist() {
         return m_settings->getUserMusicList();
     }
 

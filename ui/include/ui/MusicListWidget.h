@@ -20,8 +20,10 @@ namespace UI::MusicListWidget {
         Q_OBJECT
 
     public:
-        explicit MusicListWidget(QWidget *parent);
+        explicit MusicListWidget(QWidget *parent = nullptr);
 
+        // buttons created by user from settings
+        void initUserListButtons(const QStringList &playlistNames);
 
     Q_SIGNALS:
         void signalMusicListButtonClicked(const QString &playlistName);
@@ -38,11 +40,11 @@ namespace UI::MusicListWidget {
         Panel::BetterButton *m_expandButton;
         Panel::BetterButton *m_addButton;
         QScrollArea *m_scrollArea;
-
         QWidget *m_buttonWidget;
         QVBoxLayout *m_buttonLayout;
-
         Panel::BetterButton *m_localListButton;
+
+        QStringList m_userPlaylistKeys;
 
         void createConnections();
 
@@ -55,7 +57,5 @@ namespace UI::MusicListWidget {
 
         void deleteButton(const QString &playlistName);
 
-        // buttons created by user from settings
-        void initUserListButtons();
     };
 }

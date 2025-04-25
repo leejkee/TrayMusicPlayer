@@ -18,6 +18,8 @@
 
 namespace UI::WindowManager {
     WindowManager::WindowManager(QWidget *parent) : QWidget(parent), m_core(nullptr) {
+        m_core = Core::ICore::create(this);
+
         m_stackedMainWidget = new QStackedWidget(this);
         m_stackedViewWidget = new QStackedWidget(this);
         m_frontWidget = new QWidget(this);
@@ -28,7 +30,6 @@ namespace UI::WindowManager {
         m_topBarWidget = new TopBarWidget::TopBarWidget(this);
         m_settingsWidget = new SettingsWidget::SettingsWidget(this);
 
-        m_core = Core::ICore::create(this);
 
         m_stackedViewWidget->addWidget(m_viewWidget);
         m_stackedViewWidget->addWidget(m_settingsWidget);

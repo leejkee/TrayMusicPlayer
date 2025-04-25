@@ -84,7 +84,7 @@ namespace Core {
         /// Gets all keys of user playlist, which can be used to create the ui components
         /// UI can also request fetching music list by these keys
         /// @return QStringList of all keys of user playlist
-        virtual QStringList getKeysUserList() = 0;
+        virtual QStringList getKeysOfUserPlaylist() = 0;
 
         virtual void addUserList(const QString &) = 0;
 

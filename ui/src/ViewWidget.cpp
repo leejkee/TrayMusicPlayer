@@ -41,7 +41,6 @@ namespace UI::ViewWidget {
         Layout->addWidget(m_playListView);
         this->setLayout(Layout);
         createConnections();
-        // setDefaultList();
     }
 
     void ViewWidget::createConnections() {
@@ -67,7 +66,10 @@ namespace UI::ViewWidget {
 
     // todo: add to list
     void ViewWidget::handleViewItemAddToList(const int index) {
-
+        // auto menu = new QMenu(this);
+        // QAction *action = menu->addAction(tr("add to"));
+        // connect(menu, &QMenu::aboutToHide, menu, &QMenu::deleteLater);
+        // menu->exec(m_playListView->viewport()->mapToGlobal(pos));
     }
 
     void ViewWidget::handleViewItemPlayButton(const int index) {
