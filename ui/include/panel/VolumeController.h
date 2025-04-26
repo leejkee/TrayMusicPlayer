@@ -23,12 +23,16 @@ namespace UI::Panel {
 
         void setVolume(int v) const;
 
+    protected:
+        QSize sizeHint() const override;
+
 
     Q_SIGNALS:
         void signalSetValue(int);
 
     public Q_SLOTS:
         void setVolumeButtonIcon(bool) const;
+
 
     private:
         QSlider *m_sliderV;

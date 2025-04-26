@@ -71,6 +71,8 @@ namespace UI::PlayerWidget {
         auto *action = new QWidgetAction(this);
         action->setDefaultWidget(m_volumeController);
         m_menuVolume->addAction(action);
+        // m_menuVolume->setStyleSheet("QMenu { background-color: white; border: 1px solid gray; border-radius: 6px; }");
+        m_menuVolume->setStyleSheet(Tools::readQSS(QssRes::VOLUME_MENU_QSS));
     }
 
     void PlayerWidget::initMainLayout() {
@@ -174,9 +176,13 @@ namespace UI::PlayerWidget {
             m_menuVolume->hide();
             qDebug() << "Menu hide";
         } else {
-            QPoint pos = m_pushButtonVolume->mapToGlobal(QPoint(0, 0));
-            pos.setY(pos.y() - m_menuVolume->sizeHint().height());
-            pos.setX(pos.x() - 5);
+            // coordinate of the top-left pixel widget
+            ; // 紧贴按钮底部
+            QPoint pos = m_pushButtonVolume->mapToGlobal(QPoint(
+                (m_pushButtonVolume->width() - m_menuVolume->sizeHint().width()) / 2, // 水平居中
+                - m_menuVolume->sizeHint().height()));
+            // pos.setY(pos.y() - m_menuVolume->sizeHint().height());
+            // pos.setX(pos.x() - 5);
             m_menuVolume->popup(pos);
             qDebug() << "Menu show";
         }

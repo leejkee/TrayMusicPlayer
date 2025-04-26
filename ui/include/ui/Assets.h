@@ -49,6 +49,7 @@ namespace QssRes {
     inline const auto BUTTON_SQUARE_QSS = QStringLiteral(":/qss/MusicListButton/ButtonSquare.qss");
     inline const auto LIST_VIEW_QSS = QStringLiteral(":/qss/ListView/PlayListView.qss");
     inline const auto VOLUME_SLIDER_QSS = QStringLiteral(":/qss/Slider/QSlider.qss");
+    inline const auto VOLUME_MENU_QSS = QStringLiteral(":/qss/QMenu/VolumeMenu.qss");
     inline const auto PLAY_MODE_QSS = QStringLiteral(":/qss/MusicListButton/ButtonPlayMode.qss");
 }
 

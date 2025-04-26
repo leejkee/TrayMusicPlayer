@@ -9,5 +9,6 @@
    <file>qss/ListView/PlayListView.qss</file>
    <file>qss/Slider/QSlider.qss</file>
    <file>qss/Slider/ProgressBar.qss</file>
+   <file>qss/QMenu/VolumeMenu.qss</file>
 </qresource>
 </RCC>

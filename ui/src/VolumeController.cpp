@@ -21,7 +21,7 @@ namespace UI::Panel {
         hSliderLayout->addStretch();
         hSliderLayout->addWidget(m_sliderV);
         hSliderLayout->addStretch();
-        hSliderLayout->setContentsMargins(0, 0, 0, 0);
+        hSliderLayout->setContentsMargins(5, 0, 5, 0);
 
         m_labelVolume = new QLabel(this);
         m_labelVolume->setStyleSheet("font-size: 7pt;");
@@ -35,11 +35,11 @@ namespace UI::Panel {
         layout->addWidget(m_labelVolume);
 
         layout->addWidget(m_buttonMute);
-        layout->setContentsMargins(1, 5, 0, 0);
+        layout->setContentsMargins(0, 0, 0, 0);
         layout->setSpacing(0);
         setLayout(layout);
-        this->setFixedSize(30, 120);
-
+        // this->setFixedSize(30, 120);
+        setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         setVolume(10);
         connect(m_sliderV, &QSlider::valueChanged, this, &VolumeController::setVolume);
         connect(m_sliderV, &QSlider::valueChanged, this, [this](const int v) {
@@ -57,5 +57,8 @@ namespace UI::Panel {
         } else {
             m_buttonMute->setIcon(QIcon(SvgRes::VolumeBtnSVG));
         }
+    }
+    QSize VolumeController::sizeHint() const {
+        return QSize(30, 120);
     }
 }
