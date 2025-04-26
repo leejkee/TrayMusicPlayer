@@ -12,7 +12,6 @@
 #include <QHBoxLayout>
 #include <QMenu>
 
-
 namespace UI::ViewWidget {
     ViewWidget::ViewWidget(QWidget *parent): QWidget(parent) {
         m_labelName = new QLabel(this);
@@ -66,10 +65,7 @@ namespace UI::ViewWidget {
 
     // todo: add to list
     void ViewWidget::handleViewItemAddToList(const int index) {
-        // auto menu = new QMenu(this);
-        // QAction *action = menu->addAction(tr("add to"));
-        // connect(menu, &QMenu::aboutToHide, menu, &QMenu::deleteLater);
-        // menu->exec(m_playListView->viewport()->mapToGlobal(pos));
+
     }
 
     void ViewWidget::handleViewItemPlayButton(const int index) {
@@ -97,7 +93,7 @@ namespace UI::ViewWidget {
         }
         auto clickedRow = index.row();
         auto *menu = new QMenu(this);
-        QAction *action = menu->addAction(tr("Playlist"));
+        const QAction *action = menu->addAction(tr("Playlist"));
         connect(action, &QAction::triggered, this, [clickedRow, this]() {
             handleAction(clickedRow);
         });

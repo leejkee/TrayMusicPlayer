@@ -44,7 +44,6 @@ namespace UI::ViewWidget {
         /// update the view when a music list button is pressed to check the current list
         void showMusicList(const QString &name, const QStringList &nameList);
 
-
         /// @brief Refreshes the view widget to reflect changes in the local music path.
         ///
         /// This function is intended to be called when the local music path has been updated

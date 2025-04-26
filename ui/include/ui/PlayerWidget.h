@@ -20,6 +20,7 @@ namespace UI::Panel {
     class BetterButton;
     class VolumeController;
     class RotatingLabel;
+    class MarqueeLabel;
 }
 
 
@@ -30,9 +31,9 @@ namespace UI::PlayerWidget {
     public:
         constexpr static int CIRCLE_LOGO_SIZE = 45;
 
-        constexpr static int HEIGHT_PLAYER_WIDGET = 80;
+        constexpr static int HEIGHT_PLAYER_WIDGET = 45;
 
-        constexpr static int WIDTH_TITLE_LABEL = 210;
+        constexpr static int WIDTH_TITLE_LABEL = 120;
 
         explicit PlayerWidget(QWidget *parent = nullptr);
 
@@ -66,7 +67,8 @@ namespace UI::PlayerWidget {
 
     private:
         // left
-        QLabel *m_labelMusicName;
+        Panel::MarqueeLabel *m_labelMusicName;
+        Panel::MarqueeLabel *m_labelArtistName;
         Panel::RotatingLabel *m_labelLogo;
         QHBoxLayout *m_leftLayout;
 

@@ -66,24 +66,24 @@ namespace UI::Panel {
 
         m_svgAddToListRender->render(painter, buttonAddToListRect);
         if (index.row() != m_previousIndex) {
-            drawText(painter, TitleFontNormal, COLOR_TEXT_PRIMARY,
+            drawText(painter, TitleFontNormal, COLOR_TEXT_NAME,
                      rect.left() + VIEW_TEXT_LEFT_PADDING,
                      rect.top() + VIEW_TEXT_TOP_PADDING,
                      title);
 
-            drawText(painter, ArtistFontNormal, COLOR_TEXT_SECONDARY,
+            drawText(painter, ArtistFontNormal, COLOR_TEXT_ARTIST,
                      rect.left() + VIEW_TEXT_LEFT_PADDING,
                      rect.top() + rect.height() - VIEW_TEXT_BOTTOM_PADDING,
                      artist);
 
             drawPlayButton(painter, buttonPlayRect, false);
         } else {
-            drawText(painter, TitleFontBold, COLOR_HIGHLIGHT_TEXT_PRIMARY,
+            drawText(painter, TitleFontBold, COLOR_CURRENT_TEXT_NAME,
                      rect.left() + VIEW_TEXT_LEFT_PADDING,
                      rect.top() + VIEW_TEXT_TOP_PADDING,
                      title);
 
-            drawText(painter, ArtistFontBold, COLOR_HIGHLIGHT_TEXT_SECONDARY,
+            drawText(painter, ArtistFontBold, COLOR_CURRENT_TEXT_ARTIST,
                      rect.left() + VIEW_TEXT_LEFT_PADDING,
                      rect.top() + rect.height() - VIEW_TEXT_BOTTOM_PADDING,
                      artist);
@@ -109,10 +109,11 @@ namespace UI::Panel {
         switch (event->type()) {
             case QEvent::MouseMove: {
                 const auto *mouseEvent = dynamic_cast<QMouseEvent *>(event);
+                const auto pos = mouseEvent->pos();
                 if (!mouseEvent) return false;
 
-                const bool overPlay = buttonPlayRect.contains(mouseEvent->pos());
-                const bool overAdd = buttonAddToListRect.contains(mouseEvent->pos());
+                const bool overPlay = buttonPlayRect.contains(pos);
+                const bool overAdd = buttonAddToListRect.contains(pos);
 
                 if (overPlay || overAdd) {
                     QApplication::setOverrideCursor(Qt::PointingHandCursor);
@@ -125,14 +126,15 @@ namespace UI::Panel {
             case QEvent::MouseButtonRelease: {
                 const auto *mouseEvent = dynamic_cast<QMouseEvent *>(event);
                 if (!mouseEvent) return false;
+                const auto pos = mouseEvent->pos();
 
-                if (buttonPlayRect.contains(mouseEvent->pos())) {
+                if (buttonPlayRect.contains(pos)) {
                     if (event->type() == QEvent::MouseButtonRelease) {
                         Q_EMIT signalViewItemPlayButtonClicked(index.row());
                     }
                     return true;
                 }
-                if (buttonAddToListRect.contains(mouseEvent->pos())) {
+                if (buttonAddToListRect.contains(pos)) {
                     if (event->type() == QEvent::MouseButtonRelease) {
                         Q_EMIT signalViewItemAddToList(index.row());
                     }

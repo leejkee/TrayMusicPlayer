@@ -7,6 +7,7 @@
 #include <panel/ProgressBar.h>
 #include <panel/VolumeController.h>
 #include <panel/RotatingLabel.h>
+#include <panel/MarqueeLabel.h>
 
 #include <QLabel>
 #include <QPushButton>
@@ -29,9 +30,9 @@ namespace UI::PlayerWidget {
     }
 
     void PlayerWidget::initLeftLayout() {
-        m_labelMusicName = new QLabel(this);
+        m_labelMusicName = new Panel::MarqueeLabel(this);
         m_labelMusicName->setAlignment(Qt::AlignVCenter);
-        m_labelMusicName->setFixedSize(WIDTH_TITLE_LABEL, HEIGHT_PLAYER_WIDGET - 10);
+        m_labelMusicName->setFixedSize(WIDTH_TITLE_LABEL, HEIGHT_PLAYER_WIDGET);
 
         const QPixmap pixmap(SvgRes::TrayIconSVG);
         m_labelLogo = new Panel::RotatingLabel(pixmap, QSize(CIRCLE_LOGO_SIZE, CIRCLE_LOGO_SIZE));
@@ -93,9 +94,11 @@ namespace UI::PlayerWidget {
         // update name label
         const auto artist = songName.right(songName.length() - songName.indexOf("-") - 1).trimmed();
         const auto name = songName.left(songName.indexOf("-")).trimmed();
-        const QString formattedText = QString("%1<br><font size='-1'>%2</font><br>")
-                .arg(name, artist);
-        m_labelMusicName->setText(formattedText);
+        const QString formattedText = QString(
+            "<span style='font-size:16px; color:black;'>%1 - </span> "
+            "<span style='font-size:14px; color:gray; font-weight:bold;'>%2</span>"
+        ).arg(name, artist);
+        m_labelMusicName->setMarqueeText(formattedText);
     }
 
     void PlayerWidget::updateMusicDuration(const int s) {
@@ -177,12 +180,9 @@ namespace UI::PlayerWidget {
             qDebug() << "Menu hide";
         } else {
             // coordinate of the top-left pixel widget
-            ; // 紧贴按钮底部
-            QPoint pos = m_pushButtonVolume->mapToGlobal(QPoint(
+            const QPoint pos = m_pushButtonVolume->mapToGlobal(QPoint(
                 (m_pushButtonVolume->width() - m_menuVolume->sizeHint().width()) / 2, // 水平居中
-                - m_menuVolume->sizeHint().height()));
-            // pos.setY(pos.y() - m_menuVolume->sizeHint().height());
-            // pos.setX(pos.x() - 5);
+                -m_menuVolume->sizeHint().height()));
             m_menuVolume->popup(pos);
             qDebug() << "Menu show";
         }
