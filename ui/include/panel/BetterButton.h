@@ -15,8 +15,12 @@ namespace UI::Panel {
             WithQss,
             NoQss
         };
+        constexpr static int DefaultWidth = 30;
+        constexpr static int DefaultHeight = 30;
         // others
         explicit BetterButton(QWidget *parent = nullptr);
+
+        BetterButton(const QString &name, const QIcon &icon, QWidget *parent = nullptr);
 
         explicit BetterButton(const QIcon &icon, QWidget *parent = nullptr, StyleMode = WithQss, const QString &name = "");
 

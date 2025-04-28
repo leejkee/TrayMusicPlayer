@@ -15,7 +15,6 @@ namespace UI::Panel {
 
     public:
 
-
         explicit ViewDelegate(QObject *parent = nullptr);
 
         static void drawText(QPainter *painter, const QFont &font, const QColor &color, int x, int y,
@@ -40,46 +39,35 @@ namespace UI::Panel {
 
         void signalPlayingStatusChanged(bool);
 
-        void signalViewItemAddToList(int);
+        void signalViewItemAddToList(const QPoint &pos, int);
 
     private:
         int m_previousIndex;
         bool m_isPlaying;
+
         QSvgRenderer *m_svgPlayingRenderer;
         QSvgRenderer *m_svgPauseRenderer;
         QSvgRenderer *m_svgAddToListRender;
 
-        inline static const auto FONT_MIRC_HEI = QStringLiteral("Microsoft YaHei");
-
-        constexpr static int VIEW_BUTTON_SIZE = 20;
-
+        constexpr static int VIEW_BUTTON_SIZE = 15;
         constexpr static int VIEW_PLAY_BUTTON_PADDING = 10;
-
         constexpr static int VIEW_ADD_BUTTON_PADDING = 30;
-
         constexpr static int VIEW_TEXT_TOP_PADDING = 18;
-
         constexpr static int VIEW_TEXT_BOTTOM_PADDING = 7;
-
         constexpr static int VIEW_TEXT_LEFT_PADDING = VIEW_PLAY_BUTTON_PADDING + VIEW_BUTTON_SIZE + 5;
-
         constexpr static int NAME_FONT_SIZE = 12;
-
         constexpr static int ARTIST_FONT_SIZE = 9;
-        // 通用文字色
-        inline static const auto COLOR_TEXT_NAME = QStringLiteral("#1C1C1E");           // 标准主文字色（非当前项）
-        inline static const auto COLOR_TEXT_ARTIST = QStringLiteral("#5E5E5E");         // 次文字色（非当前项副标题）
 
-        // 当前播放项文字色
-        inline static const auto COLOR_CURRENT_TEXT_NAME = QStringLiteral("#0078D4"); // 当前项标题
-        inline static const auto COLOR_CURRENT_TEXT_ARTIST = QStringLiteral("#005999"); // 当前项副标题
-
-        // 背景选中色
+        inline static const auto COLOR_TEXT_NAME = QStringLiteral("#1C1C1E");
+        inline static const auto COLOR_TEXT_ARTIST = QStringLiteral("#5E5E5E");
+        inline static const auto COLOR_CURRENT_TEXT_NAME = QStringLiteral("#0078D4");
+        inline static const auto COLOR_CURRENT_TEXT_ARTIST = QStringLiteral("#005999");
         inline static const auto COLOR_SELECTED_BACKGROUND = QStringLiteral("#E0E0E0");
 
-        const QFont TitleFontNormal = QFont(FONT_MIRC_HEI, NAME_FONT_SIZE, QFont::Normal);
-        const QFont TitleFontBold = QFont(FONT_MIRC_HEI, NAME_FONT_SIZE, QFont::Bold);
-        const QFont ArtistFontNormal = QFont(FONT_MIRC_HEI, ARTIST_FONT_SIZE, QFont::Normal);
-        const QFont ArtistFontBold = QFont(FONT_MIRC_HEI, ARTIST_FONT_SIZE, QFont::Bold);
+        inline static const auto FONT_MIRC_HEI = QStringLiteral("Microsoft YaHei");
+        inline static const auto TitleFontNormal = QFont(FONT_MIRC_HEI, NAME_FONT_SIZE, QFont::Normal);
+        inline static const auto TitleFontBold = QFont(FONT_MIRC_HEI, NAME_FONT_SIZE, QFont::Bold);
+        inline static const auto ArtistFontNormal = QFont(FONT_MIRC_HEI, ARTIST_FONT_SIZE, QFont::Normal);
+        inline static const auto ArtistFontBold = QFont(FONT_MIRC_HEI, ARTIST_FONT_SIZE, QFont::Bold);
     };
 }

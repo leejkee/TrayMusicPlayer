@@ -96,5 +96,6 @@ namespace Core {
 
         virtual QStringList getLocalMusicTitleList() = 0;
 
+        virtual void addMusicToList(const QString &sourceListKey, const QString &destinationListKey, int index) = 0;
     };
 } // namespace Core

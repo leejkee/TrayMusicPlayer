@@ -43,18 +43,19 @@ namespace Core::Service {
             "duration INTEGER NOT NULL)").arg(tableName);
 
         if (!query.exec(sql)) {
-            qDebug() << "Create table failed:" << query.lastError();
+            Log.log(Logger_QT::LogLevel::Error, "create table failed: " + tableName + ": " + query.lastError().text());
             return false;
         }
         return true;
     }
+
 
     bool DatabaseManager::deleteTable(const QString &tableName) {
         QSqlQuery query(m_database);
         const QString sql = QString("DROP TABLE IF EXISTS %1").arg(tableName);
 
         if (!query.exec(sql)) {
-            qDebug() << "Delete table failed:" << query.lastError();
+            Log.log(Logger_QT::LogLevel::Error, "delete table failed: " + tableName + ": " + query.lastError().text());
             return false;
         }
         return true;
@@ -89,7 +90,7 @@ namespace Core::Service {
         return true;
     }
 
-    QVector<Song> DatabaseManager::loadAllSongs(const QString &tableName) {
+    QVector<Song> DatabaseManager::readSongs(const QString &tableName) {
         QVector<Song> result;
         QSqlQuery query(m_database);
 

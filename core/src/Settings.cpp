@@ -72,20 +72,20 @@ namespace Core::Service {
         }
     }
 
-    void Settings::addUserMusicList(const QString &path) {
-        if (!m_userList.contains(path)) {
-            m_userList.append(path);
+    void Settings::addUserMusicList(const QString &name) {
+        if (!m_userList.contains(name)) {
+            m_userList.append(name);
             saveToJson();
-            Log.log(Logger_QT::LogLevel::Info, "Added user music: " + path);
-            Q_EMIT signalUserListAdded(path);
+            Log.log(Logger_QT::LogLevel::Info, "Added user music: " + name);
+            Q_EMIT signalUserListAdded(name);
         }
     }
 
-    void Settings::removeUserMusicList(const QString &path) {
-        if (!m_userList.removeOne(path)) {
+    void Settings::removeUserMusicList(const QString &name) {
+        if (!m_userList.removeOne(name)) {
             saveToJson();
-            Log.log(Logger_QT::LogLevel::Info, "Removed user music: " + path);
-            Q_EMIT signalUserListRemoved(path);
+            Log.log(Logger_QT::LogLevel::Info, "Removed user music: " + name);
+            Q_EMIT signalUserListRemoved(name);
         }
     }
 

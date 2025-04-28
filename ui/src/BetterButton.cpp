@@ -23,11 +23,17 @@ namespace UI::Panel {
         init();
     }
 
+    BetterButton::BetterButton(const QString &name, const QIcon &icon, QWidget *parent) : QPushButton(parent) {
+        setIcon(icon);
+        setText(name);
+        loadStyleSheet(QssRes::BUTTON_LIST_QSS);
+        init();
+    }
     BetterButton::BetterButton(const QIcon &icon, QWidget *parent, const StyleMode style, const QString &name)
         : QPushButton(parent) {
         setIcon(icon);
         setText(name);
-        setFixedSize(30, 30);
+        setFixedSize(DefaultWidth, DefaultHeight);
         if (style == WithQss) {
             loadStyleSheet(QssRes::BUTTON_LIST_QSS);
         }

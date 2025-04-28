@@ -20,7 +20,7 @@ namespace Core::Service {
         bool insertSong(const QString& tableName, const Song& song);
         bool deleteSong(const QString& tableName, const QString& absolutePath); // 可选按路径删除
 
-        QVector<Song> loadAllSongs(const QString& tableName);
+        QVector<Song> readSongs(const QString& tableName);
 
     private:
         QSqlDatabase m_database;

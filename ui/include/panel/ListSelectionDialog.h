@@ -7,7 +7,7 @@
 #include <QStringList>
 
 class QListWidget;
-
+class QLabel;
 
 namespace UI::Panel {
     class ListSelectionDialog final: public QDialog {
@@ -19,6 +19,7 @@ namespace UI::Panel {
         QString selectedItem() const;
 
     private:
+        QLabel *m_title;
         QListWidget *m_listWidget;
         QString m_selectedItem;
     };

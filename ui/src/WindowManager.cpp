@@ -63,6 +63,8 @@ namespace UI::WindowManager {
 
     void WindowManager::initDefaultSettings() {
         m_settingsWidget->updateLocalPaths(m_core->getLocalMusicPaths());
+        m_musicListWidget->initUserListButtons(m_core->getKeysOfUserPlaylist());
+        m_viewWidget->initUserPlaylistKeys(m_core->getKeysOfUserPlaylist());
     }
 
     void WindowManager::updateCurrentMusic(const int index, const QString &name, const int duration) {
@@ -148,5 +150,8 @@ namespace UI::WindowManager {
         connect(m_core, &Core::ICore::signalLocalPathsChanged, this, [this]() {
             m_settingsWidget->updateLocalPaths(m_core->getLocalMusicPaths());
         });
+
+        connect(m_viewWidget, &ViewWidget::ViewWidget::signalViewItemAddToList,
+                m_core, &Core::ICore::addMusicToList);
     }
 }

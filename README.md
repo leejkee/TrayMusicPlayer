@@ -12,3 +12,4 @@
 
 ### 运行截图（Windows11，Linux修bug中）开发中
 ![shot](docs/img/shot_v0.2.png)
+![shot](docs/img/shot_user_v0.2.png)

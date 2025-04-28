@@ -40,6 +40,11 @@ namespace Core::Service {
         ///        All matching files will be added under the LOCAL_LIST_KEY.
         void loadLocalMusic(const QStringList &localDir);
 
+        void insertMusicToList(const QString &listName, const Song &song);
+
+    Q_SIGNALS:
+        void signalMusicInserted(const QString &listName, const Song &song);
+
     private:
         QHash<QString, QVector<Song> > m_listCache;
         Logger_QT Log;

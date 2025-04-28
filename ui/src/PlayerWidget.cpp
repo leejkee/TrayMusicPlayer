@@ -38,6 +38,7 @@ namespace UI::PlayerWidget {
         m_labelLogo = new Panel::RotatingLabel(pixmap, QSize(CIRCLE_LOGO_SIZE, CIRCLE_LOGO_SIZE));
         m_labelLogo->initRotation(0, 360, 15000, -1);
         m_labelLogo->setLabelMode(Panel::RotatingLabel::NoRotating);
+        m_labelLogo->setFixedSize(CIRCLE_LOGO_SIZE + 5, CIRCLE_LOGO_SIZE + 5);
 
         m_leftLayout = new QHBoxLayout;
         m_leftLayout->addWidget(m_labelLogo);

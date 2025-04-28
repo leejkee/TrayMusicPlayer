@@ -53,5 +53,14 @@ namespace Core::Service {
         return list;
     }
 
+    void ListCache::insertMusicToList(const QString &listName, const Song &song) {
+        if (m_listCache.contains(listName)) {
+            m_listCache[listName].append(song);
+            Q_EMIT signalMusicInserted(listName, song);
+        }
+        else {
+            Log.log(Logger_QT::LogLevel::Error, "No such playlist [" + listName + "]");
+        }
+    }
 
 }

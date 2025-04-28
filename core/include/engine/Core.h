@@ -56,6 +56,7 @@ namespace Core {
 
         void removeLocalMusicPath(const QString &) override;
 
+        void addMusicToList(const QString &sourceListKey, const QString &destinationListKey, int index) override;
 
     private:
         Engine::Player *m_player;
@@ -64,12 +65,18 @@ namespace Core {
         Service::PlayList *m_playList;
         Service::ListCache *m_listCache;
 
-        void addUserListToDB(const QString &listName) const;
+        void createUserPlaylistToDB(const QString &listName) const;
+
+        static QVector<Service::Song> readUserPlaylistFromDB(const QString &listName);
+
+        void insertSongToDB(const QString &listName, const Service::Song &song);
 
         void updateLocalMusicList();
 
         void playLocalMusicFromFirst();
 
         void createConnections();
+
+        void initCacheUserPlaylist() const;
     };
 } // namespace Core

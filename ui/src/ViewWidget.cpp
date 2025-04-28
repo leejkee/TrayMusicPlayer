@@ -6,16 +6,17 @@
 #include <panel/DataModel.h>
 #include <panel/ViewDelegate.h>
 #include <ui/Assets.h>
-#include <QListView>
 #include <QPushButton>
 #include <QLabel>
 #include <QHBoxLayout>
 #include <QMenu>
+#include <QListView>
 
 namespace UI::ViewWidget {
     ViewWidget::ViewWidget(QWidget *parent): QWidget(parent) {
         m_labelName = new QLabel(this);
-        m_playAllButton = new Panel::BetterButton(QIcon(SvgRes::PlayIconSVG), this, Panel::BetterButton::WithQss);
+        m_playAllButton = new Panel::BetterButton(Panel::PLAY_ALL_KEY, QIcon(SvgRes::PlayIconSVG), this);
+
         const auto spaceH = new QSpacerItem(-1, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
         const auto layoutH = new QHBoxLayout;
         layoutH->addWidget(m_playAllButton);
@@ -63,9 +64,24 @@ namespace UI::ViewWidget {
                 this, &ViewWidget::handleViewItemAddToList);
     }
 
-    // todo: add to list
-    void ViewWidget::handleViewItemAddToList(const int index) {
 
+    // todo: add to list
+    void ViewWidget::handleViewItemAddToList(const QPoint &pos, const int index) {
+        auto *menu = new QMenu(this);
+        connect(menu, &QMenu::aboutToHide, menu, &QMenu::deleteLater);
+        for (const QString& playlistName : m_userPlaylistKeys) {
+            auto *action = new QAction(playlistName, this);
+            connect(action, &QAction::triggered, this, [this, playlistName, index]() {
+                Q_EMIT signalViewItemAddToList(m_labelName->text(), playlistName, index);
+            });
+            menu->addAction(action);
+        }
+        // menu->popup(pos);
+        menu->exec(m_playListView->viewport()->mapToGlobal(pos));
+    }
+
+    void ViewWidget::initUserPlaylistKeys(const QStringList &keys) {
+        m_userPlaylistKeys = keys;
     }
 
     void ViewWidget::handleViewItemPlayButton(const int index) {
@@ -106,10 +122,19 @@ namespace UI::ViewWidget {
 
 
     void ViewWidget::showMusicList(const QString &name, const QStringList &nameList) {
-        m_labelName->setText(name);
+        setListTitle(name);
         m_dataModel->setMusicList(nameList);
     }
 
+    void ViewWidget::setListTitle(const QString &title) {
+        m_labelName->setText(title);
+        m_labelName->setAlignment(Qt::AlignCenter); // 左对齐，垂直居中
+
+        QFont font = m_labelName->font();
+        font.setPointSize(SIZE_TITLE_FONT);
+        font.setBold(true);
+        m_labelName->setFont(font);
+    }
 
     void ViewWidget::refreshForLocalMusic() const {
         if (m_labelName->text() == User::LOCAL_LIST_KEY) {

@@ -8,7 +8,6 @@
 class QLabel;
 class QListView;
 
-
 namespace UI::Panel {
     class BetterButton;
     class DataModel;
@@ -22,9 +21,12 @@ namespace UI::ViewWidget {
 
     public:
         explicit ViewWidget(QWidget *parent = nullptr);
+        void initUserPlaylistKeys(const QStringList &keys);
 
     Q_SIGNALS:
         void signalViewItemPlayButtonClicked(const QString &, int);
+
+        void signalViewItemAddToList(const QString &sourceList, const QString &destinationList, int index);
 
     private Q_SLOTS:
         void showContextMenu(const QPoint &pos);
@@ -33,7 +35,8 @@ namespace UI::ViewWidget {
 
         void handleViewItemPlayButton(int index);
 
-        void handleViewItemAddToList(int index);
+        void handleViewItemAddToList(const QPoint &pos,int index);
+
 
     public Q_SLOTS:
 
@@ -63,10 +66,12 @@ namespace UI::ViewWidget {
         Panel::BetterButton *m_playAllButton;
         Panel::DataModel *m_dataModel;
         Panel::ViewDelegate *m_viewDelegate;
-
         QStringList m_userPlaylistKeys;
+
+        constexpr static int SIZE_TITLE_FONT = 14;
 
         void createConnections();
 
+        void setListTitle(const QString &title);
     };
 }

@@ -58,7 +58,7 @@ void TestDatabaseManager::testInsertSong() {
 }
 
 void TestDatabaseManager::testLoadAllSongs() {
-    QVector<Music> songs = dbManager->loadAllSongs(tableName);
+    QVector<Music> songs = dbManager->readSongs(tableName);
     QVERIFY(!songs.isEmpty());
 
     bool found = false;

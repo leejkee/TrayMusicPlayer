@@ -26,7 +26,7 @@ namespace Core::Service {
 
         [[nodiscard]] QString getDatabaseDirectory() const { return m_dbPath; }
 
-        [[nodiscard]] QStringList getUserMusicList() const { return m_userList; }
+        [[nodiscard]] QStringList getKeysUserPlaylist() const { return m_userList; }
 
         [[nodiscard]] unsigned getDefaultVolume() const { return m_volume; }
 
@@ -41,9 +41,9 @@ namespace Core::Service {
     public Q_SLOTS:
         void addLocalMusicDirectory(const QString &path);
 
-        void addUserMusicList(const QString &path);
+        void addUserMusicList(const QString &name);
 
-        void removeUserMusicList(const QString &path);
+        void removeUserMusicList(const QString &name);
 
         void removeLocalMusicDirectory(const QString &path);
 

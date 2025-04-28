@@ -4,7 +4,6 @@
 
 namespace Core::Service {
 
-
     struct Song {
         Song() = default;
         Song(const Song &song) = default;

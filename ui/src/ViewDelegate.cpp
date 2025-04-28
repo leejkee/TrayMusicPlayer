@@ -136,7 +136,7 @@ namespace UI::Panel {
                 }
                 if (buttonAddToListRect.contains(pos)) {
                     if (event->type() == QEvent::MouseButtonRelease) {
-                        Q_EMIT signalViewItemAddToList(index.row());
+                        Q_EMIT signalViewItemAddToList(pos, index.row());
                     }
                     return true;
                 }
@@ -145,20 +145,6 @@ namespace UI::Panel {
             default:
                 break;
         }
-        // if (event->type() == QEvent::MouseButtonPress || event->type() == QEvent::MouseButtonRelease) {
-        //     const auto *mouseEvent = dynamic_cast<QMouseEvent *>(event);
-        //     if (buttonPlayRect.contains(mouseEvent->pos())) {
-        //         if (event->type() == QEvent::MouseButtonRelease) {
-        //             Q_EMIT signalViewItemPlayButtonClicked(index.row());
-        //         }
-        //     }
-        //     if (buttonAddToListRect.contains(mouseEvent->pos())) {
-        //         if (event->type() == QEvent::MouseButtonRelease) {
-        //             Q_EMIT signalViewItemAddToList(index.row());
-        //         }
-        //     }
-        //     return true;
-        // }
         return false;
     }
 
