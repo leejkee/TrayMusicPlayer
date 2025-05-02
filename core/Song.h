@@ -2,7 +2,7 @@
 #include <QString>
 
 
-namespace Core::Service {
+namespace Tray::Core {
 
     struct Song {
         Song() = default;

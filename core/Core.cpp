@@ -1,12 +1,11 @@
 //
 // Created by cww on 25-4-4.
 //
-#include <Core.h>
-#include <ICore.h>
+#include "include/Core.h"
+#include "config.h"
 #include <Player.h>
 #include <PlayList.h>
 #include <Settings.h>
-#include <CoreConstants.h>
 #include <ListCache.h>
 #include <DatabaseManager.h>
 
@@ -63,7 +62,6 @@ namespace Core {
             Q_EMIT signalLocalPathsChanged();
         });
 
-
         // update the local paths in Core::Settings
         connect(m_settings, &Service::Settings::signalLocalSettingsChanged, this, &Core::updateLocalMusicList);
 
@@ -83,27 +81,27 @@ namespace Core {
     }
 
 
-    void Core::setVolume(const unsigned volume) {
-        m_player->setVolume(static_cast<float>(volume) / 100);
+    /* Interface Begin */
+    // 1
+    void Core::playToggle() {
+        m_player->playTg();
     }
 
+    // 2
     void Core::nextMusic() {
         m_playList->nextMusic();
         m_player->setMusicSource(m_playList->getCurrentMusicPath());
         m_player->playTg();
     }
 
+    // 3
     void Core::preMusic() {
         m_playList->preMusic();
         m_player->setMusicSource(m_playList->getCurrentMusicPath());
         m_player->playTg();
     }
 
-
-    void Core::playToggle() {
-        m_player->playTg();
-    }
-
+    // 4
     void Core::playToggleWithListAndIndex(const QString &listKey, const int index) {
         /// check playlist ?
         if (m_playList->getListKey() != listKey) {
@@ -124,37 +122,55 @@ namespace Core {
         m_player->playTg();
     }
 
-    void Core::playLocalMusicFromFirst() {
-        Q_EMIT signalMusicListChanged(LOCAL_LIST_KEY, m_listCache->getMusicTitleList(LOCAL_LIST_KEY));
+    // 5
+    void Core::setVolume(const unsigned volume) {
+        m_player->setVolume(static_cast<float>(volume) / 100);
     }
 
-    void Core::switchMusicListByName(const QString &listName) {
+    // 6
+    void Core::switchPlaylist(const QString &listName) {
         m_playList->loadMusicList(listName, m_listCache->findList(listName));
     }
 
-    QStringList Core::getLocalMusicTitleList() {
-        return m_listCache->getMusicTitleList(LOCAL_LIST_KEY);
+    // 7
+    void Core::requestPlaylist(const QString &listName) {
+        Q_EMIT signalMusicListChanged(listName, m_listCache->getMusicTitleList(listName));
     }
 
-
-    void Core::setMusicPosition(const qint64 position) {
+    // 8
+    void Core::setPlayerPosition(const qint64 position) {
         m_player->setMusicPosition(position);
     }
 
+    // 9
     void Core::changePlayMode() {
         m_playList->changePlayMode();
     }
 
-    void Core::requestMusicListByName(const QString &listName) {
-        Q_EMIT signalMusicListChanged(listName, m_listCache->getMusicTitleList(listName));
-    }
-
+    // 10
     QStringList Core::getKeysOfUserPlaylist() {
         return m_settings->getKeysUserPlaylist();
     }
 
-    void Core::addUserList(const QString &listName) {
+    // 11
+    void Core::newUserList(const QString &listName) {
         m_settings->addUserMusicList(listName);
+    }
+
+    // 12
+    QStringList Core::getLocalMusicPaths() {
+        return m_settings->getLocalMusicDirectories();
+    }
+
+    /* Interface End */
+
+    void Core::playLocalMusicFromFirst() {
+        Q_EMIT signalMusicListChanged(LOCAL_LIST_KEY, m_listCache->getMusicTitleList(LOCAL_LIST_KEY));
+    }
+
+
+    QStringList Core::getLocalMusicTitleList() {
+        return m_listCache->getMusicTitleList(LOCAL_LIST_KEY);
     }
 
 
@@ -199,9 +215,6 @@ namespace Core {
         Q_EMIT signalMusicListChanged(LOCAL_LIST_KEY, m_listCache->getMusicTitleList(LOCAL_LIST_KEY));
     }
 
-    QStringList Core::getLocalMusicPaths() {
-        return m_settings->getLocalMusicDirectories();
-    }
 
     void Core::addLocalMusicPath(const QString &path) {
         m_settings->addLocalMusicDirectory(path);

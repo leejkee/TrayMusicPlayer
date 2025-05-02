@@ -5,7 +5,7 @@
 #pragma once
 #include <QString>
 
-namespace Core::Service {
+namespace Tray::Core {
 
         enum class PlayMode {
             Sequential = 0,

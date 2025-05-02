@@ -2,10 +2,7 @@
 // Created by cww on 25-2-13.
 //
 
-#include <ui/MainWindow.h>
-#include <ui/Assets.h>
-#include <ui/WindowManager.h>
-
+#include "MainWindow.h"
 #include <QApplication>
 #include <QCloseEvent>
 #include <QMenu>

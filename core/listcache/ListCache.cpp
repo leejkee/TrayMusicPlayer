@@ -1,12 +1,12 @@
 //
 // Created by cww on 25-4-7.
 //
-#include <ListCache.h>
-#include <CoreConstants.h>
+#include "config.h"
+#include "ListCache.h"
 #include <QDirIterator>
 
 
-namespace Core::Service {
+namespace Log::Service {
     void ListCache::loadLocalMusic(const QStringList &localDir) {
         QVector<Song> localList;
         for (const auto &filePath: localDir) {
@@ -22,16 +22,16 @@ namespace Core::Service {
 
     ListCache::ListCache(const QStringList &localDir, QObject *parent) : QObject(parent) {
         setObjectName(QStringLiteral("ListCache"));
-        Log = Logger_QT(this->objectName());
+        Log = QLogger(this->objectName());
         loadLocalMusic(localDir);
-        Log.log(Logger_QT::LogLevel::Info, "ListCache: Local list has been initialized.");
+        Log.log(QLogger::LogLevel::Info, "ListCache: Local list has been initialized.");
     }
 
     QVector<Song> ListCache::findList(const QString &listName) const {
         if (m_listCache.contains(listName)) {
             return m_listCache.value(listName);
         }
-        Log.log(Logger_QT::LogLevel::Warning, "No such PlayList called \"" + listName + "\"");
+        Log.log(QLogger::LogLevel::Warning, "No such PlayList called \"" + listName + "\"");
         return {};
     }
 
@@ -59,7 +59,7 @@ namespace Core::Service {
             Q_EMIT signalMusicInserted(listName, song);
         }
         else {
-            Log.log(Logger_QT::LogLevel::Error, "No such playlist [" + listName + "]");
+            Log.log(QLogger::LogLevel::Error, "No such playlist [" + listName + "]");
         }
     }
 

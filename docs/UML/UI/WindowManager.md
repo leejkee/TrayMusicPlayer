@@ -107,3 +107,82 @@ sequenceDiagram
 
 
 ```
+#### 创建一个歌单
+```mermaid
+sequenceDiagram
+
+    participant MusicListWidget 
+    participant WindowManager 
+    participant Core
+    participant m_settings as Settings (Core::m_settings)
+    participant dbConnection as DBManager
+
+
+    activate MusicListWidget
+        MusicListWidget ->> MusicListWidget: newButton(listName)
+        MusicListWidget ->> Core: signalMusicListButtonAdded(listName)
+    deactivate MusicListWidget
+
+    activate Core
+        Core ->> Core: addUserList(listName)
+        Core ->> m_settings: addUserMusicList(listName)
+        activate m_settings
+        alt contains(listName)
+            m_settings ->> m_settings: saveToJson()
+            m_settings ->> Core: signalUserListAdded(listName)
+            activate Core
+                Core ->> Core: createUserPlaylistToDB(listName)
+                Core ->> dbConnection: createTable(listName)
+                activate dbConnection
+                    dbConnection ->> dbConnection: sql query
+                    dbConnection ->> Core: result
+                deactivate dbConnection
+            deactivate Core
+        else
+            m_settings ->> m_settings: do nothing
+        end
+        deactivate m_settings
+    deactivate Core
+
+```
+
+# todo
+#### 将当前歌单的一首歌加入指定的其他歌单
+```mermaid
+sequenceDiagram
+    participant ViewWidget 
+    participant WindowManager 
+    participant Core
+    participant m_listCache as ListCache (Core::m_listCache)
+    participant dbConnection as DBManager
+
+
+    activate ViewWidget
+        ViewWidget ->> Core: signalViewItemAddToList(sourceList, desList, index)
+    deactivate ViewWidget
+    
+    Core ->> Core: addMusicToList(sourceList, desList, index)
+    activate Core
+        Core -->> m_listCache: call findList(sourceList)
+        m_listCache ->> Core: list 
+        alt list.isEmpty() == true
+            Core ->> Core: return
+        else
+            Core ->> m_listCache: song = sourceList[index]
+            Core ->> m_listCache: insertSongToCache(desList, song)
+            m_listCache ->> m_listCache: b = cache.contains(song)
+            alt b == true
+                m_listCache ->> m_listCache: cache.append(song)
+                m_listCache ->> Core: signalMusicInserted(desList, song)
+                Core ->> Core: insertSongToDB(desList, song)
+                activate dbConnection
+                    Core ->> dbConnection: insertSong(desList, song)
+                deactivate dbConnection
+            else
+                m_listCache ->> m_listCache: return
+            end
+        end
+    deactivate Core
+
+
+```

@@ -54,3 +54,12 @@ sequenceDiagram
 
 ```
 
+```mermaid
+sequenceDiagram
+    participant UI
+    participant core
+    UI ->> core : delete list
+    core ->> core: new thread(delete list)
+    core ->> UI: finished
+    UI ->> UI: update
+```

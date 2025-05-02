@@ -1,7 +1,7 @@
-#include "taglib/fileref.h"
-#include <Song.h>
+#include "../3rdParty/TagLib_lib/include/taglib/fileref.h"
+#include "Song.h"
 
-namespace Core::Service {
+namespace Tray::Core {
     Song::Song(const QString &songFilePath) {
         m_path = songFilePath;
         m_title = removeSuffix(m_path);

@@ -1,9 +1,9 @@
 #pragma once
-#include <Logger_qt.h>
+#include "QLogger.h"
 #include <QObject>
 #include <QStringList>
 
-namespace Core::Service {
+namespace Tray::Config {
     class Settings final : public QObject {
         Q_OBJECT
 
@@ -53,7 +53,7 @@ namespace Core::Service {
         QStringList m_localMusicList;
         QStringList m_userList;
         int m_volume;
-        Logger_QT Log;
+        Core::Logger_QT Log;
 
         ~Settings() override = default;
     };

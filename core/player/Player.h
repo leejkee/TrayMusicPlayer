@@ -2,7 +2,7 @@
 // Created by cww on 25-3-31.
 //
 #pragma once
-#include <Logger_qt.h>
+#include "../QLogger.h"
 #include <QObject>
 
 
@@ -10,7 +10,7 @@ class QMediaPlayer;
 class QAudioOutput;
 
 
-namespace Core::Engine {
+namespace Tray::Core {
     class Player final : public QObject {
         Q_OBJECT
     public:
@@ -38,6 +38,6 @@ namespace Core::Engine {
     private:
         QMediaPlayer *m_player;
         QAudioOutput *m_output;
-        Service::Logger_QT Log;
+        Log::QLogger Log;
     };
 }

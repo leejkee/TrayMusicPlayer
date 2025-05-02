@@ -1,16 +1,15 @@
 //
 // Created by cww on 25-4-16.
 //
-#include <DatabaseManager.h>
+#include "DatabaseManager.h"
 #include <QSqlError>
 #include <QSqlQuery>
 
-
-namespace Core::Service {
+namespace Tray::Core {
     DatabaseManager::DatabaseManager(const QString &dbPath, const QString &connectionName, QObject *parent) : QObject(
         parent) {
         setObjectName("DatabaseManager");
-        Log = Logger_QT(this->objectName());
+        Log = Log::QLogger(this->objectName());
         if (QSqlDatabase::contains(connectionName)) {
             m_database = QSqlDatabase::database(connectionName);
         } else {
@@ -19,10 +18,10 @@ namespace Core::Service {
         }
 
         if (!m_database.open()) {
-            Log.log(Logger_QT::LogLevel::Error, QString("Cannot open Database [%1]: Init failed, %2").arg(dbPath,
+            Log.log(Log::QLogger::LogLevel::Error, QString("Cannot open Database [%1]: Init failed, %2").arg(dbPath,
                         m_database.lastError().text()));
         } else {
-            Log.log(Logger_QT::LogLevel::Info, QString("Open Database [%1] successfully: connectionName: %2").arg
+            Log.log(Log::QLogger::LogLevel::Info, QString("Open Database [%1] successfully: connectionName: %2").arg
                     (dbPath, connectionName));
         }
     }
@@ -43,7 +42,7 @@ namespace Core::Service {
             "duration INTEGER NOT NULL)").arg(tableName);
 
         if (!query.exec(sql)) {
-            Log.log(Logger_QT::LogLevel::Error, "create table failed: " + tableName + ": " + query.lastError().text());
+            Log.log(Log::QLogger::LogLevel::Error, "create table failed: " + tableName + ": " + query.lastError().text());
             return false;
         }
         return true;
@@ -55,7 +54,7 @@ namespace Core::Service {
         const QString sql = QString("DROP TABLE IF EXISTS %1").arg(tableName);
 
         if (!query.exec(sql)) {
-            Log.log(Logger_QT::LogLevel::Error, "delete table failed: " + tableName + ": " + query.lastError().text());
+            Log.log(Log::QLogger::LogLevel::Error, "delete table failed: " + tableName + ": " + query.lastError().text());
             return false;
         }
         return true;
@@ -72,7 +71,7 @@ namespace Core::Service {
         query.addBindValue(song.m_duration);
 
         if (!query.exec()) {
-            Log.log(Logger_QT::LogLevel::Error, "Insert song failed: " +  query.lastError().text());
+            Log.log(Log::QLogger::LogLevel::Error, "Insert song failed: " +  query.lastError().text());
             return false;
         }
         return true;
@@ -84,7 +83,7 @@ namespace Core::Service {
         query.addBindValue(absolutePath);
 
         if (!query.exec()) {
-            Log.log(Logger_QT::LogLevel::Error, "Delete song failed: " + query.lastError().text());
+            Log.log(Log::QLogger::LogLevel::Error, "Delete song failed: " + query.lastError().text());
             return false;
         }
         return true;
@@ -96,7 +95,7 @@ namespace Core::Service {
 
         const QString sql = QString("SELECT fullName, absolutePath, songName, artist, duration FROM %1").arg(tableName);
         if (!query.exec(sql)) {
-            Log.log(Logger_QT::LogLevel::Error, "Query failed: " + query.lastError().text());
+            Log.log(Log::QLogger::LogLevel::Error, "Query failed: " + query.lastError().text());
             return result;
         }
 

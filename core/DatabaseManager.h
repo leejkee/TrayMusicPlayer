@@ -2,11 +2,11 @@
 // Created by cww on 25-4-16.
 //
 #pragma once
-#include <Song.h>
-#include <Logger_qt.h>
+#include "Song.h"
+#include "QLogger.h"
 #include <QSqlDatabase>
 
-namespace Core::Service {
+namespace Tray::Core {
     class DatabaseManager final : public QObject {
     public:
         explicit DatabaseManager(const QString& dbPath, const QString& connectionName = "main", QObject *parent = nullptr);
@@ -24,7 +24,7 @@ namespace Core::Service {
 
     private:
         QSqlDatabase m_database;
-        Logger_QT Log;
+        Log::QLogger Log;
     };
 
 }

@@ -108,7 +108,7 @@ namespace UI::WindowManager {
                 m_playerWidget, &PlayerWidget::PlayerWidget::setVolumeCtrlButtonIcon);
 
         connect(m_playerWidget, &PlayerWidget::PlayerWidget::signalSetMusicPosition,
-                m_core, &Core::ICore::setMusicPosition);
+                m_core, &Core::ICore::setPlayerPosition);
 
         connect(m_core, &Core::ICore::signalPlayModeChanged,
                 m_playerWidget, &PlayerWidget::PlayerWidget::updatePlayModeIcon);
@@ -117,7 +117,7 @@ namespace UI::WindowManager {
                 m_core, &Core::ICore::changePlayMode);
 
         connect(m_musicListWidget, &MusicListWidget::MusicListWidget::signalMusicListButtonClicked,
-                m_core, &Core::ICore::requestMusicListByName);
+                m_core, &Core::ICore::requestPlaylist);
 
         connect(m_core, &Core::ICore::signalMusicListChanged,
                 m_viewWidget, &ViewWidget::ViewWidget::showMusicList);
@@ -137,7 +137,7 @@ namespace UI::WindowManager {
 
         // add button
         connect(m_musicListWidget, &MusicListWidget::MusicListWidget::signalMusicListButtonAdded,
-                m_core, &Core::ICore::addUserList);
+                m_core, &Core::ICore::newUserList);
 
 
         connect(m_settingsWidget, &SettingsWidget::SettingsWidget::signalAddButton,

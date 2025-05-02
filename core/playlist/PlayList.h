@@ -2,14 +2,14 @@
 // Created by cww on 25-4-6.
 //
 #pragma once
-#include <Song.h>
-#include <PlayMode.h>
-#include <Logger_qt.h>
+#include "../Song.h"
+#include "../PlayMode.h"
+#include "../QLogger.h"
 #include <QObject>
 #include <QVector>
 
 
-namespace Core::Service {
+namespace Tray::Core {
     class PlayList final : public QObject {
         Q_OBJECT
 
@@ -42,7 +42,7 @@ namespace Core::Service {
         PlayMode m_playMode;
         QVector<Song> m_musicList;
         QString m_currentListKey;
-        Logger_QT Log;
+        Log::QLogger Log;
 
         [[nodiscard]] qsizetype getNextMusicIndex() const;
 

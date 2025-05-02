@@ -2,13 +2,12 @@
 #include <QDateTime>
 #include <QString>
 
-
-namespace Core::Service {
-    class Logger_QT {
+namespace Tray::Log {
+    class QLogger {
     public:
-        Logger_QT() = default;
+        QLogger() = default;
 
-        explicit Logger_QT(const QString &str)
+        explicit QLogger(const QString &str)
             : m_moduleName(str) {
         }
 

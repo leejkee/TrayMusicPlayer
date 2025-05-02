@@ -1,20 +1,20 @@
 //
 // Created by cww on 25-4-2.
 //
-#include <Player.h>
+#include "Player.h"
 #include <QMediaPlayer>
 #include <QAudioOutput>
 
 
-namespace Core::Engine {
+namespace Tray::Core {
     Player::Player(QObject *parent) : QObject(parent) {
         setObjectName(QStringLiteral("Player"));
-        Log = Service::Logger_QT(this->objectName());
+        Log = Log::QLogger(this->objectName());
         m_player = new QMediaPlayer(this);
         m_output = new QAudioOutput(this);
         m_player->setAudioOutput(m_output);
         connect(m_output, &QAudioOutput::volumeChanged, this, [this](const float v) {
-            Log.log(Service::Logger_QT::LogLevel::Info, "signal emitted, volume changed: " + QString::number(v));
+            Log.log(Log::QLogger::LogLevel::Info, "signal emitted, volume changed: " + QString::number(v));
             Q_EMIT signalIsMuted(v == 0);
         });
         connect(m_player, &QMediaPlayer::positionChanged, this, [this](const qint64 pos) {
@@ -26,13 +26,13 @@ namespace Core::Engine {
                Q_EMIT signalMusicOver();
            }
         });
-        Log.log(Service::Logger_QT::LogLevel::Info, "Player initialized successfully");
+        Log.log(Log::QLogger::LogLevel::Info, "Player initialized successfully");
     }
 
     void Player::setMusicSource(const QString &source) const {
         const auto url = QUrl::fromLocalFile(source);
         m_player->setSource(url);
-        Log.log(Service::Logger_QT::LogLevel::Info, "set song url to " + url.toString());
+        Log.log(Log::QLogger::LogLevel::Info, "set song url to " + url.toString());
     }
 
     void Player::setVolume(const float v) const {
@@ -46,7 +46,7 @@ namespace Core::Engine {
         } else {
             m_player->play();
         }
-        Log.log(Service::Logger_QT::LogLevel::Info, "playing status changed: " + Service::Logger_QT::boolToString(!isPlaying));
+        Log.log(Log::QLogger::LogLevel::Info, "playing status changed: " + Log::QLogger::boolToString(!isPlaying));
         Q_EMIT signalPlayingChanged(!isPlaying);
     }
 

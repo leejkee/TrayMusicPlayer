@@ -5,9 +5,6 @@
 #include <QMainWindow>
 
 class QSystemTrayIcon;
-class WindowManager;
-class Settings;
-
 
 namespace UI::MainWindow {
     class MainWindow final : public QMainWindow {

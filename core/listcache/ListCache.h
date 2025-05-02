@@ -3,18 +3,23 @@
 //
 #pragma once
 
-#include <Song.h>
-#include <Logger_qt.h>
+#include "../Song.h"
+#include "../QLogger.h"
 #include <QObject>
 #include <QHash>
 
 
-namespace Core::Service {
+namespace Log::Service {
     class ListCache final : public QObject {
         Q_OBJECT
 
     public:
         ListCache() = default;
+
+        inline static const QStringList MUSIC_FILTERS = {
+            QStringLiteral("*.mp3"),
+            QStringLiteral("*.flac")
+        };
 
         explicit ListCache(const QStringList &, QObject *parent = nullptr);
 
@@ -47,6 +52,6 @@ namespace Core::Service {
 
     private:
         QHash<QString, QVector<Song> > m_listCache;
-        Logger_QT Log;
+        QLogger Log;
     };
 }

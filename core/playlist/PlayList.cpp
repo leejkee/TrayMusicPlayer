@@ -1,12 +1,12 @@
 //
 // Created by cww on 25-4-6.
 //
-#include <PlayList.h>
-#include <CoreConstants.h>
+#include "PlayList.h"
+#include "../config.h"
 #include <QRandomGenerator>
 
 
-namespace Core::Service {
+namespace Tray::Core {
     PlayList::PlayList(QObject *parent)
         : QObject(parent)
           , m_index(UNINITIALIZED_VALUE)
@@ -14,15 +14,15 @@ namespace Core::Service {
         m_currentListKey = {};
         m_musicList = {};
         setObjectName(QStringLiteral("PlayList"));
-        Log = Logger_QT(this->objectName());
-        Log.log(Logger_QT::LogLevel::Info, "PlayList initialized with empty list, Sequential mode in constructor");
+        Log = Log::QLogger(this->objectName());
+        Log.log(Log::QLogger::LogLevel::Info, "PlayList initialized with empty list, Sequential mode in constructor");
     }
 
     void PlayList::loadMusicList(const QString &listKey, const QVector<Song> &musicList) {
         if (musicList.isEmpty()) {
-            Log.log(Logger_QT::LogLevel::Warning, "load empty musicList");
+            Log.log(Log::QLogger::LogLevel::Warning, "load empty musicList");
         }
-        Log.log(Logger_QT::LogLevel::Info, "load musicList successfully");
+        Log.log(Log::QLogger::LogLevel::Info, "load musicList successfully");
         m_currentListKey = listKey;
         m_musicList.clear();
         m_musicList = musicList;
@@ -76,10 +76,10 @@ namespace Core::Service {
 
     void PlayList::setCurrentMusicIndex(const qsizetype index) {
         if (index >= m_musicList.size()) {
-            Log.log(Logger_QT::LogLevel::Error, "index out of range");
+            Log.log(Log::QLogger::LogLevel::Error, "index out of range");
         }
         m_index = index;
-        Log.log(Logger_QT::LogLevel::Info, "index changed: " + QString::number(m_index));
+        Log.log(Log::QLogger::LogLevel::Info, "index changed: " + QString::number(m_index));
         Q_EMIT signalMusicChanged(m_index, m_musicList.at(m_index).m_title, m_musicList.at(m_index).m_duration);
     }
 
@@ -87,7 +87,7 @@ namespace Core::Service {
         if (m_playMode != playMode) {
             m_playMode = playMode;
             Q_EMIT signalPlayModeChanged(playMode);
-            Log.log(Logger_QT::LogLevel::Info, "play mode changed: " + PlayModeToString(playMode));
+            Log.log(Log::QLogger::LogLevel::Info, "play mode changed: " + PlayModeToString(playMode));
         }
     }
 

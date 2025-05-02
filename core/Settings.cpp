@@ -1,5 +1,4 @@
-#include <Logger_qt.h>
-#include <Settings.h>
+#include "Settings.h"
 #include <QFile>
 #include <QJsonArray>
 #include <QJsonDocument>
@@ -7,7 +6,7 @@
 #include <QDebug>
 
 
-namespace Core::Service {
+namespace Tray::Config {
     Settings::Settings(const QString &settingsPath, QObject *parent): QObject(parent), m_settingsPath(settingsPath) {
         setObjectName(QStringLiteral("Settings"));
         Log = Logger_QT(objectName());
