@@ -53,7 +53,7 @@ namespace Tray::Config {
         QStringList m_localMusicList;
         QStringList m_userList;
         int m_volume;
-        Core::Logger_QT Log;
+        Log::QLogger Log;
 
         ~Settings() override = default;
     };

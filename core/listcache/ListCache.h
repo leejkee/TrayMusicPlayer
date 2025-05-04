@@ -4,12 +4,12 @@
 #pragma once
 
 #include "../Song.h"
-#include "../QLogger.h"
+#include <QLogger.h>
 #include <QObject>
 #include <QHash>
 
 
-namespace Log::Service {
+namespace Tray::Core {
     class ListCache final : public QObject {
         Q_OBJECT
 
@@ -52,6 +52,6 @@ namespace Log::Service {
 
     private:
         QHash<QString, QVector<Song> > m_listCache;
-        QLogger Log;
+        Log::QLogger Log;
     };
 }

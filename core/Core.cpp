@@ -1,53 +1,59 @@
 //
 // Created by cww on 25-4-4.
 //
-#include "include/Core.h"
 #include "config.h"
+#include <Core.h>
 #include <Player.h>
 #include <PlayList.h>
-#include <Settings.h>
 #include <ListCache.h>
 #include <DatabaseManager.h>
 
+namespace Tray::Core {
 
-namespace Core {
-    Core::Core(QObject *parent) : ICore(parent) {
+    class CorePrivate {
+    public:
+        Player *m_player;
+        Log::QLogger Log;
+        PlayList *m_playList;
+        ListCache *m_listCache;
+
+    };
+    Core::Core(QObject *parent) : QObject(parent), d(std::make_unique<CorePrivate>()) {
         this->setObjectName(QStringLiteral("Core"));
-        Log = Service::Logger_QT(this->objectName());
-        m_player = new Engine::Player(this);
-        m_settings = new Service::Settings(SETTINGS_WIN32, this);
-        m_playList = new Service::PlayList(this);
-        m_listCache = new Service::ListCache(m_settings->getLocalMusicDirectories(), this);
-        Log.log(Service::Logger_QT::LogLevel::Info, "Initializing Core successfully");
+        d->Log = Log::QLogger(this->objectName());
+        d->m_player = new Player(this);
+        d->m_playList = new PlayList(this);
+        d->m_listCache = new ListCache({}, this);
+        d->Log.log(Log::QLogger::LogLevel::Info, "Initializing Core successfully");
         createConnections();
     }
 
     void Core::createConnections() {
-        connect(m_player, &Engine::Player::signalPlayingChanged, this, [this](const bool b) {
+        connect(d->m_player, &Player::signalPlayingChanged, this, [this](const bool b) {
             // Log.log(Service::Logger_QT::LogLevel::Info, "signal emitted, to tell ui the playing status changed: " +
             // QString::number(b));
-            Q_EMIT signalPlayingChanged(b);
+            Q_EMIT signalPlayingStatusChanged(b);
         });
 
 
-        connect(m_playList, &Service::PlayList::signalMusicChanged, this, [this]
+        connect(d->m_playList, &PlayList::signalMusicChanged, this, [this]
         (const qsizetype index, const QString &name, const int duration) {
                     Q_EMIT signalCurrentMusicChanged(static_cast<int>(index), name, duration);
                 }
         );
         // music changed
 
-        connect(m_player, &Engine::Player::signalIsMuted, this, [this](const bool b) {
+        connect(d->m_player, &Player::signalIsMuted, this, [this](const bool b) {
             // Log.log(Service::Logger_QT::LogLevel::Info, "signal emitted, to tell ui the output is Muted: " + QString::number(b));
             Q_EMIT signalIsMuted(b);
         });
 
-        connect(m_player, &Engine::Player::signalPositionChanged, this, [this](const qint64 pos) {
+        connect(d->m_player, &Player::signalPositionChanged, this, [this](const qint64 pos) {
             // Log.log(Service::Logger_QT::LogLevel::Info, "signal emitted, to tell ui the music position is updated: " + QString::number(pos));
             Q_EMIT signalPositionChanged(pos);
         });
 
-        connect(m_playList, &Service::PlayList::signalPlayModeChanged, this, [this](const Service::PlayMode mode) {
+        connect(d->m_playList, &PlayList::signalPlayModeChanged, this, [this](const PlayMode mode) {
             // Log.log(Service::Logger_QT::LogLevel::Info, "signal emitted, to notice the ui to update the play mode" +
             // PlayModeToString(mode));
             Q_EMIT signalPlayModeChanged(static_cast<int>(mode));
@@ -153,14 +159,8 @@ namespace Core {
     }
 
     // 11
-    void Core::newUserList(const QString &listName) {
-        m_settings->addUserMusicList(listName);
-    }
 
-    // 12
-    QStringList Core::getLocalMusicPaths() {
-        return m_settings->getLocalMusicDirectories();
-    }
+    // todo
 
     /* Interface End */
 
@@ -185,10 +185,10 @@ namespace Core {
         QSqlDatabase::removeDatabase(connectName);
     }
 
-    QVector<Service::Song> Core::readUserPlaylistFromDB(const QString &listName) {
-        QVector<Service::Song> list;
+    QVector<Song> Core::readUserPlaylistFromDB(const QString &listName) {
+        QVector<Song> list;
         const auto connectName = "read_" + listName; {
-            auto dbConnection = Service::DatabaseManager(DB_PATH, connectName);
+            auto dbConnection = DatabaseManager(DB_PATH, connectName);
             list = dbConnection.readSongs(listName);
         }
         QSqlDatabase::removeDatabase(connectName);
@@ -216,13 +216,8 @@ namespace Core {
     }
 
 
-    void Core::addLocalMusicPath(const QString &path) {
-        m_settings->addLocalMusicDirectory(path);
-    }
+    // todo
 
-    void Core::removeLocalMusicPath(const QString &path) {
-        m_settings->removeLocalMusicDirectory(path);
-    }
 
     void Core::addMusicToList(const QString &sourceListKey, const QString &destinationListKey, const int index) {
         const auto sourceList = m_listCache->findList(sourceListKey);
@@ -234,7 +229,4 @@ namespace Core {
         m_listCache->insertMusicToList(destinationListKey, song);
     }
 
-    ICore *ICore::create(QObject *parent) {
-        return new Core(parent);
-    }
 }

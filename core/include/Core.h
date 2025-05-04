@@ -1,37 +1,33 @@
 #pragma once
 
-#include "../QLogger.h"
+#include "Song.h"
+#include "../PlayMode.h"
+#include <QLogger.h>
 #include <QObject>
+#include <memory>
 
 
-namespace Core::Engine {
+
+namespace Tray::Core {
     class Player;
-}
-
-
-namespace Core::Service {
-    class Settings;
     class PlayList;
     class ListCache;
-    struct Song;
-}
+    class CorePrivate;
 
-
-namespace Core {
-    class Core final : public  QObject{
+    class Core final : public QObject {
+        Q_OBJECT
     public:
         explicit Core(QObject *parent = nullptr);
-
 
         void setVolume(unsigned int volume);
 
         void playToggle();
 
-        void playToggleWithListAndIndex(const QString &listKey, int) ;
+        void playToggleWithListAndIndex(const QString &listKey, int);
 
         void nextMusic();
 
-        void preMusic() ;
+        void preMusic();
 
         void switchPlaylist(const QString &listName);
 
@@ -58,18 +54,22 @@ namespace Core {
 
         void addMusicToList(const QString &sourceListKey, const QString &destinationListKey, int index);
 
+        Q_SIGNALS:
+        void signalPlayingStatusChanged(bool b);
+        void signalCurrentMusicChanged(int, const QString &, int);
+        void signalIsMuted(bool);
+        void signalPositionChanged(qint64);
+        void signalPlayModeChanged(PlayMode mode);
+
+
     private:
-        Engine::Player *m_player;
-        Log::QLogger Log;
-        Service::Settings *m_settings;
-        Service::PlayList *m_playList;
-        Service::ListCache *m_listCache;
+        std::unique_ptr<CorePrivate> d;
 
         void createUserPlaylistToDB(const QString &listName) const;
 
-        static QVector<Service::Song> readUserPlaylistFromDB(const QString &listName);
+        static QVector<Song> readUserPlaylistFromDB(const QString &listName);
 
-        void insertSongToDB(const QString &listName, const Service::Song &song);
+        void insertSongToDB(const QString &listName, const Song &song);
 
         void updateLocalMusicList();
 

@@ -3,15 +3,14 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
-#include <QDebug>
 
 
 namespace Tray::Config {
     Settings::Settings(const QString &settingsPath, QObject *parent): QObject(parent), m_settingsPath(settingsPath) {
-        setObjectName(QStringLiteral("Settings"));
-        Log = Logger_QT(objectName());
+        this->setObjectName(QStringLiteral("Settings"));
+        Log = Log::QLogger(objectName());
         if (m_settingsPath.isEmpty()) {
-            Log.log(Logger_QT::LogLevel::Error, "the path of settings is empty");
+            Log.log(Log::QLogger::LogLevel::Error, "the path of settings is empty");
             return;
         }
         loadFromJson();
@@ -20,14 +19,14 @@ namespace Tray::Config {
     void Settings::loadFromJson() {
         QFile file(m_settingsPath);
         if (!file.open(QIODevice::ReadOnly)) {
-            Log.log(Logger_QT::LogLevel::Error, "Failed to open file");
+            Log.log(Log::QLogger::LogLevel::Error, "Failed to open file");
             return;
         }
         const QByteArray jsonData = file.readAll();
         file.close();
         const QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonData);
         if (jsonDoc.isNull() || !jsonDoc.isObject()) {
-            Log.log(Logger_QT::LogLevel::Error, "Failed to parse JSON");
+            Log.log(Log::QLogger::LogLevel::Error, "Failed to parse JSON");
             return;
         }
         QJsonObject json = jsonDoc.object();
@@ -47,19 +46,19 @@ namespace Tray::Config {
         const QJsonDocument doc(jsonObj);
         QFile file(m_settingsPath);
         if (!file.open(QIODevice::WriteOnly)) {
-            Log.log(Logger_QT::LogLevel::Error, "Could not write to JSON file");
+            Log.log(Log::QLogger::LogLevel::Error, "Could not write to JSON file");
             return;
         }
         file.write(doc.toJson(QJsonDocument::Indented));
         file.close();
-        Log.log(Logger_QT::LogLevel::Info, "Saved JSON successfully");
+        Log.log(Log::QLogger::LogLevel::Info, "Saved JSON successfully");
     }
 
     void Settings::addLocalMusicDirectory(const QString &path) {
         if (!m_localMusicList.contains(path)) {
             m_localMusicList.append(path);
             saveToJson();
-            Log.log(Logger_QT::LogLevel::Info, "Added local music: " + path);
+            Log.log(Log::QLogger::LogLevel::Info, "Added local music: " + path);
             Q_EMIT signalLocalSettingsChanged();
         }
     }
@@ -75,7 +74,7 @@ namespace Tray::Config {
         if (!m_userList.contains(name)) {
             m_userList.append(name);
             saveToJson();
-            Log.log(Logger_QT::LogLevel::Info, "Added user music: " + name);
+            Log.log(Log::QLogger::LogLevel::Info, "Added user music: " + name);
             Q_EMIT signalUserListAdded(name);
         }
     }
@@ -83,7 +82,7 @@ namespace Tray::Config {
     void Settings::removeUserMusicList(const QString &name) {
         if (!m_userList.removeOne(name)) {
             saveToJson();
-            Log.log(Logger_QT::LogLevel::Info, "Removed user music: " + name);
+            Log.log(Log::QLogger::LogLevel::Info, "Removed user music: " + name);
             Q_EMIT signalUserListRemoved(name);
         }
     }

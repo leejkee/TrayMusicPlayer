@@ -14,7 +14,6 @@ namespace Tray::Core {
         m_output = new QAudioOutput(this);
         m_player->setAudioOutput(m_output);
         connect(m_output, &QAudioOutput::volumeChanged, this, [this](const float v) {
-            Log.log(Log::QLogger::LogLevel::Info, "signal emitted, volume changed: " + QString::number(v));
             Q_EMIT signalIsMuted(v == 0);
         });
         connect(m_player, &QMediaPlayer::positionChanged, this, [this](const qint64 pos) {

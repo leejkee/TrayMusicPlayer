@@ -2,7 +2,7 @@
 // Created by cww on 25-3-31.
 //
 #pragma once
-#include "../QLogger.h"
+#include <QLogger.h>
 #include <QObject>
 
 
