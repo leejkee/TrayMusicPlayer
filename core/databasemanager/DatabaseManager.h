@@ -2,7 +2,7 @@
 // Created by cww on 25-4-16.
 //
 #pragma once
-#include "../Song.h"
+#include <Song.h>
 #include <QLogger.h>
 #include <QSqlDatabase>
 #include <QObject>
@@ -31,17 +31,16 @@ namespace Tray::Core {
         QVector<Song> readAllSongsFromTable(const QString &tableName);
 
     private:
-        static inline const QString FIELD_ID = "id";
-        static inline const QString FIELD_FULL_NAME = "fullName";
-        static inline const QString FIELD_ABSOLUTE_PATH = "absolutePath";
-        static inline const QString FIELD_MUSIC_NAME = "songName";
-        static inline const QString FIELD_ARTIST = "artist";
-        static inline const QString FIELD_DURATION = "duration";
-
-        static inline const QString TYPE_INTEGER = "INTEGER";
-        static inline const QString TYPE_TEXT = "TEXT";
-        static inline const QString CONSTRAINT_NOTNULL = "NOT NULL";
-        static inline const QString CONSTRAINT_PK_AI = "PRIMARY KEY AUTOINCREMENT";
+        static inline const auto FIELD_ID = QStringLiteral("id");
+        static inline const auto FIELD_FULL_NAME = QStringLiteral("fullName");
+        static inline const auto FIELD_ABSOLUTE_PATH = QStringLiteral("absolutePath");
+        static inline const auto FIELD_MUSIC_NAME = QStringLiteral("songName");
+        static inline const auto FIELD_ARTIST = QStringLiteral("artist");
+        static inline const auto FIELD_DURATION = QStringLiteral("duration");
+        static inline const auto TYPE_INTEGER = QStringLiteral("INTEGER");
+        static inline const auto TYPE_TEXT = QStringLiteral("TEXT");
+        static inline const auto CONSTRAINT_NOTNULL = QStringLiteral("NOT NULL");
+        static inline const auto CONSTRAINT_PK_AI = QStringLiteral("PRIMARY KEY AUTOINCREMENT");
 
         static bool isValidTableName(const QString &tableName);
         QSqlDatabase m_databaseConnection;

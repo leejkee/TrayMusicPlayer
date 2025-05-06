@@ -1,9 +1,11 @@
 #pragma once
-#include "QLogger.h"
 #include <QObject>
 #include <QStringList>
+#include <memory>
 
 namespace Tray::Config {
+    class SettingsPrivate;
+
     class Settings final : public QObject {
         Q_OBJECT
 
@@ -22,13 +24,13 @@ namespace Tray::Config {
 
         void saveToJson();
 
-        [[nodiscard]] QStringList getLocalMusicDirectories() const { return m_localMusicList; }
+        [[nodiscard]] QStringList getLocalMusicDirectories() const;
 
-        [[nodiscard]] QString getDatabaseDirectory() const { return m_dbPath; }
+        [[nodiscard]] QString getDatabaseDirectory() const;
 
-        [[nodiscard]] QStringList getKeysUserPlaylist() const { return m_userList; }
+        [[nodiscard]] QStringList getKeysUserPlaylist() const;
 
-        [[nodiscard]] unsigned getDefaultVolume() const { return m_volume; }
+        [[nodiscard]] unsigned getDefaultVolume() const;
 
 
     Q_SIGNALS:
@@ -48,13 +50,7 @@ namespace Tray::Config {
         void removeLocalMusicDirectory(const QString &path);
 
     private:
-        QString m_settingsPath;
-        QString m_dbPath;
-        QStringList m_localMusicList;
-        QStringList m_userList;
-        int m_volume;
-        Log::QLogger Log;
-
+        std::unique_ptr<SettingsPrivate> d;
         ~Settings() override = default;
     };
 }

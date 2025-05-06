@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Song.h"
-#include "../PlayMode.h"
+#include "PlayMode.h"
 #include <QLogger.h>
 #include <QObject>
 #include <memory>

@@ -1,4 +1,5 @@
-#include "Settings.h"
+#include <Settings.h>
+#include <QLogger.h>
 #include <QFile>
 #include <QJsonArray>
 #include <QJsonDocument>
@@ -6,85 +7,114 @@
 
 
 namespace Tray::Config {
-    Settings::Settings(const QString &settingsPath, QObject *parent): QObject(parent), m_settingsPath(settingsPath) {
+    class SettingsPrivate {
+    public:
+        static inline auto KEY_MUSIC_DIRECTORY = QStringLiteral("MusicDirectory");
+        static inline auto KEY_DATABASE_DIRECTORY = QStringLiteral("DatabaseDirectory");
+        static inline auto KEY_USER_LISTS = QStringLiteral("UserLists");
+        static inline auto KEY_DEFAULT_VOLUME = QStringLiteral("DefaultVolume");
+
+        QString m_settingsPath;
+        QString m_dbPath;
+        QStringList m_localMusicList;
+        QStringList m_userListKeys;
+        int m_volume;
+
+        Log::QLogger Log;
+    };
+
+    Settings::Settings(const QString &settingsPath, QObject *parent): QObject(parent),
+                                                                      d(std::make_unique<SettingsPrivate>()) {
         this->setObjectName(QStringLiteral("Settings"));
-        Log = Log::QLogger(objectName());
-        if (m_settingsPath.isEmpty()) {
-            Log.log(Log::QLogger::LogLevel::Error, "the path of settings is empty");
+        d->Log = Log::QLogger(objectName());
+        d->m_settingsPath = settingsPath;
+        if (d->m_settingsPath.isEmpty()) {
+            d->Log.log(Log::QLogger::LogLevel::Error, "the path of settings is empty");
             return;
         }
-        loadFromJson();
-    }
-
-    void Settings::loadFromJson() {
-        QFile file(m_settingsPath);
+        QFile file(d->m_settingsPath);
         if (!file.open(QIODevice::ReadOnly)) {
-            Log.log(Log::QLogger::LogLevel::Error, "Failed to open file");
+            d->Log.log(Log::QLogger::LogLevel::Error, "Failed to open file");
             return;
         }
         const QByteArray jsonData = file.readAll();
         file.close();
         const QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonData);
         if (jsonDoc.isNull() || !jsonDoc.isObject()) {
-            Log.log(Log::QLogger::LogLevel::Error, "Failed to parse JSON");
+            d->Log.log(Log::QLogger::LogLevel::Error, "Failed to parse JSON");
             return;
         }
-        QJsonObject json = jsonDoc.object();
-        m_localMusicList = json["MusicDirectory"].toVariant().toStringList();
-        m_dbPath = json["DatabaseDirectory"].toString();
-        m_userList = json["UserLists"].toVariant().toStringList();
-        m_volume = json["DefaultVolume"].toInt();
-    };
+        QJsonObject jsonObj = jsonDoc.object();
+        d->m_localMusicList = jsonObj[SettingsPrivate::KEY_MUSIC_DIRECTORY].toVariant().toStringList();
+        d->m_dbPath = jsonObj[SettingsPrivate::KEY_DATABASE_DIRECTORY].toString();
+        d->m_userListKeys = jsonObj[SettingsPrivate::KEY_USER_LISTS].toVariant().toStringList();
+        d->m_volume = jsonObj[SettingsPrivate::KEY_DEFAULT_VOLUME].toInt();
+    }
 
 
     void Settings::saveToJson() {
         QJsonObject jsonObj;
-        jsonObj["MusicDirectory"] = QJsonArray::fromStringList(m_localMusicList);
-        jsonObj["DatabaseDirectory"] = QJsonValue(m_dbPath);
-        jsonObj["DefaultVolume"] = QJsonValue(m_volume);
-        jsonObj["UserLists"] = QJsonArray::fromStringList(m_userList);
+        jsonObj[SettingsPrivate::KEY_MUSIC_DIRECTORY] = QJsonArray::fromStringList(d->m_localMusicList);
+        jsonObj[SettingsPrivate::KEY_DATABASE_DIRECTORY] = QJsonValue(d->m_dbPath);
+        jsonObj[SettingsPrivate::KEY_DEFAULT_VOLUME] = QJsonValue(d->m_volume);
+        jsonObj[SettingsPrivate::KEY_USER_LISTS] = QJsonArray::fromStringList(d->m_userListKeys);
         const QJsonDocument doc(jsonObj);
-        QFile file(m_settingsPath);
+        QFile file(d->m_settingsPath);
         if (!file.open(QIODevice::WriteOnly)) {
-            Log.log(Log::QLogger::LogLevel::Error, "Could not write to JSON file");
+            d->Log.log(Log::QLogger::LogLevel::Error, "Could not write to JSON file");
             return;
         }
         file.write(doc.toJson(QJsonDocument::Indented));
         file.close();
-        Log.log(Log::QLogger::LogLevel::Info, "Saved JSON successfully");
+        d->Log.log(Log::QLogger::LogLevel::Info, "Saved JSON successfully");
     }
 
     void Settings::addLocalMusicDirectory(const QString &path) {
-        if (!m_localMusicList.contains(path)) {
-            m_localMusicList.append(path);
+        if (!d->m_localMusicList.contains(path)) {
+            d->m_localMusicList.append(path);
             saveToJson();
-            Log.log(Log::QLogger::LogLevel::Info, "Added local music: " + path);
+            d->Log.log(Log::QLogger::LogLevel::Info, "Added local music: " + path);
             Q_EMIT signalLocalSettingsChanged();
         }
     }
 
     void Settings::removeLocalMusicDirectory(const QString &path) {
-        if (m_localMusicList.removeOne(path)) {
+        if (d->m_localMusicList.removeOne(path)) {
             saveToJson();
             Q_EMIT signalLocalSettingsChanged();
         }
     }
 
     void Settings::addUserMusicList(const QString &name) {
-        if (!m_userList.contains(name)) {
-            m_userList.append(name);
+        if (!d->m_userListKeys.contains(name)) {
+            d->m_userListKeys.append(name);
             saveToJson();
-            Log.log(Log::QLogger::LogLevel::Info, "Added user music: " + name);
+            d->Log.log(Log::QLogger::LogLevel::Info, "Added user music: " + name);
             Q_EMIT signalUserListAdded(name);
         }
     }
 
     void Settings::removeUserMusicList(const QString &name) {
-        if (!m_userList.removeOne(name)) {
+        if (!d->m_userListKeys.removeOne(name)) {
             saveToJson();
-            Log.log(Log::QLogger::LogLevel::Info, "Removed user music: " + name);
+            d->Log.log(Log::QLogger::LogLevel::Info, "Removed user music: " + name);
             Q_EMIT signalUserListRemoved(name);
         }
     }
 
+    QStringList Settings::getLocalMusicDirectories() const {
+        return d->m_localMusicList;
+    }
+
+    QString Settings::getDatabaseDirectory() const {
+        return d->m_dbPath;
+    }
+
+    QStringList Settings::getKeysUserPlaylist() const {
+        return d->m_userListKeys;
+    }
+
+    unsigned Settings::getDefaultVolume() const {
+        return d->m_volume;
+    }
 }
