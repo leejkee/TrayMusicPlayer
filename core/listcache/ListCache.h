@@ -47,6 +47,8 @@ namespace Tray::Core {
 
         void insertMusicToList(const QString &listName, const Song &song);
 
+        void initUserList(const QStringList );
+
     Q_SIGNALS:
         void signalMusicInserted(const QString &listName, const Song &song);
 

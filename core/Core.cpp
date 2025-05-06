@@ -18,6 +18,7 @@ namespace Tray::Core {
         ListCache *m_listCache;
 
     };
+
     Core::Core(QObject *parent) : QObject(parent), d(std::make_unique<CorePrivate>()) {
         this->setObjectName(QStringLiteral("Core"));
         d->Log = Log::QLogger(this->objectName());
@@ -30,8 +31,6 @@ namespace Tray::Core {
 
     void Core::createConnections() {
         connect(d->m_player, &Player::signalPlayingChanged, this, [this](const bool b) {
-            // Log.log(Service::Logger_QT::LogLevel::Info, "signal emitted, to tell ui the playing status changed: " +
-            // QString::number(b));
             Q_EMIT signalPlayingStatusChanged(b);
         });
 
@@ -44,37 +43,33 @@ namespace Tray::Core {
         // music changed
 
         connect(d->m_player, &Player::signalIsMuted, this, [this](const bool b) {
-            // Log.log(Service::Logger_QT::LogLevel::Info, "signal emitted, to tell ui the output is Muted: " + QString::number(b));
             Q_EMIT signalIsMuted(b);
         });
 
         connect(d->m_player, &Player::signalPositionChanged, this, [this](const qint64 pos) {
-            // Log.log(Service::Logger_QT::LogLevel::Info, "signal emitted, to tell ui the music position is updated: " + QString::number(pos));
             Q_EMIT signalPositionChanged(pos);
         });
 
         connect(d->m_playList, &PlayList::signalPlayModeChanged, this, [this](const PlayMode mode) {
-            // Log.log(Service::Logger_QT::LogLevel::Info, "signal emitted, to notice the ui to update the play mode" +
-            // PlayModeToString(mode));
-            Q_EMIT signalPlayModeChanged(static_cast<int>(mode));
+            Q_EMIT signalPlayModeChanged(mode);
         });
 
-        connect(m_player, &Engine::Player::signalMusicOver, this, &Core::nextMusic);
+        connect(d->m_player, &Player::signalMusicOver, this, &Core::nextMusic);
 
-        connect(m_settings, &Service::Settings::signalUserListAdded, this, &Core::createUserPlaylistToDB);
-
-        // update the local paths in UI
-        connect(m_settings, &Service::Settings::signalLocalSettingsChanged, this, [this]() {
-            Q_EMIT signalLocalPathsChanged();
-        });
-
-        // update the local paths in Core::Settings
-        connect(m_settings, &Service::Settings::signalLocalSettingsChanged, this, &Core::updateLocalMusicList);
-
-        connect(m_listCache, &Service::ListCache::signalMusicInserted, this, &Core::insertSongToDB);
+        // connect(m_settings, &Service::Settings::signalUserListAdded, this, &Core::createUserPlaylistToDB);
+        //
+        // // update the local paths in UI
+        // connect(m_settings, &Service::Settings::signalLocalSettingsChanged, this, [this]() {
+        //     Q_EMIT signalLocalPathsChanged();
+        // });
+        //
+        // // update the local paths in Core::Settings
+        // connect(m_settings, &Service::Settings::signalLocalSettingsChanged, this, &Core::updateLocalMusicList);
+        //
+        // connect(m_listCache, &Service::ListCache::signalMusicInserted, this, &Core::insertSongToDB);
     }
 
-    void Core::initCacheUserPlaylist() const {
+    void Core::initCacheForUserPlaylist() const {
         for (const auto &key: m_settings->getKeysUserPlaylist()) {
             m_listCache->loadUserList(key, readUserPlaylistFromDB(key));
         }
@@ -189,7 +184,7 @@ namespace Tray::Core {
         QVector<Song> list;
         const auto connectName = "read_" + listName; {
             auto dbConnection = DatabaseManager(DB_PATH, connectName);
-            list = dbConnection.readSongs(listName);
+            list = dbConnection.readAllSongsFromTable(listName);
         }
         QSqlDatabase::removeDatabase(connectName);
         return list;
