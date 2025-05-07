@@ -3,7 +3,7 @@
 //
 #pragma once
 
-#include "../Song.h"
+#include "Song.h"
 #include <QLogger.h>
 #include <QObject>
 #include <QHash>
@@ -16,12 +16,13 @@ namespace Tray::Core {
     public:
         ListCache() = default;
 
-        inline static const QStringList MUSIC_FILTERS = {
-            QStringLiteral("*.mp3"),
-            QStringLiteral("*.flac")
-        };
 
-        explicit ListCache(const QStringList &, QObject *parent = nullptr);
+
+        explicit ListCache(QObject *parent = nullptr);
+
+        /// This constructor will call @loadUserPlaylists() and @loadLocalPlaylist()
+        ListCache(const QStringList &localDir, const QStringList &userListKeys, QObject *parent = nullptr);
+
 
         /// Retrieves the cached list of songs by list name.
         /// @param listName The key/name of the song list.
@@ -29,11 +30,11 @@ namespace Tray::Core {
         ///         or an empty list if not found.
         [[nodiscard]] QVector<Song> findList(const QString &listName) const;
 
+
         /// Adds or appends a user-defined playlist to the cache.
-        /// @param key The name/key of the user-defined playlist.
-        /// @param list The list of songs to store.
-        ///        If the key already exists, songs will be appended to the existing list.
-        void loadUserList(const QString &key, const QVector<Song> &list);
+        /// @param userListKeys The keys of user playlist
+        /// This function will read playlists from Database
+        void initUserPlaylists(const QStringList &userListKeys);
 
         /// Retrieves the title list of songs by list name
         /// @param name The name of the song list
@@ -43,16 +44,23 @@ namespace Tray::Core {
         /// Loads local music files from the given directories into the cache.
         /// @param localDir A list of directories to scan for music files.
         ///        All matching files will be added under the LOCAL_LIST_KEY.
-        void loadLocalMusic(const QStringList &localDir);
+        void initLocalPlaylist(const QStringList &localDir);
 
-        void insertMusicToList(const QString &listName, const Song &song);
+        /// create an empty vector map to key
+        /// @param key user list key
+        void newUserPlaylist(const QString &key);
 
-        void initUserList(const QStringList );
+        void insertMusicToList(const QString &key, const Song &song);
 
     Q_SIGNALS:
         void signalMusicInserted(const QString &listName, const Song &song);
 
     private:
+        static inline const QStringList MUSIC_FILTERS = {
+            QStringLiteral("*.mp3"),
+            QStringLiteral("*.flac")
+        };
+
         QHash<QString, QVector<Song> > m_listCache;
         Log::QLogger Log;
     };

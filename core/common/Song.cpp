@@ -1,4 +1,4 @@
-#include "../3rdParty/TagLib_lib/include/taglib/fileref.h"
+// #include <taglib/fileref.h>
 #include "Song.h"
 
 namespace Tray::Core {
@@ -16,32 +16,32 @@ namespace Tray::Core {
     }
 
     void Song::songInitByTagLib(const QString &path) {
-#if defined(_WIN32)
-        const std::wstring tg_path = path.toStdWString();
-#elif defined(__linux__)
-        const std::string tg_path = path.toStdString();
-#endif
-        if (const TagLib::FileRef f(tg_path.c_str()); !f.isNull() && f.audioProperties()) {
-            const TagLib::AudioProperties *properties = f.audioProperties();
-            const TagLib::Tag *tag = f.tag();
-            m_duration = properties->lengthInSeconds();
-            m_name = QString::fromStdString(tag->title().to8Bit());
-            m_artist = QString::fromStdString(tag->artist().to8Bit());
-            m_title = QString::fromStdString(tag->title().to8Bit());
-        }
+// #if defined(_WIN32)
+//         const std::wstring tg_path = path.toStdWString();
+// #elif defined(__linux__)
+//         const std::string tg_path = path.toStdString();
+// #endif
+//         if (const TagLib::FileRef f(tg_path.c_str()); !f.isNull() && f.audioProperties()) {
+//             const TagLib::AudioProperties *properties = f.audioProperties();
+//             const TagLib::Tag *tag = f.tag();
+//             m_duration = properties->lengthInSeconds();
+//             m_name = QString::fromStdString(tag->title().to8Bit());
+//             m_artist = QString::fromStdString(tag->artist().to8Bit());
+//             m_title = QString::fromStdString(tag->title().to8Bit());
+//         }
     }
 
 
     int Song::musicLength(const QString &path) {
-#if defined(_WIN32)
-        const std::wstring tg_path = path.toStdWString();
-#elif defined(__linux__)
-    const std::string tg_path = path.toStdString();
-#endif
-        if (const TagLib::FileRef f(tg_path.c_str()); !f.isNull() && f.audioProperties()) {
-            const TagLib::AudioProperties *properties = f.audioProperties();
-            return properties->lengthInSeconds();
-        }
+// #if defined(_WIN32)
+//         const std::wstring tg_path = path.toStdWString();
+// #elif defined(__linux__)
+//     const std::string tg_path = path.toStdString();
+// #endif
+//         if (const TagLib::FileRef f(tg_path.c_str()); !f.isNull() && f.audioProperties()) {
+//             const TagLib::AudioProperties *properties = f.audioProperties();
+//             return properties->lengthInSeconds();
+//         }
         return {};
     }
 

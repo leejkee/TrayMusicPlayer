@@ -2,7 +2,7 @@
 // Created by cww on 25-4-6.
 //
 #include "PlayList.h"
-#include "../config.h"
+#include "TrayConfig.h"
 #include <QRandomGenerator>
 
 

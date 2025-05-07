@@ -27,7 +27,7 @@ namespace Tray::Log {
     private:
         QString m_moduleName;
 
-        static QString QLogger::logLevelToString(LogLevel level);
+        static QString logLevelToString(LogLevel level);
 
         static void outputToConsole(const QString &logMessage) {
             qDebug() << logMessage;

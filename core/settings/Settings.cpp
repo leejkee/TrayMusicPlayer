@@ -1,4 +1,4 @@
-#include <Settings.h>
+#include "Settings.h"
 #include <QLogger.h>
 #include <QFile>
 #include <QJsonArray>
@@ -6,13 +6,15 @@
 #include <QJsonObject>
 
 
-namespace Tray::Config {
+namespace Tray::Core {
     class SettingsPrivate {
     public:
         static inline auto KEY_MUSIC_DIRECTORY = QStringLiteral("MusicDirectory");
         static inline auto KEY_DATABASE_DIRECTORY = QStringLiteral("DatabaseDirectory");
         static inline auto KEY_USER_LISTS = QStringLiteral("UserLists");
         static inline auto KEY_DEFAULT_VOLUME = QStringLiteral("DefaultVolume");
+
+        static inline auto PROJECT_PATH = QStringLiteral("C:/Users/cww/Documents/Workspace/TrayMusicPlayer/");
 
         QString m_settingsPath;
         QString m_dbPath;
@@ -27,7 +29,7 @@ namespace Tray::Config {
                                                                       d(std::make_unique<SettingsPrivate>()) {
         this->setObjectName(QStringLiteral("Settings"));
         d->Log = Log::QLogger(objectName());
-        d->m_settingsPath = settingsPath;
+        d->m_settingsPath = SettingsPrivate::PROJECT_PATH + settingsPath;
         if (d->m_settingsPath.isEmpty()) {
             d->Log.log(Log::QLogger::LogLevel::Error, "the path of settings is empty");
             return;

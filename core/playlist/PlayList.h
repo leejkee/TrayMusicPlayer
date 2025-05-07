@@ -2,9 +2,9 @@
 // Created by cww on 25-4-6.
 //
 #pragma once
-#include "../Song.h"
-#include "../PlayMode.h"
-#include "../QLogger.h"
+#include <PlayMode.h>
+#include <Song.h>
+#include <QLogger.h>
 #include <QObject>
 #include <QVector>
 

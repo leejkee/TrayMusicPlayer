@@ -3,7 +3,7 @@
 #include <QStringList>
 #include <memory>
 
-namespace Tray::Config {
+namespace Tray::Core {
     class SettingsPrivate;
 
     class Settings final : public QObject {

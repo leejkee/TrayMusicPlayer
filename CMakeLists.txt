@@ -32,7 +32,8 @@ find_package(Qt6 REQUIRED COMPONENTS
     SvgWidgets
     Test
 )
-find_package(TagLib REQUIRED)
+
+add_subdirectory(3rdParty)
 
 include(CTest)
 enable_testing()
@@ -40,6 +41,5 @@ enable_testing()
 add_subdirectory(core)
 add_subdirectory(ui)
 add_subdirectory(test)
-add_subdirectory(3rdParty)
 add_subdirectory(app)
 add_subdirectory(tools)

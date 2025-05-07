@@ -21,13 +21,13 @@
       "binaryDir": "${sourceDir}/build/window-mingw-debug",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
-        "CMAKE_PREFIX_PATH": "C:/Qt/6.8.2/mingw_64;${sourceDir}/3rdParty/TagLib_lib/include",
+        "CMAKE_PREFIX_PATH": "C:/Qt/6.8.2/mingw_64",
         "CMAKE_CXX_COMPILER": "C:/Qt/Tools/mingw1310_64/bin/g++.exe",
         "CMAKE_MAKE_PROGRAM": "C:/Qt/Tools/Ninja/ninja.exe"
       },
       "cmakeExecutable": "C:/Qt/Tools/CMake_64/bin/cmake.exe",
       "environment": {
-        "PATH": "C:/Qt/6.8.2/mingw_64/bin;${sourceDir}/3rdParty/TagLib_lib/bin"
+        "PATH": "C:/Qt/6.8.2/mingw_64/bin"
       },
       "condition": {
         "type": "equals",
@@ -42,13 +42,13 @@
       "binaryDir": "${sourceDir}/build/window-mingw-release",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
-        "CMAKE_PREFIX_PATH": "C:/Qt/6.8.2/mingw_64;${sourceDir}/3rdParty/TagLib_lib",
+        "CMAKE_PREFIX_PATH": "C:/Qt/6.8.2/mingw_64",
         "CMAKE_CXX_COMPILER": "C:/Qt/Tools/mingw1310_64/bin/g++.exe",
         "CMAKE_MAKE_PROGRAM": "C:/Qt/Tools/Ninja/ninja.exe"
       },
       "cmakeExecutable": "C:/Qt/Tools/CMake_64/bin/cmake.exe",
       "environment": {
-        "PATH": "C:/Qt/6.8.2/mingw_64/bin;${sourceDir}/3rdParty/TagLib_lib/bin"
+        "PATH": "C:/Qt/6.8.2/mingw_64/bin"
       },
       "condition": {
         "type": "equals",

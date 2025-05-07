@@ -7,7 +7,6 @@
 #include <memory>
 
 
-
 namespace Tray::Core {
     class Player;
     class PlayList;
@@ -16,6 +15,7 @@ namespace Tray::Core {
 
     class Core final : public QObject {
         Q_OBJECT
+
     public:
         explicit Core(QObject *parent = nullptr);
 
@@ -54,13 +54,18 @@ namespace Tray::Core {
 
         void addMusicToList(const QString &sourceListKey, const QString &destinationListKey, int index);
 
-        Q_SIGNALS:
+    Q_SIGNALS:
         void signalPlayingStatusChanged(bool b);
+
         void signalCurrentMusicChanged(int, const QString &, int);
+
         void signalIsMuted(bool);
+
         void signalPositionChanged(qint64);
+
         void signalPlayModeChanged(PlayMode mode);
 
+        void signalMusicListChanged(const QString &key, const QStringList &titleList);
 
     private:
         std::unique_ptr<CorePrivate> d;
