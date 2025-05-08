@@ -60,12 +60,11 @@ namespace Tray::Core {
 
         connect(d->m_player, &Player::signalMusicOver, this, &Core::nextMusic);
 
-        // connect(m_settings, &Service::Settings::signalUserListAdded, this, &Core::createUserPlaylistToDB);
-        //
-        // // update the local paths in UI
-        // connect(m_settings, &Service::Settings::signalLocalSettingsChanged, this, [this]() {
-        //     Q_EMIT signalLocalPathsChanged();
-        // });
+        connect(d->m_listCache, &ListCache::signalLocalDirectoryAdded, d->m_settings, &Settings::addLocalMusicDirectory);
+        connect(d->m_listCache, &ListCache::signalUserPlaylistCreated, d->m_settings, &Settings::addUserMusicList);
+
+        connect(d->m_listCache, &ListCache::signalPlayListChanged, this, &Core::updatePlaylist);
+
         //
         // // update the local paths in Core::Settings
         // connect(m_settings, &Service::Settings::signalLocalSettingsChanged, this, &Core::updateLocalMusicList);
@@ -152,13 +151,48 @@ namespace Tray::Core {
     }
 
     // 11
+    void Core::newUserList(const QString &listName) {
+        d->m_listCache->newUserPlaylist(listName);
+    }
 
-    // todo
+    // 12
+    QStringList Core::getLocalMusicPaths() {
+        return d->m_settings->getLocalMusicDirectories();
+    }
+
+    // 13
+    void Core::appendLocalMusicPath(const QString &path) {
+        d->m_settings->addLocalMusicDirectory(path);
+        d->m_listCache->initLocalPlaylist(d->m_settings->getLocalMusicDirectories());
+        Q_EMIT signalLocalPathsChanged();
+    }
+
+    // 14
+    void Core::removeLocalMusicPath(const QString &path) {
+        d->m_settings->removeLocalMusicDirectory(path);
+        d->m_listCache->initLocalPlaylist(d->m_settings->getLocalMusicDirectories());
+        Q_EMIT signalLocalPathsChanged();
+    }
+
+    // 15
+    void Core::addMusicToList(const QString &sourceListKey, const QString &destinationListKey, const int index) {
+        const auto sourceList = d->m_listCache->findList(sourceListKey);
+        if (sourceList.isEmpty()) {
+            d->Log.log(Log::QLogger::LogLevel::Error, "No user list called: " + sourceListKey);
+            return;
+        }
+        d->m_listCache->insertMusicToList(destinationListKey, sourceList.at(index));
+    }
+
+    // 16
+    void Core::removeMusicFromList(const QString &key, const QString &songTitle) {
+        d->m_listCache->deleteSong(key, songTitle);
+    }
 
     /* Interface End */
 
     void Core::playLocalMusicFromFirst() {
-        Q_EMIT signalMusicListChanged(LOCAL_LIST_KEY, d->d->m_listCache->getMusicTitleList(LOCAL_LIST_KEY));
+        Q_EMIT signalMusicListChanged(LOCAL_LIST_KEY, d->m_listCache->getMusicTitleList(LOCAL_LIST_KEY));
     }
 
 
@@ -167,59 +201,13 @@ namespace Tray::Core {
     }
 
 
-    /*       DB Operations Start       */
-    void Core::createUserPlaylistToDB(const QString &listName) const {
-        const auto connectName = "create_" + listName; {
-            if (auto dbConnection = DatabaseManager(DB_PATH, connectName); dbConnection.
-                createTable(listName)) {
-                d->Log.log(Log::QLogger::LogLevel::Info, "createTable successfully: " + listName);
-            }
+    void Core::updatePlaylist(const QString &key) {
+        if (d->m_playList->getListKey() == key) {
+            d->m_playList->loadMusicList(key, d->m_listCache->findList(key));
+            Q_EMIT signalMusicListChanged(key, d->m_listCache->getMusicTitleList(key));
         }
-        QSqlDatabase::removeDatabase(connectName);
-    }
-
-    QVector<Song> Core::readUserPlaylistFromDB(const QString &listName) {
-        QVector<Song> list;
-        const auto connectName = "read_" + listName; {
-            auto dbConnection = DatabaseManager(DB_PATH, connectName);
-            list = dbConnection.readAllSongsFromTable(listName);
-        }
-        QSqlDatabase::removeDatabase(connectName);
-        return list;
-    }
-
-    void Core::insertSongToDB(const QString &listName, const Service::Song &song) {
-        const auto connectName = "insert_" + listName; {
-            if (auto dbConnection = Service::DatabaseManager(DB_PATH, connectName); dbConnection.insertSong(
-                listName, song)) {
-                Log.log(Service::Logger_QT::LogLevel::Info, "insertSong successfully: " + listName);
-            }
-        }
-        QSqlDatabase::removeDatabase(connectName);
-    }
-
-    /*       DB Operations End       */
-
-    void Core::updateLocalMusicList() {
-        d->m_listCache->loadLocalMusic(d->m_settings->getLocalMusicDirectories());
-        if (d->m_playList->getListKey() == LOCAL_LIST_KEY) {
-            d->m_playList->loadMusicList(LOCAL_LIST_KEY, d->m_listCache->findList(LOCAL_LIST_KEY));
-        }
-        Q_EMIT signalMusicListChanged(LOCAL_LIST_KEY, d->m_listCache->getMusicTitleList(LOCAL_LIST_KEY));
     }
 
 
-    // todo
-
-
-    void Core::addMusicToList(const QString &sourceListKey, const QString &destinationListKey, const int index) {
-        const auto sourceList = d->m_listCache->findList(sourceListKey);
-        if (sourceList.isEmpty()) {
-            d->Log.log(Log::QLogger::LogLevel::Error, "No user list called: " + sourceListKey);
-            return;
-        }
-        const auto song = sourceList[index];
-        d->m_listCache->insertMusicToList(destinationListKey, song);
-    }
 
 }

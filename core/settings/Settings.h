@@ -34,8 +34,6 @@ namespace Tray::Core {
 
 
     Q_SIGNALS:
-        void signalLocalSettingsChanged();
-
         void signalUserListAdded(const QString &);
 
         void signalUserListRemoved(const QString &);

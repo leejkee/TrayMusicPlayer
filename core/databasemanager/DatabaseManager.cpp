@@ -110,7 +110,7 @@ namespace Tray::Core {
         return true;
     }
 
-    bool DatabaseManager::deleteSong(const QString &tableName, const QString &absolutePath) {
+    bool DatabaseManager::deleteSongWithTitle(const QString &tableName, const QString &title) {
         if (!isValidTableName(tableName)) {
             Log.log(Log::QLogger::LogLevel::Error, "Invalid table name: " + tableName);
             return false;
@@ -118,8 +118,8 @@ namespace Tray::Core {
 
         QSqlQuery query(m_databaseConnection);
         query.prepare(QString("DELETE FROM %1 WHERE %2 = ?")
-            .arg(tableName, FIELD_ABSOLUTE_PATH));
-        query.addBindValue(absolutePath);
+            .arg(tableName, FIELD_FULL_NAME));
+        query.addBindValue(title);
 
         if (!query.exec()) {
             Log.log(Log::QLogger::LogLevel::Error, "Delete song failed: " + query.lastError().text());

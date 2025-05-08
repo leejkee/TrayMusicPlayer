@@ -17,19 +17,16 @@ namespace Tray::Core {
         ListCache() = default;
 
 
-
         explicit ListCache(QObject *parent = nullptr);
 
         /// This constructor will call @loadUserPlaylists() and @loadLocalPlaylist()
         ListCache(const QStringList &localDir, const QStringList &userListKeys, QObject *parent = nullptr);
-
 
         /// Retrieves the cached list of songs by list name.
         /// @param listName The key/name of the song list.
         /// @return The list of songs associated with the given name,
         ///         or an empty list if not found.
         [[nodiscard]] QVector<Song> findList(const QString &listName) const;
-
 
         /// Adds or appends a user-defined playlist to the cache.
         /// @param userListKeys The keys of user playlist
@@ -50,10 +47,23 @@ namespace Tray::Core {
         /// @param key user list key
         void newUserPlaylist(const QString &key);
 
+        /// insert a song to list called key
+        /// @param key the name of list
+        /// @param song song struct
         void insertMusicToList(const QString &key, const Song &song);
 
+        void deleteSong(const QString &key, const QString &songTitle);
+
+        void appendLocalMusicDirectory(const QString &directory);
+
     Q_SIGNALS:
-        void signalMusicInserted(const QString &listName, const Song &song);
+
+        // tell playList to update the list
+        void signalPlayListChanged(const QString &key);
+
+        void signalUserPlaylistCreated(const QString &listName);
+
+        void signalLocalDirectoryAdded(const QString &directory);
 
     private:
         static inline const QStringList MUSIC_FILTERS = {

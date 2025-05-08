@@ -26,7 +26,7 @@ namespace Tray::Core {
 
         bool insertSong(const QString &tableName, const Song &song);
 
-        bool deleteSong(const QString &tableName, const QString &absolutePath);
+        bool deleteSongWithTitle(const QString &tableName, const QString &title);
 
         QVector<Song> readAllSongsFromTable(const QString &tableName);
 

@@ -48,11 +48,13 @@ namespace Tray::Core {
 
         QStringList getLocalMusicPaths();
 
-        void addLocalMusicPath(const QString &);
+        void appendLocalMusicPath(const QString &);
 
         void removeLocalMusicPath(const QString &);
 
         void addMusicToList(const QString &sourceListKey, const QString &destinationListKey, int index);
+
+        void removeMusicFromList(const QString &key, const QString &songTitle);
 
     Q_SIGNALS:
         void signalPlayingStatusChanged(bool b);
@@ -67,21 +69,15 @@ namespace Tray::Core {
 
         void signalMusicListChanged(const QString &key, const QStringList &titleList);
 
+        void signalLocalPathsChanged();
+
     private:
         std::unique_ptr<CorePrivate> d;
 
-        void createUserPlaylistToDB(const QString &listName) const;
-
-        static QVector<Song> readUserPlaylistFromDB(const QString &listName);
-
-        void insertSongToDB(const QString &listName, const Song &song);
-
-        void updateLocalMusicList();
+        void updatePlaylist(const QString &key);
 
         void playLocalMusicFromFirst();
 
         void createConnections();
-
-        void initCacheUserPlaylist() const;
     };
 } // namespace Core
