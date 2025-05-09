@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Song.h"
 #include "PlayMode.h"
 #include <QLogger.h>
 #include <QObject>
@@ -18,6 +17,7 @@ namespace Tray::Core {
 
     public:
         explicit Core(QObject *parent = nullptr);
+        ~Core() override;
 
         void setVolume(unsigned int volume);
 
@@ -65,10 +65,11 @@ namespace Tray::Core {
 
         void signalPositionChanged(qint64);
 
-        void signalPlayModeChanged(PlayMode mode);
+        void signalPlayModeChanged(int mode);
 
         void signalMusicListChanged(const QString &key, const QStringList &titleList);
 
+        // todo
         void signalLocalPathsChanged();
 
     private:

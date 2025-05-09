@@ -1,11 +1,14 @@
 qt_add_executable(TrayMusicPlayer
         MANUAL_FINALIZATION
         main.cpp
-        MainWindow.h
-        MainWindow.cpp
+        TrayApp.h
+        TrayApp.cpp
 )
 
-target_link_libraries(TrayMusicPlayer PUBLIC tray_music_ui)
+target_link_libraries(TrayMusicPlayer PRIVATE
+        tray_music_ui
+        tray_music_core
+)
 
 if(WIN32)
     set_target_properties(TrayMusicPlayer PROPERTIES

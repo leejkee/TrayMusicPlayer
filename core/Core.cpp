@@ -10,9 +10,7 @@
 #include <DatabaseManager.h>
 
 
-
 namespace Tray::Core {
-
     class CorePrivate {
     public:
         Player *m_player;
@@ -27,24 +25,24 @@ namespace Tray::Core {
         d->Log = Log::QLogger(this->objectName());
         d->m_player = new Player(this);
         d->m_playList = new PlayList(this);
-        d->m_listCache = new ListCache( this);
+        d->m_listCache = new ListCache(this);
         d->m_settings = new Settings(SETTINGS_WIN32_PATH, this);
         d->Log.log(Log::QLogger::LogLevel::Info, "Initializing Core successfully");
         createConnections();
     }
+
+    Core::~Core() = default;
 
     void Core::createConnections() {
         connect(d->m_player, &Player::signalPlayingChanged, this, [this](const bool b) {
             Q_EMIT signalPlayingStatusChanged(b);
         });
 
-
         connect(d->m_playList, &PlayList::signalMusicChanged, this, [this]
         (const qsizetype index, const QString &name, const int duration) {
                     Q_EMIT signalCurrentMusicChanged(static_cast<int>(index), name, duration);
                 }
         );
-        // music changed
 
         connect(d->m_player, &Player::signalIsMuted, this, [this](const bool b) {
             Q_EMIT signalIsMuted(b);
@@ -55,21 +53,14 @@ namespace Tray::Core {
         });
 
         connect(d->m_playList, &PlayList::signalPlayModeChanged, this, [this](const PlayMode mode) {
-            Q_EMIT signalPlayModeChanged(mode);
+            Q_EMIT signalPlayModeChanged(static_cast<int>(mode));
         });
 
         connect(d->m_player, &Player::signalMusicOver, this, &Core::nextMusic);
 
-        connect(d->m_listCache, &ListCache::signalLocalDirectoryAdded, d->m_settings, &Settings::addLocalMusicDirectory);
         connect(d->m_listCache, &ListCache::signalUserPlaylistCreated, d->m_settings, &Settings::addUserMusicList);
 
         connect(d->m_listCache, &ListCache::signalPlayListChanged, this, &Core::updatePlaylist);
-
-        //
-        // // update the local paths in Core::Settings
-        // connect(m_settings, &Service::Settings::signalLocalSettingsChanged, this, &Core::updateLocalMusicList);
-        //
-        // connect(m_listCache, &Service::ListCache::signalMusicInserted, this, &Core::insertSongToDB);
     }
 
     void Core::initDefaultSettings() {
@@ -125,40 +116,48 @@ namespace Tray::Core {
         d->m_player->setVolume(static_cast<float>(volume) / 100);
     }
 
+
     // 6
     void Core::switchPlaylist(const QString &listName) {
         d->m_playList->loadMusicList(listName, d->m_listCache->findList(listName));
     }
+
 
     // 7
     void Core::requestPlaylist(const QString &listName) {
         Q_EMIT signalMusicListChanged(listName, d->m_listCache->getMusicTitleList(listName));
     }
 
+
     // 8
     void Core::setPlayerPosition(const qint64 position) {
         d->m_player->setMusicPosition(position);
     }
+
 
     // 9
     void Core::changePlayMode() {
         d->m_playList->changePlayMode();
     }
 
+
     // 10
     QStringList Core::getKeysOfUserPlaylist() {
         return d->m_settings->getKeysUserPlaylist();
     }
+
 
     // 11
     void Core::newUserList(const QString &listName) {
         d->m_listCache->newUserPlaylist(listName);
     }
 
+
     // 12
     QStringList Core::getLocalMusicPaths() {
         return d->m_settings->getLocalMusicDirectories();
     }
+
 
     // 13
     void Core::appendLocalMusicPath(const QString &path) {
@@ -167,12 +166,14 @@ namespace Tray::Core {
         Q_EMIT signalLocalPathsChanged();
     }
 
+
     // 14
     void Core::removeLocalMusicPath(const QString &path) {
         d->m_settings->removeLocalMusicDirectory(path);
         d->m_listCache->initLocalPlaylist(d->m_settings->getLocalMusicDirectories());
         Q_EMIT signalLocalPathsChanged();
     }
+
 
     // 15
     void Core::addMusicToList(const QString &sourceListKey, const QString &destinationListKey, const int index) {
@@ -184,11 +185,11 @@ namespace Tray::Core {
         d->m_listCache->insertMusicToList(destinationListKey, sourceList.at(index));
     }
 
+
     // 16
     void Core::removeMusicFromList(const QString &key, const QString &songTitle) {
         d->m_listCache->deleteSong(key, songTitle);
     }
-
     /* Interface End */
 
     void Core::playLocalMusicFromFirst() {
@@ -207,7 +208,4 @@ namespace Tray::Core {
             Q_EMIT signalMusicListChanged(key, d->m_listCache->getMusicTitleList(key));
         }
     }
-
-
-
 }

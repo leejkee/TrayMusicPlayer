@@ -25,6 +25,8 @@ namespace Tray::Core {
         Log::QLogger Log;
     };
 
+    Settings::~Settings() = default;
+
     Settings::Settings(const QString &settingsPath, QObject *parent): QObject(parent),
                                                                       d(std::make_unique<SettingsPrivate>()) {
         this->setObjectName(QStringLiteral("Settings"));

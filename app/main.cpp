@@ -1,7 +1,8 @@
-#include <MainWindow.h>
+#include "TrayApp.h"
 #include <QApplication>
 #include <QMessageBox>
 #include <QSystemTrayIcon>
+
 
 int main(int argc, char** argv)
 {
@@ -16,7 +17,7 @@ int main(int argc, char** argv)
     }
     // QApplication::setQuitOnLastWindowClosed(false);
 
-    UI::MainWindow::MainWindow w;
+    Tray::TrayApp w;
     w.show();
 
     return QApplication::exec();

@@ -20,6 +20,8 @@ namespace Tray::Core {
 
         Settings &operator=(Settings &&) = delete;
 
+        ~Settings() override;
+
         void loadFromJson();
 
         void saveToJson();
@@ -49,6 +51,5 @@ namespace Tray::Core {
 
     private:
         std::unique_ptr<SettingsPrivate> d;
-        ~Settings() override = default;
     };
 }
