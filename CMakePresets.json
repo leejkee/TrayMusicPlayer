@@ -5,118 +5,86 @@
     "minor": 20,
     "patch": 0
   },
+
   "configurePresets": [
     {
-      "name": "base",
+      "name": "windows-base",
       "hidden": true,
+      "generator": "Ninja",
       "cacheVariables": {
-        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "CMAKE_PREFIX_PATH": "C:/Qt/6.8.2/mingw_64",
+        "CMAKE_CXX_COMPILER": "C:/Qt/Tools/mingw1310_64/bin/g++.exe",
+        "CMAKE_C_COMPILER": "C:/Qt/Tools/mingw1310_64/bin/gcc.exe",
+        "CMAKE_MAKE_PROGRAM": "C:/Qt/Tools/Ninja/ninja.exe"
+      },
+      "environment": {
+        "PATH": "C:/Qt/6.8.2/mingw_64/bin;${sourceDir}/3rdParty/TagLib_lib/bin"
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
       }
     },
 
     {
-      "name": "windows-mingw-debug",
-      "inherits": "base",
+      "name": "linux-base",
+      "hidden": true,
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/build/window-mingw-debug",
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug",
-        "CMAKE_PREFIX_PATH": "C:/Qt/6.8.2/mingw_64",
-        "CMAKE_CXX_COMPILER": "C:/Qt/Tools/mingw1310_64/bin/g++.exe",
-        "CMAKE_MAKE_PROGRAM": "C:/Qt/Tools/Ninja/ninja.exe"
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "CMAKE_CXX_COMPILER": "/usr/bin/g++",
+        "CMAKE_C_COMPILER": "/usr/bin/gcc"
       },
-      "cmakeExecutable": "C:/Qt/Tools/CMake_64/bin/cmake.exe",
       "environment": {
-        "PATH": "C:/Qt/6.8.2/mingw_64/bin"
+        "PATH": "${sourceDir}/3rdParty/TagLib_lib/bin"
       },
       "condition": {
         "type": "equals",
         "lhs": "${hostSystemName}",
-        "rhs": "Windows"
+        "rhs": "Linux"
       }
     },
+    
+    {
+      "name": "windows-mingw-debug",
+      "inherits": "windows-base",
+      "binaryDir": "${sourceDir}/build/window-mingw-debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+
     {
       "name": "windows-mingw-release",
-      "generator": "Ninja",
-      "inherits": "base",
+      "inherits": "windows-base",
       "binaryDir": "${sourceDir}/build/window-mingw-release",
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release",
-        "CMAKE_PREFIX_PATH": "C:/Qt/6.8.2/mingw_64",
-        "CMAKE_CXX_COMPILER": "C:/Qt/Tools/mingw1310_64/bin/g++.exe",
-        "CMAKE_MAKE_PROGRAM": "C:/Qt/Tools/Ninja/ninja.exe"
-      },
-      "cmakeExecutable": "C:/Qt/Tools/CMake_64/bin/cmake.exe",
-      "environment": {
-        "PATH": "C:/Qt/6.8.2/mingw_64/bin"
-      },
-      "condition": {
-        "type": "equals",
-        "lhs": "${hostSystemName}",
-        "rhs": "Windows"
+        "CMAKE_BUILD_TYPE": "Release"
       }
     },
 
     {
       "name": "linux-gcc-debug",
-      "inherits": "base",
-      "generator": "Ninja",
+      "inherits": "linux-base",
       "binaryDir": "${sourceDir}/build/linux-debug",
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug",
-        "CMAKE_CXX_COMPILER": "/usr/bin/g++"
-      },
-      "condition": {
-        "type": "equals",
-        "lhs": "${hostSystemName}",
-        "rhs": "Linux"
+        "CMAKE_BUILD_TYPE": "Debug"
       }
     },
+
     {
       "name": "linux-gcc-release",
-      "inherits": "base",
+      "inherits": "linux-base",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/linux-release",
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release",
-        "CMAKE_CXX_COMPILER": "/usr/bin/g++"
-      },
-      "condition": {
-        "type": "equals",
-        "lhs": "${hostSystemName}",
-        "rhs": "Linux"
-      }
-    },
-    {
-      "name": "linux-clang-debug",
-      "inherits": "base",
-      "generator": "Ninja",
-      "binaryDir": "${sourceDir}/build/linux-debug",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug",
-        "CMAKE_CXX_COMPILER": "/usr/bin/clang++"
-      },
-      "condition": {
-        "type": "equals",
-        "lhs": "${hostSystemName}",
-        "rhs": "Linux"
-      }
-    },
-    {
-      "name": "linux-clang-release",
-      "inherits": "base",
-      "generator": "Ninja",
-      "binaryDir": "${sourceDir}/build/linux-release",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release",
-        "CMAKE_CXX_COMPILER": "/usr/bin/clang++"
-      },
-      "condition": {
-        "type": "equals",
-        "lhs": "${hostSystemName}",
-        "rhs": "Linux"
+        "CMAKE_BUILD_TYPE": "Release"
       }
     }
+
+
   ],
   "buildPresets": [
     {
@@ -124,15 +92,18 @@
       "configurePreset": "windows-mingw-debug",
       "configuration": "Debug"
     },
+
+    {
+      "name": "win-release",
+      "configurePreset": "windows-mingw-release",
+      "configuration": "Release"
+    },
+
     {
       "name": "linux-gcc",
       "configurePreset": "linux-gcc-debug",
       "configuration": "Debug"
-    },
-    {
-      "name": "linux-clang",
-      "configurePreset": "linux-clang-debug",
-      "configuration": "Debug"
     }
+
   ]
 }
