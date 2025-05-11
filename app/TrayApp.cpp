@@ -12,6 +12,9 @@
 #include <QMessageBox>
 #include <QSystemTrayIcon>
 
+inline void Init_qrc() {
+        Q_INIT_RESOURCE(svg);
+}
 
 namespace Tray {
     class TrayAppPrivate {
@@ -31,6 +34,7 @@ namespace Tray {
         : QMainWindow(parent),
           d(std::make_unique<TrayAppPrivate>()) {
         initMainApplication();
+            Init_qrc();
     }
 
     TrayApp::~TrayApp() {

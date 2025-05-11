@@ -4,7 +4,6 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
@@ -24,6 +23,12 @@ elseif(UNIX AND NOT APPLE)
     endif()
 endif()
 
+include(${CMAKE_SOURCE_DIR}/cmake/TagLib_install.cmake)
+
+list(APPEND CMAKE_PREFIX_PATH "${CMAKE_SOURCE_DIR}/3rdparty/taglib_lib")
+
+find_package(TagLib REQUIRED)
+
 find_package(Qt6 REQUIRED COMPONENTS
     Multimedia
     Core
@@ -34,10 +39,6 @@ find_package(Qt6 REQUIRED COMPONENTS
 )
 
 add_subdirectory(3rdParty)
-
-include(CTest)
-enable_testing()
-
 add_subdirectory(core)
 add_subdirectory(ui)
 add_subdirectory(test)

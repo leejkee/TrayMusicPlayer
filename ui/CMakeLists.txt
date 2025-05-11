@@ -15,6 +15,7 @@ file(GLOB_RECURSE UI_SOURCES CONFIGURE_DEPENDS
         ${CMAKE_CURRENT_SOURCE_DIR}/top_bar_widget/*.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/view_widget/*.h
         ${CMAKE_CURRENT_SOURCE_DIR}/view_widget/*.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/common/UiConfig.h
         ${CMAKE_CURRENT_SOURCE_DIR}/qss.qrc
         ${CMAKE_CURRENT_SOURCE_DIR}/svg.qrc
 )
@@ -32,6 +33,7 @@ target_include_directories(tray_music_ui PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/settings_widget
         ${CMAKE_CURRENT_SOURCE_DIR}/top_bar_widget
         ${CMAKE_CURRENT_SOURCE_DIR}/view_widget
+        ${CMAKE_CURRENT_SOURCE_DIR}/common
 )
 
 target_link_libraries(tray_music_ui PUBLIC

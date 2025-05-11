@@ -19,7 +19,7 @@ namespace Tray::Ui::Panel {
 }
 
 
-namespace Tools {
+namespace Tray::Ui {
     inline QString readQSS(const QString &qssPath) {
         if (QFile file(qssPath); file.open(QFile::ReadOnly)) {
             QString qss = QString::fromUtf8(file.readAll()).trimmed();

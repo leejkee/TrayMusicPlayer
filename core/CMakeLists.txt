@@ -16,6 +16,7 @@ set(CORE_SOURCES
         common/Song.cpp
 )
 
+
 add_library(tray_music_core STATIC ${CORE_SOURCES})
 
 target_compile_features(tray_music_core PRIVATE cxx_std_17)
@@ -38,4 +39,6 @@ target_link_libraries(tray_music_core PRIVATE
         Qt6::Multimedia
         Qt6::Sql
         Tray::tray_log
+        TagLib::tag
 )
+add_dependencies(tray_music_core TagLib_lib)

@@ -5,7 +5,7 @@
 #include <BetterButton.h>
 #include <DataModel.h>
 #include <ViewDelegate.h>
-#include <Assets.h>
+#include <UiConfig.h>
 #include <QPushButton>
 #include <QLabel>
 #include <QHBoxLayout>
@@ -29,7 +29,7 @@ namespace Tray::Ui {
         m_playListView->setModel(m_dataModel);
         m_playListView->setEditTriggers(QAbstractItemView::NoEditTriggers);
         m_playListView->setContextMenuPolicy(Qt::CustomContextMenu);
-        m_playListView->setStyleSheet(Tools::readQSS(QssRes::LIST_VIEW_QSS));
+        m_playListView->setStyleSheet(readQSS(QssRes::LIST_VIEW_QSS));
         m_playListView->viewport()->setMouseTracking(true);
 
         // Delegate Func

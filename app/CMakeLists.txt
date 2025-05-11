@@ -10,6 +10,7 @@ target_link_libraries(TrayMusicPlayer PRIVATE
         tray_music_core
 )
 
+
 if(WIN32)
     set_target_properties(TrayMusicPlayer PROPERTIES
             WIN32_EXECUTABLE TRUE
