@@ -8,6 +8,7 @@ qt_add_executable(TrayMusicPlayer
 target_link_libraries(TrayMusicPlayer PRIVATE
         tray_music_ui
         tray_music_core
+        tray_qrc
 )
 
 

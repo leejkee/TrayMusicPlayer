@@ -2,7 +2,8 @@
 // Created by cww on 25-4-10.
 //
 #include "ViewDelegate.h"
-#include <Assets.h>
+#include <UiConfig.h>
+#include <TraySVG.h>
 #include <QListView>
 #include <QPainter>
 #include <QSvgRenderer>
@@ -14,9 +15,9 @@ namespace Tray::Ui::Panel {
     ViewDelegate::ViewDelegate(QObject *parent) : QStyledItemDelegate(parent)
                                                   , m_previousIndex(UNINITIALIZED_VALUE)
                                                   , m_isPlaying(false)
-                                                  , m_svgPlayingRenderer(new QSvgRenderer(SvgRes::ViewPlaySVG))
-                                                  , m_svgPauseRenderer(new QSvgRenderer(SvgRes::ViewPauseSVG))
-                                                  , m_svgAddToListRender(new QSvgRenderer(SvgRes::AdddSVG)) {
+                                                  , m_svgPlayingRenderer(new QSvgRenderer(Res::ViewPlaySVG))
+                                                  , m_svgPauseRenderer(new QSvgRenderer(Res::ViewPauseSVG))
+                                                  , m_svgAddToListRender(new QSvgRenderer(Res::AdddSVG)) {
     }
 
     void ViewDelegate::drawText(QPainter *painter, const QFont &font, const QColor &color, const int x, const int y,

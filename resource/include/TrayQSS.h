@@ -14,4 +14,5 @@ namespace Tray::Res{
     inline const auto VOLUME_SLIDER_QSS = QStringLiteral(":/qss/Slider/QSlider.qss");
     inline const auto VOLUME_MENU_QSS = QStringLiteral(":/qss/QMenu/VolumeMenu.qss");
     inline const auto PLAY_MODE_QSS = QStringLiteral(":/qss/MusicListButton/ButtonPlayMode.qss");
+    inline const auto PROGRESS_BAR_QSS = QStringLiteral(":/qss/Slider/ProgressBar.qss");
 }

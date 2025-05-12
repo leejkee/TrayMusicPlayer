@@ -3,7 +3,7 @@
 //
 
 #include "TrayApp.h"
-#include <Assets.h>
+#include <TraySVG.h>
 #include <WindowManager.h>
 #include <Core.h>
 #include <QApplication>
@@ -13,8 +13,9 @@
 #include <QSystemTrayIcon>
 
 inline void Init_qrc() {
-        Q_INIT_RESOURCE(svg);
+    Q_INIT_RESOURCE(svg);
 }
+
 
 namespace Tray {
     class TrayAppPrivate {
@@ -33,8 +34,8 @@ namespace Tray {
     TrayApp::TrayApp(QWidget *parent)
         : QMainWindow(parent),
           d(std::make_unique<TrayAppPrivate>()) {
+        Init_qrc();
         initMainApplication();
-            Init_qrc();
     }
 
     TrayApp::~TrayApp() {
@@ -46,7 +47,7 @@ namespace Tray {
         d->m_core = new Core::Core(this);
         setCentralWidget(d->m_windowManager);
         createConnections();
-            d->m_windowManager->initDefaultSettings(d->m_core->getLocalMusicPaths(), d->m_core->getKeysOfUserPlaylist());
+        d->m_windowManager->initDefaultSettings(d->m_core->getLocalMusicPaths(), d->m_core->getKeysOfUserPlaylist());
         setMinimumWidth(MAIN_MINIMUM_WIDTH);
         setMinimumHeight(MAIN_MINIMUM_HEIGHT);
     }
@@ -165,7 +166,7 @@ namespace Tray {
         d->m_trayIconMenu->addSeparator();
         d->m_trayIconMenu->addAction(d->m_quitAction);
         d->m_systemTrayIcon->setContextMenu(d->m_trayIconMenu);
-        const auto icon = QIcon(SvgRes::TrayIconSVG);
+        const auto icon = QIcon(Res::TrayIconSVG);
         d->m_systemTrayIcon->setIcon(icon);
         this->setWindowIcon(icon);
         d->m_systemTrayIcon->setToolTip("Tray Music");

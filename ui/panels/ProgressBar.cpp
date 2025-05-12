@@ -2,7 +2,8 @@
 // Created by cww on 25-4-1.
 //
 #include "ProgressBar.h"
-#include <Assets.h>
+#include <UiConfig.h>
+#include <TrayQSS.h>
 #include <QHBoxLayout>
 #include <QSlider>
 #include <QLabel>
@@ -25,7 +26,7 @@ namespace Tray::Ui::Panel {
 
         m_labelLeft->setText("00:00");
         m_labelRight->setText("00:00");
-        m_sliderP->setStyleSheet(Tools::readQSS(PROGRESS_BAR_QSS));
+        m_sliderP->setStyleSheet(readQSS(Res::PROGRESS_BAR_QSS));
         setFixedWidth(PROGRESS_BAR_WIDTH);
 
         connect(m_sliderP, &QSlider::valueChanged, this, [this](const int value) {

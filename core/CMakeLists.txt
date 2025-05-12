@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.20)
 
+find_package(TagLib REQUIRED)
+
 set(CORE_SOURCES
         include/Core.h
         Core.cpp
@@ -15,7 +17,6 @@ set(CORE_SOURCES
         settings/Settings.cpp
         common/Song.cpp
 )
-
 
 add_library(tray_music_core STATIC ${CORE_SOURCES})
 
@@ -41,4 +42,21 @@ target_link_libraries(tray_music_core PRIVATE
         Tray::tray_log
         TagLib::tag
 )
-add_dependencies(tray_music_core TagLib_lib)
+
+if (TRAY_TEST)
+    add_library(tray_database_for_Test STATIC
+            databasemanager/DatabaseManager.h
+            databasemanager/DatabaseManager.cpp
+            common/Song.cpp
+            common/Song.h
+    )
+
+    target_link_libraries(tray_database_for_Test PRIVATE
+            Qt6::Sql
+            Tray::tray_log
+    )
+
+    target_include_directories(tray_database_for_Test PUBLIC
+            databasemanager
+    )
+endif ()

@@ -7,7 +7,7 @@
 #include <QDebug>
 
 
-namespace User {
+namespace Tray::Ui {
     inline const auto LOCAL_LIST_KEY = QStringLiteral("Local");
 }
 

@@ -6,6 +6,8 @@
 #include <DataModel.h>
 #include <ViewDelegate.h>
 #include <UiConfig.h>
+#include <TraySVG.h>
+#include <TrayQSS.h>
 #include <QPushButton>
 #include <QLabel>
 #include <QHBoxLayout>
@@ -15,7 +17,7 @@
 namespace Tray::Ui {
     ViewWidget::ViewWidget(QWidget *parent): QWidget(parent) {
         m_labelName = new QLabel(this);
-        m_playAllButton = new Panel::BetterButton(Panel::PLAY_ALL_KEY, QIcon(SvgRes::PlayIconSVG), this);
+        m_playAllButton = new Panel::BetterButton(Panel::PLAY_ALL_KEY, QIcon(Res::PlayIconSVG), this);
 
         const auto spaceH = new QSpacerItem(-1, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
         const auto layoutH = new QHBoxLayout;
@@ -29,7 +31,7 @@ namespace Tray::Ui {
         m_playListView->setModel(m_dataModel);
         m_playListView->setEditTriggers(QAbstractItemView::NoEditTriggers);
         m_playListView->setContextMenuPolicy(Qt::CustomContextMenu);
-        m_playListView->setStyleSheet(readQSS(QssRes::LIST_VIEW_QSS));
+        m_playListView->setStyleSheet(readQSS(Res::LIST_VIEW_QSS));
         m_playListView->viewport()->setMouseTracking(true);
 
         // Delegate Func
@@ -109,7 +111,7 @@ namespace Tray::Ui {
         }
         auto clickedRow = index.row();
         auto *menu = new QMenu(this);
-        const QAction *action = menu->addAction(tr("Playlist"));
+        const QAction *action = menu->addAction(tr("null"));
         connect(action, &QAction::triggered, this, [clickedRow, this]() {
             handleAction(clickedRow);
         });
@@ -138,7 +140,7 @@ namespace Tray::Ui {
 
     // todo
     void ViewWidget::refreshForLocalMusic() {
-        if (m_labelName->text() == User::LOCAL_LIST_KEY) {
+        if (m_labelName->text() == LOCAL_LIST_KEY) {
             // showMusicList(User::LOCAL_LIST_KEY);
         }
     }

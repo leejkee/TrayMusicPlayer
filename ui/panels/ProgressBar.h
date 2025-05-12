@@ -12,7 +12,6 @@ class QLabel;
 
 namespace Tray::Ui::Panel {
     constexpr int PROGRESS_BAR_WIDTH = 180;
-    inline const auto PROGRESS_BAR_QSS = QStringLiteral(":/qss/Slider/ProgressBar.qss");
 
     class ProgressBar final : public QWidget {
         Q_OBJECT

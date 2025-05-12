@@ -3,8 +3,9 @@
 //
 #include "VolumeController.h"
 #include <BetterButton.h>
-#include <Assets.h>
-
+#include <UiConfig.h>
+#include <TraySVG.h>
+#include <TrayQSS.h>
 #include <QSlider>
 #include <QVBoxLayout>
 #include <QLabel>
@@ -15,7 +16,7 @@ namespace Tray::Ui::Panel {
         m_sliderV->setRange(0, 100);
         m_sliderV->setSingleStep(5);
         m_sliderV->setValue(10);
-        m_sliderV->setStyleSheet(Tools::readQSS(QssRes::VOLUME_SLIDER_QSS));
+        m_sliderV->setStyleSheet(readQSS(Res::VOLUME_SLIDER_QSS));
 
         QHBoxLayout *hSliderLayout = new QHBoxLayout;
         hSliderLayout->addStretch();
@@ -26,7 +27,7 @@ namespace Tray::Ui::Panel {
         m_labelVolume = new QLabel(this);
         m_labelVolume->setStyleSheet("font-size: 7pt;");
         m_labelVolume->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
-        m_buttonMute = new BetterButton(QIcon(SvgRes::VolumeBtnSVG), this);
+        m_buttonMute = new BetterButton(QIcon(Res::VolumeBtnSVG), this);
         m_buttonMute->setIconSize(QSize(10, 10));
 
         QVBoxLayout *layout = new QVBoxLayout;
@@ -53,9 +54,9 @@ namespace Tray::Ui::Panel {
 
     void VolumeController::setVolumeButtonIcon(const bool isMuted) const {
         if (isMuted) {
-            m_buttonMute->setIcon(QIcon(SvgRes::VolumeMuteSVG));
+            m_buttonMute->setIcon(QIcon(Res::VolumeMuteSVG));
         } else {
-            m_buttonMute->setIcon(QIcon(SvgRes::VolumeBtnSVG));
+            m_buttonMute->setIcon(QIcon(Res::VolumeBtnSVG));
         }
     }
     QSize VolumeController::sizeHint() const {

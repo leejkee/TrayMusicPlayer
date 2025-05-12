@@ -4,7 +4,6 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_AUTOMOC ON)
-
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 project(TrayMusicPlayer
@@ -12,6 +11,8 @@ project(TrayMusicPlayer
         DESCRIPTION "Cross-platform Music Player with Core-UI Separation"
         LANGUAGES CXX
 )
+
+option(TRAY_TEST "Build the Test module" OFF)
 
 if(WIN32)
     if(MSVC)
@@ -23,12 +24,6 @@ elseif(UNIX AND NOT APPLE)
     endif()
 endif()
 
-include(${CMAKE_SOURCE_DIR}/cmake/TagLib_install.cmake)
-
-list(APPEND CMAKE_PREFIX_PATH "${CMAKE_SOURCE_DIR}/3rdparty/taglib_lib")
-
-find_package(TagLib REQUIRED)
-
 find_package(Qt6 REQUIRED COMPONENTS
     Multimedia
     Core
@@ -38,9 +33,12 @@ find_package(Qt6 REQUIRED COMPONENTS
     Test
 )
 
-add_subdirectory(3rdParty)
+add_subdirectory(tools)
 add_subdirectory(core)
 add_subdirectory(ui)
-add_subdirectory(test)
 add_subdirectory(app)
-add_subdirectory(tools)
+add_subdirectory(resource)
+
+if (TRAY_TEST)
+    add_subdirectory(test)
+endif ()

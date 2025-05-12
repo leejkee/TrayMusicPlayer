@@ -13,13 +13,12 @@
       "generator": "Ninja",
       "cacheVariables": {
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
-        "CMAKE_PREFIX_PATH": "C:/Qt/6.8.2/mingw_64",
+        "CMAKE_PREFIX_PATH": "C:/Qt/6.8.2/mingw_64;${sourceDir}/dependencies/taglib_lib",
         "CMAKE_CXX_COMPILER": "C:/Qt/Tools/mingw1310_64/bin/g++.exe",
-        "CMAKE_C_COMPILER": "C:/Qt/Tools/mingw1310_64/bin/gcc.exe",
         "CMAKE_MAKE_PROGRAM": "C:/Qt/Tools/Ninja/ninja.exe"
       },
       "environment": {
-        "PATH": "C:/Qt/6.8.2/mingw_64/bin;${sourceDir}/3rdParty/TagLib_lib/bin"
+        "PATH": "C:/Qt/6.8.2/mingw_64/bin;${sourceDir}/dependencies/taglib_lib/bin"
       },
       "condition": {
         "type": "equals",
@@ -38,7 +37,6 @@
         "CMAKE_C_COMPILER": "/usr/bin/gcc"
       },
       "environment": {
-        "PATH": "${sourceDir}/3rdParty/TagLib_lib/bin"
       },
       "condition": {
         "type": "equals",

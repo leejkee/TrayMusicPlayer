@@ -19,7 +19,7 @@ namespace Tray::Ui {
     class WindowManager final : public QWidget {
         Q_OBJECT
     public:
-        explicit WindowManager(QWidget *parent = Q_NULLPTR);
+        explicit WindowManager(QWidget *parent = nullptr);
 
         ~WindowManager() override;
 

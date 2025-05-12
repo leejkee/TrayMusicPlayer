@@ -2,9 +2,10 @@
 // Created by cww on 25-4-10.
 //
 #include "MusicListWidget.h"
+#include <UiConfig.h>
 #include <BetterButton.h>
-#include <Assets.h>
-
+#include <TraySVG.h>
+#include <TrayQSS.h>
 #include <QHBoxLayout>
 #include <QScrollArea>
 #include <QInputDialog>
@@ -14,14 +15,14 @@ namespace Tray::Ui {
     MusicListWidget::MusicListWidget(QWidget *parent)
         : QWidget(parent) {
         m_userPlaylistKeys = {};
-        m_localListButton = new Panel::BetterButton(User::LOCAL_LIST_KEY, this);
+        m_localListButton = new Panel::BetterButton(LOCAL_LIST_KEY, this);
 
-        m_expandButton = new Panel::BetterButton(QIcon(SvgRes::UpSVG), this, Panel::BetterButton::NoQss,
+        m_expandButton = new Panel::BetterButton(QIcon(Res::UpSVG), this, Panel::BetterButton::NoQss,
                                                  Panel::EXPAND_BTN_TEXT);
-        m_expandButton->loadStyleSheet(QssRes::BUTTON_EXPAND_QSS);
+        m_expandButton->loadStyleSheet(Res::BUTTON_EXPAND_QSS);
 
-        m_addButton = new Panel::BetterButton(QIcon(SvgRes::AddSVG), this);
-        m_addButton->loadStyleSheet(QssRes::BUTTON_ADD_QSS);
+        m_addButton = new Panel::BetterButton(QIcon(Res::AddSVG), this);
+        m_addButton->loadStyleSheet(Res::BUTTON_ADD_QSS);
 
         const auto buttonLayout = new QHBoxLayout;
         const auto spaceH = new QSpacerItem(-1, 0, QSizePolicy::Expanding);
@@ -74,9 +75,9 @@ namespace Tray::Ui {
         const bool isV = m_buttonWidget->isVisible();
         m_buttonWidget->setVisible(!isV);
         if (!isV) {
-            m_expandButton->setIcon(QIcon(SvgRes::UpSVG));
+            m_expandButton->setIcon(QIcon(Res::UpSVG));
         } else {
-            m_expandButton->setIcon(QIcon(SvgRes::DownSVG));
+            m_expandButton->setIcon(QIcon(Res::DownSVG));
         }
     }
 

@@ -3,8 +3,9 @@
 //
 
 #include "SettingsWidget.h"
-#include <Assets.h>
-
+#include <UiConfig.h>
+#include <TraySVG.h>
+#include <TrayQSS.h>
 #include <QCoreApplication>
 #include <QFileDialog>
 #include <QHBoxLayout>
@@ -17,11 +18,11 @@
 
 namespace Tray::Ui {
     SettingsWidget::SettingsWidget(QWidget *parent) : QWidget(parent) {
-        this->m_addButton = new QPushButton(QIcon(SvgRes::AddSVG), "", this);
-        m_addButton->setStyleSheet(Tools::readQSS(QssRes::BUTTON_SQUARE_QSS));
+        this->m_addButton = new QPushButton(QIcon(Res::AddSVG), "", this);
+        m_addButton->setStyleSheet(readQSS(Res::BUTTON_SQUARE_QSS));
         this->m_listWidget = new QListWidget(this);
-        this->m_removeButton = new QPushButton(QIcon(SvgRes::RemoveSVG), "", this);
-        m_removeButton->setStyleSheet(Tools::readQSS(QssRes::BUTTON_SQUARE_QSS));
+        this->m_removeButton = new QPushButton(QIcon(Res::RemoveSVG), "", this);
+        m_removeButton->setStyleSheet(readQSS(Res::BUTTON_SQUARE_QSS));
         this->m_messageLabel = new QLabel(this);
         m_messageLabel->setText("Local Music Paths: ");
         m_listWidget->setStyleSheet("QListWidget { font-size: 15px; }");

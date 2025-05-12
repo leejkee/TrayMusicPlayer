@@ -2,7 +2,9 @@
 // Created by cww on 25-4-1.
 //
 #include "BetterButton.h"
-#include <Assets.h>
+#include <UiConfig.h>
+#include <TrayQSS.h>
+#include <TraySVG.h>
 #include <QEvent>
 
 
@@ -12,9 +14,9 @@ namespace Tray::Ui::Panel {
     }
 
     BetterButton::BetterButton(const QString &name, QWidget *parent) : QPushButton(parent) {
-        setIcon(QIcon(SvgRes::MusicListSVG));
+        setIcon(QIcon(Res::MusicListSVG));
         setText(name);
-        loadStyleSheet(QssRes::BUTTON_LIST_QSS);
+        loadStyleSheet(Res::BUTTON_LIST_QSS);
         connect(this, &QPushButton::clicked, this, &BetterButton::onButtonClicked);
         init();
     }
@@ -26,7 +28,7 @@ namespace Tray::Ui::Panel {
     BetterButton::BetterButton(const QString &name, const QIcon &icon, QWidget *parent) : QPushButton(parent) {
         setIcon(icon);
         setText(name);
-        loadStyleSheet(QssRes::BUTTON_LIST_QSS);
+        loadStyleSheet(Res::BUTTON_LIST_QSS);
         init();
     }
     BetterButton::BetterButton(const QIcon &icon, QWidget *parent, const StyleMode style, const QString &name)
@@ -35,13 +37,13 @@ namespace Tray::Ui::Panel {
         setText(name);
         setFixedSize(DefaultWidth, DefaultHeight);
         if (style == WithQss) {
-            loadStyleSheet(QssRes::BUTTON_LIST_QSS);
+            loadStyleSheet(Res::BUTTON_LIST_QSS);
         }
         init();
     }
 
     void BetterButton::loadStyleSheet(const QString &qssPath) {
-        this->setStyleSheet(Tools::readQSS(qssPath));
+        this->setStyleSheet(readQSS(qssPath));
     }
 
     bool BetterButton::eventFilter(QObject *watched, QEvent *event) {

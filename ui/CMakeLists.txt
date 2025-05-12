@@ -40,5 +40,6 @@ target_link_libraries(tray_music_ui PUBLIC
         Qt6::Widgets
         Qt6::Core
         Qt6::SvgWidgets
+        tray_qrc
         tray_log
 )

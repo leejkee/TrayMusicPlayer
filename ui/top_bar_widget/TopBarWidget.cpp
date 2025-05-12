@@ -3,19 +3,20 @@
 //
 #include "TopBarWidget.h"
 #include <BetterButton.h>
-#include <Assets.h>
+#include <TraySVG.h>
+#include <TrayQSS.h>
 #include <QSvgWidget>
 #include <QHBoxLayout>
 namespace Tray::Ui {
 
 TopBarWidget::TopBarWidget(QWidget *parent) : QWidget(parent) {
 
-    m_svgWidget = new QSvgWidget(SvgRes::LogoSVG);
+    m_svgWidget = new QSvgWidget(Res::LogoSVG);
     m_svgWidget->setFixedSize(130, 25);
-    m_preButton = new Panel::BetterButton(QIcon(SvgRes::BackPageSVG), this);
-    m_preButton->loadStyleSheet(QssRes::BUTTON_SQUARE_QSS);
-    m_settingsButton = new Panel::BetterButton(QIcon(SvgRes::SettingSVG),  this);
-    m_settingsButton->loadStyleSheet(QssRes::BUTTON_SQUARE_QSS);
+    m_preButton = new Panel::BetterButton(QIcon(Res::BackPageSVG), this);
+    m_preButton->loadStyleSheet(Res::BUTTON_SQUARE_QSS);
+    m_settingsButton = new Panel::BetterButton(QIcon(Res::SettingSVG),  this);
+    m_settingsButton->loadStyleSheet(Res::BUTTON_SQUARE_QSS);
 
     const auto spacerH = new QSpacerItem(-1, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
     const auto layout = new QHBoxLayout(this);
