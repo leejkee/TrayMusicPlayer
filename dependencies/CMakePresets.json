@@ -24,6 +24,18 @@
     },
 
     {
+      "name": "windows-no-args",
+      "generator": "Ninja",
+      "cacheVariables": {
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      }
+    },
+
+    {
       "name": "linux-base",
       "generator": "Ninja",
       "cacheVariables": {
@@ -36,6 +48,7 @@
         "rhs": "Linux"
       }
     }
+
 
   ]
 }
