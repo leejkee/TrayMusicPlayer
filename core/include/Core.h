@@ -39,8 +39,6 @@ namespace Tray::Core {
 
         void requestPlaylist(const QString &);
 
-        // init the default settings
-        void initDefaultSettings();
 
         QStringList getKeysOfUserPlaylist();
 
@@ -69,8 +67,6 @@ namespace Tray::Core {
 
         void signalMusicListChanged(const QString &key, const QStringList &titleList);
 
-        // todo
-        void signalLocalPathsChanged();
 
     private:
         std::unique_ptr<CorePrivate> d;
@@ -80,5 +76,7 @@ namespace Tray::Core {
         void playLocalMusicFromFirst();
 
         void createConnections();
+        // init the default settings
+        void initDefaultSettings();
     };
 } // namespace Core

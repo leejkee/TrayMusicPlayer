@@ -29,6 +29,7 @@ namespace Tray::Core {
         d->m_settings = new Settings(SETTINGS_WIN32_PATH, this);
         d->Log.log(Log::QLogger::LogLevel::Info, "Initializing Core successfully");
         createConnections();
+        initDefaultSettings();
     }
 
     Core::~Core() = default;
@@ -163,7 +164,6 @@ namespace Tray::Core {
     void Core::appendLocalMusicPath(const QString &path) {
         d->m_settings->addLocalMusicDirectory(path);
         d->m_listCache->initLocalPlaylist(d->m_settings->getLocalMusicDirectories());
-        Q_EMIT signalLocalPathsChanged();
     }
 
 
@@ -171,7 +171,6 @@ namespace Tray::Core {
     void Core::removeLocalMusicPath(const QString &path) {
         d->m_settings->removeLocalMusicDirectory(path);
         d->m_listCache->initLocalPlaylist(d->m_settings->getLocalMusicDirectories());
-        Q_EMIT signalLocalPathsChanged();
     }
 
 
