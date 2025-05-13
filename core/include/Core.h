@@ -16,7 +16,7 @@ namespace Tray::Core {
         Q_OBJECT
 
     public:
-        explicit Core(QObject *parent = nullptr);
+        explicit Core(const QString &iniPath, QObject *parent = nullptr);
         ~Core() override;
 
         void setVolume(unsigned int volume);

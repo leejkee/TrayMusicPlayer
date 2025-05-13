@@ -15,8 +15,13 @@ namespace Tray {
     public:
         static constexpr int MAIN_MINIMUM_WIDTH = 600;
         static constexpr int MAIN_MINIMUM_HEIGHT = 450;
+#if defined(_WIN32)
+        inline static const auto SETTINGS_PATH = QStringLiteral("data/settings/init_win32.json");
+#elif defined(__linux__)
+        inline static const auto SETTINGS_PATH = QStringLiteral("data/settings/init_linux.json");
+#endif
 
-        explicit TrayApp(QWidget *parent = nullptr);
+        explicit TrayApp(const QString &iniPath = SETTINGS_PATH, QWidget *parent = nullptr);
 
         ~TrayApp() override;
 
@@ -26,8 +31,6 @@ namespace Tray {
         void setVisible(bool visible) override;
 
     private:
-
-        void initMainApplication();
 
         void createConnections();
 

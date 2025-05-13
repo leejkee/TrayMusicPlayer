@@ -14,6 +14,7 @@
 
 inline void Init_qrc() {
     Q_INIT_RESOURCE(svg);
+    Q_INIT_RESOURCE(qss);
 }
 
 
@@ -31,25 +32,21 @@ namespace Tray {
         Core::Core *m_core;
     };
 
-    TrayApp::TrayApp(QWidget *parent)
+    TrayApp::TrayApp(const QString &iniPath, QWidget *parent)
         : QMainWindow(parent),
           d(std::make_unique<TrayAppPrivate>()) {
-        Init_qrc();
-        initMainApplication();
-    }
-
-    TrayApp::~TrayApp() {
-    }
-
-    void TrayApp::initMainApplication() {
+        // Init_qrc();
         createTrayIcon();
         d->m_windowManager = new Ui::WindowManager(this);
-        d->m_core = new Core::Core(this);
+        d->m_core = new Core::Core(iniPath, this);
         setCentralWidget(d->m_windowManager);
         createConnections();
         d->m_windowManager->initDefaultSettings(d->m_core->getLocalMusicPaths(), d->m_core->getKeysOfUserPlaylist());
         setMinimumWidth(MAIN_MINIMUM_WIDTH);
         setMinimumHeight(MAIN_MINIMUM_HEIGHT);
+    }
+
+    TrayApp::~TrayApp() {
     }
 
     void TrayApp::createConnections() {

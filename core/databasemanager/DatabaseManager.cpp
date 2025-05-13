@@ -49,7 +49,20 @@ namespace Tray::Core {
     }
 
     bool DatabaseManager::isValidTableName(const QString &tableName) {
-        static QRegularExpression re("^[A-Za-z_][A-Za-z0-9_]*$");
+        // ^          - 匹配字符串的开始
+        // [          - 字符集合开始
+        // a-zA-Z     - 匹配任意英文字母（大写或小写）
+        // \          - 匹配一个空格字符
+        // \\p{Han}   - 匹配任意中文汉字 (使用 Unicode 属性 Han)
+        // ]          - 字符集合结束
+        // +          - 匹配前面的字符集合一次或多次 (确保表名不为空)
+        // $          - 匹配字符串的结束
+        // 这个表达式确保整个字符串只包含英文字母、空格或中文汉字，并且至少有一个字符。
+        static QRegularExpression re("^[a-zA-Z \\p{Han}]+$");
+
+        // QRegularExpression::match() 尝试从字符串开头进行匹配。
+        // hasMatch() 检查是否找到了一个匹配项。
+        // 由于使用了 ^ 和 $，hasMatch() 只有在整个字符串都符合规则时才返回 true。
         return re.match(tableName).hasMatch();
     }
 
