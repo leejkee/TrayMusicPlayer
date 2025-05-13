@@ -10,6 +10,6 @@ namespace Tray::Core {
         QStringLiteral("*.png"), QStringLiteral("*.jpeg")
     };
     inline constexpr int UNINITIALIZED_VALUE = -1;
-    inline const auto DB_PATH = QStringLiteral("C:/Users/cww/Documents/Workspace/TrayMusicPlayer/data/music.db");
+    inline const auto PROJECT_PATH = QStringLiteral("C:/Users/cww/Documents/Workspace/TrayMusicPlayer/");
     inline const auto LOCAL_LIST_KEY = QStringLiteral("Local");
 }

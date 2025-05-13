@@ -1,5 +1,4 @@
 {
-    "DatabaseDirectory": "../res/music.db",
     "DefaultVolume": 0.10000000149011612,
     "MusicDirectory": [
         "/home/aude/Music"

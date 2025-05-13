@@ -53,8 +53,8 @@ namespace Tray::Core {
             Q_EMIT signalPositionChanged(pos);
         });
 
-        connect(d->m_playList, &PlayList::signalPlayModeChanged, this, [this](const PlayMode mode) {
-            Q_EMIT signalPlayModeChanged(static_cast<int>(mode));
+        connect(d->m_playList, &PlayList::signalPlayModeChanged, this, [this](const int mode) {
+            Q_EMIT signalPlayModeChanged(mode);
         });
 
         connect(d->m_player, &Player::signalMusicOver, this, &Core::nextMusic);

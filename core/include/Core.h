@@ -1,6 +1,5 @@
 #pragma once
 
-#include "PlayMode.h"
 #include <QLogger.h>
 #include <QObject>
 #include <memory>

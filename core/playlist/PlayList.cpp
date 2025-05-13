@@ -2,7 +2,7 @@
 // Created by cww on 25-4-6.
 //
 #include "PlayList.h"
-#include "TrayConfig.h"
+#include <TrayConfig.h>
 #include <QRandomGenerator>
 
 
@@ -86,7 +86,7 @@ namespace Tray::Core {
     void PlayList::setPlayMode(const PlayMode playMode) {
         if (m_playMode != playMode) {
             m_playMode = playMode;
-            Q_EMIT signalPlayModeChanged(playMode);
+            Q_EMIT signalPlayModeChanged(static_cast<int>(playMode));
             Log.log(Log::QLogger::LogLevel::Info, "play mode changed: " + PlayModeToString(playMode));
         }
     }

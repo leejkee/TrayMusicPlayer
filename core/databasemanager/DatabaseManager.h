@@ -14,7 +14,7 @@ namespace Tray::Core {
         Q_OBJECT
 
     public:
-        explicit DatabaseManager(const QString &dbPath, const QString &connectionName, QObject *parent = nullptr);
+        explicit DatabaseManager(const QString &connectionName, QObject *parent = nullptr);
 
         ~DatabaseManager() override;
 
@@ -41,6 +41,7 @@ namespace Tray::Core {
         static inline const auto TYPE_TEXT = QStringLiteral("TEXT");
         static inline const auto CONSTRAINT_NOTNULL = QStringLiteral("NOT NULL");
         static inline const auto CONSTRAINT_PK_AI = QStringLiteral("PRIMARY KEY AUTOINCREMENT");
+        static inline const auto DB_PATH = QStringLiteral("data/music.db");
 
         static bool isValidTableName(const QString &tableName);
         QSqlDatabase m_databaseConnection;

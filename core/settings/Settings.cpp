@@ -1,4 +1,5 @@
 #include "Settings.h"
+#include <TrayConfig.h>
 #include <QLogger.h>
 #include <QFile>
 #include <QJsonArray>
@@ -10,11 +11,8 @@ namespace Tray::Core {
     class SettingsPrivate {
     public:
         static inline auto KEY_MUSIC_DIRECTORY = QStringLiteral("MusicDirectory");
-        static inline auto KEY_DATABASE_DIRECTORY = QStringLiteral("DatabaseDirectory");
         static inline auto KEY_USER_LISTS = QStringLiteral("UserLists");
         static inline auto KEY_DEFAULT_VOLUME = QStringLiteral("DefaultVolume");
-
-        static inline auto PROJECT_PATH = QStringLiteral("C:/Users/cww/Documents/Workspace/TrayMusicPlayer/");
 
         QString m_settingsPath;
         QString m_dbPath;
@@ -31,7 +29,7 @@ namespace Tray::Core {
                                                                       d(std::make_unique<SettingsPrivate>()) {
         this->setObjectName(QStringLiteral("Settings"));
         d->Log = Log::QLogger(objectName());
-        d->m_settingsPath = SettingsPrivate::PROJECT_PATH + settingsPath;
+        d->m_settingsPath = PROJECT_PATH + settingsPath;
         if (d->m_settingsPath.isEmpty()) {
             d->Log.log(Log::QLogger::LogLevel::Error, "the path of settings is empty");
             return;
@@ -50,7 +48,6 @@ namespace Tray::Core {
         }
         QJsonObject jsonObj = jsonDoc.object();
         d->m_localMusicList = jsonObj[SettingsPrivate::KEY_MUSIC_DIRECTORY].toVariant().toStringList();
-        d->m_dbPath = jsonObj[SettingsPrivate::KEY_DATABASE_DIRECTORY].toString();
         d->m_userListKeys = jsonObj[SettingsPrivate::KEY_USER_LISTS].toVariant().toStringList();
         d->m_volume = jsonObj[SettingsPrivate::KEY_DEFAULT_VOLUME].toInt();
     }
@@ -59,7 +56,6 @@ namespace Tray::Core {
     void Settings::saveToJson() {
         QJsonObject jsonObj;
         jsonObj[SettingsPrivate::KEY_MUSIC_DIRECTORY] = QJsonArray::fromStringList(d->m_localMusicList);
-        jsonObj[SettingsPrivate::KEY_DATABASE_DIRECTORY] = QJsonValue(d->m_dbPath);
         jsonObj[SettingsPrivate::KEY_DEFAULT_VOLUME] = QJsonValue(d->m_volume);
         jsonObj[SettingsPrivate::KEY_USER_LISTS] = QJsonArray::fromStringList(d->m_userListKeys);
         const QJsonDocument doc(jsonObj);

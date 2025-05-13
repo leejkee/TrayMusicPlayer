@@ -42,7 +42,7 @@ namespace Tray::Core {
 
     void ListCache::initUserPlaylists(const QStringList &userListKeys) {
         const auto connectName = QStringLiteral("listCache_readList");
-        auto dbConnection = DatabaseManager(DB_PATH, connectName);
+        auto dbConnection = DatabaseManager(connectName);
         for (const auto &key: userListKeys) {
             if (key == LOCAL_LIST_KEY) {
                 Log.log(Log::QLogger::LogLevel::Error,
@@ -89,7 +89,7 @@ namespace Tray::Core {
         if (!m_listCache.contains(key)) {
             m_listCache[key] = {};
             const auto dbConnectionName = "new_list_" + key;
-            if (auto dbConnection = DatabaseManager(DB_PATH, dbConnectionName); dbConnection.createTable(key)) {
+            if (auto dbConnection = DatabaseManager(dbConnectionName); dbConnection.createTable(key)) {
                 Log.log(Log::QLogger::LogLevel::Info, "Create table successfully: " + key);
             }
             // send to settings
@@ -104,7 +104,7 @@ namespace Tray::Core {
             m_listCache[key].append(song);
             Q_EMIT signalPlayListChanged(key);
             const auto dbconnectionName = "insert_to_" + key;
-            if (auto dbconnection = DatabaseManager(DB_PATH, dbconnectionName); dbconnection.insertSong(key, song)) {
+            if (auto dbconnection = DatabaseManager(dbconnectionName); dbconnection.insertSong(key, song)) {
                 Log.log(Log::QLogger::LogLevel::Info,
                         QString("'%1' has been added to table '%2'.").arg(song.m_title, key));
             }
@@ -131,7 +131,7 @@ namespace Tray::Core {
         }
 
         const auto dbConnectionName = "delete_" + key;
-        if (auto dbConnection = DatabaseManager(DB_PATH, dbConnectionName); dbConnection.deleteSongWithTitle(
+        if (auto dbConnection = DatabaseManager(dbConnectionName); dbConnection.deleteSongWithTitle(
             key, songTitle)) {
             Log.log(Log::QLogger::LogLevel::Info,
                     QString("'%1' has been removed from table '%2'.").arg(songTitle, key));

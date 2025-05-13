@@ -2,7 +2,7 @@
 // Created by cww on 25-4-6.
 //
 #pragma once
-#include <PlayMode.h>
+#include "PlayMode.h"
 #include <Song.h>
 #include <QLogger.h>
 #include <QObject>
@@ -35,7 +35,7 @@ namespace Tray::Core {
     Q_SIGNALS:
         void signalMusicChanged(qsizetype index, const QString &title, int duration);
 
-        void signalPlayModeChanged(PlayMode);
+        void signalPlayModeChanged(int);
 
     private:
         qsizetype m_index;

@@ -2,6 +2,7 @@
 // Created by cww on 25-4-16.
 //
 #include "DatabaseManager.h"
+#include <TrayConfig.h>
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QSqlRecord>
@@ -10,7 +11,7 @@
 
 
 namespace Tray::Core {
-    DatabaseManager::DatabaseManager(const QString &dbPath, const QString &connectionName, QObject *parent)
+    DatabaseManager::DatabaseManager(const QString &connectionName, QObject *parent)
         : QObject(parent) {
         setObjectName("DatabaseManager");
         Log = Log::QLogger(this->objectName());
@@ -23,16 +24,17 @@ namespace Tray::Core {
             m_databaseConnection = QSqlDatabase::database(m_connectionName);
         } else {
             m_databaseConnection = QSqlDatabase::addDatabase("QSQLITE", m_connectionName);
-            m_databaseConnection.setDatabaseName(dbPath);
+            m_databaseConnection.setDatabaseName(PROJECT_PATH + DB_PATH);
         }
 
         if (!m_databaseConnection.open()) {
             Log.log(Log::QLogger::LogLevel::Error,
                     QString("Cannot open Database [%1]: Init failed, %2").arg(
-                        dbPath, m_databaseConnection.lastError().text()));
+                        PROJECT_PATH + DB_PATH, m_databaseConnection.lastError().text()));
         } else {
             Log.log(Log::QLogger::LogLevel::Info,
-                    QString("Open Database [%1] successfully: connectionName: %2").arg(dbPath, m_connectionName));
+                    QString("Open Database [%1] successfully: connectionName: %2").arg(PROJECT_PATH + DB_PATH,
+                    m_connectionName));
         }
     }
 
