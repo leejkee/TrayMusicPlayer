@@ -11,7 +11,7 @@
 #include <QApplication>
 
 
-namespace Tray::Ui::Panel {
+namespace Tray::Ui {
     ViewDelegate::ViewDelegate(QObject *parent) : QStyledItemDelegate(parent)
                                                   , m_previousIndex(UNINITIALIZED_VALUE)
                                                   , m_isPlaying(false)

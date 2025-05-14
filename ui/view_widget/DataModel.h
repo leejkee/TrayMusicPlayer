@@ -5,7 +5,7 @@
 
 #include <QAbstractListModel>
 
-namespace Tray::Ui::Panel {
+namespace Tray::Ui {
     class DataModel final : public QAbstractListModel {
     public:
         explicit DataModel(const QStringList &list = {}, QObject *parent = nullptr);

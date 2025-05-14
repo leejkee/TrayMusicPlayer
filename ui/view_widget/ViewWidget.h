@@ -10,12 +10,12 @@ class QListView;
 
 namespace Tray::Ui::Panel {
     class BetterButton;
-    class DataModel;
-    class ViewDelegate;
 }
 
 
 namespace Tray::Ui {
+    class DataModel;
+    class ViewDelegate;
     class ViewWidget final : public QWidget {
         Q_OBJECT
 
@@ -64,8 +64,8 @@ namespace Tray::Ui {
         QLabel *m_labelName;
         QListView *m_playListView;
         Panel::BetterButton *m_playAllButton;
-        Panel::DataModel *m_dataModel;
-        Panel::ViewDelegate *m_viewDelegate;
+        DataModel *m_dataModel;
+        ViewDelegate *m_viewDelegate;
         QStringList m_userPlaylistKeys;
 
         constexpr static int SIZE_TITLE_FONT = 14;

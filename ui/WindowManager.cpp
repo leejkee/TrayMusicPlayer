@@ -141,7 +141,7 @@ namespace Tray::Ui {
 
         /// ViewWidget: ItemPlayButton -> Core: play music with index
         connect(d->m_viewWidget, &ViewWidget::signalViewItemPlayButtonClicked,
-                this, [this](const QString &key, int index) {
+                this, [this](const QString &key, const int index) {
                     Q_EMIT signalViewPlayButtonClicked(key, index);
                 });
 

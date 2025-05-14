@@ -18,7 +18,7 @@ namespace Tray::Ui {
         m_localListButton = new Panel::BetterButton(LOCAL_LIST_KEY, this);
 
         m_expandButton = new Panel::BetterButton(QIcon(Res::UpSVG), this, Panel::BetterButton::NoQss,
-                                                 Panel::EXPAND_BTN_TEXT);
+                                                 EXPAND_BTN_TEXT);
         m_expandButton->loadStyleSheet(Res::BUTTON_EXPAND_QSS);
 
         m_addButton = new Panel::BetterButton(QIcon(Res::AddSVG), this);

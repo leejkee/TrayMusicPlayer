@@ -77,12 +77,14 @@ namespace Tray::Core {
         d->m_player->playTg();
     }
 
+
     // 2
     void Core::nextMusic() {
         d->m_playList->nextMusic();
         d->m_player->setMusicSource(d->m_playList->getCurrentMusicPath());
         d->m_player->playTg();
     }
+
 
     // 3
     void Core::preMusic() {
@@ -91,26 +93,24 @@ namespace Tray::Core {
         d->m_player->playTg();
     }
 
+
     // 4
     void Core::playToggleWithListAndIndex(const QString &listKey, const int index) {
-        /// check playlist ?
+        // check playlist ?
         if (d->m_playList->getListKey() != listKey) {
-            // yes
+            // yes, switch to new playlist
             d->Log.log(Log::QLogger::LogLevel::Info, "Current list is not [" + listKey + "], switch to it");
             d->m_playList->loadMusicList(listKey, d->m_listCache->findList(listKey));
             d->m_playList->setCurrentMusicIndex(index);
             d->m_player->setMusicSource(d->m_playList->getCurrentMusicPath());
         } else {
-            // no
-            /// check music ?
-            if (index != d->m_playList->getCurrentMusicIndex()) {
-                // yes
-                d->m_playList->setCurrentMusicIndex(index);
-                d->m_player->setMusicSource(d->m_playList->getCurrentMusicPath());
-            }
+            // no, keep the current playlist
+            d->m_playList->setCurrentMusicIndex(index);
+            d->m_player->setMusicSource(d->m_playList->getCurrentMusicPath());
         }
         d->m_player->playTg();
     }
+
 
     // 5
     void Core::setVolume(const unsigned volume) {
@@ -189,6 +189,7 @@ namespace Tray::Core {
     void Core::removeMusicFromList(const QString &key, const QString &songTitle) {
         d->m_listCache->deleteSong(key, songTitle);
     }
+
     /* Interface End */
 
     void Core::playLocalMusicFromFirst() {

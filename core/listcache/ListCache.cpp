@@ -35,8 +35,7 @@ namespace Tray::Core {
                 localList.append(song);
             }
         }
-        m_listCache[LOCAL_LIST_KEY] = localList;
-        Q_EMIT signalPlayListChanged(LOCAL_LIST_KEY);
+        setList(LOCAL_LIST_KEY, localList);
     }
 
 
@@ -50,9 +49,7 @@ namespace Tray::Core {
                         ". 'Local' cannot be used as a user list key.");
                 continue;
             }
-            if (!m_listCache.contains(key)) {
-                m_listCache[key] = dbConnection.readAllSongsFromTable(key);
-            }
+            setList(key, dbConnection.readAllSongsFromTable(key));
         }
     }
 
@@ -92,7 +89,6 @@ namespace Tray::Core {
             if (auto dbConnection = DatabaseManager(dbConnectionName); dbConnection.createTable(key)) {
                 Log.log(Log::QLogger::LogLevel::Info, "Create table successfully: " + key);
             }
-            // send to settings
             Q_EMIT signalUserPlaylistCreated(key);
         } else {
             Log.log(Log::QLogger::LogLevel::Error, "Cannot add list key: '" + key + "' already exists in the cache.");
@@ -138,5 +134,8 @@ namespace Tray::Core {
         }
     }
 
-
+    void ListCache::setList(const QString &key, const QVector<Song> &list) {
+        m_listCache[key] = list;
+        Q_EMIT signalPlayListChanged(key);
+    }
 }

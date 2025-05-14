@@ -23,11 +23,7 @@ namespace Tray::Core {
             Log.log(Log::QLogger::LogLevel::Warning, "load empty musicList");
         }
         Log.log(Log::QLogger::LogLevel::Info, "load musicList successfully");
-        m_currentListKey = listKey;
-        m_musicList.clear();
-        m_musicList = musicList;
-        // m_index = 0;
-        // m_index = UNINITIALIZED_VALUE;
+        setPlaylist(listKey, musicList);
     }
 
     void PlayList::nextMusic() {
@@ -112,5 +108,11 @@ namespace Tray::Core {
 
     QString PlayList::getListKey() const {
         return m_currentListKey;
+    }
+
+    void PlayList::setPlaylist(const QString &key, const QVector<Song> &musicList) {
+        m_currentListKey = key;
+        m_musicList = musicList;
+        m_index = 0;
     }
 }

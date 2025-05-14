@@ -3,7 +3,7 @@
 //
 #include "DataModel.h"
 
-namespace Tray::Ui::Panel {
+namespace Tray::Ui {
     DataModel::DataModel(const QStringList &list, QObject *parent): QAbstractListModel(parent), m_list(list) {
     }
 

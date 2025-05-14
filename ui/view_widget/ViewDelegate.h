@@ -9,7 +9,7 @@
 class QSvgRenderer;
 
 
-namespace Tray::Ui::Panel {
+namespace Tray::Ui {
     class ViewDelegate final : public QStyledItemDelegate {
         Q_OBJECT
 

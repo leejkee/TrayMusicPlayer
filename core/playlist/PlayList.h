@@ -2,7 +2,6 @@
 // Created by cww on 25-4-6.
 //
 #pragma once
-#include "PlayMode.h"
 #include <Song.h>
 #include <QLogger.h>
 #include <QObject>
@@ -16,6 +15,28 @@ namespace Tray::Core {
     public:
         explicit PlayList(QObject *parent);
 
+        enum class PlayMode {
+            Sequential = 0,
+            LoopOne    = 1,
+            LoopAll    = 2,
+            Shuffle    = 3
+        };
+
+        static QString PlayModeToString(const PlayMode mode) {
+            switch (mode) {
+                case PlayMode::Sequential:
+                    return QStringLiteral("Sequential");
+                case PlayMode::LoopOne:
+                    return QStringLiteral("LoopOne");
+                case PlayMode::LoopAll:
+                    return QStringLiteral("LoopAll");
+                case PlayMode::Shuffle:
+                    return QStringLiteral("Shuffle");
+                default:
+                    return {};
+            }
+        }
+
         [[nodiscard]] QString getCurrentMusicPath() const;
 
         void loadMusicList(const QString &listKey, const QVector<Song> &musicList);
@@ -28,7 +49,9 @@ namespace Tray::Core {
 
         [[nodiscard]] qsizetype getCurrentMusicIndex() const;
 
-        QString getListKey() const;
+        [[nodiscard]] QString getListKey() const;
+
+        void setPlaylist(const QString &key, const QVector<Song> &musicList);
 
         void changePlayMode();
 

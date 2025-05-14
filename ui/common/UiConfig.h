@@ -12,7 +12,7 @@ namespace Tray::Ui {
 }
 
 
-namespace Tray::Ui::Panel {
+namespace Tray::Ui {
     inline const auto PLAY_ALL_KEY = QStringLiteral("Play All");
     inline const auto EXPAND_BTN_TEXT = QStringLiteral("User's");
     constexpr int UNINITIALIZED_VALUE = -1;

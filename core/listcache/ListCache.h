@@ -71,6 +71,11 @@ namespace Tray::Core {
             QStringLiteral("*.flac")
         };
 
+        /// @brief Sets the playlist associated with a given key.
+        /// @param key The unique key identifying the playlist to be updated.
+        /// @param list The vector of Song objects that will replace the current playlist content.
+        void setList(const QString &key, const QVector<Song> &list);
+
         QHash<QString, QVector<Song> > m_listCache;
         Log::QLogger Log;
     };

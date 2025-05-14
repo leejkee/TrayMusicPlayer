@@ -53,3 +53,7 @@ cmake --build build
 cmake -B build --preset windows-mingw-debug -S .
 cmake --build build
 ```
+
+## Todo
+
+- [ ] view列表仅渲染当前播放列表的current music动画

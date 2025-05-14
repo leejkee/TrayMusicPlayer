@@ -2,13 +2,12 @@
 // Created by cww on 25-4-10.
 //
 #include "ViewWidget.h"
+#include "DataModel.h"
+#include "ViewDelegate.h"
 #include <BetterButton.h>
-#include <DataModel.h>
-#include <ViewDelegate.h>
 #include <UiConfig.h>
 #include <TraySVG.h>
 #include <TrayQSS.h>
-#include <QPushButton>
 #include <QLabel>
 #include <QHBoxLayout>
 #include <QMenu>
@@ -17,17 +16,17 @@
 namespace Tray::Ui {
     ViewWidget::ViewWidget(QWidget *parent): QWidget(parent) {
         m_labelName = new QLabel(this);
-        m_playAllButton = new Panel::BetterButton(Panel::PLAY_ALL_KEY, QIcon(Res::PlayIconSVG), this);
+        m_playAllButton = new Panel::BetterButton(PLAY_ALL_KEY, QIcon(Res::PlayIconSVG), this);
 
         const auto spaceH = new QSpacerItem(-1, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
         const auto layoutH = new QHBoxLayout;
         layoutH->addWidget(m_playAllButton);
         layoutH->addSpacerItem(spaceH);
 
-        m_dataModel = new Panel::DataModel({}, this);
+        m_dataModel = new DataModel({}, this);
         // init fun
         m_playListView = new QListView(this);
-        m_viewDelegate = new Panel::ViewDelegate(m_playListView);
+        m_viewDelegate = new ViewDelegate(m_playListView);
         m_playListView->setModel(m_dataModel);
         m_playListView->setEditTriggers(QAbstractItemView::NoEditTriggers);
         m_playListView->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -59,10 +58,10 @@ namespace Tray::Ui {
                     Q_EMIT signalViewItemPlayButtonClicked(m_labelName->text(), 0);
                 });
 
-        connect(m_viewDelegate, &Panel::ViewDelegate::signalViewItemPlayButtonClicked,
+        connect(m_viewDelegate, &ViewDelegate::signalViewItemPlayButtonClicked,
                 this, &ViewWidget::handleViewItemPlayButton);
 
-        connect(m_viewDelegate, &Panel::ViewDelegate::signalViewItemAddToList,
+        connect(m_viewDelegate, &ViewDelegate::signalViewItemAddToList,
                 this, &ViewWidget::handleViewItemAddToList);
     }
 
