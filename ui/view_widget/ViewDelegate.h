@@ -17,10 +17,6 @@ namespace Tray::Ui {
 
         explicit ViewDelegate(QObject *parent = nullptr);
 
-        static void drawText(QPainter *painter, const QFont &font, const QColor &color, int x, int y,
-                             const QString &text);
-
-        void drawPlayButton(QPainter *painter, const QRect &rect, bool isCurrent) const;
 
         void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
@@ -42,8 +38,13 @@ namespace Tray::Ui {
         void signalViewItemAddToList(const QPoint &pos, int);
 
     private:
+        static void drawText(QPainter *painter, const QFont &font, const QColor &color, int x, int y,
+                             const QString &text);
+
+        void drawPlayButton(QPainter *painter, const QRect &rect, bool isCurrent, bool isHoverd) const;
         int m_previousIndex;
         bool m_isPlaying;
+        QModelIndex m_hoverIndex;
 
         QSvgRenderer *m_svgPlayingRenderer;
         QSvgRenderer *m_svgPauseRenderer;

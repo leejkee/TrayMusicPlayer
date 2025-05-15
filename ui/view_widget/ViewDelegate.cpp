@@ -15,6 +15,7 @@ namespace Tray::Ui {
     ViewDelegate::ViewDelegate(QObject *parent) : QStyledItemDelegate(parent)
                                                   , m_previousIndex(UNINITIALIZED_VALUE)
                                                   , m_isPlaying(false)
+                                                  , m_hoverIndex({})
                                                   , m_svgPlayingRenderer(new QSvgRenderer(Res::ViewPlaySVG))
                                                   , m_svgPauseRenderer(new QSvgRenderer(Res::ViewPauseSVG))
                                                   , m_svgAddToListRender(new QSvgRenderer(Res::AdddSVG)) {
@@ -29,17 +30,6 @@ namespace Tray::Ui {
         painter->restore();
     }
 
-    void ViewDelegate::drawPlayButton(QPainter *painter, const QRect &rect, const bool isCurrent) const {
-        if (isCurrent) {
-            if (m_isPlaying) {
-                m_svgPauseRenderer->render(painter, rect);
-            } else {
-                m_svgPlayingRenderer->render(painter, rect);
-            }
-        } else {
-            m_svgPlayingRenderer->render(painter, rect);
-        }
-    }
 
     void ViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
                              const QModelIndex &index) const {
@@ -52,21 +42,48 @@ namespace Tray::Ui {
         // background
         if (option.state & QStyle::State_Selected) {
             painter->fillRect(rect, COLOR_SELECTED_BACKGROUND);
+        } else if (option.state & QStyle::State_MouseOver) {
+            painter->fillRect(rect, COLOR_SELECTED_BACKGROUND);
         }
-
         // Play/pause
         const QRect buttonPlayRect(rect.left() + VIEW_PLAY_BUTTON_PADDING,
                                    rect.center().y() - VIEW_BUTTON_SIZE / 2,
                                    VIEW_BUTTON_SIZE,
                                    VIEW_BUTTON_SIZE);
 
+        // add song to the specified playlist
         const QRect buttonAddToListRect(rect.right() - VIEW_ADD_BUTTON_PADDING,
                                         rect.center().y() - VIEW_BUTTON_SIZE / 2,
                                         VIEW_BUTTON_SIZE,
                                         VIEW_BUTTON_SIZE);
 
-        m_svgAddToListRender->render(painter, buttonAddToListRect);
-        if (index.row() != m_previousIndex) {
+        const bool isHovered = (option.state & QStyle::State_MouseOver);
+        const bool isCurrent = (index.row() == m_previousIndex);
+
+        // draw Buttons
+        if (isHovered) {
+            m_svgAddToListRender->render(painter, buttonAddToListRect);
+            if (isCurrent) {
+                if (m_isPlaying) {
+                    m_svgPauseRenderer->render(painter, buttonPlayRect);
+                } else {
+                    m_svgPlayingRenderer->render(painter, buttonPlayRect);
+                }
+            } else {
+                m_svgPlayingRenderer->render(painter, buttonPlayRect);
+            }
+        } else {
+            if (isCurrent) {
+                if (m_isPlaying) {
+                    m_svgPauseRenderer->render(painter, buttonPlayRect);
+                } else {
+                    m_svgPlayingRenderer->render(painter, buttonPlayRect);
+                }
+            }
+        }
+
+        // draw Text
+        if (!isCurrent) {
             drawText(painter, TitleFontNormal, COLOR_TEXT_NAME,
                      rect.left() + VIEW_TEXT_LEFT_PADDING,
                      rect.top() + VIEW_TEXT_TOP_PADDING,
@@ -76,8 +93,6 @@ namespace Tray::Ui {
                      rect.left() + VIEW_TEXT_LEFT_PADDING,
                      rect.top() + rect.height() - VIEW_TEXT_BOTTOM_PADDING,
                      artist);
-
-            drawPlayButton(painter, buttonPlayRect, false);
         } else {
             drawText(painter, TitleFontBold, COLOR_CURRENT_TEXT_NAME,
                      rect.left() + VIEW_TEXT_LEFT_PADDING,
@@ -88,9 +103,8 @@ namespace Tray::Ui {
                      rect.left() + VIEW_TEXT_LEFT_PADDING,
                      rect.top() + rect.height() - VIEW_TEXT_BOTTOM_PADDING,
                      artist);
-
-            drawPlayButton(painter, buttonPlayRect, true);
         }
+
         painter->restore();
     }
 
@@ -107,16 +121,34 @@ namespace Tray::Ui {
                                         option.rect.center().y() - VIEW_BUTTON_SIZE / 2,
                                         VIEW_BUTTON_SIZE,
                                         VIEW_BUTTON_SIZE);
+        const bool isCurrent = (index.row() == m_previousIndex);
+
         switch (event->type()) {
             case QEvent::MouseMove: {
                 const auto *mouseEvent = dynamic_cast<QMouseEvent *>(event);
+                if (!mouseEvent) {
+                    break;
+                }
                 const auto pos = mouseEvent->pos();
-                if (!mouseEvent) return false;
 
+                // --- Hover Tracking and Repaint ---
+                if (auto *view = qobject_cast<QListView *>(this->parent())) {
+                    if (const QModelIndex currentIndex = view->indexAt(pos); currentIndex != m_hoverIndex) {
+                        if (m_hoverIndex.isValid()) {
+                            view->update(m_hoverIndex);
+                        }
+                        if (currentIndex.isValid()) {
+                            view->update(currentIndex);
+                        }
+                        m_hoverIndex = currentIndex;
+                    }
+                }
+
+                // --- Cursor Handling ---
                 const bool overPlay = buttonPlayRect.contains(pos);
                 const bool overAdd = buttonAddToListRect.contains(pos);
-
-                if (overPlay || overAdd) {
+                const bool isHoveredMouse = (index == m_hoverIndex);
+                if ((isCurrent || isHoveredMouse) && (overPlay || overAdd)) {
                     QApplication::setOverrideCursor(Qt::PointingHandCursor);
                 } else {
                     QApplication::restoreOverrideCursor();
@@ -126,21 +158,29 @@ namespace Tray::Ui {
             case QEvent::MouseButtonPress:
             case QEvent::MouseButtonRelease: {
                 const auto *mouseEvent = dynamic_cast<QMouseEvent *>(event);
-                if (!mouseEvent) return false;
+                if (!mouseEvent) break;
                 const auto pos = mouseEvent->pos();
+                const bool isHoveredMouse = (index == m_hoverIndex);
 
-                if (buttonPlayRect.contains(pos)) {
-                    if (event->type() == QEvent::MouseButtonRelease) {
-                        Q_EMIT signalViewItemPlayButtonClicked(index.row());
+                if (isCurrent || isHoveredMouse) {
+                    // cursor is on the item
+                    if (buttonPlayRect.contains(pos)) {
+                        if (event->type() == QEvent::MouseButtonRelease) {
+                            Q_EMIT signalViewItemPlayButtonClicked(index.row());
+                        }
+                        return true;
                     }
-                    return true;
-                }
-                if (buttonAddToListRect.contains(pos)) {
-                    if (event->type() == QEvent::MouseButtonRelease) {
-                        Q_EMIT signalViewItemAddToList(pos, index.row());
+                    if (buttonAddToListRect.contains(pos)) {
+                        if (event->type() == QEvent::MouseButtonRelease) {
+                            Q_EMIT signalViewItemAddToList(pos, index.row());
+                        }
+                        return true;
                     }
-                    return true;
                 }
+                break;
+            }
+            case QEvent::Leave: {
+                QApplication::restoreOverrideCursor();
                 break;
             }
             default:

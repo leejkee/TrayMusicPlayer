@@ -105,8 +105,10 @@ namespace Tray::Core {
             d->m_player->setMusicSource(d->m_playList->getCurrentMusicPath());
         } else {
             // no, keep the current playlist
-            d->m_playList->setCurrentMusicIndex(index);
-            d->m_player->setMusicSource(d->m_playList->getCurrentMusicPath());
+            if (d->m_playList->getCurrentMusicIndex() != index) {
+                d->m_playList->setCurrentMusicIndex(index);
+                d->m_player->setMusicSource(d->m_playList->getCurrentMusicPath());
+            }
         }
         d->m_player->playTg();
     }
