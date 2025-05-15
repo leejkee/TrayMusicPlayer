@@ -56,4 +56,6 @@ cmake --build build
 
 ## Todo
 
-- [ ] view列表仅渲染当前播放列表的current music动画
+- [x] view列表仅渲染当前播放列表的current music动画
+- [ ] 创建Database和Settings的api
+- [ ] settingsWidget增加功能

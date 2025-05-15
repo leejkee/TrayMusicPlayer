@@ -113,7 +113,6 @@ namespace Tray::Core {
         d->m_player->playTg();
     }
 
-
     // 5
     void Core::setVolume(const unsigned volume) {
         d->m_player->setVolume(static_cast<float>(volume) / 100);
