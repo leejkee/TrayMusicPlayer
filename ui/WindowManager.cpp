@@ -172,5 +172,10 @@ namespace Tray::Ui {
                 this, [this](const QString &s, const QString &d, const int i) {
                     Q_EMIT signalAddSongToList(s, d, i);
                 });
+
+        connect(d->m_viewWidget, &ViewWidget::signalViewItemDel,
+                this, [this](const QString &key, const QString &title) {
+                    Q_EMIT signalDelSongFromList(key, title);
+                });
     }
 }

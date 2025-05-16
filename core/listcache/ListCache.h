@@ -54,8 +54,6 @@ namespace Tray::Core {
 
         void deleteSong(const QString &key, const QString &songTitle);
 
-        void appendLocalMusicDirectory(const QString &directory);
-
     Q_SIGNALS:
 
         // tell playList to update the list

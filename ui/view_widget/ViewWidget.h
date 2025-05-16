@@ -24,19 +24,18 @@ namespace Tray::Ui {
         void initUserPlaylistKeys(const QStringList &keys);
 
     Q_SIGNALS:
-        void signalViewItemPlayButtonClicked(const QString &, int);
+        void signalViewItemPlayButtonClicked(const QString &key, int index);
 
         void signalViewItemAddToList(const QString &sourceList, const QString &destinationList, int index);
+
+        void signalViewItemDel(const QString &key, const QString &title);
 
     private Q_SLOTS:
         void showContextMenu(const QPoint &pos);
 
-        void handleAction(int);
-
         void handleViewItemPlayButton(int index);
 
-        void handleViewItemAddToList(const QPoint &pos,int index);
-
+        void handleMenuPop(const QPoint &pos, const QModelIndex &index);
 
     public Q_SLOTS:
 

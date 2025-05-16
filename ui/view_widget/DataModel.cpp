@@ -24,6 +24,7 @@ namespace Tray::Ui {
         switch (role) {
             case Qt::DisplayRole: return convertToName(str);
             case Qt::UserRole: return convertToArtist(str);
+            case Qt::UserRole + 1: return str;
             default: return {};
         }
     }

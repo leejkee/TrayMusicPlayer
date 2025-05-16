@@ -61,24 +61,33 @@ namespace Tray::Ui {
         connect(m_viewDelegate, &ViewDelegate::signalViewItemPlayButtonClicked,
                 this, &ViewWidget::handleViewItemPlayButton);
 
-        connect(m_viewDelegate, &ViewDelegate::signalViewItemAddToList,
-                this, &ViewWidget::handleViewItemAddToList);
+        connect(m_viewDelegate, &ViewDelegate::signalViewItemOptionsMenu,
+                this, &ViewWidget::handleMenuPop);
     }
 
 
-    // todo: add to list
-    void ViewWidget::handleViewItemAddToList(const QPoint &pos, const int index) {
-        auto *menu = new QMenu(this);
-        connect(menu, &QMenu::aboutToHide, menu, &QMenu::deleteLater);
+
+    void ViewWidget::handleMenuPop(const QPoint &pos, const QModelIndex &index) {
+        QMenu *optionsMenu = new QMenu(this);
+        connect(optionsMenu, &QMenu::aboutToHide, optionsMenu, &QMenu::deleteLater);
+
+        QAction *delAction = optionsMenu->addAction(tr("Delete from this playlist"));
+        connect(delAction, &QAction::triggered, this, [this, index]() {
+            Q_EMIT signalViewItemDel(m_labelName->text(), index.data(Qt::UserRole + 1).toString());
+        });
+
+        QAction *addToPlaylistAction = optionsMenu->addAction(tr("Add to playlist"));
+        QMenu *addToOtherPlaylistMenu = new QMenu();
         for (const QString& playlistName : m_userPlaylistKeys) {
-            auto *action = new QAction(playlistName, this);
+            auto *action = new QAction(playlistName);
             connect(action, &QAction::triggered, this, [this, playlistName, index]() {
-                Q_EMIT signalViewItemAddToList(m_labelName->text(), playlistName, index);
+                Q_EMIT signalViewItemAddToList(m_labelName->text(), playlistName, index.row());
             });
-            menu->addAction(action);
+            addToOtherPlaylistMenu->addAction(action);
         }
-        // menu->popup(pos);
-        menu->exec(m_playListView->viewport()->mapToGlobal(pos));
+        addToPlaylistAction->setMenu(addToOtherPlaylistMenu);
+
+        optionsMenu->exec(m_playListView->viewport()->mapToGlobal(pos));
     }
 
     void ViewWidget::initUserPlaylistKeys(const QStringList &keys) {
@@ -108,17 +117,7 @@ namespace Tray::Ui {
         if (!index.isValid()) {
             return;
         }
-        auto clickedRow = index.row();
-        auto *menu = new QMenu(this);
-        const QAction *action = menu->addAction(tr("null"));
-        connect(action, &QAction::triggered, this, [clickedRow, this]() {
-            handleAction(clickedRow);
-        });
-        connect(menu, &QMenu::aboutToHide, menu, &QMenu::deleteLater);
-        menu->exec(m_playListView->viewport()->mapToGlobal(pos));
-    }
-
-    void ViewWidget::handleAction(const int index) {
+        handleMenuPop(pos, index);
     }
 
 

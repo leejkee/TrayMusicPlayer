@@ -18,7 +18,7 @@ namespace Tray::Core {
         QString m_dbPath;
         QStringList m_localMusicList;
         QStringList m_userListKeys;
-        int m_volume;
+        int m_volume {0};
 
         Log::QLogger Log;
     };

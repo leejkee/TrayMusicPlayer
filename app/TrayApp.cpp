@@ -126,6 +126,9 @@ namespace Tray {
 
         connect(d->m_windowManager, &Ui::WindowManager::signalAddSongToList,
                 d->m_core, &Core::Core::addMusicToList);
+
+        connect(d->m_windowManager, &Ui::WindowManager::signalDelSongFromList,
+                d->m_core, &Core::Core::removeMusicFromList);
     }
 
     void TrayApp::closeEvent(QCloseEvent *event) {

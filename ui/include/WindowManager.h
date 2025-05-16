@@ -18,6 +18,7 @@ namespace Tray::Ui {
 
     class WindowManager final : public QWidget {
         Q_OBJECT
+
     public:
         explicit WindowManager(QWidget *parent = nullptr);
 
@@ -48,7 +49,9 @@ namespace Tray::Ui {
 
         void signalLocalMusicDirectoryRemoved(const QString &);
 
-        void signalAddSongToList(const QString &, const QString &, int i);
+        void signalAddSongToList(const QString &, const QString &, int);
+
+        void signalDelSongFromList(const QString &, const QString &);
 
     public Q_SLOTS:
         void updateCurrentMusic(int index, const QString &name, int duration);

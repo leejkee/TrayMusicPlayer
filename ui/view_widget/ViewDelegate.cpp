@@ -18,7 +18,7 @@ namespace Tray::Ui {
                                                   , m_hoverIndex({})
                                                   , m_svgPlayingRenderer(new QSvgRenderer(Res::ViewPlaySVG))
                                                   , m_svgPauseRenderer(new QSvgRenderer(Res::ViewPauseSVG))
-                                                  , m_svgAddToListRender(new QSvgRenderer(Res::AdddSVG)) {
+                                                  , m_svgOptionsMenuRender(new QSvgRenderer(Res::AdddSVG)) {
     }
 
     void ViewDelegate::drawText(QPainter *painter, const QFont &font, const QColor &color, const int x, const int y,
@@ -52,17 +52,17 @@ namespace Tray::Ui {
                                    VIEW_BUTTON_SIZE);
 
         // add song to the specified playlist
-        const QRect buttonAddToListRect(rect.right() - VIEW_ADD_BUTTON_PADDING,
-                                        rect.center().y() - VIEW_BUTTON_SIZE / 2,
-                                        VIEW_BUTTON_SIZE,
-                                        VIEW_BUTTON_SIZE);
+        const QRect buttonOptionsRect(rect.right() - VIEW_ADD_BUTTON_PADDING,
+                                      rect.center().y() - VIEW_BUTTON_SIZE / 2,
+                                      VIEW_BUTTON_SIZE,
+                                      VIEW_BUTTON_SIZE);
 
         const bool isHovered = (option.state & QStyle::State_MouseOver);
         const bool isCurrent = (index.row() == m_previousIndex);
 
         // draw Buttons
         if (isHovered) {
-            m_svgAddToListRender->render(painter, buttonAddToListRect);
+            m_svgOptionsMenuRender->render(painter, buttonOptionsRect);
             if (isCurrent) {
                 if (m_isPlaying) {
                     m_svgPauseRenderer->render(painter, buttonPlayRect);
@@ -117,10 +117,10 @@ namespace Tray::Ui {
                                    VIEW_BUTTON_SIZE,
                                    VIEW_BUTTON_SIZE);
 
-        const QRect buttonAddToListRect(option.rect.right() - VIEW_ADD_BUTTON_PADDING,
-                                        option.rect.center().y() - VIEW_BUTTON_SIZE / 2,
-                                        VIEW_BUTTON_SIZE,
-                                        VIEW_BUTTON_SIZE);
+        const QRect buttonOptionsRect(option.rect.right() - VIEW_ADD_BUTTON_PADDING,
+                                      option.rect.center().y() - VIEW_BUTTON_SIZE / 2,
+                                      VIEW_BUTTON_SIZE,
+                                      VIEW_BUTTON_SIZE);
         const bool isCurrent = (index.row() == m_previousIndex);
 
         switch (event->type()) {
@@ -146,9 +146,9 @@ namespace Tray::Ui {
 
                 // --- Cursor Handling ---
                 const bool overPlay = buttonPlayRect.contains(pos);
-                const bool overAdd = buttonAddToListRect.contains(pos);
-                const bool isHoveredMouse = (index == m_hoverIndex);
-                if ((isCurrent || isHoveredMouse) && (overPlay || overAdd)) {
+                const bool overOptions = buttonOptionsRect.contains(pos);
+                if (const bool isHoveredMouse = (index == m_hoverIndex);
+                    (isCurrent || isHoveredMouse) && (overPlay || overOptions)) {
                     QApplication::setOverrideCursor(Qt::PointingHandCursor);
                 } else {
                     QApplication::restoreOverrideCursor();
@@ -159,20 +159,19 @@ namespace Tray::Ui {
             case QEvent::MouseButtonRelease: {
                 const auto *mouseEvent = dynamic_cast<QMouseEvent *>(event);
                 if (!mouseEvent) break;
-                const auto pos = mouseEvent->pos();
-                const bool isHoveredMouse = (index == m_hoverIndex);
+                const auto mousePos = mouseEvent->pos();
 
-                if (isCurrent || isHoveredMouse) {
+                if (const bool isHoveredMouse = (index == m_hoverIndex); isCurrent || isHoveredMouse) {
                     // cursor is on the item
-                    if (buttonPlayRect.contains(pos)) {
+                    if (buttonPlayRect.contains(mousePos)) {
                         if (event->type() == QEvent::MouseButtonRelease) {
                             Q_EMIT signalViewItemPlayButtonClicked(index.row());
                         }
                         return true;
                     }
-                    if (buttonAddToListRect.contains(pos)) {
+                    if (buttonOptionsRect.contains(mousePos)) {
                         if (event->type() == QEvent::MouseButtonRelease) {
-                            Q_EMIT signalViewItemAddToList(pos, index.row());
+                            Q_EMIT signalViewItemOptionsMenu(mousePos, index);
                         }
                         return true;
                     }
