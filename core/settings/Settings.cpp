@@ -15,7 +15,6 @@ namespace Tray::Core {
         static inline auto KEY_DEFAULT_VOLUME = QStringLiteral("DefaultVolume");
 
         QString m_settingsPath;
-        QString m_dbPath;
         QStringList m_localMusicList;
         QStringList m_userListKeys;
         int m_volume {0};
@@ -87,6 +86,7 @@ namespace Tray::Core {
         if (!d->m_userListKeys.contains(name)) {
             d->m_userListKeys.append(name);
             saveToJson();
+            Q_EMIT signalUserPlaylistChanged(getKeysUserPlaylist());
             d->Log.log(Log::QLogger::LogLevel::Info, "Added user music: " + name);
         }
     }
@@ -94,16 +94,13 @@ namespace Tray::Core {
     void Settings::removeUserMusicList(const QString &name) {
         if (!d->m_userListKeys.removeOne(name)) {
             saveToJson();
+            Q_EMIT signalUserPlaylistChanged(getKeysUserPlaylist());
             d->Log.log(Log::QLogger::LogLevel::Info, "Removed user music: " + name);
         }
     }
 
     QStringList Settings::getLocalMusicDirectories() const {
         return d->m_localMusicList;
-    }
-
-    QString Settings::getDatabaseDirectory() const {
-        return d->m_dbPath;
     }
 
     QStringList Settings::getKeysUserPlaylist() const {

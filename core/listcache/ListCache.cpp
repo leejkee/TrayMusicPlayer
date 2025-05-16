@@ -88,8 +88,8 @@ namespace Tray::Core {
             const auto dbConnectionName = "new_list_" + key;
             if (auto dbConnection = DatabaseManager(dbConnectionName); dbConnection.createTable(key)) {
                 Log.log(Log::QLogger::LogLevel::Info, "Create table successfully: " + key);
+                Q_EMIT signalUserPlaylistCreated(key);
             }
-            Q_EMIT signalUserPlaylistCreated(key);
         } else {
             Log.log(Log::QLogger::LogLevel::Error, "Cannot add list key: '" + key + "' already exists in the cache.");
         }

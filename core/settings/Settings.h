@@ -3,6 +3,7 @@
 #include <QStringList>
 #include <memory>
 
+
 namespace Tray::Core {
     class SettingsPrivate;
 
@@ -22,23 +23,16 @@ namespace Tray::Core {
 
         ~Settings() override;
 
-        void loadFromJson();
-
         void saveToJson();
 
         [[nodiscard]] QStringList getLocalMusicDirectories() const;
-
-        [[nodiscard]] QString getDatabaseDirectory() const;
 
         [[nodiscard]] QStringList getKeysUserPlaylist() const;
 
         [[nodiscard]] unsigned getDefaultVolume() const;
 
-
     Q_SIGNALS:
-        void signalUserListAdded(const QString &);
-
-        void signalUserListRemoved(const QString &);
+        void signalUserPlaylistChanged(const QStringList &);
 
     public Q_SLOTS:
         void addLocalMusicDirectory(const QString &path);

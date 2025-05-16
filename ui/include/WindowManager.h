@@ -66,6 +66,8 @@ namespace Tray::Ui {
 
         void updatePlayingStatus(bool b);
 
+        void updateUserPlaylistKeys(const QStringList &list);
+
     private:
         std::unique_ptr<WindowManagerPrivate> d;
 

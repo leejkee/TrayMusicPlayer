@@ -90,7 +90,7 @@ namespace Tray::Ui {
         optionsMenu->exec(m_playListView->viewport()->mapToGlobal(pos));
     }
 
-    void ViewWidget::initUserPlaylistKeys(const QStringList &keys) {
+    void ViewWidget::setUserPlaylistKeys(const QStringList &keys) {
         m_userPlaylistKeys = keys;
     }
 

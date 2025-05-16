@@ -62,6 +62,10 @@ namespace Tray::Core {
         connect(d->m_listCache, &ListCache::signalUserPlaylistCreated, d->m_settings, &Settings::addUserMusicList);
 
         connect(d->m_listCache, &ListCache::signalPlayListChanged, this, &Core::updatePlaylist);
+
+        connect(d->m_settings, &Settings::signalUserPlaylistChanged, this, [this](const QStringList &list) {
+            Q_EMIT signalUserPlaylistChanged(list);
+        });
     }
 
     void Core::initDefaultSettings() {

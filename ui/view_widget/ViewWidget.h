@@ -8,6 +8,7 @@
 class QLabel;
 class QListView;
 
+
 namespace Tray::Ui::Panel {
     class BetterButton;
 }
@@ -16,12 +17,14 @@ namespace Tray::Ui::Panel {
 namespace Tray::Ui {
     class DataModel;
     class ViewDelegate;
+
     class ViewWidget final : public QWidget {
         Q_OBJECT
 
     public:
         explicit ViewWidget(QWidget *parent = nullptr);
-        void initUserPlaylistKeys(const QStringList &keys);
+
+        void setUserPlaylistKeys(const QStringList &keys);
 
     Q_SIGNALS:
         void signalViewItemPlayButtonClicked(const QString &key, int index);
@@ -38,7 +41,6 @@ namespace Tray::Ui {
         void handleMenuPop(const QPoint &pos, const QModelIndex &index);
 
     public Q_SLOTS:
-
         /// update the current selection when the current music changed
         /// keep the current item is shown in the visible area
         void updateCurrentIndex(int);

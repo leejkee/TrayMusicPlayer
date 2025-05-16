@@ -66,6 +66,7 @@ namespace Tray::Core {
 
         void signalMusicListChanged(const QString &key, const QStringList &titleList);
 
+        void signalUserPlaylistChanged(const QStringList &list);
 
     private:
         std::unique_ptr<CorePrivate> d;

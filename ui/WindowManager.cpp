@@ -78,7 +78,7 @@ namespace Tray::Ui {
     void WindowManager::initDefaultSettings(const QStringList &localDir, const QStringList &userKeys) {
         d->m_settingsWidget->updateLocalPaths(localDir);
         d->m_musicListWidget->initUserListButtons(userKeys);
-        d->m_viewWidget->initUserPlaylistKeys(userKeys);
+        d->m_viewWidget->setUserPlaylistKeys(userKeys);
     }
 
     void WindowManager::updateCurrentMusic(const int index, const QString &name, const int duration) {
@@ -112,6 +112,9 @@ namespace Tray::Ui {
         d->m_viewWidget->showMusicList(name, titleList);
     }
 
+    void WindowManager::updateUserPlaylistKeys(const QStringList &list) {
+        d->m_viewWidget->setUserPlaylistKeys(list);
+    }
     void WindowManager::createConnections() {
         connect(d->m_playerWidget, &PlayerWidget::signalPlayToggle,
                 this, [this] {
