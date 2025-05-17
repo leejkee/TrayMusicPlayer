@@ -120,6 +120,10 @@ namespace Tray::Ui {
         d->m_viewWidget->updateViewList(key, titleList);
     }
 
+    void WindowManager::updateCurrentPlaylist(const QString &key) {
+        d->m_viewWidget->updateStatusRenderCurrentPlaylist(key);
+    }
+
     void WindowManager::createConnections() {
         connect(d->m_playerWidget, &PlayerWidget::signalPlayToggle,
                 this, [this] {

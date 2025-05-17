@@ -43,7 +43,6 @@ namespace Tray::Ui {
         void handleMenuPop(const QPoint &pos, const QModelIndex &index);
 
     public Q_SLOTS:
-
         /// @brief update the current selection when the current music changed
         /// Also, keep the current item is shown in the visible area is supported
         void updateCurrentIndex(int);
@@ -61,6 +60,8 @@ namespace Tray::Ui {
         /// @param b the bool value
         void updatePlayingStatus(bool b);
 
+        void updateStatusRenderCurrentPlaylist(const QString &key);
+
     private:
         QLabel *m_labelName;
         QListView *m_playListView;
@@ -68,6 +69,7 @@ namespace Tray::Ui {
         DataModel *m_dataModel;
         ViewDelegate *m_viewDelegate;
         QStringList m_userPlaylistKeys;
+        QString m_currentPlaylistKey;
 
         constexpr static int SIZE_TITLE_FONT = 14;
 

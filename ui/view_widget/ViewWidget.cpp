@@ -13,6 +13,7 @@
 #include <QMenu>
 #include <QListView>
 
+
 namespace Tray::Ui {
     ViewWidget::ViewWidget(QWidget *parent): QWidget(parent) {
         m_labelName = new QLabel(this);
@@ -77,7 +78,7 @@ namespace Tray::Ui {
 
         QAction *addToPlaylistAction = optionsMenu->addAction(tr("Add to playlist"));
         QMenu *addToOtherPlaylistMenu = new QMenu();
-        for (const QString& playlistName : m_userPlaylistKeys) {
+        for (const QString &playlistName: m_userPlaylistKeys) {
             auto *action = new QAction(playlistName);
             connect(action, &QAction::triggered, this, [this, playlistName, index]() {
                 Q_EMIT signalViewItemAddToList(m_labelName->text(), playlistName, index.row());
@@ -122,6 +123,7 @@ namespace Tray::Ui {
     void ViewWidget::showMusicList(const QString &name, const QStringList &nameList) {
         setListTitle(name);
         m_dataModel->setMusicList(nameList);
+        m_viewDelegate->setRenderCurrentPlaylist(m_labelName->text() == m_currentPlaylistKey);
     }
 
     void ViewWidget::updateViewList(const QString &key, const QStringList &nameList) {
@@ -134,7 +136,6 @@ namespace Tray::Ui {
         if (m_labelName->text() == key) {
             m_dataModel->setMusicList(nameList);
         }
-
     }
 
     void ViewWidget::setListTitle(const QString &title) {
@@ -149,5 +150,10 @@ namespace Tray::Ui {
 
     void ViewWidget::updatePlayingStatus(const bool b) {
         m_viewDelegate->updatePlayingStatus(b);
+    }
+
+    void ViewWidget::updateStatusRenderCurrentPlaylist(const QString &key) {
+        m_currentPlaylistKey = key;
+        m_viewDelegate->setRenderCurrentPlaylist(m_labelName->text() == m_currentPlaylistKey);
     }
 }

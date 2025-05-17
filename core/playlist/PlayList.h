@@ -39,6 +39,7 @@ namespace Tray::Core {
 
         [[nodiscard]] QString getCurrentMusicPath() const;
 
+
         void loadMusicList(const QString &listKey, const QVector<Song> &musicList);
 
         void nextMusic();
@@ -51,8 +52,6 @@ namespace Tray::Core {
 
         [[nodiscard]] QString getListKey() const;
 
-        void setPlaylist(const QString &key, const QVector<Song> &musicList);
-
         void changePlayMode();
 
     Q_SIGNALS:
@@ -60,6 +59,7 @@ namespace Tray::Core {
 
         void signalPlayModeChanged(int);
 
+        void signalCurrentPlaylistKeyChanged(const QString &key);
     private:
         qsizetype m_index;
         PlayMode m_playMode;

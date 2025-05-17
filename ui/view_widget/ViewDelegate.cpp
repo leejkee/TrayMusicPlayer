@@ -15,6 +15,7 @@ namespace Tray::Ui {
     ViewDelegate::ViewDelegate(QObject *parent) : QStyledItemDelegate(parent)
                                                   , m_previousIndex(UNINITIALIZED_VALUE)
                                                   , m_isPlaying(false)
+                                                  , m_renderCurrentPlaylist(false)
                                                   , m_hoverIndex({})
                                                   , m_svgPlayingRenderer(new QSvgRenderer(Res::ViewPlaySVG))
                                                   , m_svgPauseRenderer(new QSvgRenderer(Res::ViewPauseSVG))
@@ -63,7 +64,7 @@ namespace Tray::Ui {
         // draw Buttons
         if (isHovered) {
             m_svgOptionsMenuRender->render(painter, buttonOptionsRect);
-            if (isCurrent) {
+            if (isCurrent && m_renderCurrentPlaylist) {
                 if (m_isPlaying) {
                     m_svgPauseRenderer->render(painter, buttonPlayRect);
                 } else {
@@ -73,7 +74,7 @@ namespace Tray::Ui {
                 m_svgPlayingRenderer->render(painter, buttonPlayRect);
             }
         } else {
-            if (isCurrent) {
+            if (isCurrent && m_renderCurrentPlaylist) {
                 if (m_isPlaying) {
                     m_svgPauseRenderer->render(painter, buttonPlayRect);
                 } else {
@@ -83,23 +84,23 @@ namespace Tray::Ui {
         }
 
         // draw Text
-        if (!isCurrent) {
-            drawText(painter, TitleFontNormal, COLOR_TEXT_NAME,
-                     rect.left() + VIEW_TEXT_LEFT_PADDING,
-                     rect.top() + VIEW_TEXT_TOP_PADDING,
-                     title);
-
-            drawText(painter, ArtistFontNormal, COLOR_TEXT_ARTIST,
-                     rect.left() + VIEW_TEXT_LEFT_PADDING,
-                     rect.top() + rect.height() - VIEW_TEXT_BOTTOM_PADDING,
-                     artist);
-        } else {
+        if (isCurrent && m_renderCurrentPlaylist) {
             drawText(painter, TitleFontBold, COLOR_CURRENT_TEXT_NAME,
                      rect.left() + VIEW_TEXT_LEFT_PADDING,
                      rect.top() + VIEW_TEXT_TOP_PADDING,
                      title);
 
             drawText(painter, ArtistFontBold, COLOR_CURRENT_TEXT_ARTIST,
+                     rect.left() + VIEW_TEXT_LEFT_PADDING,
+                     rect.top() + rect.height() - VIEW_TEXT_BOTTOM_PADDING,
+                     artist);
+        } else {
+            drawText(painter, TitleFontNormal, COLOR_TEXT_NAME,
+                     rect.left() + VIEW_TEXT_LEFT_PADDING,
+                     rect.top() + VIEW_TEXT_TOP_PADDING,
+                     title);
+
+            drawText(painter, ArtistFontNormal, COLOR_TEXT_ARTIST,
                      rect.left() + VIEW_TEXT_LEFT_PADDING,
                      rect.top() + rect.height() - VIEW_TEXT_BOTTOM_PADDING,
                      artist);
@@ -211,5 +212,9 @@ namespace Tray::Ui {
                 }
             }
         }
+    }
+
+    void ViewDelegate::setRenderCurrentPlaylist(const bool b) {
+        m_renderCurrentPlaylist = b;
     }
 }

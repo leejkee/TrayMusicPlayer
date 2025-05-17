@@ -72,6 +72,11 @@ namespace Tray::Ui {
 
         void updateCurrentViewList(const QString &key, const QStringList &titleList);
 
+        /// @brief This function is connected with the signal that will be emitted when current playlist changed
+        /// this function calls the viewWidget's function to update the current playlist key
+        /// @param key playlist key
+        void updateCurrentPlaylist(const QString &key);
+
     private:
         std::unique_ptr<WindowManagerPrivate> d;
 

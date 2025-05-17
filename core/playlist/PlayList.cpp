@@ -22,8 +22,11 @@ namespace Tray::Core {
         if (musicList.isEmpty()) {
             Log.log(Log::QLogger::LogLevel::Warning, "load empty musicList");
         }
+        m_currentListKey = listKey;
+        m_musicList = musicList;
+        m_index = 0;
+        Q_EMIT signalCurrentPlaylistKeyChanged(listKey);
         Log.log(Log::QLogger::LogLevel::Info, "load musicList successfully");
-        setPlaylist(listKey, musicList);
     }
 
     void PlayList::nextMusic() {
@@ -110,9 +113,4 @@ namespace Tray::Core {
         return m_currentListKey;
     }
 
-    void PlayList::setPlaylist(const QString &key, const QVector<Song> &musicList) {
-        m_currentListKey = key;
-        m_musicList = musicList;
-        m_index = 0;
-    }
 }

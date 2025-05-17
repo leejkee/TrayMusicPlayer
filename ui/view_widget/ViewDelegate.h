@@ -23,6 +23,8 @@ namespace Tray::Ui {
 
         void updatePlayingStatus(bool playable);
 
+        void setRenderCurrentPlaylist(bool b);
+
     protected:
         bool editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option,
                          const QModelIndex &index) override;
@@ -41,7 +43,11 @@ namespace Tray::Ui {
                              const QString &text);
 
         int m_previousIndex;
+
         bool m_isPlaying;
+
+        bool m_renderCurrentPlaylist;
+
         QModelIndex m_hoverIndex;
 
         QSvgRenderer *m_svgPlayingRenderer;

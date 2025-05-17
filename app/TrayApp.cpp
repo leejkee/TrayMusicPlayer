@@ -138,6 +138,9 @@ namespace Tray {
 
         connect(d->m_windowManager, &Ui::WindowManager::signalPlaylistDeleted,
                 d->m_core, &Core::Core::deleteUserPlaylist);
+
+        connect(d->m_core, &Core::Core::signalCurrentPlaylistKeyChanged, d->m_windowManager,
+                &Ui::WindowManager::updateCurrentPlaylist);
     }
 
     void TrayApp::closeEvent(QCloseEvent *event) {
