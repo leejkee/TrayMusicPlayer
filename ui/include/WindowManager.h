@@ -39,7 +39,7 @@ namespace Tray::Ui {
 
         void signalPlayModeChanged();
 
-        void signalPlaylistChanged(const QString &);
+        void signalPlaylistButtonClicked(const QString &);
 
         void signalViewPlayButtonClicked(const QString &, int);
 
@@ -62,11 +62,13 @@ namespace Tray::Ui {
 
         void updatePlayModeIcon(int mode);
 
-        void updateViewList(const QString &name, const QStringList &titleList);
+        void showPlaylistOnView(const QString &name, const QStringList &titleList);
 
         void updatePlayingStatus(bool b);
 
         void updateUserPlaylistKeys(const QStringList &list);
+
+        void updateCurrentViewList(const QString &key, const QStringList &titleList);
 
     private:
         std::unique_ptr<WindowManagerPrivate> d;

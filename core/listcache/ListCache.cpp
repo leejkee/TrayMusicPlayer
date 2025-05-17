@@ -98,7 +98,7 @@ namespace Tray::Core {
     void ListCache::insertMusicToList(const QString &key, const Song &song) {
         if (m_listCache.contains(key)) {
             m_listCache[key].append(song);
-            Q_EMIT signalPlayListChanged(key);
+            Q_EMIT signalPlaylistModified(key);
             const auto dbconnectionName = "insert_to_" + key;
             if (auto dbconnection = DatabaseManager(dbconnectionName); dbconnection.insertSong(key, song)) {
                 Log.log(Log::QLogger::LogLevel::Info,
@@ -123,19 +123,18 @@ namespace Tray::Core {
         });
         if (iterator != keyList.end()) {
             keyList.erase(iterator);
-            Q_EMIT signalPlayListChanged(key);
-        }
-
-        const auto dbConnectionName = "delete_" + key;
-        if (auto dbConnection = DatabaseManager(dbConnectionName); dbConnection.deleteSongWithTitle(
-            key, songTitle)) {
-            Log.log(Log::QLogger::LogLevel::Info,
-                    QString("'%1' has been removed from table '%2'.").arg(songTitle, key));
+            Q_EMIT signalPlaylistModified(key);
+            const auto dbConnectionName = "delete_" + key;
+            if (auto dbConnection = DatabaseManager(dbConnectionName); dbConnection.deleteSongWithTitle(
+                key, songTitle)) {
+                Log.log(Log::QLogger::LogLevel::Info,
+                        QString("'%1' has been removed from table '%2'.").arg(songTitle, key));
+            }
         }
     }
 
     void ListCache::setList(const QString &key, const QVector<Song> &list) {
         m_listCache[key] = list;
-        Q_EMIT signalPlayListChanged(key);
+        Q_EMIT signalPlaylistModified(key);
     }
 }

@@ -61,10 +61,14 @@ namespace Tray::Core {
 
         connect(d->m_listCache, &ListCache::signalUserPlaylistCreated, d->m_settings, &Settings::addUserMusicList);
 
-        connect(d->m_listCache, &ListCache::signalPlayListChanged, this, &Core::updatePlaylist);
+        connect(d->m_listCache, &ListCache::signalPlaylistModified, this, &Core::updateCurrentPlaylist);
 
-        connect(d->m_settings, &Settings::signalUserPlaylistChanged, this, [this](const QStringList &list) {
-            Q_EMIT signalUserPlaylistChanged(list);
+        connect(d->m_listCache, &ListCache::signalPlaylistModified, this, [this](const QString &key) {
+            Q_EMIT signalPlaylistModified(key, d->m_listCache->getMusicTitleList(key));
+        });
+
+        connect(d->m_settings, &Settings::signalUserPlaylistsChanged, this, [this](const QStringList &list) {
+            Q_EMIT signalUserPlaylistSetsChanged(list);
         });
     }
 
@@ -117,6 +121,7 @@ namespace Tray::Core {
         d->m_player->playTg();
     }
 
+
     // 5
     void Core::setVolume(const unsigned volume) {
         d->m_player->setVolume(static_cast<float>(volume) / 100);
@@ -131,7 +136,7 @@ namespace Tray::Core {
 
     // 7
     void Core::requestPlaylist(const QString &listName) {
-        Q_EMIT signalMusicListChanged(listName, d->m_listCache->getMusicTitleList(listName));
+        Q_EMIT signalPlaylistSwitched(listName, d->m_listCache->getMusicTitleList(listName));
     }
 
 
@@ -198,7 +203,7 @@ namespace Tray::Core {
     /* Interface End */
 
     void Core::playLocalMusicFromFirst() {
-        Q_EMIT signalMusicListChanged(LOCAL_LIST_KEY, d->m_listCache->getMusicTitleList(LOCAL_LIST_KEY));
+        Q_EMIT signalPlaylistSwitched(LOCAL_LIST_KEY, d->m_listCache->getMusicTitleList(LOCAL_LIST_KEY));
     }
 
 
@@ -207,10 +212,9 @@ namespace Tray::Core {
     }
 
 
-    void Core::updatePlaylist(const QString &key) {
+    void Core::updateCurrentPlaylist(const QString &key) {
         if (d->m_playList->getListKey() == key) {
             d->m_playList->loadMusicList(key, d->m_listCache->findList(key));
-            Q_EMIT signalMusicListChanged(key, d->m_listCache->getMusicTitleList(key));
         }
     }
 }

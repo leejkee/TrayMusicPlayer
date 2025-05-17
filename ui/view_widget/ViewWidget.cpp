@@ -66,12 +66,11 @@ namespace Tray::Ui {
     }
 
 
-
     void ViewWidget::handleMenuPop(const QPoint &pos, const QModelIndex &index) {
         QMenu *optionsMenu = new QMenu(this);
         connect(optionsMenu, &QMenu::aboutToHide, optionsMenu, &QMenu::deleteLater);
 
-        QAction *delAction = optionsMenu->addAction(tr("Delete from this playlist"));
+        const QAction *delAction = optionsMenu->addAction(tr("Delete from this playlist"));
         connect(delAction, &QAction::triggered, this, [this, index]() {
             Q_EMIT signalViewItemDel(m_labelName->text(), index.data(Qt::UserRole + 1).toString());
         });
@@ -86,7 +85,6 @@ namespace Tray::Ui {
             addToOtherPlaylistMenu->addAction(action);
         }
         addToPlaylistAction->setMenu(addToOtherPlaylistMenu);
-
         optionsMenu->exec(m_playListView->viewport()->mapToGlobal(pos));
     }
 
@@ -120,10 +118,23 @@ namespace Tray::Ui {
         handleMenuPop(pos, index);
     }
 
-
+    // switch view
     void ViewWidget::showMusicList(const QString &name, const QStringList &nameList) {
         setListTitle(name);
         m_dataModel->setMusicList(nameList);
+    }
+
+    void ViewWidget::updateViewList(const QString &key, const QStringList &nameList) {
+        if (m_labelName->text() == key) {
+            m_dataModel->setMusicList(nameList);
+        }
+    }
+
+    void ViewWidget::updateCurrentView(const QString &key, const QStringList &nameList) {
+        if (m_labelName->text() == key) {
+            m_dataModel->setMusicList(nameList);
+        }
+
     }
 
     void ViewWidget::setListTitle(const QString &title) {

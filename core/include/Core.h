@@ -64,14 +64,24 @@ namespace Tray::Core {
 
         void signalPlayModeChanged(int mode);
 
-        void signalMusicListChanged(const QString &key, const QStringList &titleList);
+        void signalPlaylistSwitched(const QString &key, const QStringList &titleList);
 
-        void signalUserPlaylistChanged(const QStringList &list);
+        ///
+        ///@brief Signals that the set of user playlists has changed.
+        ///
+        ///This signal is emitted whenever a user playlist is added or deleted.
+        ///It notifies the UI to refresh its display of the playlist collection.
+        ///
+        ///@param list The current list of user playlist names.
+        void signalUserPlaylistSetsChanged(const QStringList &list);
+
+        void signalPlaylistModified(const QString & key, const QStringList & list);
 
     private:
         std::unique_ptr<CorePrivate> d;
 
-        void updatePlaylist(const QString &key);
+
+        void updateCurrentPlaylist(const QString &key);
 
         void playLocalMusicFromFirst();
 

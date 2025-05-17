@@ -35,7 +35,7 @@ namespace Tray {
     TrayApp::TrayApp(const QString &iniPath, QWidget *parent)
         : QMainWindow(parent),
           d(std::make_unique<TrayAppPrivate>()) {
-        // Init_qrc();
+        Init_qrc();
         createTrayIcon();
         d->m_windowManager = new Ui::WindowManager(this);
         d->m_core = new Core::Core(iniPath, this);
@@ -91,7 +91,7 @@ namespace Tray {
         connect(d->m_windowManager, &Ui::WindowManager::signalSetVolume,
                 d->m_core, &Core::Core::setVolume);
 
-        //
+        // progressbar
         connect(d->m_windowManager, &Ui::WindowManager::signalSetPlayerPosition,
                 d->m_core, &Core::Core::setPlayerPosition);
 
@@ -102,12 +102,12 @@ namespace Tray {
                 d->m_core, &Core::Core::changePlayMode);
 
         // change playlist
-        connect(d->m_windowManager, &Ui::WindowManager::signalPlaylistChanged,
+        connect(d->m_windowManager, &Ui::WindowManager::signalPlaylistButtonClicked,
                 d->m_core, &Core::Core::requestPlaylist);
 
         // switch the current showing list
-        connect(d->m_core, &Core::Core::signalMusicListChanged,
-                d->m_windowManager, &Ui::WindowManager::updateViewList
+        connect(d->m_core, &Core::Core::signalPlaylistSwitched,
+                d->m_windowManager, &Ui::WindowManager::showPlaylistOnView
         );
 
         connect(d->m_windowManager, &Ui::WindowManager::signalViewPlayButtonClicked,
@@ -130,8 +130,11 @@ namespace Tray {
         connect(d->m_windowManager, &Ui::WindowManager::signalDelSongFromList,
                 d->m_core, &Core::Core::removeMusicFromList);
 
-        connect(d->m_core, &Core::Core::signalUserPlaylistChanged,
+        connect(d->m_core, &Core::Core::signalUserPlaylistSetsChanged,
                 d->m_windowManager, &Ui::WindowManager::updateUserPlaylistKeys);
+
+        connect(d->m_core, &Core::Core::signalPlaylistModified
+                , d->m_windowManager, &Ui::WindowManager::updateCurrentViewList);
     }
 
     void TrayApp::closeEvent(QCloseEvent *event) {

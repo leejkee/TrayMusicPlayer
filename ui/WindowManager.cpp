@@ -108,12 +108,16 @@ namespace Tray::Ui {
         d->m_playerWidget->updatePlayModeIcon(mode);
     }
 
-    void WindowManager::updateViewList(const QString &name, const QStringList &titleList) {
+    void WindowManager::showPlaylistOnView(const QString &name, const QStringList &titleList) {
         d->m_viewWidget->showMusicList(name, titleList);
     }
 
     void WindowManager::updateUserPlaylistKeys(const QStringList &list) {
         d->m_viewWidget->setUserPlaylistKeys(list);
+    }
+
+    void WindowManager::updateCurrentViewList(const QString &key, const QStringList &titleList) {
+        d->m_viewWidget->updateViewList(key, titleList);
     }
     void WindowManager::createConnections() {
         connect(d->m_playerWidget, &PlayerWidget::signalPlayToggle,
@@ -139,7 +143,7 @@ namespace Tray::Ui {
                 this, [this]() { Q_EMIT signalPlayModeChanged(); });
 
         connect(d->m_musicListWidget, &MusicListWidget::signalMusicListButtonClicked,
-                this, [this](const QString &list) { Q_EMIT signalPlaylistChanged(list); });
+                this, [this](const QString &list) { Q_EMIT signalPlaylistButtonClicked(list); });
 
 
         /// ViewWidget: ItemPlayButton -> Core: play music with index

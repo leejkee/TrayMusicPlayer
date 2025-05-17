@@ -34,19 +34,28 @@ namespace Tray::Ui {
         void signalViewItemDel(const QString &key, const QString &title);
 
     private Q_SLOTS:
+        // handle the context menu pop for right-click event
         void showContextMenu(const QPoint &pos);
 
         void handleViewItemPlayButton(int index);
 
+        // handle the options menu pop
         void handleMenuPop(const QPoint &pos, const QModelIndex &index);
 
     public Q_SLOTS:
-        /// update the current selection when the current music changed
-        /// keep the current item is shown in the visible area
+
+        /// @brief update the current selection when the current music changed
+        /// Also, keep the current item is shown in the visible area is supported
         void updateCurrentIndex(int);
 
-        /// update the view when a music list button is pressed to check the current list
+        // update the view when a music list button is pressed
         void showMusicList(const QString &name, const QStringList &nameList);
+
+        // update the view when the current list is updated
+        void updateViewList(const QString &key, const QStringList &nameList);
+
+        // update the view if the showing list is @key
+        void updateCurrentView(const QString &key, const QStringList &nameList);
 
         /// @brief Refreshes the view widget to reflect changes in the local music path.
         ///
@@ -59,6 +68,8 @@ namespace Tray::Ui {
         ///       local music.
         void refreshForLocalMusic();
 
+        /// @brief update the status of playing on ListView
+        /// @param b the bool value
         void updatePlayingStatus(bool b);
 
     private:

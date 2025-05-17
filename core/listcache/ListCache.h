@@ -57,7 +57,7 @@ namespace Tray::Core {
     Q_SIGNALS:
 
         // tell playList to update the list
-        void signalPlayListChanged(const QString &key);
+        void signalPlaylistModified(const QString &key);
 
         void signalUserPlaylistCreated(const QString &listName);
 

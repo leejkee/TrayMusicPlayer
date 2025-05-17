@@ -32,7 +32,7 @@ namespace Tray::Core {
         [[nodiscard]] unsigned getDefaultVolume() const;
 
     Q_SIGNALS:
-        void signalUserPlaylistChanged(const QStringList &);
+        void signalUserPlaylistsChanged(const QStringList &);
 
     public Q_SLOTS:
         void addLocalMusicDirectory(const QString &path);
