@@ -16,8 +16,10 @@ namespace Tray::Core {
 
     public:
         explicit Core(const QString &iniPath, QObject *parent = nullptr);
+
         ~Core() override;
 
+    public slots:
         void setVolume(unsigned int volume);
 
         void playToggle();
@@ -38,10 +40,11 @@ namespace Tray::Core {
 
         void requestPlaylist(const QString &);
 
-
         QStringList getKeysOfUserPlaylist();
 
-        void newUserList(const QString &);
+        void newUserPlaylist(const QString &);
+
+        void deleteUserPlaylist(const QString &);
 
         QStringList getLocalMusicPaths();
 
@@ -75,17 +78,17 @@ namespace Tray::Core {
         ///@param list The current list of user playlist names.
         void signalUserPlaylistSetsChanged(const QStringList &list);
 
-        void signalPlaylistModified(const QString & key, const QStringList & list);
+        void signalPlaylistModified(const QString &key, const QStringList &list);
 
     private:
         std::unique_ptr<CorePrivate> d;
-
 
         void updateCurrentPlaylist(const QString &key);
 
         void playLocalMusicFromFirst();
 
         void createConnections();
+
         // init the default settings
         void initDefaultSettings();
     };

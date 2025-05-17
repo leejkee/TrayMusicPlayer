@@ -59,7 +59,7 @@ namespace Tray::Core {
 
         connect(d->m_player, &Player::signalMusicOver, this, &Core::nextMusic);
 
-        connect(d->m_listCache, &ListCache::signalUserPlaylistCreated, d->m_settings, &Settings::addUserMusicList);
+        connect(d->m_listCache, &ListCache::signalUserPlaylistCreated, d->m_settings, &Settings::addUserPlaylist);
 
         connect(d->m_listCache, &ListCache::signalPlaylistModified, this, &Core::updateCurrentPlaylist);
 
@@ -70,6 +70,8 @@ namespace Tray::Core {
         connect(d->m_settings, &Settings::signalUserPlaylistsChanged, this, [this](const QStringList &list) {
             Q_EMIT signalUserPlaylistSetsChanged(list);
         });
+
+        connect(d->m_listCache, &ListCache::signalUserPlaylistDeleted, d->m_settings, &Settings::removeUserPlaylist);
     }
 
     void Core::initDefaultSettings() {
@@ -159,7 +161,7 @@ namespace Tray::Core {
 
 
     // 11
-    void Core::newUserList(const QString &listName) {
+    void Core::newUserPlaylist(const QString &listName) {
         d->m_listCache->newUserPlaylist(listName);
     }
 
@@ -199,6 +201,12 @@ namespace Tray::Core {
     void Core::removeMusicFromList(const QString &key, const QString &songTitle) {
         d->m_listCache->deleteSong(key, songTitle);
     }
+
+    // 17
+    void Core::deleteUserPlaylist(const QString &key) {
+        d->m_listCache->deleteUserPlaylist(key);
+    }
+
 
     /* Interface End */
 

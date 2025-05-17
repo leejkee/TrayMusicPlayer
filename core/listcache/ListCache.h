@@ -47,6 +47,9 @@ namespace Tray::Core {
         /// @param key user list key
         void newUserPlaylist(const QString &key);
 
+
+        void deleteUserPlaylist(const QString &key);
+
         /// insert a song to list called key
         /// @param key the name of list
         /// @param song song struct
@@ -62,6 +65,8 @@ namespace Tray::Core {
         void signalUserPlaylistCreated(const QString &listName);
 
         void signalLocalDirectoryAdded(const QString &directory);
+
+        void signalUserPlaylistDeleted(const QString & key);
 
     private:
         static inline const QStringList MUSIC_FILTERS = {

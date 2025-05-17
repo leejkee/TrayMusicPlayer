@@ -53,6 +53,8 @@ namespace Tray::Ui {
 
         void signalDelSongFromList(const QString &, const QString &);
 
+        void signalPlaylistDeleted(const QString &);
+
     public Q_SLOTS:
         void updateCurrentMusic(int index, const QString &name, int duration);
 

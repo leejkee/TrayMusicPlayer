@@ -37,9 +37,9 @@ namespace Tray::Core {
     public Q_SLOTS:
         void addLocalMusicDirectory(const QString &path);
 
-        void addUserMusicList(const QString &name);
+        void addUserPlaylist(const QString &name);
 
-        void removeUserMusicList(const QString &name);
+        void removeUserPlaylist(const QString &name);
 
         void removeLocalMusicDirectory(const QString &path);
 

@@ -9,6 +9,7 @@
 #include <QHBoxLayout>
 #include <QScrollArea>
 #include <QInputDialog>
+#include <QMenu>
 
 
 namespace Tray::Ui {
@@ -101,7 +102,23 @@ namespace Tray::Ui {
         m_userPlaylistKeys.append(playlistName);
         auto *button = new Panel::BetterButton(playlistName, this);
         m_buttonLayout->addWidget(button);
+        button->setContextMenuPolicy(Qt::CustomContextMenu);
         connect(button, &Panel::BetterButton::signalButtonClicked, this, &MusicListWidget::handleMusicButtonClicked);
+        connect(button, &Panel::BetterButton::customContextMenuRequested, this, &MusicListWidget::handleContextMenu);
+    }
+
+
+    void MusicListWidget::handleContextMenu(const QPoint &pos) {
+        auto *button = qobject_cast<Panel::BetterButton *>(sender());
+        QMenu *listMenu = new QMenu(this);
+        connect(listMenu, &QMenu::aboutToHide, listMenu, &QMenu::deleteLater);
+        QAction *deleteAction = listMenu->addAction("Delete");
+        connect(deleteAction, &QAction::triggered, this, [this, button]() {
+            Q_EMIT signalPlaylistButtonDeleted(button->text());
+            m_buttonLayout->removeWidget(button);
+            delete button;
+        });
+        listMenu->exec(button->mapToGlobal(pos));
     }
 
 

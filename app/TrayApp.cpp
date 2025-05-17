@@ -114,7 +114,7 @@ namespace Tray {
                 d->m_core, &Core::Core::playToggleWithListAndIndex);
 
         connect(d->m_windowManager, &Ui::WindowManager::signalPlaylistAdded,
-                d->m_core, &Core::Core::newUserList);
+                d->m_core, &Core::Core::newUserPlaylist);
 
         // append local music path
         connect(d->m_windowManager, &Ui::WindowManager::signalLocalMusicDirectoryAdded,
@@ -135,6 +135,9 @@ namespace Tray {
 
         connect(d->m_core, &Core::Core::signalPlaylistModified
                 , d->m_windowManager, &Ui::WindowManager::updateCurrentViewList);
+
+        connect(d->m_windowManager, &Ui::WindowManager::signalPlaylistDeleted,
+                d->m_core, &Core::Core::deleteUserPlaylist);
     }
 
     void TrayApp::closeEvent(QCloseEvent *event) {

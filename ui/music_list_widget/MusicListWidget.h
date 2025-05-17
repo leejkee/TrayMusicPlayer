@@ -9,6 +9,7 @@ namespace Tray::Ui::Panel {
     class BetterButton;
 }
 
+
 class QVBoxLayout;
 class QPushButton;
 class QScrollArea;
@@ -28,6 +29,8 @@ namespace Tray::Ui {
         void signalMusicListButtonClicked(const QString &playlistName);
 
         void signalMusicListButtonAdded(const QString &playlistName);
+
+        void signalPlaylistButtonDeleted(const QString &text);
 
     private Q_SLOTS:
         // expand icon
@@ -54,7 +57,8 @@ namespace Tray::Ui {
 
         void newButton(const QString &playlistName);
 
-        void deleteButton(const QString &playlistName);
+        void handleContextMenu(const QPoint &pos);
 
+        void deleteButton(const QString &playlistName);
     };
 }

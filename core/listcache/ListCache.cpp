@@ -95,6 +95,24 @@ namespace Tray::Core {
         }
     }
 
+    void ListCache::deleteUserPlaylist(const QString &key) {
+        if (key == LOCAL_LIST_KEY) {
+            Log.log(Log::QLogger::LogLevel::Error, "Delete user playlist error, invalid list key: " + key);
+        }
+        if (!m_listCache.contains(key)) {
+            Log.log(Log::QLogger::LogLevel::Error, "No such user playlist called : " + key + ", delete failed");
+        }
+        else {
+            if (m_listCache.remove(key)) {
+                const auto dbConnectionName = "delete_list_" + key;
+                if (auto dbConnection = DatabaseManager(dbConnectionName); dbConnection.deleteTable(key)) {
+                    Log.log(Log::QLogger::LogLevel::Info, "Delete successfully: " + key);
+                }
+                Q_EMIT signalUserPlaylistDeleted(key);
+            }
+        }
+    }
+
     void ListCache::insertMusicToList(const QString &key, const Song &song) {
         if (m_listCache.contains(key)) {
             m_listCache[key].append(song);

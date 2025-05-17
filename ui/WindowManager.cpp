@@ -119,6 +119,7 @@ namespace Tray::Ui {
     void WindowManager::updateCurrentViewList(const QString &key, const QStringList &titleList) {
         d->m_viewWidget->updateViewList(key, titleList);
     }
+
     void WindowManager::createConnections() {
         connect(d->m_playerWidget, &PlayerWidget::signalPlayToggle,
                 this, [this] {
@@ -184,5 +185,7 @@ namespace Tray::Ui {
                 this, [this](const QString &key, const QString &title) {
                     Q_EMIT signalDelSongFromList(key, title);
                 });
+        connect(d->m_musicListWidget, &MusicListWidget::signalPlaylistButtonDeleted,
+                this, [this](const QString &key) { Q_EMIT signalPlaylistDeleted(key); });
     }
 }

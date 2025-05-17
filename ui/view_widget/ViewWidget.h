@@ -57,17 +57,6 @@ namespace Tray::Ui {
         // update the view if the showing list is @key
         void updateCurrentView(const QString &key, const QStringList &nameList);
 
-        /// @brief Refreshes the view widget to reflect changes in the local music path.
-        ///
-        /// This function is intended to be called when the local music path has been updated
-        /// while the local music is currently being displayed by the view widget. It ensures
-        /// that the view widget is updated to reflect the new path, such as updating the displayed
-        /// information or reloading the music file.
-        ///
-        /// @note This function should only be called when the view widget is actively displaying
-        ///       local music.
-        void refreshForLocalMusic();
-
         /// @brief update the status of playing on ListView
         /// @param b the bool value
         void updatePlayingStatus(bool b);

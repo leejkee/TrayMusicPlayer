@@ -147,13 +147,6 @@ namespace Tray::Ui {
         m_labelName->setFont(font);
     }
 
-    // todo
-    void ViewWidget::refreshForLocalMusic() {
-        if (m_labelName->text() == LOCAL_LIST_KEY) {
-            // showMusicList(User::LOCAL_LIST_KEY);
-        }
-    }
-
     void ViewWidget::updatePlayingStatus(const bool b) {
         m_viewDelegate->updatePlayingStatus(b);
     }

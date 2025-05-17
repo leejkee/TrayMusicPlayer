@@ -34,7 +34,7 @@ namespace Tray::Core {
         } else {
             Log.log(Log::QLogger::LogLevel::Info,
                     QString("Open Database [%1] successfully: connectionName: %2").arg(PROJECT_PATH + DB_PATH,
-                    m_connectionName));
+                        m_connectionName));
         }
     }
 
@@ -95,6 +95,21 @@ namespace Tray::Core {
                     "Create table failed: " + tableName + ": " + query.lastError().text());
             return false;
         }
+        return true;
+    }
+
+    bool DatabaseManager::deleteTable(const QString &tableName) {
+        if (!isValidTableName(tableName)) {
+            Log.log(Log::QLogger::LogLevel::Error, "Invalid table name: " + tableName);
+            return false;
+        }
+        QSqlQuery query(m_databaseConnection);
+        if (const QString sql = QString("DROP TABLE IF EXISTS %1").arg(tableName); !query.exec(sql)) {
+            Log.log(Log::QLogger::LogLevel::Error,
+                    "Drop table failed: " + tableName + ": " + query.lastError().text());
+            return false;
+        }
+        Log.log(Log::QLogger::LogLevel::Info, "Table dropped successfully (or did not exist): " + tableName);
         return true;
     }
 
