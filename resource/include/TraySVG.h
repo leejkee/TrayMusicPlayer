@@ -30,5 +30,6 @@ namespace Tray::Res {
     inline const auto LoopAllModeSVG = QStringLiteral(":/images/loopList.svg");
     inline const auto LoopOneModeSVG = QStringLiteral(":/images/loopOne.svg");
     inline const auto SequentialModeSVG = QStringLiteral(":/images/sequentialList.svg");
+    inline const auto OptionsMenuSVG = QStringLiteral(":/images/options.svg");
 }
 

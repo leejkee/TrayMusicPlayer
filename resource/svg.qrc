@@ -27,5 +27,6 @@
         <file>images/loopList.svg</file>
         <file>images/loopOne.svg</file>
         <file>images/sequentialList.svg</file>
+        <file>images/options.svg</file>
     </qresource>
 </RCC>

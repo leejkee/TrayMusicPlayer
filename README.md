@@ -1,6 +1,5 @@
 ## TrayMusicPlayer 重制版
 前后端分离，模块解耦，加入测试用例，目标是最终作为一个可用并且尽可能好用的音乐播放器
-## 原项目[README](https://github.com/leejkee/TrayMusic)尚可参考
 
 ## 项目UML结构
 - [主体框架](docs/UML/index.md)
@@ -11,8 +10,10 @@
 - [后端功能概述](docs/Core.md)
 
 ## 运行截图（Windows11，Linux修bug中）开发中
-![shot](docs/img/shot_v0.2.png)
-![shot](docs/img/shot_user_v0.2.png)
+- 主页面
+![shot](docs/img/shot_v0.4.png)
+- 右击菜单
+![shot](docs/img/shot_menu_v0.4.png)
 
 
 ## 构建本项目
@@ -59,3 +60,6 @@ cmake --build build
 - [x] view列表仅渲染当前播放列表的current music动画
 - [ ] 创建Database和Settings的api
 - [ ] settingsWidget增加功能
+
+## 资源文件
+本项目logo **`TrayMusic`** 除外，其他svg资源均来自网络，商用联系阿里巴巴矢量图标社区作者

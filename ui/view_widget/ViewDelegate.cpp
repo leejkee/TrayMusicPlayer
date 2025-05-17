@@ -19,7 +19,7 @@ namespace Tray::Ui {
                                                   , m_hoverIndex({})
                                                   , m_svgPlayingRenderer(new QSvgRenderer(Res::ViewPlaySVG))
                                                   , m_svgPauseRenderer(new QSvgRenderer(Res::ViewPauseSVG))
-                                                  , m_svgOptionsMenuRender(new QSvgRenderer(Res::AdddSVG)) {
+                                                  , m_svgOptionsMenuRender(new QSvgRenderer(Res::OptionsMenuSVG)) {
     }
 
     void ViewDelegate::drawText(QPainter *painter, const QFont &font, const QColor &color, const int x, const int y,

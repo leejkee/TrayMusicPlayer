@@ -140,7 +140,7 @@ namespace Tray::Ui {
 
     void ViewWidget::setListTitle(const QString &title) {
         m_labelName->setText(title);
-        m_labelName->setAlignment(Qt::AlignCenter); // 左对齐，垂直居中
+        m_labelName->setAlignment(Qt::AlignCenter);
 
         QFont font = m_labelName->font();
         font.setPointSize(SIZE_TITLE_FONT);
