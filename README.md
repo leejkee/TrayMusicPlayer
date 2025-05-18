@@ -15,7 +15,6 @@
 - 右击菜单
 ![shot](docs/img/shot_menu_v0.4.png)
 
-
 ## 构建本项目
 
 ### 1. 处理依赖

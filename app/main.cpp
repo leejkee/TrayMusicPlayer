@@ -18,16 +18,8 @@ int main(int argc, char** argv)
     }
     QApplication::setQuitOnLastWindowClosed(false);
 
-    std::unique_ptr<Tray::TrayApp> w;
-
-    if (argc < 2) {
-        w = std::make_unique<Tray::TrayApp>();
-    }
-    else {
-        w = std::make_unique<Tray::TrayApp>(argv[1]);
-    }
-
-    w->show();
+    Tray::TrayApp w;
+    w.show();
     return QApplication::exec();
 }
 

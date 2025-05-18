@@ -11,7 +11,7 @@ namespace Tray::Core {
         Q_OBJECT
 
     public:
-        explicit Settings(const QString &settingsPath, QObject *parent = nullptr);
+        explicit Settings(QObject *parent = nullptr);
 
         Settings(const Settings &) = delete;
 
@@ -23,7 +23,6 @@ namespace Tray::Core {
 
         ~Settings() override;
 
-        void saveToJson();
 
         [[nodiscard]] QStringList getLocalMusicDirectories() const;
 

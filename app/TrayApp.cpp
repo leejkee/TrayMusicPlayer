@@ -32,13 +32,13 @@ namespace Tray {
         Core::Core *m_core;
     };
 
-    TrayApp::TrayApp(const QString &iniPath, QWidget *parent)
+    TrayApp::TrayApp(QWidget *parent)
         : QMainWindow(parent),
           d(std::make_unique<TrayAppPrivate>()) {
         Init_qrc();
         createTrayIcon();
         d->m_windowManager = new Ui::WindowManager(this);
-        d->m_core = new Core::Core(iniPath, this);
+        d->m_core = new Core::Core(this);
         setCentralWidget(d->m_windowManager);
         createConnections();
         d->m_windowManager->initDefaultSettings(d->m_core->getLocalMusicPaths(), d->m_core->getKeysOfUserPlaylist());

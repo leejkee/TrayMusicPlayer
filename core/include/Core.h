@@ -15,7 +15,7 @@ namespace Tray::Core {
         Q_OBJECT
 
     public:
-        explicit Core(const QString &iniPath, QObject *parent = nullptr);
+        explicit Core(QObject *parent = nullptr);
 
         ~Core() override;
 

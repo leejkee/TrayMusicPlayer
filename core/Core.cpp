@@ -20,13 +20,13 @@ namespace Tray::Core {
         Settings *m_settings;
     };
 
-    Core::Core(const QString &iniPath, QObject *parent) : QObject(parent), d(std::make_unique<CorePrivate>()) {
+    Core::Core(QObject *parent) : QObject(parent), d(std::make_unique<CorePrivate>()) {
         this->setObjectName(QStringLiteral("Core"));
         d->Log = Log::QLogger(this->objectName());
         d->m_player = new Player(this);
         d->m_playList = new PlayList(this);
         d->m_listCache = new ListCache(this);
-        d->m_settings = new Settings(iniPath, this);
+        d->m_settings = new Settings( this);
         d->Log.log(Log::QLogger::LogLevel::Info, "Initializing Core successfully");
         createConnections();
         initDefaultSettings();
