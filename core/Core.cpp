@@ -8,33 +8,43 @@
 #include <ListCache.h>
 #include <Settings.h>
 #include <DatabaseManager.h>
+#include <QThread>
+#include <tstringlist.h>
 
 
 namespace Tray::Core {
     class CorePrivate {
     public:
+        explicit CorePrivate(QObject *p_core);
+
         Player *m_player;
         Log::QLogger Log;
         PlayList *m_playList;
         ListCache *m_listCache;
         Settings *m_settings;
+        QThread *m_listCacheThread;
+        QObject *p_ptr;
     };
 
-    Core::Core(QObject *parent) : QObject(parent), d(std::make_unique<CorePrivate>()) {
-        this->setObjectName(QStringLiteral("Core"));
-        d->Log = Log::QLogger(this->objectName());
-        d->m_player = new Player(this);
-        d->m_playList = new PlayList(this);
-        d->m_listCache = new ListCache(this);
-        d->m_settings = new Settings( this);
-        d->Log.log(Log::QLogger::LogLevel::Info, "Initializing Core successfully");
-        createConnections();
-        initDefaultSettings();
+    CorePrivate::CorePrivate(QObject *p_core): p_ptr(p_core) {
+        Log = Log::QLogger(p_ptr->objectName());
+        m_player = new Player(p_ptr);
+        m_playList = new PlayList(p_ptr);
+        m_settings = new Settings(p_ptr);
+        m_listCache = new ListCache(Q_NULLPTR);
+        m_listCacheThread = new QThread(p_ptr);
+        m_listCache->moveToThread(m_listCacheThread);
+        Log.log(Log::QLogger::LogLevel::Info, "Initializing Core successfully");
     }
 
-    Core::~Core() = default;
+    Core::Core(QObject *parent) : QObject(parent) {
+        this->setObjectName(QStringLiteral("Core"));
+        d = std::make_unique<CorePrivate>(this);
 
-    void Core::createConnections() {
+        connect(d->m_listCacheThread, &QThread::started, this, &Core::initListCache);
+        connect(d->m_listCache, &ListCache::signalInitCompleted, this, &Core::handleListCacheInitializationComplete);
+        d->m_listCacheThread->start();
+
         connect(d->m_player, &Player::signalPlayingChanged, this, [this](const bool b) {
             Q_EMIT signalPlayingStatusChanged(b);
         });
@@ -76,12 +86,33 @@ namespace Tray::Core {
         connect(d->m_playList, &PlayList::signalCurrentPlaylistKeyChanged, this, [ this](const QString &key) {
             Q_EMIT signalCurrentPlaylistKeyChanged(key);
         });
+        initDefaultSettings();
+    }
+
+    Core::~Core() {
+        if (d->m_listCache) {
+            delete d->m_listCache;
+        }
+
+        if (d->m_listCacheThread && d->m_listCacheThread->isRunning()) {
+            d->m_listCacheThread->quit();
+            d->m_listCacheThread->wait();
+        }
+    }
+
+
+    void Core::initListCache() {
+        QMetaObject::invokeMethod(d->m_listCache, "init", Qt::QueuedConnection,
+                                  Q_ARG(QStringList, d->m_settings->getLocalMusicDirectories()),
+                                  Q_ARG(QStringList, d->m_settings->getKeysUserPlaylist()));
+    }
+
+    void Core::handleListCacheInitializationComplete() {
+        d->Log.log(Log::QLogger::LogLevel::Info, "List cache initialization completed");
     }
 
     void Core::initDefaultSettings() {
         setVolume(d->m_settings->getDefaultVolume());
-        d->m_listCache->initLocalPlaylist(d->m_settings->getLocalMusicDirectories());
-        d->m_listCache->initUserPlaylists(d->m_settings->getKeysUserPlaylist());
         playLocalMusicFromFirst();
     }
 
@@ -205,6 +236,7 @@ namespace Tray::Core {
     void Core::removeMusicFromList(const QString &key, const QString &songTitle) {
         d->m_listCache->deleteSong(key, songTitle);
     }
+
 
     // 17
     void Core::deleteUserPlaylist(const QString &key) {

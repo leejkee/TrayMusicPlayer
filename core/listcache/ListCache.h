@@ -14,13 +14,13 @@ namespace Tray::Core {
         Q_OBJECT
 
     public:
-        ListCache() = default;
-
-
         explicit ListCache(QObject *parent = nullptr);
 
         /// This constructor will call @loadUserPlaylists() and @loadLocalPlaylist()
         ListCache(const QStringList &localDir, const QStringList &userListKeys, QObject *parent = nullptr);
+
+    public Q_SLOTS:
+        void init(const QStringList &localDir, const QStringList &userListKeys);
 
         /// Retrieves the cached list of songs by list name.
         /// @param listName The key/name of the song list.
@@ -36,7 +36,7 @@ namespace Tray::Core {
         /// Retrieves the title list of songs by list name
         /// @param name The name of the song list
         /// @return The title list of songs associated with the given name, using findList()
-        QStringList getMusicTitleList(const QString &name) const;
+        [[nodiscard]] QStringList getMusicTitleList(const QString &name) const;
 
         /// Loads local music files from the given directories into the cache.
         /// @param localDir A list of directories to scan for music files.
@@ -58,7 +58,6 @@ namespace Tray::Core {
         void deleteSong(const QString &key, const QString &songTitle);
 
     Q_SIGNALS:
-
         // tell playList to update the list
         void signalPlaylistModified(const QString &key);
 
@@ -66,7 +65,9 @@ namespace Tray::Core {
 
         void signalLocalDirectoryAdded(const QString &directory);
 
-        void signalUserPlaylistDeleted(const QString & key);
+        void signalUserPlaylistDeleted(const QString &key);
+
+        void signalInitCompleted();
 
     private:
         static inline const QStringList MUSIC_FILTERS = {

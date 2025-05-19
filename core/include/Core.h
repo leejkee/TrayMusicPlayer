@@ -19,6 +19,7 @@ namespace Tray::Core {
 
         ~Core() override;
 
+
     public slots:
         void setVolume(unsigned int volume);
 
@@ -56,6 +57,11 @@ namespace Tray::Core {
 
         void removeMusicFromList(const QString &key, const QString &songTitle);
 
+    private Q_SLOTS:
+        void initListCache();
+
+        void handleListCacheInitializationComplete();
+
     Q_SIGNALS:
         void signalPlayingStatusChanged(bool b);
 
@@ -81,14 +87,13 @@ namespace Tray::Core {
         void signalPlaylistModified(const QString &key, const QStringList &list);
 
         void signalCurrentPlaylistKeyChanged(const QString &key);
+
     private:
         std::unique_ptr<CorePrivate> d;
 
         void updateCurrentPlaylist(const QString &key);
 
         void playLocalMusicFromFirst();
-
-        void createConnections();
 
         // init the default settings
         void initDefaultSettings();

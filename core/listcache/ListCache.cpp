@@ -13,16 +13,22 @@ namespace Tray::Core {
     ListCache::ListCache(QObject *parent): QObject(parent) {
         setObjectName(QStringLiteral("ListCache"));
         Log = Log::QLogger(this->objectName());
-        Log.log(Log::QLogger::LogLevel::Info, "ListCache: no list has been initialized.");
+        Log.log(Log::QLogger::LogLevel::Info, "Constructor: no list has been initialized.");
     }
 
     ListCache::ListCache(const QStringList &localDir, const QStringList &userListKeys, QObject *parent) : QObject
         (parent) {
         setObjectName(QStringLiteral("ListCache"));
         Log = Log::QLogger(this->objectName());
+        init(localDir, userListKeys);
+        Log.log(Log::QLogger::LogLevel::Info, "Constructor: local list and user lists have been initialized.");
+    }
+
+
+    void ListCache::init(const QStringList &localDir, const QStringList &userListKeys) {
         initLocalPlaylist(localDir);
         initUserPlaylists(userListKeys);
-        Log.log(Log::QLogger::LogLevel::Info, "ListCache: local list and user lists have been initialized.");
+        Q_EMIT signalInitCompleted();
     }
 
     void ListCache::initLocalPlaylist(const QStringList &localDir) {
