@@ -30,7 +30,7 @@ namespace Tray::Core {
         QStringList m_userListKeys;
         int m_volume;
 
-        bool newSettingsFile(const QString &file) const;
+        [[nodiscard]] bool newSettingsFile(const QString &file) const;
 
         void parseJson();
 

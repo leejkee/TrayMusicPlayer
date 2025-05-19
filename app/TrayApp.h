@@ -13,8 +13,6 @@ namespace Tray {
         Q_OBJECT
 
     public:
-        static constexpr int MAIN_MINIMUM_WIDTH = 600;
-        static constexpr int MAIN_MINIMUM_HEIGHT = 450;
 
         explicit TrayApp(QWidget *parent = nullptr);
 
@@ -26,12 +24,8 @@ namespace Tray {
         void setVisible(bool visible) override;
 
     private:
-
-        void createConnections();
-
-        void createTrayIcon();
-
         std::unique_ptr<TrayAppPrivate> d;
 
+        void createConnections();
     };
 }

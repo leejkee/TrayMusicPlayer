@@ -43,9 +43,10 @@ namespace Tray::Core {
         static inline const auto CONSTRAINT_PK_AI = QStringLiteral("PRIMARY KEY AUTOINCREMENT");
         static inline const auto DB_PATH = QStringLiteral("data/music.db");
 
-        static bool isValidTableName(const QString &tableName);
         QSqlDatabase m_databaseConnection;
         QString m_connectionName;
         Log::QLogger Log;
+
+        static bool isValidTableName(const QString &tableName);
     };
 }
