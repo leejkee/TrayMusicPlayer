@@ -77,6 +77,8 @@ namespace Tray::Ui {
         /// @param key playlist key
         void updateCurrentPlaylist(const QString &key);
 
+        void updateSettingsLocalPaths(const QStringList &paths);
+
     private:
         std::unique_ptr<WindowManagerPrivate> d;
 

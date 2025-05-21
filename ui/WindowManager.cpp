@@ -124,6 +124,12 @@ namespace Tray::Ui {
         d->m_viewWidget->updateStatusRenderCurrentPlaylist(key);
     }
 
+    // settings section begin
+    void WindowManager::updateSettingsLocalPaths(const QStringList &paths) {
+        d->m_settingsWidget->updateLocalPaths(paths);
+    }
+
+    // settings section end
     void WindowManager::createConnections() {
         connect(d->m_playerWidget, &PlayerWidget::signalPlayToggle,
                 this, [this] {
@@ -150,34 +156,31 @@ namespace Tray::Ui {
         connect(d->m_musicListWidget, &MusicListWidget::signalMusicListButtonClicked,
                 this, [this](const QString &list) { Q_EMIT signalPlaylistButtonClicked(list); });
 
-
-        /// ViewWidget: ItemPlayButton -> Core: play music with index
-        connect(d->m_viewWidget, &ViewWidget::signalViewItemPlayButtonClicked,
-                this, [this](const QString &key, const int index) {
-                    Q_EMIT signalViewPlayButtonClicked(key, index);
-                });
-
-        connect(d->m_topBarWidget, &TopBarWidget::TopBarWidget::signalPreButtonClicked,
-                this, [this]() {
-                    d->m_stackedViewWidget->setCurrentIndex(0);
-                });
-        connect(d->m_topBarWidget, &TopBarWidget::TopBarWidget::signalSettingsButtonClicked,
-                this, [this]() {
-                    d->m_stackedViewWidget->setCurrentIndex(1);
-                });
-
+        connect(d->m_musicListWidget, &MusicListWidget::signalPlaylistButtonDeleted,
+                this, [this](const QString &key) { Q_EMIT signalPlaylistDeleted(key); });
         // add button
         connect(d->m_musicListWidget, &MusicListWidget::signalMusicListButtonAdded,
                 this, [this](const QString &key) {
                     Q_EMIT signalPlaylistAdded(key);
                 });
 
+        connect(d->m_topBarWidget, &TopBarWidget::signalPreButtonClicked,
+                this, [this]() {
+                    d->m_stackedViewWidget->setCurrentIndex(0);
+                });
+        connect(d->m_topBarWidget, &TopBarWidget::signalSettingsButtonClicked,
+                this, [this]() {
+                    d->m_stackedViewWidget->setCurrentIndex(1);
+                });
 
+
+        // 4 signal from settingsWidget
         connect(d->m_settingsWidget, &SettingsWidget::signalLocalDirAdded,
                 this, [this](const QString &dir) { Q_EMIT signalLocalMusicDirectoryAdded(dir); });
 
         connect(d->m_settingsWidget, &SettingsWidget::signalLocalDirRemoved,
                 this, [this](const QString &dir) { Q_EMIT signalLocalMusicDirectoryRemoved(dir); });
+        // 4 signal from settingsWidget
 
 
         connect(d->m_viewWidget, &ViewWidget::signalViewItemAddToList,
@@ -189,7 +192,10 @@ namespace Tray::Ui {
                 this, [this](const QString &key, const QString &title) {
                     Q_EMIT signalDelSongFromList(key, title);
                 });
-        connect(d->m_musicListWidget, &MusicListWidget::signalPlaylistButtonDeleted,
-                this, [this](const QString &key) { Q_EMIT signalPlaylistDeleted(key); });
+        /// ViewWidget: ItemPlayButton -> Core: play music with index
+        connect(d->m_viewWidget, &ViewWidget::signalViewItemPlayButtonClicked,
+                this, [this](const QString &key, const int index) {
+                    Q_EMIT signalViewPlayButtonClicked(key, index);
+                });
     }
 }

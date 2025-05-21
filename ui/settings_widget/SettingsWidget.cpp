@@ -46,26 +46,17 @@ namespace Tray::Ui {
                                                                        QCoreApplication::applicationDirPath(),
                                                                        QFileDialog::ShowDirsOnly
                                                                        | QFileDialog::DontResolveSymlinks);
-        if (!newMusicPath.isEmpty()) {
-            m_listWidget->addItem(newMusicPath);
-            Q_EMIT signalLocalDirAdded(newMusicPath);
-        }
+        Q_EMIT signalLocalDirAdded(newMusicPath);
     }
 
 
     void SettingsWidget::removeMusicPath() {
-        QListWidgetItem *item = this->m_listWidget->currentItem();
-        if (!item) {
-            qDebug() << "No music path selected";
-            return;
-        }
-        m_listWidget->removeItemWidget(item);
-        const auto path = item->text();
-        Q_EMIT signalLocalDirRemoved(path);
+        Q_EMIT signalLocalDirRemoved(m_listWidget->currentItem()->text());
     }
 
     void SettingsWidget::updateLocalPaths(const QStringList &paths) {
         m_listWidget->clear();
         m_listWidget->addItems(paths);
     }
+
 }

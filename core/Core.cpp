@@ -9,7 +9,6 @@
 #include <Settings.h>
 #include <DatabaseManager.h>
 #include <QThread>
-#include <tstringlist.h>
 
 
 namespace Tray::Core {
@@ -69,8 +68,10 @@ namespace Tray::Core {
 
         connect(d->m_player, &Player::signalMusicOver, this, &Core::nextMusic);
 
+        // OK
         connect(d->m_listCache, &ListCache::signalUserPlaylistCreated, d->m_settings, &Settings::addUserPlaylist);
 
+        // update playlist
         connect(d->m_listCache, &ListCache::signalPlaylistModified, this, &Core::updateCurrentPlaylist);
 
         connect(d->m_listCache, &ListCache::signalPlaylistModified, this, [this](const QString &key) {
@@ -80,6 +81,8 @@ namespace Tray::Core {
         connect(d->m_settings, &Settings::signalUserPlaylistsChanged, this, [this](const QStringList &list) {
             Q_EMIT signalUserPlaylistSetsChanged(list);
         });
+
+        connect(d->m_settings, &Settings::signalLocalDirectoryChanged, d->m_listCache, &ListCache::initLocalPlaylist);
 
         connect(d->m_listCache, &ListCache::signalUserPlaylistDeleted, d->m_settings, &Settings::removeUserPlaylist);
 
@@ -210,7 +213,7 @@ namespace Tray::Core {
     // 13
     void Core::appendLocalMusicPath(const QString &path) {
         d->m_settings->addLocalMusicDirectory(path);
-        d->m_listCache->initLocalPlaylist(d->m_settings->getLocalMusicDirectories());
+        // d->m_listCache->initLocalPlaylist(d->m_settings->getLocalMusicDirectories());
     }
 
 

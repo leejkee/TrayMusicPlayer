@@ -113,13 +113,16 @@ namespace Tray::Core {
         if (!d->m_localMusicList.contains(path)) {
             d->m_localMusicList.append(path);
             d->saveToJson();
-            d->Log.log(Log::QLogger::LogLevel::Info, "Added local music: " + path);
+            Q_EMIT signalLocalDirectoryChanged(d->m_localMusicList);
+            d->Log.log(Log::QLogger::LogLevel::Info, "Add directory: " + path);
         }
     }
 
     void Settings::removeLocalMusicDirectory(const QString &path) {
         if (d->m_localMusicList.removeOne(path)) {
             d->saveToJson();
+            Q_EMIT signalLocalDirectoryChanged(d->m_localMusicList);
+            d->Log.log(Log::QLogger::LogLevel::Info, "Remove directory: " + path);
         }
     }
 
@@ -127,7 +130,7 @@ namespace Tray::Core {
         if (!d->m_userListKeys.contains(name)) {
             d->m_userListKeys.append(name);
             d->saveToJson();
-            Q_EMIT signalUserPlaylistsChanged(getKeysUserPlaylist());
+            Q_EMIT signalUserPlaylistsChanged(d->m_userListKeys);
             d->Log.log(Log::QLogger::LogLevel::Info, "Added user music: " + name);
         }
     }
@@ -135,7 +138,7 @@ namespace Tray::Core {
     void Settings::removeUserPlaylist(const QString &name) {
         if (d->m_userListKeys.removeOne(name)) {
             d->saveToJson();
-            Q_EMIT signalUserPlaylistsChanged(getKeysUserPlaylist());
+            Q_EMIT signalUserPlaylistsChanged(d->m_userListKeys);
             d->Log.log(Log::QLogger::LogLevel::Info, "Removed user music: " + name);
         }
     }

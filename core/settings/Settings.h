@@ -33,6 +33,8 @@ namespace Tray::Core {
     Q_SIGNALS:
         void signalUserPlaylistsChanged(const QStringList &);
 
+        void signalLocalDirectoryChanged(const QStringList &);
+
     public Q_SLOTS:
         void addLocalMusicDirectory(const QString &path);
 

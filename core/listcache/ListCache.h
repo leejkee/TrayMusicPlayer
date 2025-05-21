@@ -3,7 +3,7 @@
 //
 #pragma once
 
-#include "Song.h"
+#include <Song.h>
 #include <QLogger.h>
 #include <QObject>
 #include <QHash>
@@ -47,7 +47,6 @@ namespace Tray::Core {
         /// @param key user list key
         void newUserPlaylist(const QString &key);
 
-
         void deleteUserPlaylist(const QString &key);
 
         /// insert a song to list called key
@@ -68,6 +67,8 @@ namespace Tray::Core {
         void signalUserPlaylistDeleted(const QString &key);
 
         void signalInitCompleted();
+
+        void signalPlaylistUpdated(const QString &key, const QVector<Song> &list);
 
     private:
         static inline const QStringList MUSIC_FILTERS = {
