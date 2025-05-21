@@ -60,7 +60,8 @@ namespace Tray::Ui {
                 });
 
         connect(m_viewDelegate, &ViewDelegate::signalViewItemPlayButtonClicked,
-                this, &ViewWidget::handleViewItemPlayButton);
+                this, [this](const int index)
+                { Q_EMIT signalViewItemPlayButtonClicked(m_labelName->text(), index); });
 
         connect(m_viewDelegate, &ViewDelegate::signalViewItemOptionsMenu,
                 this, &ViewWidget::handleMenuPop);
@@ -68,22 +69,21 @@ namespace Tray::Ui {
 
 
     void ViewWidget::handleMenuPop(const QPoint &pos, const QModelIndex &index) {
-        QMenu *optionsMenu = new QMenu(this);
+        auto *optionsMenu = new QMenu(this);
         connect(optionsMenu, &QMenu::aboutToHide, optionsMenu, &QMenu::deleteLater);
 
         const QAction *delAction = optionsMenu->addAction(tr("Delete from this playlist"));
         connect(delAction, &QAction::triggered, this, [this, index]() {
-            Q_EMIT signalViewItemDel(m_labelName->text(), index.data(Qt::UserRole + 1).toString());
+            Q_EMIT signalMusicRemovedFromList(m_labelName->text(), index.data(Qt::UserRole + 1).toString());
         });
 
         QAction *addToPlaylistAction = optionsMenu->addAction(tr("Add to playlist"));
-        QMenu *addToOtherPlaylistMenu = new QMenu();
+        auto *addToOtherPlaylistMenu = new QMenu(optionsMenu);
         for (const QString &playlistName: m_userPlaylistKeys) {
-            auto *action = new QAction(playlistName);
+            const auto *action = addToOtherPlaylistMenu->addAction(playlistName);
             connect(action, &QAction::triggered, this, [this, playlistName, index]() {
-                Q_EMIT signalViewItemAddToList(m_labelName->text(), playlistName, index.row());
+                Q_EMIT signalMusicAddedToList(m_labelName->text(), playlistName, index.row());
             });
-            addToOtherPlaylistMenu->addAction(action);
         }
         addToPlaylistAction->setMenu(addToOtherPlaylistMenu);
         optionsMenu->exec(m_playListView->viewport()->mapToGlobal(pos));
@@ -91,10 +91,6 @@ namespace Tray::Ui {
 
     void ViewWidget::setUserPlaylistKeys(const QStringList &keys) {
         m_userPlaylistKeys = keys;
-    }
-
-    void ViewWidget::handleViewItemPlayButton(const int index) {
-        Q_EMIT signalViewItemPlayButtonClicked(m_labelName->text(), index);
     }
 
     void ViewWidget::updateCurrentIndex(const int row) {
@@ -107,7 +103,6 @@ namespace Tray::Ui {
         if (row < firstVisible.row() + 1 || row > lastVisible.row() - 1) {
             m_playListView->scrollTo(index, QAbstractItemView::EnsureVisible);
         }
-
         m_viewDelegate->updatePreviousIndex(row);
     }
 
@@ -119,20 +114,14 @@ namespace Tray::Ui {
         handleMenuPop(pos, index);
     }
 
-    // switch view
-    void ViewWidget::showMusicList(const QString &name, const QStringList &nameList) {
+
+    void ViewWidget::showCurrentTitleListToView(const QString &name, const QStringList &nameList) {
         setListTitle(name);
         m_dataModel->setMusicList(nameList);
-        m_viewDelegate->setRenderCurrentPlaylist(m_labelName->text() == m_currentPlaylistKey);
+        syncRenderMatchStatus();
     }
 
-    void ViewWidget::updateViewList(const QString &key, const QStringList &nameList) {
-        if (m_labelName->text() == key) {
-            m_dataModel->setMusicList(nameList);
-        }
-    }
-
-    void ViewWidget::updateCurrentView(const QString &key, const QStringList &nameList) {
+    void ViewWidget::refreshCurrentMusicList(const QString &key, const QStringList &nameList) {
         if (m_labelName->text() == key) {
             m_dataModel->setMusicList(nameList);
         }
@@ -152,8 +141,12 @@ namespace Tray::Ui {
         m_viewDelegate->updatePlayingStatus(b);
     }
 
-    void ViewWidget::updateStatusRenderCurrentPlaylist(const QString &key) {
+    void ViewWidget::syncRenderWithCurrentPlaylist(const QString &key) {
         m_currentPlaylistKey = key;
-        m_viewDelegate->setRenderCurrentPlaylist(m_labelName->text() == m_currentPlaylistKey);
+        syncRenderMatchStatus();
+    }
+
+    void ViewWidget::syncRenderMatchStatus() {
+        m_viewDelegate->setCurrentPlaylistMatched(m_labelName->text() == m_currentPlaylistKey);
     }
 }

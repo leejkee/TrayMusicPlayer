@@ -11,26 +11,20 @@
 #include <QInputDialog>
 #include <QMenu>
 
-
 namespace Tray::Ui {
     MusicListWidget::MusicListWidget(QWidget *parent)
         : QWidget(parent) {
-        m_userPlaylistKeys = {};
         m_localListButton = new Panel::BetterButton(LOCAL_LIST_KEY, this);
-
-        m_expandButton = new Panel::BetterButton(QIcon(Res::UpSVG), this, Panel::BetterButton::NoQss,
-                                                 EXPAND_BTN_TEXT);
+        m_expandButton = new Panel::BetterButton(
+            QIcon(Res::UpSVG), this, Panel::BetterButton::NoQss,EXPAND_BTN_TEXT);
         m_expandButton->loadStyleSheet(Res::BUTTON_EXPAND_QSS);
-
         m_addButton = new Panel::BetterButton(QIcon(Res::AddSVG), this);
         m_addButton->loadStyleSheet(Res::BUTTON_ADD_QSS);
-
         const auto buttonLayout = new QHBoxLayout;
         const auto spaceH = new QSpacerItem(-1, 0, QSizePolicy::Expanding);
         buttonLayout->addWidget(m_expandButton);
         buttonLayout->addItem(spaceH);
         buttonLayout->addWidget(m_addButton);
-
         m_buttonWidget = new QWidget(this);
         m_buttonLayout = new QVBoxLayout;
         m_buttonLayout->setSpacing(0);
@@ -68,7 +62,7 @@ namespace Tray::Ui {
         connect(m_localListButton, &Panel::BetterButton::signalButtonClicked, this,
                 &MusicListWidget::handleMusicButtonClicked);
         connect(m_expandButton, &QPushButton::clicked, this, &MusicListWidget::toggleExpand);
-        connect(m_addButton, &QPushButton::clicked, this, &MusicListWidget::addButton);
+        connect(m_addButton, &QPushButton::clicked, this, &MusicListWidget::newUserPlaylist);
     }
 
 
@@ -82,8 +76,7 @@ namespace Tray::Ui {
         }
     }
 
-
-    void MusicListWidget::addButton() {
+    void MusicListWidget::newUserPlaylist() {
         bool ok;
         const QString playlistName = QInputDialog::getText(this,
                                                            "New a music list",
@@ -93,38 +86,40 @@ namespace Tray::Ui {
                                                            &ok);
         if (ok && !playlistName.isEmpty() && !playlistName.begin()->isDigit()) {
             qDebug() << "MusicListWidget: [" << playlistName << "] added.";
-            newButton(playlistName);
-            Q_EMIT signalMusicListButtonAdded(playlistName);
+            Q_EMIT signalUserPlaylistButtonAdded(playlistName);
         }
     }
 
-    void MusicListWidget::newButton(const QString &playlistName) {
-        m_userPlaylistKeys.append(playlistName);
+    void MusicListWidget::appendUserButton(const QString &playlistName) {
         auto *button = new Panel::BetterButton(playlistName, this);
+        m_UserButtonHash[playlistName] = button;
         m_buttonLayout->addWidget(button);
         button->setContextMenuPolicy(Qt::CustomContextMenu);
         connect(button, &Panel::BetterButton::signalButtonClicked, this, &MusicListWidget::handleMusicButtonClicked);
         connect(button, &Panel::BetterButton::customContextMenuRequested, this, &MusicListWidget::handleContextMenu);
     }
 
-
     void MusicListWidget::handleContextMenu(const QPoint &pos) {
         auto *button = qobject_cast<Panel::BetterButton *>(sender());
-        QMenu *listMenu = new QMenu(this);
+        auto *listMenu = new QMenu(this);
         connect(listMenu, &QMenu::aboutToHide, listMenu, &QMenu::deleteLater);
-        QAction *deleteAction = listMenu->addAction("Delete");
+        const QAction *deleteAction = listMenu->addAction("Delete");
         connect(deleteAction, &QAction::triggered, this, [this, button]() {
-            Q_EMIT signalPlaylistButtonDeleted(button->text());
-            m_buttonLayout->removeWidget(button);
-            delete button;
+            Q_EMIT signalUserPlaylistButtonRemoved(button->text());
         });
         listMenu->exec(button->mapToGlobal(pos));
     }
 
+    void MusicListWidget::removeUserButton(const QString &playlistName) {
+        if (QPushButton* buttonToRemove = m_UserButtonHash.take(playlistName)) {
+            m_buttonLayout->removeWidget(buttonToRemove);
+            delete buttonToRemove;
+        }
+    }
 
     void MusicListWidget::initUserListButtons(const QStringList &playlistNames) {
         for (const auto &name: playlistNames) {
-            newButton(name);
+            Q_EMIT signalUserPlaylistButtonAdded(name);
         }
     }
 

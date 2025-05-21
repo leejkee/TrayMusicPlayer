@@ -39,18 +39,35 @@ namespace Tray::Core {
     Core::Core(QObject *parent) : QObject(parent) {
         this->setObjectName(QStringLiteral("Core"));
         d = std::make_unique<CorePrivate>(this);
-
-        connect(d->m_listCacheThread, &QThread::started, this, &Core::initListCache);
-        connect(d->m_listCache, &ListCache::signalInitCompleted, this, &Core::handleListCacheInitializationComplete);
+        createConnections();
         d->m_listCacheThread->start();
+        initDefaultSettings();
+    }
+
+    Core::~Core() {
+        if (d->m_listCache) {
+            delete d->m_listCache;
+        }
+
+        if (d->m_listCacheThread && d->m_listCacheThread->isRunning()) {
+            d->m_listCacheThread->quit();
+            d->m_listCacheThread->wait();
+        }
+    }
+
+
+    void Core::createConnections() {
+        connect(d->m_listCacheThread, &QThread::started, this, &Core::initListCache);
+
+        connect(d->m_listCache, &ListCache::signalInitCompleted, this, &Core::handleListCacheInitializationComplete);
 
         connect(d->m_player, &Player::signalPlayingChanged, this, [this](const bool b) {
             Q_EMIT signalPlayingStatusChanged(b);
         });
 
-        connect(d->m_playList, &PlayList::signalMusicChanged, this, [this]
+        connect(d->m_playList, &PlayList::signalCurrentMusicChanged, this, [this]
         (const qsizetype index, const QString &name, const int duration) {
-                    Q_EMIT signalCurrentMusicChanged(static_cast<int>(index), name, duration);
+                    Q_EMIT signalNotifyUiCurrentMusicChanged(static_cast<int>(index), name, duration);
                 }
         );
 
@@ -70,6 +87,13 @@ namespace Tray::Core {
 
         // OK
         connect(d->m_listCache, &ListCache::signalUserPlaylistCreated, d->m_settings, &Settings::addUserPlaylist);
+        connect(d->m_listCache, &ListCache::signalUserPlaylistDeleted, d->m_settings, &Settings::removeUserPlaylist);
+        connect(d->m_listCache, &ListCache::signalUserPlaylistCreated, this, [this](const QString &key) {
+            Q_EMIT signalNotifyUiToAddUserPlaylist(key);
+        });
+        connect(d->m_listCache, &ListCache::signalUserPlaylistDeleted, this, [this](const QString &key) {
+            Q_EMIT signalNotifyUiToRemoveUserPlaylist(key);
+        });
 
         // update playlist
         connect(d->m_listCache, &ListCache::signalPlaylistModified, this, &Core::updateCurrentPlaylist);
@@ -84,25 +108,25 @@ namespace Tray::Core {
 
         connect(d->m_settings, &Settings::signalLocalDirectoryChanged, d->m_listCache, &ListCache::initLocalPlaylist);
 
-        connect(d->m_listCache, &ListCache::signalUserPlaylistDeleted, d->m_settings, &Settings::removeUserPlaylist);
+        connect(d->m_settings, &Settings::signalLocalDirectoryChanged, this, [this](const QStringList &paths) {
+            Q_EMIT signalNotifyUiToUpdateLocalPaths(paths);
+        });
 
         connect(d->m_playList, &PlayList::signalCurrentPlaylistKeyChanged, this, [ this](const QString &key) {
             Q_EMIT signalCurrentPlaylistKeyChanged(key);
         });
-        initDefaultSettings();
+
+        connect(this, &Core::signalRemoveUserPlaylistFromCache, d->m_listCache, &ListCache::deleteUserPlaylist);
+
+        connect(this, &Core::signalAddUserPlaylistToCache, d->m_listCache, &ListCache::newUserPlaylist);
+
+        connect(this, &Core::signalRequestPlaylist, d->m_listCache, &ListCache::respondMusicTitleList);
+
+        connect(d->m_listCache, &ListCache::signalSendUiCurrentTitleList,
+                this, [this](const QString &key, const QStringList &list) {
+                    Q_EMIT signalSendUiCurrentTitleList(key, list);
+                });
     }
-
-    Core::~Core() {
-        if (d->m_listCache) {
-            delete d->m_listCache;
-        }
-
-        if (d->m_listCacheThread && d->m_listCacheThread->isRunning()) {
-            d->m_listCacheThread->quit();
-            d->m_listCacheThread->wait();
-        }
-    }
-
 
     void Core::initListCache() {
         QMetaObject::invokeMethod(d->m_listCache, "init", Qt::QueuedConnection,
@@ -176,7 +200,7 @@ namespace Tray::Core {
 
     // 7
     void Core::requestPlaylist(const QString &listName) {
-        Q_EMIT signalPlaylistSwitched(listName, d->m_listCache->getMusicTitleList(listName));
+        Q_EMIT signalRequestPlaylist(listName);
     }
 
 
@@ -199,8 +223,8 @@ namespace Tray::Core {
 
 
     // 11
-    void Core::newUserPlaylist(const QString &listName) {
-        d->m_listCache->newUserPlaylist(listName);
+    void Core::addUserPlaylist(const QString &listName) {
+        Q_EMIT signalAddUserPlaylistToCache(listName);
     }
 
 
@@ -213,14 +237,12 @@ namespace Tray::Core {
     // 13
     void Core::appendLocalMusicPath(const QString &path) {
         d->m_settings->addLocalMusicDirectory(path);
-        // d->m_listCache->initLocalPlaylist(d->m_settings->getLocalMusicDirectories());
     }
 
 
     // 14
     void Core::removeLocalMusicPath(const QString &path) {
         d->m_settings->removeLocalMusicDirectory(path);
-        d->m_listCache->initLocalPlaylist(d->m_settings->getLocalMusicDirectories());
     }
 
 
@@ -242,15 +264,15 @@ namespace Tray::Core {
 
 
     // 17
-    void Core::deleteUserPlaylist(const QString &key) {
-        d->m_listCache->deleteUserPlaylist(key);
+    void Core::removeUserPlaylist(const QString &key) {
+        Q_EMIT signalRemoveUserPlaylistFromCache(key);
     }
 
 
     /* Interface End */
 
     void Core::playLocalMusicFromFirst() {
-        Q_EMIT signalPlaylistSwitched(LOCAL_LIST_KEY, d->m_listCache->getMusicTitleList(LOCAL_LIST_KEY));
+        Q_EMIT signalRequestPlaylist(LOCAL_LIST_KEY);
     }
 
 

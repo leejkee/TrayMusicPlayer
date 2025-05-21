@@ -108,8 +108,8 @@ namespace Tray::Ui {
         d->m_playerWidget->updatePlayModeIcon(mode);
     }
 
-    void WindowManager::showPlaylistOnView(const QString &name, const QStringList &titleList) {
-        d->m_viewWidget->showMusicList(name, titleList);
+    void WindowManager::showCurrentTitleListToView(const QString &name, const QStringList &titleList) {
+        d->m_viewWidget->showCurrentTitleListToView(name, titleList);
     }
 
     void WindowManager::updateUserPlaylistKeys(const QStringList &list) {
@@ -117,11 +117,11 @@ namespace Tray::Ui {
     }
 
     void WindowManager::updateCurrentViewList(const QString &key, const QStringList &titleList) {
-        d->m_viewWidget->updateViewList(key, titleList);
+        d->m_viewWidget->refreshCurrentMusicList(key, titleList);
     }
 
     void WindowManager::updateCurrentPlaylist(const QString &key) {
-        d->m_viewWidget->updateStatusRenderCurrentPlaylist(key);
+        d->m_viewWidget->syncRenderWithCurrentPlaylist(key);
     }
 
     // settings section begin
@@ -130,6 +130,17 @@ namespace Tray::Ui {
     }
 
     // settings section end
+
+    // MusicListWidget section begin
+    void WindowManager::removeUserPlaylistButton(const QString &key) {
+        d->m_musicListWidget->removeUserButton(key);
+    }
+
+    void WindowManager::addUserPlaylistButton(const QString &key) {
+        d->m_musicListWidget->appendUserButton(key);
+    }
+    // MusicListWidget section begin
+
     void WindowManager::createConnections() {
         connect(d->m_playerWidget, &PlayerWidget::signalPlayToggle,
                 this, [this] {
@@ -156,13 +167,11 @@ namespace Tray::Ui {
         connect(d->m_musicListWidget, &MusicListWidget::signalMusicListButtonClicked,
                 this, [this](const QString &list) { Q_EMIT signalPlaylistButtonClicked(list); });
 
-        connect(d->m_musicListWidget, &MusicListWidget::signalPlaylistButtonDeleted,
-                this, [this](const QString &key) { Q_EMIT signalPlaylistDeleted(key); });
+        connect(d->m_musicListWidget, &MusicListWidget::signalUserPlaylistButtonRemoved,
+                this, [this](const QString &key) { Q_EMIT signalUserPlaylistButtonRemoved(key); });
         // add button
-        connect(d->m_musicListWidget, &MusicListWidget::signalMusicListButtonAdded,
-                this, [this](const QString &key) {
-                    Q_EMIT signalPlaylistAdded(key);
-                });
+        connect(d->m_musicListWidget, &MusicListWidget::signalUserPlaylistButtonAdded,
+                this, [this](const QString &key) { Q_EMIT signalUserPlaylistButtonAdded(key); });
 
         connect(d->m_topBarWidget, &TopBarWidget::signalPreButtonClicked,
                 this, [this]() {
@@ -183,15 +192,16 @@ namespace Tray::Ui {
         // 4 signal from settingsWidget
 
 
-        connect(d->m_viewWidget, &ViewWidget::signalViewItemAddToList,
+        connect(d->m_viewWidget, &ViewWidget::signalMusicAddedToList,
                 this, [this](const QString &s, const QString &d, const int i) {
-                    Q_EMIT signalAddSongToList(s, d, i);
+                    Q_EMIT signalMusicAddedToList(s, d, i);
                 });
 
-        connect(d->m_viewWidget, &ViewWidget::signalViewItemDel,
+        connect(d->m_viewWidget, &ViewWidget::signalMusicRemovedFromList,
                 this, [this](const QString &key, const QString &title) {
-                    Q_EMIT signalDelSongFromList(key, title);
+                    Q_EMIT signalMusicRemovedFromList(key, title);
                 });
+
         /// ViewWidget: ItemPlayButton -> Core: play music with index
         connect(d->m_viewWidget, &ViewWidget::signalViewItemPlayButtonClicked,
                 this, [this](const QString &key, const int index) {

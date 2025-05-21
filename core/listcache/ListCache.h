@@ -26,7 +26,7 @@ namespace Tray::Core {
         /// @param listName The key/name of the song list.
         /// @return The list of songs associated with the given name,
         ///         or an empty list if not found.
-        [[nodiscard]] QVector<Song> findList(const QString &listName) const;
+        [[nodiscard]] QList<Song> findList(const QString &listName) const;
 
         /// Adds or appends a user-defined playlist to the cache.
         /// @param userListKeys The keys of user playlist
@@ -56,9 +56,11 @@ namespace Tray::Core {
 
         void deleteSong(const QString &key, const QString &songTitle);
 
+        void respondMusicTitleList(const QString &key);
+
     Q_SIGNALS:
         // tell playList to update the list
-        void signalPlaylistModified(const QString &key);
+        void signalNotifyPlayListCacheModified(const QString &key, const QList<Song> &list);
 
         void signalUserPlaylistCreated(const QString &listName);
 
@@ -68,7 +70,9 @@ namespace Tray::Core {
 
         void signalInitCompleted();
 
-        void signalPlaylistUpdated(const QString &key, const QVector<Song> &list);
+        void signalPlaylistUpdated(const QString &key, const QList<Song> &list);
+
+        void signalSendUiCurrentTitleList(const QString &key, const QStringList &titleList);
 
     private:
         static inline const QStringList MUSIC_FILTERS = {
@@ -79,9 +83,9 @@ namespace Tray::Core {
         /// @brief Sets the playlist associated with a given key.
         /// @param key The unique key identifying the playlist to be updated.
         /// @param list The vector of Song objects that will replace the current playlist content.
-        void setList(const QString &key, const QVector<Song> &list);
+        void setList(const QString &key, const QList<Song> &list);
 
-        QHash<QString, QVector<Song> > m_listCache;
+        QHash<QString, QList<Song> > m_listCache;
         Log::QLogger Log;
     };
 }

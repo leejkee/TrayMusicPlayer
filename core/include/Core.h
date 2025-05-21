@@ -43,9 +43,11 @@ namespace Tray::Core {
 
         QStringList getKeysOfUserPlaylist();
 
-        void newUserPlaylist(const QString &);
 
-        void deleteUserPlaylist(const QString &);
+        void addUserPlaylist(const QString &);
+
+
+        void removeUserPlaylist(const QString &);
 
         QStringList getLocalMusicPaths();
 
@@ -65,7 +67,7 @@ namespace Tray::Core {
     Q_SIGNALS:
         void signalPlayingStatusChanged(bool b);
 
-        void signalCurrentMusicChanged(int, const QString &, int);
+        void signalNotifyUiCurrentMusicChanged(int, const QString &, int);
 
         void signalIsMuted(bool);
 
@@ -88,8 +90,27 @@ namespace Tray::Core {
 
         void signalCurrentPlaylistKeyChanged(const QString &key);
 
+        // to listCache section begin
+        void signalRemoveUserPlaylistFromCache(const QString & key);
+
+        void signalAddUserPlaylistToCache(const QString & chars);
+
+        void signalRequestPlaylist(const QString & key);
+        // to listCache section end
+
+        // to Ui
+        void signalNotifyUiToRemoveUserPlaylist(const QString & key);
+
+        void signalNotifyUiToAddUserPlaylist(const QString & key);
+
+        void signalNotifyUiToUpdateLocalPaths(const QStringList & list);
+
+        void signalSendUiCurrentTitleList(const QString & key, const QStringList & list);
+        // to Ui
     private:
         std::unique_ptr<CorePrivate> d;
+
+        void createConnections();
 
         void updateCurrentPlaylist(const QString &key);
 

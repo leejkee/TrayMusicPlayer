@@ -23,7 +23,7 @@ namespace Tray::Ui {
 
         void updatePlayingStatus(bool playable);
 
-        void setRenderCurrentPlaylist(bool b);
+        void setCurrentPlaylistMatched(bool b);
 
     protected:
         bool editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option,

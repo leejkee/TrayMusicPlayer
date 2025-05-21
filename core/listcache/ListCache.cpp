@@ -32,7 +32,7 @@ namespace Tray::Core {
     }
 
     void ListCache::initLocalPlaylist(const QStringList &localDir) {
-        QVector<Song> localList;
+        QList<Song> localList;
         for (const auto &filePath: localDir) {
             QDirIterator it(filePath, MUSIC_FILTERS, QDir::Files, QDirIterator::Subdirectories);
             while (it.hasNext()) {
@@ -59,7 +59,7 @@ namespace Tray::Core {
         }
     }
 
-    QVector<Song> ListCache::findList(const QString &listName) const {
+    QList<Song> ListCache::findList(const QString &listName) const {
         if (m_listCache.contains(listName)) {
             return m_listCache.value(listName);
         }
@@ -104,11 +104,11 @@ namespace Tray::Core {
     void ListCache::deleteUserPlaylist(const QString &key) {
         if (key == LOCAL_LIST_KEY) {
             Log.log(Log::QLogger::LogLevel::Error, "Delete user playlist error, invalid list key: " + key);
+            return;
         }
         if (!m_listCache.contains(key)) {
             Log.log(Log::QLogger::LogLevel::Error, "No such user playlist called : " + key + ", delete failed");
-        }
-        else {
+        } else {
             if (m_listCache.remove(key)) {
                 const auto dbConnectionName = "delete_list_" + key;
                 if (auto dbConnection = DatabaseManager(dbConnectionName); dbConnection.deleteTable(key)) {
@@ -147,7 +147,7 @@ namespace Tray::Core {
         });
         if (iterator != keyList.end()) {
             keyList.erase(iterator);
-            Q_EMIT signalPlaylistModified(key);
+            Q_EMIT signalNotifyPlayListCacheModified(key, findList(key));
             const auto dbConnectionName = "delete_" + key;
             if (auto dbConnection = DatabaseManager(dbConnectionName); dbConnection.deleteSongWithTitle(
                 key, songTitle)) {
@@ -157,8 +157,12 @@ namespace Tray::Core {
         }
     }
 
-    void ListCache::setList(const QString &key, const QVector<Song> &list) {
+    void ListCache::setList(const QString &key, const QList<Song> &list) {
         m_listCache[key] = list;
         Q_EMIT signalPlaylistModified(key);
+    }
+
+    void ListCache::respondMusicTitleList(const QString &key) {
+        Q_EMIT signalSendUiCurrentTitleList(key, getMusicTitleList(key));
     }
 }
