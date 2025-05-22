@@ -130,7 +130,7 @@ namespace Tray::Core {
         if (!d->m_userListKeys.contains(name)) {
             d->m_userListKeys.append(name);
             d->saveToJson();
-            Q_EMIT signalUserPlaylistsChanged(d->m_userListKeys);
+            Q_EMIT signalUserKeySetsChanged(d->m_userListKeys);
             d->Log.log(Log::QLogger::LogLevel::Info, "Added user music: " + name);
         }
     }
@@ -138,7 +138,7 @@ namespace Tray::Core {
     void Settings::removeUserPlaylist(const QString &name) {
         if (d->m_userListKeys.removeOne(name)) {
             d->saveToJson();
-            Q_EMIT signalUserPlaylistsChanged(d->m_userListKeys);
+            Q_EMIT signalUserKeySetsChanged(d->m_userListKeys);
             d->Log.log(Log::QLogger::LogLevel::Info, "Removed user music: " + name);
         }
     }

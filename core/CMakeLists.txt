@@ -15,6 +15,7 @@ set(CORE_SOURCES
         playlist/PlayList.cpp
         settings/Settings.h
         settings/Settings.cpp
+        common/Song.h
         common/Song.cpp
 )
 

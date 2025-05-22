@@ -17,7 +17,6 @@ inline void Init_qrc() {
     Q_INIT_RESOURCE(qss);
 }
 
-
 namespace Tray {
     class TrayAppPrivate {
     public:
@@ -59,7 +58,6 @@ namespace Tray {
         m_windowManager = new Ui::WindowManager(q_ptr);
         m_core = new Core::Core(q_ptr);
         q_ptr->setCentralWidget(m_windowManager);
-        m_windowManager->initDefaultSettings(m_core->getLocalMusicPaths(), m_core->getKeysOfUserPlaylist());
         q_ptr->setMinimumWidth(MAIN_MINIMUM_WIDTH);
         q_ptr->setMinimumHeight(MAIN_MINIMUM_HEIGHT);
     }
@@ -69,6 +67,7 @@ namespace Tray {
         Init_qrc();
         d = std::make_unique<TrayAppPrivate>(this);
         createConnections();
+        d->m_core->initWork();
     }
 
     TrayApp::~TrayApp() = default;
@@ -96,7 +95,7 @@ namespace Tray {
                 d->m_windowManager, &Ui::WindowManager::updateProgressBarPosition);
 
         // update playing status
-        connect(d->m_core, &Core::Core::signalPlayingStatusChanged,
+        connect(d->m_core, &Core::Core::signalNotifyUiPlayingStatusChanged,
                 d->m_windowManager, &Ui::WindowManager::updatePlayingStatus);
 
         // pre music
@@ -125,7 +124,8 @@ namespace Tray {
         connect(d->m_windowManager, &Ui::WindowManager::signalPlayModeChanged,
                 d->m_core, &Core::Core::changePlayMode);
 
-
+        connect(d->m_core, &Core::Core::signalInitUiDefaultSettings,
+                d->m_windowManager, &Ui::WindowManager::initDefaultSettings);
 
         /// ViewWidget section
         connect(d->m_windowManager, &Ui::WindowManager::signalViewPlayButtonClicked,
@@ -161,6 +161,11 @@ namespace Tray {
                 d->m_windowManager, &Ui::WindowManager::showCurrentTitleListToView);
         /// Switch playlist to view section
 
+        /// Notify view the change of Cache
+        // core: listCache --> ui: viewWidget
+        connect(d->m_core, &Core::Core::signalNotifyUiCacheModified
+                , d->m_windowManager, &Ui::WindowManager::updateCurrentViewList);
+        /// Notify view the change of Cache
 
         /// Local music paths section
         // ui: settingsWidget --> core：settings --> listCache
@@ -173,15 +178,12 @@ namespace Tray {
                 d->m_windowManager, &Ui::WindowManager::updateSettingsLocalPaths);
         /// Local music paths section
 
-        connect(d->m_core, &Core::Core::signalUserPlaylistSetsChanged,
+        connect(d->m_core, &Core::Core::signalNotifyUiUserKeySetsChanged,
                 d->m_windowManager, &Ui::WindowManager::updateUserPlaylistKeys);
 
-            // todo
-        connect(d->m_core, &Core::Core::signalPlaylistModified
-                , d->m_windowManager, &Ui::WindowManager::updateCurrentViewList);
 
-        connect(d->m_core, &Core::Core::signalCurrentPlaylistKeyChanged, d->m_windowManager,
-                &Ui::WindowManager::updateCurrentPlaylist);
+        connect(d->m_core, &Core::Core::signalNotifyUiCurrentListKeyChanged,
+                d->m_windowManager, &Ui::WindowManager::updateCurrentPlaylistKey);
     }
 
     void TrayApp::closeEvent(QCloseEvent *event) {
@@ -204,6 +206,5 @@ namespace Tray {
         d->m_maximizeAction->setEnabled(!isMaximized());
         QMainWindow::setVisible(visible);
     }
-
 
 }

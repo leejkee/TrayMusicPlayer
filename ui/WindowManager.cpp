@@ -75,10 +75,11 @@ namespace Tray::Ui {
         createConnections();
     }
 
-    void WindowManager::initDefaultSettings(const QStringList &localDir, const QStringList &userKeys) {
+    void WindowManager::initDefaultSettings(const QStringList &localDir, const QStringList &userKeys, unsigned volume) {
         d->m_settingsWidget->updateLocalPaths(localDir);
         d->m_musicListWidget->initUserListButtons(userKeys);
         d->m_viewWidget->setUserPlaylistKeys(userKeys);
+        d->m_playerWidget->setSliderVolumeValue(volume);
     }
 
     void WindowManager::updateCurrentMusic(const int index, const QString &name, const int duration) {
@@ -120,7 +121,7 @@ namespace Tray::Ui {
         d->m_viewWidget->refreshCurrentMusicList(key, titleList);
     }
 
-    void WindowManager::updateCurrentPlaylist(const QString &key) {
+    void WindowManager::updateCurrentPlaylistKey(const QString &key) {
         d->m_viewWidget->syncRenderWithCurrentPlaylist(key);
     }
 
@@ -174,13 +175,10 @@ namespace Tray::Ui {
                 this, [this](const QString &key) { Q_EMIT signalUserPlaylistButtonAdded(key); });
 
         connect(d->m_topBarWidget, &TopBarWidget::signalPreButtonClicked,
-                this, [this]() {
-                    d->m_stackedViewWidget->setCurrentIndex(0);
-                });
+                this, [this]() { d->m_stackedViewWidget->setCurrentIndex(0); });
+
         connect(d->m_topBarWidget, &TopBarWidget::signalSettingsButtonClicked,
-                this, [this]() {
-                    d->m_stackedViewWidget->setCurrentIndex(1);
-                });
+                this, [this]() { d->m_stackedViewWidget->setCurrentIndex(1); });
 
 
         // 4 signal from settingsWidget

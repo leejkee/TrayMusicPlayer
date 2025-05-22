@@ -7,7 +7,6 @@
 
 class QStackedWidget;
 
-
 namespace Tray::Ui {
     class SettingsWidget;
     class TopBarWidget;
@@ -24,7 +23,7 @@ namespace Tray::Ui {
 
         ~WindowManager() override;
 
-        void initDefaultSettings(const QStringList &localDir, const QStringList &userKeys);
+        void initDefaultSettings(const QStringList &localDir, const QStringList &userKeys, unsigned volume);
 
     Q_SIGNALS:
         void signalPlayToggle();
@@ -75,7 +74,7 @@ namespace Tray::Ui {
         /// @brief This function is connected with the signal that will be emitted when current playlist changed
         /// this function calls the viewWidget's function to update the current playlist key
         /// @param key playlist key
-        void updateCurrentPlaylist(const QString &key);
+        void updateCurrentPlaylistKey(const QString &key);
 
         void updateSettingsLocalPaths(const QStringList &paths);
 

@@ -15,7 +15,6 @@ namespace Tray::Ui::Panel {
         m_sliderV = new QSlider(this);
         m_sliderV->setRange(0, 100);
         m_sliderV->setSingleStep(5);
-        m_sliderV->setValue(10);
         m_sliderV->setStyleSheet(readQSS(Res::VOLUME_SLIDER_QSS));
 
         QHBoxLayout *hSliderLayout = new QHBoxLayout;
@@ -41,18 +40,21 @@ namespace Tray::Ui::Panel {
         setLayout(layout);
         // this->setFixedSize(30, 120);
         setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
-        setVolume(10);
-        connect(m_sliderV, &QSlider::valueChanged, this, &VolumeController::setVolume);
+        connect(m_sliderV, &QSlider::valueChanged, this, &VolumeController::setLabelVolume);
         connect(m_sliderV, &QSlider::valueChanged, this, [this](const int v) {
             Q_EMIT signalSetValue(v);
         });
     }
 
-    void VolumeController::setVolume(const int v) const {
+    void VolumeController::setLabelVolume(const int v) {
         m_labelVolume->setText(QString("%1%").arg(v));
     }
 
-    void VolumeController::setVolumeButtonIcon(const bool isMuted) const {
+    void VolumeController::setSliderVolumeValue(const unsigned v) {
+        m_sliderV->setValue(v);
+    }
+
+    void VolumeController::setVolumeButtonIcon(const bool isMuted)  {
         if (isMuted) {
             m_buttonMute->setIcon(QIcon(Res::VolumeMuteSVG));
         } else {
@@ -60,6 +62,6 @@ namespace Tray::Ui::Panel {
         }
     }
     QSize VolumeController::sizeHint() const {
-        return QSize(30, 120);
+        return {30, 120};
     }
 }

@@ -119,7 +119,7 @@ namespace Tray::Ui {
 
     void MusicListWidget::initUserListButtons(const QStringList &playlistNames) {
         for (const auto &name: playlistNames) {
-            Q_EMIT signalUserPlaylistButtonAdded(name);
+            appendUserButton(name);
         }
     }
 

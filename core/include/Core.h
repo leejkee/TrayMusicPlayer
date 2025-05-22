@@ -19,6 +19,7 @@ namespace Tray::Core {
 
         ~Core() override;
 
+        void initWork();
 
     public slots:
         void setVolume(unsigned int volume);
@@ -31,10 +32,6 @@ namespace Tray::Core {
 
         void preMusic();
 
-        void switchPlaylist(const QString &listName);
-
-        QStringList getLocalMusicTitleList();
-
         void setPlayerPosition(qint64 position);
 
         void changePlayMode();
@@ -43,9 +40,7 @@ namespace Tray::Core {
 
         QStringList getKeysOfUserPlaylist();
 
-
         void addUserPlaylist(const QString &);
-
 
         void removeUserPlaylist(const QString &);
 
@@ -59,13 +54,8 @@ namespace Tray::Core {
 
         void removeMusicFromList(const QString &key, const QString &songTitle);
 
-    private Q_SLOTS:
-        void initListCache();
-
-        void handleListCacheInitializationComplete();
-
     Q_SIGNALS:
-        void signalPlayingStatusChanged(bool b);
+        void signalNotifyUiPlayingStatusChanged(bool b);
 
         void signalNotifyUiCurrentMusicChanged(int, const QString &, int);
 
@@ -77,46 +67,42 @@ namespace Tray::Core {
 
         void signalPlaylistSwitched(const QString &key, const QStringList &titleList);
 
-        ///
-        ///@brief Signals that the set of user playlists has changed.
-        ///
-        ///This signal is emitted whenever a user playlist is added or deleted.
-        ///It notifies the UI to refresh its display of the playlist collection.
-        ///
-        ///@param list The current list of user playlist names.
-        void signalUserPlaylistSetsChanged(const QStringList &list);
+        void signalNotifyUiUserKeySetsChanged(const QStringList &list);
 
         void signalPlaylistModified(const QString &key, const QStringList &list);
 
-        void signalCurrentPlaylistKeyChanged(const QString &key);
+        void signalNotifyUiCurrentListKeyChanged(const QString &key);
+
+        void signalCopyMusicFromListToList(const QString &sourceKey, const QString &destinationKey, int index);
+
+        void signalRemoveMusicFromList(const QString &key, const QString &title);
 
         // to listCache section begin
-        void signalRemoveUserPlaylistFromCache(const QString & key);
+        void signalRemoveUserPlaylistFromCache(const QString &key);
 
-        void signalAddUserPlaylistToCache(const QString & chars);
+        void signalAddUserPlaylistToCache(const QString &chars);
 
-        void signalRequestPlaylist(const QString & key);
+        void signalRequestTitleList(const QString &key);
+
+        void signalRequestSwitchPlaylistAndPlayIndex(const QString &key, int index);
         // to listCache section end
 
         // to Ui
-        void signalNotifyUiToRemoveUserPlaylist(const QString & key);
+        void signalNotifyUiToRemoveUserPlaylist(const QString &key);
 
-        void signalNotifyUiToAddUserPlaylist(const QString & key);
+        void signalNotifyUiToAddUserPlaylist(const QString &key);
 
-        void signalNotifyUiToUpdateLocalPaths(const QStringList & list);
+        void signalNotifyUiToUpdateLocalPaths(const QStringList &list);
 
-        void signalSendUiCurrentTitleList(const QString & key, const QStringList & list);
+        void signalSendUiCurrentTitleList(const QString &key, const QStringList &list);
+
+        void signalNotifyUiCacheModified(const QString &key, const QStringList &list);
+
+        void signalInitUiDefaultSettings(const QStringList &localList, const QStringList &userKeys, unsigned volume);
         // to Ui
     private:
         std::unique_ptr<CorePrivate> d;
 
         void createConnections();
-
-        void updateCurrentPlaylist(const QString &key);
-
-        void playLocalMusicFromFirst();
-
-        // init the default settings
-        void initDefaultSettings();
     };
 } // namespace Core

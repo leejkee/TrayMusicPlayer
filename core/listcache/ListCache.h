@@ -49,30 +49,34 @@ namespace Tray::Core {
 
         void deleteUserPlaylist(const QString &key);
 
-        /// insert a song to list called key
-        /// @param key the name of list
-        /// @param song song struct
-        void insertMusicToList(const QString &key, const Song &song);
+        /// copy a song from source to destination with an index
+        /// @param sourceKey the name of list
+        /// @param destinationKey
+        /// @param index
+        bool copyMusicFromListToList(const QString &sourceKey, const QString &destinationKey, int index);
 
         void deleteSong(const QString &key, const QString &songTitle);
 
         void respondMusicTitleList(const QString &key);
 
+        void handleSwitchPlaylistAndPlayIndex(const QString &key, int index);
+
     Q_SIGNALS:
-        // tell playList to update the list
+
+        // emitted when cache modified
         void signalNotifyPlayListCacheModified(const QString &key, const QList<Song> &list);
 
-        void signalUserPlaylistCreated(const QString &listName);
+        void signalNotifyUiCacheModified(const QString &key, const QStringList &list);
 
-        void signalLocalDirectoryAdded(const QString &directory);
+        void signalSendUiCurrentTitleList(const QString &key, const QStringList &titleList);
+
+        void signalUserPlaylistCreated(const QString &listName);
 
         void signalUserPlaylistDeleted(const QString &key);
 
         void signalInitCompleted();
 
-        void signalPlaylistUpdated(const QString &key, const QList<Song> &list);
-
-        void signalSendUiCurrentTitleList(const QString &key, const QStringList &titleList);
+        void signalRespondPlayListSwitchAndPlayIndex(const QString &key, const QList<Song> &list, int index);
 
     private:
         static inline const QStringList MUSIC_FILTERS = {

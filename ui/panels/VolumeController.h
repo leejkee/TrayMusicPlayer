@@ -20,7 +20,7 @@ namespace Tray::Ui::Panel {
     public:
         explicit VolumeController(QWidget *parent = nullptr);
 
-        void setVolume(int v) const;
+        void setSliderVolumeValue(unsigned v);
 
     protected:
         QSize sizeHint() const override;
@@ -30,7 +30,7 @@ namespace Tray::Ui::Panel {
         void signalSetValue(int);
 
     public Q_SLOTS:
-        void setVolumeButtonIcon(bool) const;
+        void setVolumeButtonIcon(bool);
 
 
     private:
@@ -38,6 +38,7 @@ namespace Tray::Ui::Panel {
         QLabel *m_labelVolume;
         BetterButton *m_buttonMute;
 
+        void setLabelVolume(int v);
     };
 }
 
