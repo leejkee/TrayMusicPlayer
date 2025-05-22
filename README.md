@@ -16,8 +16,8 @@
 ## 运行截图（Windows11，Linux修bug中）开发中
 - 主页面
 ![shot](docs/img/shot_v0.4.png)
-- 右击菜单
-![shot](docs/img/shot_menu_v0.4.png)
+- 部分功能演示
+![show](docs/img/shot_show.gif)
 
 ## 构建本项目
 
