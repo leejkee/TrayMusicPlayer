@@ -25,7 +25,7 @@ namespace Tray::Core {
         m_currentListKey = listKey;
         m_musicList = musicList;
         m_index = 0;
-        Q_EMIT signalCurrentPlaylistKeyChanged(listKey);
+        Q_EMIT signalNotifyUiCurrentPlaylistKeyChanged(listKey);
         Log.log(Log::QLogger::LogLevel::Info, "load musicList successfully");
     }
 

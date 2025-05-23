@@ -39,7 +39,6 @@ namespace Tray::Core {
 
         [[nodiscard]] QString getCurrentMusicPath() const;
 
-
         void loadMusicList(const QString &listKey, const QList<Song> &musicList);
 
         void nextMusic();
@@ -59,7 +58,7 @@ namespace Tray::Core {
 
         void signalPlayModeChanged(int);
 
-        void signalCurrentPlaylistKeyChanged(const QString &key);
+        void signalNotifyUiCurrentPlaylistKeyChanged(const QString &key);
     private:
         qsizetype m_index;
         PlayMode m_playMode;

@@ -118,7 +118,7 @@ namespace Tray {
         connect(d->m_windowManager, &Ui::WindowManager::signalSetPlayerPosition,
                 d->m_core, &Core::Core::setPlayerPosition);
 
-        connect(d->m_core, &Core::Core::signalPlayModeChanged,
+        connect(d->m_core, &Core::Core::signalNotifyUiPlayModeChanged,
                 d->m_windowManager, &Ui::WindowManager::updatePlayModeIcon);
 
         connect(d->m_windowManager, &Ui::WindowManager::signalPlayModeChanged,

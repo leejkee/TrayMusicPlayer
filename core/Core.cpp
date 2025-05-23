@@ -102,7 +102,7 @@ namespace Tray::Core {
                 this, [this](const qint64 pos) { Q_EMIT signalPositionChanged(pos); });
 
         connect(d->m_playList, &PlayList::signalPlayModeChanged,
-                this, [this](const int mode) { Q_EMIT signalPlayModeChanged(mode); });
+                this, [this](const int mode) { Q_EMIT signalNotifyUiPlayModeChanged(mode); });
 
         connect(d->m_player, &Player::signalMusicOver, this, &Core::nextMusic);
 
@@ -139,7 +139,7 @@ namespace Tray::Core {
                 this, [this](const QStringList &paths) { Q_EMIT signalNotifyUiToUpdateLocalPaths(paths); });
         /// Local paths
 
-        connect(d->m_playList, &PlayList::signalCurrentPlaylistKeyChanged,
+        connect(d->m_playList, &PlayList::signalNotifyUiCurrentPlaylistKeyChanged,
                 this, [ this](const QString &key) { Q_EMIT signalNotifyUiCurrentListKeyChanged(key); });
 
         /// User list Add/Remove

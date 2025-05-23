@@ -63,7 +63,7 @@ namespace Tray::Core {
 
         void signalPositionChanged(qint64);
 
-        void signalPlayModeChanged(int mode);
+        void signalNotifyUiPlayModeChanged(int mode);
 
         void signalPlaylistSwitched(const QString &key, const QStringList &titleList);
 
