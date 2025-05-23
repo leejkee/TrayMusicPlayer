@@ -214,7 +214,7 @@ namespace Tray::Ui {
         }
     }
 
-    void ViewDelegate::setRenderCurrentPlaylist(const bool b) {
+    void ViewDelegate::setCurrentPlaylistMatched(const bool b) {
         m_renderCurrentPlaylist = b;
     }
 }

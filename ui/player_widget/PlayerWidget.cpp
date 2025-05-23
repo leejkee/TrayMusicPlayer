@@ -194,4 +194,8 @@ namespace Tray::Ui {
     void PlayerWidget::updateProgressBarPosition(const qint64 position) {
         m_progressWidget->updateSliderPosition(position);
     }
+
+    void PlayerWidget::setSliderVolumeValue(const unsigned v) {
+        m_volumeController->setSliderVolumeValue(v);
+    }
 }

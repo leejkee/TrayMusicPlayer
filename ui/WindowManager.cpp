@@ -75,10 +75,11 @@ namespace Tray::Ui {
         createConnections();
     }
 
-    void WindowManager::initDefaultSettings(const QStringList &localDir, const QStringList &userKeys) {
+    void WindowManager::initDefaultSettings(const QStringList &localDir, const QStringList &userKeys, unsigned volume) {
         d->m_settingsWidget->updateLocalPaths(localDir);
         d->m_musicListWidget->initUserListButtons(userKeys);
         d->m_viewWidget->setUserPlaylistKeys(userKeys);
+        d->m_playerWidget->setSliderVolumeValue(volume);
     }
 
     void WindowManager::updateCurrentMusic(const int index, const QString &name, const int duration) {
@@ -108,8 +109,8 @@ namespace Tray::Ui {
         d->m_playerWidget->updatePlayModeIcon(mode);
     }
 
-    void WindowManager::showPlaylistOnView(const QString &name, const QStringList &titleList) {
-        d->m_viewWidget->showMusicList(name, titleList);
+    void WindowManager::showCurrentTitleListToView(const QString &name, const QStringList &titleList) {
+        d->m_viewWidget->showCurrentTitleListToView(name, titleList);
     }
 
     void WindowManager::updateUserPlaylistKeys(const QStringList &list) {
@@ -117,12 +118,29 @@ namespace Tray::Ui {
     }
 
     void WindowManager::updateCurrentViewList(const QString &key, const QStringList &titleList) {
-        d->m_viewWidget->updateViewList(key, titleList);
+        d->m_viewWidget->refreshCurrentMusicList(key, titleList);
     }
 
-    void WindowManager::updateCurrentPlaylist(const QString &key) {
-        d->m_viewWidget->updateStatusRenderCurrentPlaylist(key);
+    void WindowManager::updateCurrentPlaylistKey(const QString &key) {
+        d->m_viewWidget->syncRenderWithCurrentPlaylist(key);
     }
+
+    // settings section begin
+    void WindowManager::updateSettingsLocalPaths(const QStringList &paths) {
+        d->m_settingsWidget->updateLocalPaths(paths);
+    }
+
+    // settings section end
+
+    // MusicListWidget section begin
+    void WindowManager::removeUserPlaylistButton(const QString &key) {
+        d->m_musicListWidget->removeUserButton(key);
+    }
+
+    void WindowManager::addUserPlaylistButton(const QString &key) {
+        d->m_musicListWidget->appendUserButton(key);
+    }
+    // MusicListWidget section begin
 
     void WindowManager::createConnections() {
         connect(d->m_playerWidget, &PlayerWidget::signalPlayToggle,
@@ -150,46 +168,42 @@ namespace Tray::Ui {
         connect(d->m_musicListWidget, &MusicListWidget::signalMusicListButtonClicked,
                 this, [this](const QString &list) { Q_EMIT signalPlaylistButtonClicked(list); });
 
+        connect(d->m_musicListWidget, &MusicListWidget::signalUserPlaylistButtonRemoved,
+                this, [this](const QString &key) { Q_EMIT signalUserPlaylistButtonRemoved(key); });
+        // add button
+        connect(d->m_musicListWidget, &MusicListWidget::signalUserPlaylistButtonAdded,
+                this, [this](const QString &key) { Q_EMIT signalUserPlaylistButtonAdded(key); });
+
+        connect(d->m_topBarWidget, &TopBarWidget::signalPreButtonClicked,
+                this, [this]() { d->m_stackedViewWidget->setCurrentIndex(0); });
+
+        connect(d->m_topBarWidget, &TopBarWidget::signalSettingsButtonClicked,
+                this, [this]() { d->m_stackedViewWidget->setCurrentIndex(1); });
+
+
+        // 4 signal from settingsWidget
+        connect(d->m_settingsWidget, &SettingsWidget::signalLocalDirAdded,
+                this, [this](const QString &dir) { Q_EMIT signalLocalMusicDirectoryAdded(dir); });
+
+        connect(d->m_settingsWidget, &SettingsWidget::signalLocalDirRemoved,
+                this, [this](const QString &dir) { Q_EMIT signalLocalMusicDirectoryRemoved(dir); });
+        // 4 signal from settingsWidget
+
+
+        connect(d->m_viewWidget, &ViewWidget::signalMusicAddedToList,
+                this, [this](const QString &s, const QString &d, const int i) {
+                    Q_EMIT signalMusicAddedToList(s, d, i);
+                });
+
+        connect(d->m_viewWidget, &ViewWidget::signalMusicRemovedFromList,
+                this, [this](const QString &key, const QString &title) {
+                    Q_EMIT signalMusicRemovedFromList(key, title);
+                });
 
         /// ViewWidget: ItemPlayButton -> Core: play music with index
         connect(d->m_viewWidget, &ViewWidget::signalViewItemPlayButtonClicked,
                 this, [this](const QString &key, const int index) {
                     Q_EMIT signalViewPlayButtonClicked(key, index);
                 });
-
-        connect(d->m_topBarWidget, &TopBarWidget::TopBarWidget::signalPreButtonClicked,
-                this, [this]() {
-                    d->m_stackedViewWidget->setCurrentIndex(0);
-                });
-        connect(d->m_topBarWidget, &TopBarWidget::TopBarWidget::signalSettingsButtonClicked,
-                this, [this]() {
-                    d->m_stackedViewWidget->setCurrentIndex(1);
-                });
-
-        // add button
-        connect(d->m_musicListWidget, &MusicListWidget::signalMusicListButtonAdded,
-                this, [this](const QString &key) {
-                    Q_EMIT signalPlaylistAdded(key);
-                });
-
-
-        connect(d->m_settingsWidget, &SettingsWidget::signalLocalDirAdded,
-                this, [this](const QString &dir) { Q_EMIT signalLocalMusicDirectoryAdded(dir); });
-
-        connect(d->m_settingsWidget, &SettingsWidget::signalLocalDirRemoved,
-                this, [this](const QString &dir) { Q_EMIT signalLocalMusicDirectoryRemoved(dir); });
-
-
-        connect(d->m_viewWidget, &ViewWidget::signalViewItemAddToList,
-                this, [this](const QString &s, const QString &d, const int i) {
-                    Q_EMIT signalAddSongToList(s, d, i);
-                });
-
-        connect(d->m_viewWidget, &ViewWidget::signalViewItemDel,
-                this, [this](const QString &key, const QString &title) {
-                    Q_EMIT signalDelSongFromList(key, title);
-                });
-        connect(d->m_musicListWidget, &MusicListWidget::signalPlaylistButtonDeleted,
-                this, [this](const QString &key) { Q_EMIT signalPlaylistDeleted(key); });
     }
 }

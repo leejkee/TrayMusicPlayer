@@ -9,11 +9,8 @@ namespace Tray::Ui::Panel {
     class BetterButton;
 }
 
-
 class QVBoxLayout;
-class QPushButton;
 class QScrollArea;
-
 
 namespace Tray::Ui {
     class MusicListWidget final : public QWidget {
@@ -22,21 +19,30 @@ namespace Tray::Ui {
     public:
         explicit MusicListWidget(QWidget *parent = nullptr);
 
+    public Q_SLOTS:
         // buttons created by user from settings
         void initUserListButtons(const QStringList &playlistNames);
+
+        void removeUserButton(const QString &playlistName);
+
+        void appendUserButton(const QString &playlistName);
 
     Q_SIGNALS:
         void signalMusicListButtonClicked(const QString &playlistName);
 
-        void signalMusicListButtonAdded(const QString &playlistName);
+        void signalUserPlaylistButtonAdded(const QString &playlistName);
 
-        void signalPlaylistButtonDeleted(const QString &text);
+        void signalUserPlaylistButtonRemoved(const QString &text);
 
     private Q_SLOTS:
         // expand icon
         void toggleExpand() const;
 
-        // void removeButton(const QString &name);
+        void handleMusicButtonClicked(const QString &name);
+
+        void newUserPlaylist();
+
+        void handleContextMenu(const QPoint &pos);
 
     private:
         Panel::BetterButton *m_expandButton;
@@ -45,20 +51,8 @@ namespace Tray::Ui {
         QWidget *m_buttonWidget;
         QVBoxLayout *m_buttonLayout;
         Panel::BetterButton *m_localListButton;
-
-        QStringList m_userPlaylistKeys;
+        QHash<QString, Panel::BetterButton *> m_UserButtonHash;
 
         void createConnections();
-
-        void handleMusicButtonClicked(const QString &name);
-
-        // button from new
-        void addButton();
-
-        void newButton(const QString &playlistName);
-
-        void handleContextMenu(const QPoint &pos);
-
-        void deleteButton(const QString &playlistName);
     };
 }

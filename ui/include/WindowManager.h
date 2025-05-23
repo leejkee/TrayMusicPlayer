@@ -7,7 +7,6 @@
 
 class QStackedWidget;
 
-
 namespace Tray::Ui {
     class SettingsWidget;
     class TopBarWidget;
@@ -24,7 +23,7 @@ namespace Tray::Ui {
 
         ~WindowManager() override;
 
-        void initDefaultSettings(const QStringList &localDir, const QStringList &userKeys);
+        void initDefaultSettings(const QStringList &localDir, const QStringList &userKeys, unsigned volume);
 
     Q_SIGNALS:
         void signalPlayToggle();
@@ -43,17 +42,17 @@ namespace Tray::Ui {
 
         void signalViewPlayButtonClicked(const QString &, int);
 
-        void signalPlaylistAdded(const QString &);
+        void signalUserPlaylistButtonAdded(const QString &);
 
         void signalLocalMusicDirectoryAdded(const QString &);
 
         void signalLocalMusicDirectoryRemoved(const QString &);
 
-        void signalAddSongToList(const QString &, const QString &, int);
+        void signalMusicAddedToList(const QString &, const QString &, int);
 
-        void signalDelSongFromList(const QString &, const QString &);
+        void signalMusicRemovedFromList(const QString &, const QString &);
 
-        void signalPlaylistDeleted(const QString &);
+        void signalUserPlaylistButtonRemoved(const QString &);
 
     public Q_SLOTS:
         void updateCurrentMusic(int index, const QString &name, int duration);
@@ -64,7 +63,7 @@ namespace Tray::Ui {
 
         void updatePlayModeIcon(int mode);
 
-        void showPlaylistOnView(const QString &name, const QStringList &titleList);
+        void showCurrentTitleListToView(const QString &name, const QStringList &titleList);
 
         void updatePlayingStatus(bool b);
 
@@ -75,7 +74,13 @@ namespace Tray::Ui {
         /// @brief This function is connected with the signal that will be emitted when current playlist changed
         /// this function calls the viewWidget's function to update the current playlist key
         /// @param key playlist key
-        void updateCurrentPlaylist(const QString &key);
+        void updateCurrentPlaylistKey(const QString &key);
+
+        void updateSettingsLocalPaths(const QStringList &paths);
+
+        void removeUserPlaylistButton(const QString &key);
+
+        void addUserPlaylistButton(const QString &key);
 
     private:
         std::unique_ptr<WindowManagerPrivate> d;

@@ -1,21 +1,38 @@
-## TrayMusicPlayer 重制版
-前后端分离，模块解耦，加入测试用例，目标是最终作为一个可用并且尽可能好用的音乐播放器
+<p align="center">
+  <img src="docs/img/icon.svg" alt="Tray Core Module Icon" width="150">
+  <h3 align="center">TrayMusicPlayer</h3>
+  <p align="center">
+    一个实现了播放列表管理并包含系统托盘的本地音乐播放器
+  </p>
+</p>
 
-## 项目UML结构
-- [主体框架](docs/UML/index.md)
-- [后端结构](docs/UML/Core/Core.md)
-- [主要功能流程](docs/UML/UI/WindowManager.md)
+---
 
-## Docs
-- [后端功能概述](docs/Core.md)
+<p align="center">
+  <img src="https://img.shields.io/badge/Qt-6.5-green?logo=qt&logoColor=white" alt="Qt 6.5"/>
+  <img src="https://img.shields.io/badge/C%2B%2B-17-blue?logo=c%2B%2B&logoColor=white" alt="C++ 17"/>
+  <img src="https://img.shields.io/badge/CMake-3.20%2B-orange?logo=cmake&logoColor=white" alt="CMake 3.0+"/>
+</p>
 
-## 运行截图（Windows11，Linux修bug中）开发中
-- 主页面
-![shot](docs/img/shot_v0.4.png)
-- 右击菜单
-![shot](docs/img/shot_menu_v0.4.png)
+
+## 运行截图（Windows11，Linux暂未测试）
+- 主页面  
+  ![shot](docs/img/shot_v0.4.png)
+- 部分功能演示  
+  ![show](docs/img/shot_show.gif)
+
+## 项目结构文档
+- [主体框架图](docs/UML/index.md)
+- [后端结构图](docs/UML/Core/Core.md)
+- [后端功能文档](docs/Core.md)
 
 ## 构建本项目
+
+### 环境需求
+- C++ 17
+- Qt6.5 以上
+- CMake(Ninja generator)
+- Git
 
 ### 1. 处理依赖
 #### 下载依赖的源码
@@ -54,11 +71,9 @@ cmake -B build --preset windows-mingw-debug -S .
 cmake --build build
 ```
 
-## Todo
-
-- [x] view列表仅渲染当前播放列表的current music动画
-- [ ] 创建Database和Settings的api
-- [ ] settingsWidget增加功能
-
 ## 资源文件
 本项目logo **`TrayMusic`** 除外，其他svg资源均来自网络，商用联系阿里巴巴矢量图标社区作者
+
+## ToDo
+- [ ] 可贴边的浮动歌词支持
+- [ ] 更用户友好的随机数生成算法

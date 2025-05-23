@@ -17,7 +17,6 @@ inline void Init_qrc() {
     Q_INIT_RESOURCE(qss);
 }
 
-
 namespace Tray {
     class TrayAppPrivate {
     public:
@@ -59,7 +58,6 @@ namespace Tray {
         m_windowManager = new Ui::WindowManager(q_ptr);
         m_core = new Core::Core(q_ptr);
         q_ptr->setCentralWidget(m_windowManager);
-        m_windowManager->initDefaultSettings(m_core->getLocalMusicPaths(), m_core->getKeysOfUserPlaylist());
         q_ptr->setMinimumWidth(MAIN_MINIMUM_WIDTH);
         q_ptr->setMinimumHeight(MAIN_MINIMUM_HEIGHT);
     }
@@ -69,6 +67,7 @@ namespace Tray {
         Init_qrc();
         d = std::make_unique<TrayAppPrivate>(this);
         createConnections();
+        d->m_core->initWork();
     }
 
     TrayApp::~TrayApp() = default;
@@ -87,8 +86,8 @@ namespace Tray {
         connect(d->m_windowManager, &Ui::WindowManager::signalPlayToggle,
                 d->m_core, &Core::Core::playToggle);
 
-        // check music
-        connect(d->m_core, &Core::Core::signalCurrentMusicChanged,
+        // core: playlist --> ui: (viewWidget, playerWidget)
+        connect(d->m_core, &Core::Core::signalNotifyUiCurrentMusicChanged,
                 d->m_windowManager, &Ui::WindowManager::updateCurrentMusic);
 
         // update progress bar pos
@@ -96,7 +95,7 @@ namespace Tray {
                 d->m_windowManager, &Ui::WindowManager::updateProgressBarPosition);
 
         // update playing status
-        connect(d->m_core, &Core::Core::signalPlayingStatusChanged,
+        connect(d->m_core, &Core::Core::signalNotifyUiPlayingStatusChanged,
                 d->m_windowManager, &Ui::WindowManager::updatePlayingStatus);
 
         // pre music
@@ -119,52 +118,72 @@ namespace Tray {
         connect(d->m_windowManager, &Ui::WindowManager::signalSetPlayerPosition,
                 d->m_core, &Core::Core::setPlayerPosition);
 
-        connect(d->m_core, &Core::Core::signalPlayModeChanged,
+        connect(d->m_core, &Core::Core::signalNotifyUiPlayModeChanged,
                 d->m_windowManager, &Ui::WindowManager::updatePlayModeIcon);
 
         connect(d->m_windowManager, &Ui::WindowManager::signalPlayModeChanged,
                 d->m_core, &Core::Core::changePlayMode);
 
-        // change playlist
-        connect(d->m_windowManager, &Ui::WindowManager::signalPlaylistButtonClicked,
-                d->m_core, &Core::Core::requestPlaylist);
+        connect(d->m_core, &Core::Core::signalInitUiDefaultSettings,
+                d->m_windowManager, &Ui::WindowManager::initDefaultSettings);
 
-        // switch the current showing list
-        connect(d->m_core, &Core::Core::signalPlaylistSwitched,
-                d->m_windowManager, &Ui::WindowManager::showPlaylistOnView
-        );
-
+        /// ViewWidget section
         connect(d->m_windowManager, &Ui::WindowManager::signalViewPlayButtonClicked,
                 d->m_core, &Core::Core::playToggleWithListAndIndex);
 
-        connect(d->m_windowManager, &Ui::WindowManager::signalPlaylistAdded,
-                d->m_core, &Core::Core::newUserPlaylist);
-
-        // append local music path
-        connect(d->m_windowManager, &Ui::WindowManager::signalLocalMusicDirectoryAdded,
-                d->m_core, &Core::Core::appendLocalMusicPath);
-
-        // remove local music path
-        connect(d->m_windowManager, &Ui::WindowManager::signalLocalMusicDirectoryRemoved,
-                d->m_core, &Core::Core::removeLocalMusicPath);
-
-        connect(d->m_windowManager, &Ui::WindowManager::signalAddSongToList,
-                d->m_core, &Core::Core::addMusicToList);
-
-        connect(d->m_windowManager, &Ui::WindowManager::signalDelSongFromList,
+        connect(d->m_windowManager, &Ui::WindowManager::signalMusicRemovedFromList,
                 d->m_core, &Core::Core::removeMusicFromList);
 
-        connect(d->m_core, &Core::Core::signalUserPlaylistSetsChanged,
+        connect(d->m_windowManager, &Ui::WindowManager::signalMusicAddedToList,
+                d->m_core, &Core::Core::addMusicToList);
+        /// ViewWidget section
+
+        /// User playlist add/remove section
+        // ui: musicListWidget --> core: listCache -> db -> settings
+        connect(d->m_windowManager, &Ui::WindowManager::signalUserPlaylistButtonAdded,
+                d->m_core, &Core::Core::addUserPlaylist);
+        connect(d->m_windowManager, &Ui::WindowManager::signalUserPlaylistButtonRemoved,
+                d->m_core, &Core::Core::removeUserPlaylist);
+        // core: listCache --> ui: musicListWidget
+        connect(d->m_core, &Core::Core::signalNotifyUiToRemoveUserPlaylist,
+                d->m_windowManager, &Ui::WindowManager::removeUserPlaylistButton);
+        connect(d->m_core, &Core::Core::signalNotifyUiToAddUserPlaylist,
+                d->m_windowManager, &Ui::WindowManager::addUserPlaylistButton);
+        /// User playlist add/remove section
+
+
+        /// Switch playlist to view section
+        // ui: musicListWidget --> core: listCache
+        connect(d->m_windowManager, &Ui::WindowManager::signalPlaylistButtonClicked,
+                d->m_core, &Core::Core::requestPlaylist);
+        // core: listCache --> ui: viewWidget
+        connect(d->m_core, &Core::Core::signalSendUiCurrentTitleList,
+                d->m_windowManager, &Ui::WindowManager::showCurrentTitleListToView);
+        /// Switch playlist to view section
+
+        /// Notify view the change of Cache
+        // core: listCache --> ui: viewWidget
+        connect(d->m_core, &Core::Core::signalNotifyUiCacheModified
+                , d->m_windowManager, &Ui::WindowManager::updateCurrentViewList);
+        /// Notify view the change of Cache
+
+        /// Local music paths section
+        // ui: settingsWidget --> core：settings --> listCache
+        connect(d->m_windowManager, &Ui::WindowManager::signalLocalMusicDirectoryAdded,
+                d->m_core, &Core::Core::appendLocalMusicPath);
+        connect(d->m_windowManager, &Ui::WindowManager::signalLocalMusicDirectoryRemoved,
+                d->m_core, &Core::Core::removeLocalMusicPath);
+        // core: settings --> ui: settingsWidget
+        connect(d->m_core, &Core::Core::signalNotifyUiToUpdateLocalPaths,
+                d->m_windowManager, &Ui::WindowManager::updateSettingsLocalPaths);
+        /// Local music paths section
+
+        connect(d->m_core, &Core::Core::signalNotifyUiUserKeySetsChanged,
                 d->m_windowManager, &Ui::WindowManager::updateUserPlaylistKeys);
 
-        connect(d->m_core, &Core::Core::signalPlaylistModified
-                , d->m_windowManager, &Ui::WindowManager::updateCurrentViewList);
 
-        connect(d->m_windowManager, &Ui::WindowManager::signalPlaylistDeleted,
-                d->m_core, &Core::Core::deleteUserPlaylist);
-
-        connect(d->m_core, &Core::Core::signalCurrentPlaylistKeyChanged, d->m_windowManager,
-                &Ui::WindowManager::updateCurrentPlaylist);
+        connect(d->m_core, &Core::Core::signalNotifyUiCurrentListKeyChanged,
+                d->m_windowManager, &Ui::WindowManager::updateCurrentPlaylistKey);
     }
 
     void TrayApp::closeEvent(QCloseEvent *event) {
@@ -187,6 +206,5 @@ namespace Tray {
         d->m_maximizeAction->setEnabled(!isMaximized());
         QMainWindow::setVisible(visible);
     }
-
 
 }

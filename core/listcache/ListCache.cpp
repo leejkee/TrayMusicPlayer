@@ -13,20 +13,26 @@ namespace Tray::Core {
     ListCache::ListCache(QObject *parent): QObject(parent) {
         setObjectName(QStringLiteral("ListCache"));
         Log = Log::QLogger(this->objectName());
-        Log.log(Log::QLogger::LogLevel::Info, "ListCache: no list has been initialized.");
+        Log.log(Log::QLogger::LogLevel::Info, "Constructor: no list has been initialized.");
     }
 
     ListCache::ListCache(const QStringList &localDir, const QStringList &userListKeys, QObject *parent) : QObject
         (parent) {
         setObjectName(QStringLiteral("ListCache"));
         Log = Log::QLogger(this->objectName());
+        init(localDir, userListKeys);
+        Log.log(Log::QLogger::LogLevel::Info, "Constructor: local list and user lists have been initialized.");
+    }
+
+
+    void ListCache::init(const QStringList &localDir, const QStringList &userListKeys) {
         initLocalPlaylist(localDir);
         initUserPlaylists(userListKeys);
-        Log.log(Log::QLogger::LogLevel::Info, "ListCache: local list and user lists have been initialized.");
+        Q_EMIT signalInitCompleted();
     }
 
     void ListCache::initLocalPlaylist(const QStringList &localDir) {
-        QVector<Song> localList;
+        QList<Song> localList;
         for (const auto &filePath: localDir) {
             QDirIterator it(filePath, MUSIC_FILTERS, QDir::Files, QDirIterator::Subdirectories);
             while (it.hasNext()) {
@@ -40,7 +46,7 @@ namespace Tray::Core {
 
 
     void ListCache::initUserPlaylists(const QStringList &userListKeys) {
-        const auto connectName = QStringLiteral("listCache_readList");
+        const auto connectName = QStringLiteral("listCache_initUserLists");
         auto dbConnection = DatabaseManager(connectName);
         for (const auto &key: userListKeys) {
             if (key == LOCAL_LIST_KEY) {
@@ -50,10 +56,11 @@ namespace Tray::Core {
                 continue;
             }
             setList(key, dbConnection.readAllSongsFromTable(key));
+            Log.log(Log::QLogger::LogLevel::Info,"Init user playlist: " + key + ", completed");
         }
     }
 
-    QVector<Song> ListCache::findList(const QString &listName) const {
+    QList<Song> ListCache::findList(const QString &listName) const {
         if (m_listCache.contains(listName)) {
             return m_listCache.value(listName);
         }
@@ -98,11 +105,11 @@ namespace Tray::Core {
     void ListCache::deleteUserPlaylist(const QString &key) {
         if (key == LOCAL_LIST_KEY) {
             Log.log(Log::QLogger::LogLevel::Error, "Delete user playlist error, invalid list key: " + key);
+            return;
         }
         if (!m_listCache.contains(key)) {
             Log.log(Log::QLogger::LogLevel::Error, "No such user playlist called : " + key + ", delete failed");
-        }
-        else {
+        } else {
             if (m_listCache.remove(key)) {
                 const auto dbConnectionName = "delete_list_" + key;
                 if (auto dbConnection = DatabaseManager(dbConnectionName); dbConnection.deleteTable(key)) {
@@ -113,18 +120,31 @@ namespace Tray::Core {
         }
     }
 
-    void ListCache::insertMusicToList(const QString &key, const Song &song) {
-        if (m_listCache.contains(key)) {
-            m_listCache[key].append(song);
-            Q_EMIT signalPlaylistModified(key);
-            const auto dbconnectionName = "insert_to_" + key;
-            if (auto dbconnection = DatabaseManager(dbconnectionName); dbconnection.insertSong(key, song)) {
-                Log.log(Log::QLogger::LogLevel::Info,
-                        QString("'%1' has been added to table '%2'.").arg(song.m_title, key));
-            }
-        } else {
-            Log.log(Log::QLogger::LogLevel::Error, "Insert error, no such playlist [" + key + "]");
+    bool ListCache::copyMusicFromListToList(const QString &sourceKey, const QString &destinationKey, const int index) {
+        if (!m_listCache.contains(sourceKey)) {
+            Log.log(Log::QLogger::LogLevel::Error, "No such source list: " + sourceKey);
+            return false;
         }
+        if (!m_listCache.contains(destinationKey)) {
+            Log.log(Log::QLogger::LogLevel::Error, "No such destination list: " + destinationKey);
+            return false;
+        }
+        const Song song = m_listCache.value(sourceKey).at(index);
+        m_listCache[destinationKey].append(song);
+
+        Q_EMIT signalNotifyPlayListCacheModified(destinationKey, m_listCache[destinationKey]);
+        Q_EMIT signalNotifyUiCacheModified(destinationKey, getMusicTitleList(destinationKey));
+
+        if (auto dbconnection = DatabaseManager("insert_to_" + destinationKey);
+            dbconnection.insertSong(destinationKey, song)) {
+            Log.log(Log::QLogger::LogLevel::Info,
+                    QString("'%1' has been added to table '%2'.").arg(song.m_title, destinationKey));
+        } else {
+            Log.log(Log::QLogger::LogLevel::Error,
+                    QString("Cannot add '%1' to table '%2'.").arg(song.m_title, destinationKey));
+            return false;
+        }
+        return true;
     }
 
     void ListCache::deleteSong(const QString &key, const QString &songTitle) {
@@ -141,7 +161,8 @@ namespace Tray::Core {
         });
         if (iterator != keyList.end()) {
             keyList.erase(iterator);
-            Q_EMIT signalPlaylistModified(key);
+            Q_EMIT signalNotifyPlayListCacheModified(key, findList(key));
+            Q_EMIT signalNotifyUiCacheModified(key, getMusicTitleList(key));
             const auto dbConnectionName = "delete_" + key;
             if (auto dbConnection = DatabaseManager(dbConnectionName); dbConnection.deleteSongWithTitle(
                 key, songTitle)) {
@@ -151,8 +172,17 @@ namespace Tray::Core {
         }
     }
 
-    void ListCache::setList(const QString &key, const QVector<Song> &list) {
+    void ListCache::setList(const QString &key, const QList<Song> &list) {
         m_listCache[key] = list;
-        Q_EMIT signalPlaylistModified(key);
+        Q_EMIT signalNotifyPlayListCacheModified(key, findList(key));
+        Q_EMIT signalNotifyUiCacheModified(key, getMusicTitleList(key));
+    }
+
+    void ListCache::respondMusicTitleList(const QString &key) {
+        Q_EMIT signalSendUiCurrentTitleList(key, getMusicTitleList(key));
+    }
+
+    void ListCache::handleSwitchPlaylistAndPlayIndex(const QString &key, const int index) {
+        Q_EMIT signalRespondPlayListSwitchAndPlayIndex(key, findList(key), index);
     }
 }

@@ -36,6 +36,8 @@ namespace Tray::Ui {
 
         explicit PlayerWidget(QWidget *parent = nullptr);
 
+        void setSliderVolumeValue(unsigned v);
+
     public Q_SLOTS:
         void setPlayButtonIcon(bool playStatus);
 
@@ -50,6 +52,7 @@ namespace Tray::Ui {
         void updatePlayModeIcon(int mode);
 
         void updateProgressBarPosition(qint64);
+
 
     Q_SIGNALS:
         void signalNextMusic();

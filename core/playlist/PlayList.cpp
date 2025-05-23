@@ -18,14 +18,14 @@ namespace Tray::Core {
         Log.log(Log::QLogger::LogLevel::Info, "PlayList initialized with empty list, Sequential mode in constructor");
     }
 
-    void PlayList::loadMusicList(const QString &listKey, const QVector<Song> &musicList) {
+    void PlayList::loadMusicList(const QString &listKey, const QList<Song> &musicList) {
         if (musicList.isEmpty()) {
             Log.log(Log::QLogger::LogLevel::Warning, "load empty musicList");
         }
         m_currentListKey = listKey;
         m_musicList = musicList;
         m_index = 0;
-        Q_EMIT signalCurrentPlaylistKeyChanged(listKey);
+        Q_EMIT signalNotifyUiCurrentPlaylistKeyChanged(listKey);
         Log.log(Log::QLogger::LogLevel::Info, "load musicList successfully");
     }
 
@@ -79,7 +79,7 @@ namespace Tray::Core {
         }
         m_index = index;
         Log.log(Log::QLogger::LogLevel::Info, "index changed: " + QString::number(m_index));
-        Q_EMIT signalMusicChanged(m_index, m_musicList.at(m_index).m_title, m_musicList.at(m_index).m_duration);
+        Q_EMIT signalCurrentMusicChanged(m_index, m_musicList.at(m_index).m_title, m_musicList.at(m_index).m_duration);
     }
 
     void PlayList::setPlayMode(const PlayMode playMode) {
