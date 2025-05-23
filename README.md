@@ -15,9 +15,7 @@
 </p>
 
 
-## 运行截图（Windows11，Linux暂未测试）
-- 主页面  
-  ![shot](docs/img/shot_v0.4.png)
+## 运行（Windows11，Linux暂未测试）
 - 部分功能演示  
   ![show](docs/img/shot_show.gif)
 
