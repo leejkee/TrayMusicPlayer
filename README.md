@@ -24,7 +24,6 @@
 
 ## 项目结构文档
 - [主体框架图](docs/UML/index.md)
-- [后端结构图](docs/UML/Core/Core.md)
 - [后端功能文档](docs/Core.md)
 
 ## 构建本项目
