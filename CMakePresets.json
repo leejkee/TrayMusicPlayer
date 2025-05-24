@@ -33,10 +33,12 @@
       "generator": "Ninja",
       "cacheVariables": {
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "CMAKE_PREFIX_PATH": "${sourceDir}/dependencies/taglib_lib",
         "CMAKE_CXX_COMPILER": "/usr/bin/g++",
-        "CMAKE_C_COMPILER": "/usr/bin/gcc"
+        "CMAKE_MAKE_PROGRAM": "/usr/bin/ninja"
       },
       "environment": {
+        "PATH": "${sourceDir}/dependencies/taglib_lib/bin"
       },
       "condition": {
         "type": "equals",
@@ -44,7 +46,8 @@
         "rhs": "Linux"
       }
     },
-    
+
+
     {
       "name": "windows-mingw-debug",
       "inherits": "windows-base",
@@ -68,6 +71,8 @@
       "inherits": "linux-base",
       "binaryDir": "${sourceDir}/build/linux-debug",
       "cacheVariables": {
+        "CMAKE_CXX_COMPILER": "/usr/bin/g++",
+        "CMAKE_C_COMPILER": "/usr/bin/gcc",
         "CMAKE_BUILD_TYPE": "Debug"
       }
     },
@@ -78,29 +83,10 @@
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/linux-release",
       "cacheVariables": {
+        "CMAKE_CXX_COMPILER": "/usr/bin/g++",
+        "CMAKE_C_COMPILER": "/usr/bin/gcc",
         "CMAKE_BUILD_TYPE": "Release"
       }
-    }
-
-
-  ],
-  "buildPresets": [
-    {
-      "name": "win-debug",
-      "configurePreset": "windows-mingw-debug",
-      "configuration": "Debug"
-    },
-
-    {
-      "name": "win-release",
-      "configurePreset": "windows-mingw-release",
-      "configuration": "Release"
-    },
-
-    {
-      "name": "linux-gcc",
-      "configurePreset": "linux-gcc-debug",
-      "configuration": "Debug"
     }
 
   ]

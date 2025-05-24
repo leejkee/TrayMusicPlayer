@@ -24,9 +24,12 @@
     },
 
     {
-      "name": "windows-no-args",
-      "generator": "Ninja",
+      "name": "windows-template",
+      "generator": "",
       "cacheVariables": {
+        "CMAKE_CXX_COMPILER": "",
+        "CMAKE_C_COMPILER": "",
+        "CMAKE_MAKE_PROGRAM": ""
       },
       "condition": {
         "type": "equals",

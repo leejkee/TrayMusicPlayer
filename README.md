@@ -19,6 +19,9 @@
 - 部分功能演示  
   ![show](docs/img/shot_show.gif)
 
+## 快速使用
+点击右上角`设置`图标，添加本地音乐路径，点击`Local`按钮加载Local歌单
+
 ## 项目结构文档
 - [主体框架图](docs/UML/index.md)
 - [后端结构图](docs/UML/Core/Core.md)
@@ -27,45 +30,77 @@
 ## 构建本项目
 
 ### 环境需求
-- C++ 17
-- Qt6.5 以上
-- CMake(Ninja generator)
-- Git
+- `C++ 17`
+- `Qt6.5` 以上
+- `CMake`
+- `Git`
 
-### 1. 处理依赖
-#### 下载依赖的源码
+### Windows
+Windows 推荐使用本项目提供的taglib依赖处理方案，将taglib作为`git submodule`加入工程，在`dependencies`目录中将其作为一个CMake工程进行处理。  
+因为taglib官方仅提供CMake install之后将其作为CMake子模块加入项目
+- tips: [taglib官方编译教程](https://github.com/taglib/taglib/blob/master/INSTALL.md)
+
+#### 1. 使用Qt6官方提供的`MinGW-w64的g++工具链、CMake、 Ninja生成器`
+
+- 编译`taglib`库
+
 ```shell
 git submodule update --init --recursive
 ```
 
-#### 构建
-
-- 需要指定编译器和生成器自行修改`dependencies/CMakePresets.json`中的配置  
-- tips: [taglib官方编译教程](https://github.com/taglib/taglib/blob/master/INSTALL.md)
-  
-- 示例：在windows上使用 `Mingw + Ninja` 编译
 ```shell
 cd dependencies
-# Windows
-cmake -B build --preset window-base -S .
+```
+
+```shell
+cmake -B build --preset windows-base -S .
+```
+
+```shell
 cmake --build build
 ```
-如果不使用`--preset`选项指定`CMakePresets.json`则会使用`PATH`中的默认配置
 
-- 示例：linux(linux-base未指定编译器，需要手动指定，否则则会在系统PATH中寻找)
+- 构建本项目, 进入项目根目录
+
+Debug
+```shell
+cmake -B build --preset windows-mingw-debug -S .
+```
+or 
+
+Release
+```shell
+cmake -B build --preset windows-mingw-release -S .
+```
+
+build
+```shell
+cmake --build build
+```
+
+#### 2. 使用`MSVC`编译，链接Qt官方提供的基于MSVC2022构建的Qt6库
+
+待支持
+
+
+### Linux
+linux可以选择使用已经安装的taglib库，也可以选择使用本项目提供的从源码编译的方式
+
+#### 使用g++编译
+- 编译taglib
 ```shell
 cd dependencies
-# Windows
 cmake -B build --preset linux-base -S .
 cmake --build build
 ```
 
-### 2. 构建本项目
-
-- 项目根目录的`CMakePresets.json`配置了编译器，生成器以及Qt6的位置
-- 构建
+- 构建本项目，进入项目根目录  
+release
 ```shell
-cmake -B build --preset windows-mingw-debug -S .
+cmake -B build --preset linux-gcc-release -S .
+```
+build
+```
 cmake --build build
 ```
 
@@ -75,3 +110,4 @@ cmake --build build
 ## ToDo
 - [ ] 可贴边的浮动歌词支持
 - [ ] 更用户友好的随机数生成算法
+
