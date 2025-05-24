@@ -39,6 +39,8 @@
       "name": "linux-base",
       "generator": "Ninja",
       "cacheVariables": {
+        "CMAKE_CXX_COMPILER": "/usr/bin/g++",
+        "CMAKE_C_COMPILER": "/usr/bin/gcc"
       },
       "environment": {
       },
