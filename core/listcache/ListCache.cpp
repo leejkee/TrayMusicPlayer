@@ -56,7 +56,7 @@ namespace Tray::Core {
                 continue;
             }
             setList(key, dbConnection.readAllSongsFromTable(key));
-            Log.log(Log::QLogger::LogLevel::Info,"Init user playlist: " + key + ", completed");
+            Log.log(Log::QLogger::LogLevel::Info, "Init user playlist: " + key + ", completed");
         }
     }
 
@@ -147,7 +147,29 @@ namespace Tray::Core {
         return true;
     }
 
-    void ListCache::deleteSong(const QString &key, const QString &songTitle) {
+    void ListCache::removeSongFromListByIndex(const QString &key, const int index) {
+        if (!m_listCache.contains(key)) {
+            Log.log(Log::QLogger::LogLevel::Error, "Delete failed, no such user playlist called : " + key);
+            return;
+        }
+        auto &list = m_listCache[key];
+        const auto removedMusicTitle = list.at(index).m_title;
+        list.removeAt(index);
+        Q_EMIT signalNotifyPlayListCacheModified(key, findList(key));
+        Q_EMIT signalNotifyUiCacheModified(key, getMusicTitleList(key));
+        const auto dbConnectionName = "delete_" + key;
+        if (auto dbConnection = DatabaseManager(dbConnectionName); dbConnection.deleteSongWithTitle(
+            key, removedMusicTitle)) {
+            Log.log(Log::QLogger::LogLevel::Info,
+                    QString("'%1' has been removed from table '%2'.").arg(removedMusicTitle, key));
+        }
+    }
+
+    void ListCache::removeSongFromListByTitle(const QString &key, const QString &songTitle) {
+        if (!m_listCache.contains(key)) {
+            Log.log(Log::QLogger::LogLevel::Error, "Delete failed, no such user playlist called : " + key);
+            return;
+        }
         const auto it = m_listCache.find(key);
         if (it == m_listCache.end()) {
             Log.log(Log::QLogger::LogLevel::Error, "Delete error, no such playlist [" + key + "]");

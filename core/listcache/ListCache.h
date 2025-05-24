@@ -55,7 +55,9 @@ namespace Tray::Core {
         /// @param index
         bool copyMusicFromListToList(const QString &sourceKey, const QString &destinationKey, int index);
 
-        void deleteSong(const QString &key, const QString &songTitle);
+        void removeSongFromListByIndex(const QString &key, int index);
+
+        void removeSongFromListByTitle(const QString &key, const QString &songTitle);
 
         void respondMusicTitleList(const QString &key);
 

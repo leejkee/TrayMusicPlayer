@@ -157,7 +157,7 @@ namespace Tray::Core {
 
         connect(this, &Core::signalCopyMusicFromListToList, d->m_listCache, &ListCache::copyMusicFromListToList);
 
-        connect(this, &Core::signalRemoveMusicFromList, d->m_listCache, &ListCache::deleteSong);
+        connect(this, &Core::signalRemoveMusicFromList, d->m_listCache, &ListCache::removeSongFromListByTitle);
 
         connect(this, &Core::signalRequestSwitchPlaylistAndPlayIndex,
                 d->m_listCache, &ListCache::handleSwitchPlaylistAndPlayIndex);
