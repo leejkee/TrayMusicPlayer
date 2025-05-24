@@ -8,6 +8,7 @@
 #include <QSqlRecord>
 #include <QRegularExpression>
 #include <QUuid>
+#include <QDir>
 
 
 namespace Tray::Core {
@@ -15,10 +16,16 @@ namespace Tray::Core {
         : QObject(parent) {
         setObjectName("DatabaseManager");
         Log = Log::QLogger(this->objectName());
-
         m_connectionName = connectionName.isEmpty()
                                ? ("TrayDB_" + QUuid::createUuid().toString(QUuid::WithoutBraces))
                                : connectionName;
+        const QFileInfo dbFileInfo(PROJECT_PATH + DB_PATH);
+        if (const QDir dbDir = dbFileInfo.absoluteDir(); !dbDir.exists()) {
+            Log.log(Log::QLogger::LogLevel::Info, "Database directory does not exist, creating:" +  dbDir.absolutePath());
+            if (!dbDir.mkpath(".")) {
+                Log.log(Log::QLogger::LogLevel::Warning, "Could not create database directory!");
+            }
+        }
 
         if (QSqlDatabase::contains(m_connectionName)) {
             m_databaseConnection = QSqlDatabase::database(m_connectionName);
