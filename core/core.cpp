@@ -1,13 +1,13 @@
 //
 // Created by cww on 25-4-4.
 //
-#include "TrayConfig.h"
-#include <Core.h>
-#include <Player.h>
-#include <PlayList.h>
-#include <ListCache.h>
-#include <Settings.h>
-#include <DatabaseManager.h>
+#include "trayconfig.h"
+#include "core.h"
+#include <player.h>
+#include <playlist.h>
+#include <listcache.h>
+#include <settings.h>
+#include <databasemanager.h>
 #include <QThread>
 
 
@@ -61,7 +61,7 @@ namespace Tray::Core {
         m_player->playTg();
     }
 
-    Core::Core(QObject *parent) : QObject(parent) {
+    Core::Core(QObject *parent) : CoreInterface(parent) {
         this->setObjectName(QStringLiteral("Core"));
         d = std::make_unique<CorePrivate>(this);
         createConnections();
@@ -294,4 +294,8 @@ namespace Tray::Core {
     }
 
     /* Interface End */
+
+    CoreInterface *CoreInterface::newCoreInstance(QObject *parent) {
+        return new Core(parent);
+    }
 }

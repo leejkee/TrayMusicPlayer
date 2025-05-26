@@ -23,6 +23,8 @@ namespace Tray {
 
         void setVisible(bool visible) override;
 
+        void paintEvent(QPaintEvent *event) override;
+        
     private:
         std::unique_ptr<TrayAppPrivate> d;
 

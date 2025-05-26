@@ -1,8 +1,8 @@
 //
 // Created by cww on 25-4-16.
 //
-#include "DatabaseManager.h"
-#include <TrayConfig.h>
+#include "databasemanager.h"
+#include <trayconfig.h>
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QSqlRecord>
@@ -165,8 +165,8 @@ namespace Tray::Core {
         return true;
     }
 
-    QVector<Song> DatabaseManager::readAllSongsFromTable(const QString &tableName) {
-        QVector<Song> result;
+    QList<Song> DatabaseManager::readAllSongsFromTable(const QString &tableName) {
+        QList<Song> result;
         if (!isValidTableName(tableName)) {
             Log.log(Log::QLogger::LogLevel::Error, "Invalid table name: " + tableName);
             return result;

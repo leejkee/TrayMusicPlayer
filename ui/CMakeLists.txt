@@ -16,8 +16,6 @@ file(GLOB_RECURSE UI_SOURCES CONFIGURE_DEPENDS
         ${CMAKE_CURRENT_SOURCE_DIR}/view_widget/*.h
         ${CMAKE_CURRENT_SOURCE_DIR}/view_widget/*.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/common/UiConfig.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/qss.qrc
-        ${CMAKE_CURRENT_SOURCE_DIR}/svg.qrc
 )
 
 add_library(tray_music_ui STATIC ${UI_SOURCES})

@@ -5,7 +5,7 @@
 #include "TrayApp.h"
 #include <TraySVG.h>
 #include <WindowManager.h>
-#include <Core.h>
+#include <coreinterface.h>
 #include <QApplication>
 #include <QCloseEvent>
 #include <QMenu>
@@ -32,7 +32,7 @@ namespace Tray {
         QMenu *m_trayIconMenu;
         Ui::WindowManager *m_windowManager;
         Core::Core *m_core;
-
+        QPixmap *m_pixmapBackGround;
         TrayApp *q_ptr;
     };
 
@@ -60,6 +60,8 @@ namespace Tray {
         q_ptr->setCentralWidget(m_windowManager);
         q_ptr->setMinimumWidth(MAIN_MINIMUM_WIDTH);
         q_ptr->setMinimumHeight(MAIN_MINIMUM_HEIGHT);
+
+        m_pixmapBackGround = new QPixmap();
     }
 
     TrayApp::TrayApp(QWidget *parent)
@@ -180,7 +182,6 @@ namespace Tray {
 
         connect(d->m_core, &Core::Core::signalNotifyUiUserKeySetsChanged,
                 d->m_windowManager, &Ui::WindowManager::updateUserPlaylistKeys);
-
 
         connect(d->m_core, &Core::Core::signalNotifyUiCurrentListKeyChanged,
                 d->m_windowManager, &Ui::WindowManager::updateCurrentPlaylistKey);

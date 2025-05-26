@@ -3,8 +3,9 @@ cmake_minimum_required(VERSION 3.20)
 find_package(TagLib REQUIRED)
 
 set(CORE_SOURCES
-        include/Core.h
-        Core.cpp
+        include/coreinterface.h
+        core.cpp
+        Core.h
         databasemanager/DatabaseManager.h
         databasemanager/DatabaseManager.cpp
         listcache/ListCache.h

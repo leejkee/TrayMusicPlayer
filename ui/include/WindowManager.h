@@ -7,6 +7,10 @@
 
 class QStackedWidget;
 
+namespace Tray::Core {
+    class Core;
+}
+
 namespace Tray::Ui {
     class SettingsWidget;
     class TopBarWidget;
@@ -19,7 +23,7 @@ namespace Tray::Ui {
         Q_OBJECT
 
     public:
-        explicit WindowManager(QWidget *parent = nullptr);
+        explicit WindowManager(Core::Core *core, QWidget *parent = nullptr);
 
         ~WindowManager() override;
 

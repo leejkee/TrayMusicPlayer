@@ -33,10 +33,15 @@ namespace Tray::Ui {
         QStackedWidget *m_stackedMainWidget;
         QStackedWidget *m_stackedViewWidget;
         QWidget *m_frontWidget;
+
+        Core::Core *q_core;
     };
 
-    WindowManager::WindowManager(QWidget *parent) : QWidget(parent), d(std::make_unique<WindowManagerPrivate>()) {
+    WindowManager::WindowManager(Core::Core *core, QWidget *parent)
+        : QWidget(parent) ,d(std::make_unique<WindowManagerPrivate>())
+    {
         InitMyQRC();
+        d->q_core = core;
         d->m_stackedMainWidget = new QStackedWidget(this);
         d->m_stackedViewWidget = new QStackedWidget(this);
         d->m_frontWidget = new QWidget(this);

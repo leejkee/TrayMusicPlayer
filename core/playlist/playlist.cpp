@@ -1,8 +1,8 @@
 //
 // Created by cww on 25-4-6.
 //
-#include "PlayList.h"
-#include <TrayConfig.h>
+#include "playlist.h"
+#include <trayconfig.h>
 #include <QRandomGenerator>
 
 
