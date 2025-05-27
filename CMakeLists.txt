@@ -14,15 +14,15 @@ project(TrayMusicPlayer
 
 option(TRAY_TEST "Build the Test module" OFF)
 
-if(WIN32)
-    if(MSVC)
-        set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
-    endif()
-elseif(UNIX AND NOT APPLE)
-    if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic")
-    endif()
-endif()
+# if(WIN32)
+#     if(MSVC)
+#         set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+#     endif()
+# elseif(UNIX AND NOT APPLE)
+#     if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+#         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic")
+#     endif()
+# endif()
 
 find_package(Qt6 REQUIRED COMPONENTS
     Multimedia
