@@ -39,7 +39,7 @@
         "CMAKE_MAKE_PROGRAM": "/usr/bin/ninja"
       },
       "environment": {
-        "PATH": "${sourceDir}/dependencies/taglib_lib/bin"
+        "PATH": "$penv{PATH};${sourceDir}/dependencies/taglib_lib/bin"
       },
       "condition": {
         "type": "equals",
@@ -82,8 +82,6 @@
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/linux-release",
       "cacheVariables": {
-        "CMAKE_CXX_COMPILER": "/usr/bin/g++",
-        "CMAKE_C_COMPILER": "/usr/bin/gcc",
         "CMAKE_BUILD_TYPE": "Release"
       }
     }

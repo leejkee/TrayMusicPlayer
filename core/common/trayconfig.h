@@ -15,7 +15,7 @@ inline const auto PROJECT_PATH =
     QStringLiteral("C:/Users/cww/Documents/Workspace/TrayMusicPlayer/");
 #elif defined(Q_OS_LINUX)
 inline const auto PROJECT_PATH =
-    QStringLiteral("~/workspace/qt/TrayMusicPlayer/");
+    QStringLiteral("/home/aude/workspace/qt/TrayMusicPlayer/");
 #endif
 
 inline const auto LOCAL_LIST_KEY = QStringLiteral("Local");
