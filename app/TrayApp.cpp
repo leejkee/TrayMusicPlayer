@@ -3,9 +3,9 @@
 //
 
 #include "TrayApp.h"
+#include "WindowManager.h"
+#include <core.h>
 #include <TraySVG.h>
-#include <WindowManager.h>
-#include <coreinterface.h>
 #include <QApplication>
 #include <QCloseEvent>
 #include <QMenu>
@@ -55,8 +55,8 @@ namespace Tray {
         m_systemTrayIcon->setToolTip("Tray Music");
         m_systemTrayIcon->show();
 
-        m_windowManager = new Ui::WindowManager(q_ptr);
         m_core = new Core::Core(q_ptr);
+        m_windowManager = new Ui::WindowManager(m_core, q_ptr);
         q_ptr->setCentralWidget(m_windowManager);
         q_ptr->setMinimumWidth(MAIN_MINIMUM_WIDTH);
         q_ptr->setMinimumHeight(MAIN_MINIMUM_HEIGHT);

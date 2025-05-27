@@ -35,6 +35,7 @@
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
         "CMAKE_PREFIX_PATH": "${sourceDir}/dependencies/taglib_lib",
         "CMAKE_CXX_COMPILER": "/usr/bin/g++",
+        "CMAKE_C_COMPILER": "/usr/bin/gcc",
         "CMAKE_MAKE_PROGRAM": "/usr/bin/ninja"
       },
       "environment": {
@@ -71,8 +72,6 @@
       "inherits": "linux-base",
       "binaryDir": "${sourceDir}/build/linux-debug",
       "cacheVariables": {
-        "CMAKE_CXX_COMPILER": "/usr/bin/g++",
-        "CMAKE_C_COMPILER": "/usr/bin/gcc",
         "CMAKE_BUILD_TYPE": "Debug"
       }
     },

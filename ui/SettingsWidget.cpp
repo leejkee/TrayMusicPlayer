@@ -1,8 +1,7 @@
 //
 // Created by cww on 25-4-10.
 //
-
-#include "SettingsWidget.h"
+#include <SettingsWidget.h>
 #include <UiConfig.h>
 #include <TraySVG.h>
 #include <TrayQSS.h>
@@ -14,7 +13,6 @@
 #include <QPushButton>
 #include <QListWidget>
 #include <QSpacerItem>
-
 
 namespace Tray::Ui {
     SettingsWidget::SettingsWidget(QWidget *parent) : QWidget(parent) {
@@ -48,7 +46,6 @@ namespace Tray::Ui {
                                                                        | QFileDialog::DontResolveSymlinks);
         Q_EMIT signalLocalDirAdded(newMusicPath);
     }
-
 
     void SettingsWidget::removeMusicPath() {
         Q_EMIT signalLocalDirRemoved(m_listWidget->currentItem()->text());
