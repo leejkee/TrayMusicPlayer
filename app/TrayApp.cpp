@@ -57,6 +57,7 @@ namespace Tray {
 
         m_core = new Core::Core(q_ptr);
         m_windowManager = new Ui::WindowManager(m_core, q_ptr);
+        m_core->initWork();
         q_ptr->setCentralWidget(m_windowManager);
         q_ptr->setMinimumWidth(MAIN_MINIMUM_WIDTH);
         q_ptr->setMinimumHeight(MAIN_MINIMUM_HEIGHT);
@@ -69,7 +70,6 @@ namespace Tray {
         Init_qrc();
         d = std::make_unique<TrayAppPrivate>(this);
         createConnections();
-        d->m_core->initWork();
     }
 
     TrayApp::~TrayApp() = default;
@@ -82,109 +82,6 @@ namespace Tray {
         connect(d->m_maximizeAction, &QAction::triggered, this, &TrayApp::showMaximized);
         connect(d->m_minimizeAction, &QAction::triggered, this, &TrayApp::hide);
         connect(d->m_restoreAction, &QAction::triggered, this, &TrayApp::showNormal);
-
-        // core and ui
-        // playToggle
-        connect(d->m_windowManager, &Ui::WindowManager::signalPlayToggle,
-                d->m_core, &Core::Core::playToggle);
-
-        // core: playlist --> ui: (viewWidget, playerWidget)
-        connect(d->m_core, &Core::Core::signalNotifyUiCurrentMusicChanged,
-                d->m_windowManager, &Ui::WindowManager::updateCurrentMusic);
-
-        // update progress bar pos
-        connect(d->m_core, &Core::Core::signalPositionChanged,
-                d->m_windowManager, &Ui::WindowManager::updateProgressBarPosition);
-
-        // update playing status
-        connect(d->m_core, &Core::Core::signalNotifyUiPlayingStatusChanged,
-                d->m_windowManager, &Ui::WindowManager::updatePlayingStatus);
-
-        // pre music
-        connect(d->m_windowManager, &Ui::WindowManager::signalPreMusic,
-                d->m_core, &Core::Core::preMusic);
-
-        // next music
-        connect(d->m_windowManager, &Ui::WindowManager::signalNextMusic,
-                d->m_core, &Core::Core::nextMusic);
-
-        // update the icon of volume ctrl button
-        connect(d->m_core, &Core::Core::signalIsMuted,
-                d->m_windowManager, &Ui::WindowManager::updateVolumeCtrlButtonIcon);
-
-        // change volume
-        connect(d->m_windowManager, &Ui::WindowManager::signalSetVolume,
-                d->m_core, &Core::Core::setVolume);
-
-        // progressbar
-        connect(d->m_windowManager, &Ui::WindowManager::signalSetPlayerPosition,
-                d->m_core, &Core::Core::setPlayerPosition);
-
-        connect(d->m_core, &Core::Core::signalNotifyUiPlayModeChanged,
-                d->m_windowManager, &Ui::WindowManager::updatePlayModeIcon);
-
-        connect(d->m_windowManager, &Ui::WindowManager::signalPlayModeChanged,
-                d->m_core, &Core::Core::changePlayMode);
-
-        connect(d->m_core, &Core::Core::signalInitUiDefaultSettings,
-                d->m_windowManager, &Ui::WindowManager::initDefaultSettings);
-
-        /// ViewWidget section
-        connect(d->m_windowManager, &Ui::WindowManager::signalViewPlayButtonClicked,
-                d->m_core, &Core::Core::playToggleWithListAndIndex);
-
-        connect(d->m_windowManager, &Ui::WindowManager::signalMusicRemovedFromList,
-                d->m_core, &Core::Core::removeMusicFromList);
-
-        connect(d->m_windowManager, &Ui::WindowManager::signalMusicAddedToList,
-                d->m_core, &Core::Core::addMusicToList);
-        /// ViewWidget section
-
-        /// User playlist add/remove section
-        // ui: musicListWidget --> core: listCache -> db -> settings
-        connect(d->m_windowManager, &Ui::WindowManager::signalUserPlaylistButtonAdded,
-                d->m_core, &Core::Core::addUserPlaylist);
-        connect(d->m_windowManager, &Ui::WindowManager::signalUserPlaylistButtonRemoved,
-                d->m_core, &Core::Core::removeUserPlaylist);
-        // core: listCache --> ui: musicListWidget
-        connect(d->m_core, &Core::Core::signalNotifyUiToRemoveUserPlaylist,
-                d->m_windowManager, &Ui::WindowManager::removeUserPlaylistButton);
-        connect(d->m_core, &Core::Core::signalNotifyUiToAddUserPlaylist,
-                d->m_windowManager, &Ui::WindowManager::addUserPlaylistButton);
-        /// User playlist add/remove section
-
-
-        /// Switch playlist to view section
-        // ui: musicListWidget --> core: listCache
-        connect(d->m_windowManager, &Ui::WindowManager::signalPlaylistButtonClicked,
-                d->m_core, &Core::Core::requestPlaylist);
-        // core: listCache --> ui: viewWidget
-        connect(d->m_core, &Core::Core::signalSendUiCurrentTitleList,
-                d->m_windowManager, &Ui::WindowManager::showCurrentTitleListToView);
-        /// Switch playlist to view section
-
-        /// Notify view the change of Cache
-        // core: listCache --> ui: viewWidget
-        connect(d->m_core, &Core::Core::signalNotifyUiCacheModified
-                , d->m_windowManager, &Ui::WindowManager::updateCurrentViewList);
-        /// Notify view the change of Cache
-
-        /// Local music paths section
-        // ui: settingsWidget --> core：settings --> listCache
-        connect(d->m_windowManager, &Ui::WindowManager::signalLocalMusicDirectoryAdded,
-                d->m_core, &Core::Core::appendLocalMusicPath);
-        connect(d->m_windowManager, &Ui::WindowManager::signalLocalMusicDirectoryRemoved,
-                d->m_core, &Core::Core::removeLocalMusicPath);
-        // core: settings --> ui: settingsWidget
-        connect(d->m_core, &Core::Core::signalNotifyUiToUpdateLocalPaths,
-                d->m_windowManager, &Ui::WindowManager::updateSettingsLocalPaths);
-        /// Local music paths section
-
-        connect(d->m_core, &Core::Core::signalNotifyUiUserKeySetsChanged,
-                d->m_windowManager, &Ui::WindowManager::updateUserPlaylistKeys);
-
-        connect(d->m_core, &Core::Core::signalNotifyUiCurrentListKeyChanged,
-                d->m_windowManager, &Ui::WindowManager::updateCurrentPlaylistKey);
     }
 
     void TrayApp::closeEvent(QCloseEvent *event) {
