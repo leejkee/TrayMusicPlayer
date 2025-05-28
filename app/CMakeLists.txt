@@ -3,6 +3,8 @@ qt_add_executable(TrayMusicPlayer
         main.cpp
         TrayApp.h
         TrayApp.cpp
+        WindowManager.cpp
+        WindowManager.h
 )
 
 target_link_libraries(TrayMusicPlayer PRIVATE

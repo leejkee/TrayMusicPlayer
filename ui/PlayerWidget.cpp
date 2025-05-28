@@ -1,7 +1,7 @@
 //
 // Created by cww on 25-4-1.
 //
-#include "PlayerWidget.h"
+#include <PlayerWidget.h>
 #include <TraySVG.h>
 #include <TrayQSS.h>
 #include <UiConfig.h>

@@ -1,4 +1,4 @@
-#include "Song.h"
+#include "song.h"
 #include <taglib/fileref.h>
 
 namespace Tray::Core {

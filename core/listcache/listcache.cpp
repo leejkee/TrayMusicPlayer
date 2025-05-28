@@ -1,9 +1,9 @@
 //
 // Created by cww on 25-4-7.
 //
-#include "ListCache.h"
-#include <TrayConfig.h>
-#include <DatabaseManager.h>
+#include "listcache.h"
+#include <trayconfig.h>
+#include <databasemanager.h>
 #include <QLogger.h>
 #include <QDirIterator>
 #include <algorithm>

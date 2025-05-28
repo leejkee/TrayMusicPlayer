@@ -3,20 +3,20 @@ cmake_minimum_required(VERSION 3.20)
 find_package(TagLib REQUIRED)
 
 set(CORE_SOURCES
-        include/Core.h
-        Core.cpp
-        databasemanager/DatabaseManager.h
-        databasemanager/DatabaseManager.cpp
-        listcache/ListCache.h
-        listcache/ListCache.cpp
-        player/Player.h
-        player/Player.cpp
-        playlist/PlayList.h
-        playlist/PlayList.cpp
-        settings/Settings.h
-        settings/Settings.cpp
-        common/Song.h
-        common/Song.cpp
+        include/core.h
+        core.cpp
+        databasemanager/databasemanager.h
+        databasemanager/databasemanager.cpp
+        listcache/listcache.h
+        listcache/listcache.cpp
+        player/player.h
+        player/player.cpp
+        playlist/playlist.h
+        playlist/playlist.cpp
+        settings/settings.h
+        settings/settings.cpp
+        common/song.h
+        common/song.cpp
 )
 
 add_library(tray_music_core STATIC ${CORE_SOURCES})

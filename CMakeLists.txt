@@ -32,7 +32,6 @@ find_package(Qt6 REQUIRED COMPONENTS
     SvgWidgets
     Test
 )
-
 add_subdirectory(tools)
 add_subdirectory(core)
 add_subdirectory(ui)

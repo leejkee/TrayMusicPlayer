@@ -1,5 +1,5 @@
-#include "Settings.h"
-#include <TrayConfig.h>
+#include "settings.h"
+#include <trayconfig.h>
 #include <QLogger.h>
 #include <QFile>
 #include <QJsonArray>

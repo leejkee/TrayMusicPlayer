@@ -3,6 +3,7 @@
 //
 
 #include "WindowManager.h"
+#include <core.h>
 #include <PlayerWidget.h>
 #include <ViewWidget.h>
 #include <MusicListWidget.h>
@@ -33,10 +34,15 @@ namespace Tray::Ui {
         QStackedWidget *m_stackedMainWidget;
         QStackedWidget *m_stackedViewWidget;
         QWidget *m_frontWidget;
+
+        Core::Core *q_core;
     };
 
-    WindowManager::WindowManager(QWidget *parent) : QWidget(parent), d(std::make_unique<WindowManagerPrivate>()) {
+    WindowManager::WindowManager(Core::Core *core, QWidget *parent)
+        : QWidget(parent) ,d(std::make_unique<WindowManagerPrivate>())
+    {
         InitMyQRC();
+        d->q_core = core;
         d->m_stackedMainWidget = new QStackedWidget(this);
         d->m_stackedViewWidget = new QStackedWidget(this);
         d->m_frontWidget = new QWidget(this);
@@ -125,14 +131,10 @@ namespace Tray::Ui {
         d->m_viewWidget->syncRenderWithCurrentPlaylist(key);
     }
 
-    // settings section begin
     void WindowManager::updateSettingsLocalPaths(const QStringList &paths) {
         d->m_settingsWidget->updateLocalPaths(paths);
     }
 
-    // settings section end
-
-    // MusicListWidget section begin
     void WindowManager::removeUserPlaylistButton(const QString &key) {
         d->m_musicListWidget->removeUserButton(key);
     }
@@ -140,70 +142,121 @@ namespace Tray::Ui {
     void WindowManager::addUserPlaylistButton(const QString &key) {
         d->m_musicListWidget->appendUserButton(key);
     }
-    // MusicListWidget section begin
 
     void WindowManager::createConnections() {
+
+        // 1
         connect(d->m_playerWidget, &PlayerWidget::signalPlayToggle,
-                this, [this] {
-                    Q_EMIT signalPlayToggle();
-                });
+                d->q_core, &Core::Core::playToggle);
 
-        connect(d->m_playerWidget, &PlayerWidget::signalNextMusic,
-                this, [this]() { Q_EMIT signalNextMusic(); });
+        // 2
+        connect(d->q_core, &Core::Core::signalNotifyUiCurrentMusicChanged,
+                this, &WindowManager::updateCurrentMusic);
 
+        // 3
+        connect(d->q_core, &Core::Core::signalPositionChanged,
+                d->m_playerWidget, &PlayerWidget::updateProgressBarPosition);
+
+        // 4
+        connect(d->q_core, &Core::Core::signalNotifyUiPlayingStatusChanged,
+                this, &WindowManager::updatePlayingStatus);
+
+        // 5
         connect(d->m_playerWidget, &PlayerWidget::signalPreviousMusic,
-                this, [this]() { Q_EMIT signalPreMusic(); });
+                d->q_core, &Core::Core::preMusic);
 
+        // 6
+        connect(d->m_playerWidget, &PlayerWidget::signalNextMusic,
+                d->q_core, &Core::Core::nextMusic);
+
+        // 7
+        connect(d->q_core, &Core::Core::signalIsMuted,
+                d->m_playerWidget, &PlayerWidget::setPlayButtonIcon);
+
+        // 8
         connect(d->m_playerWidget, &PlayerWidget::signalSetVolume,
-                this, [this](const int v) {
-                    Q_EMIT signalSetVolume(v);
-                });
+                d->q_core, &Core::Core::setVolume);
 
+        // 9
         connect(d->m_playerWidget, &PlayerWidget::signalSetMusicPosition,
-                this, [this](const qint64 pos) { Q_EMIT signalSetPlayerPosition(pos); });
+                d->q_core, &Core::Core::setPlayerPosition);
 
+        // 10
+        connect(d->q_core, &Core::Core::signalNotifyUiPlayModeChanged,
+                d->m_playerWidget, &PlayerWidget::updatePlayModeIcon);
+
+        // 11
         connect(d->m_playerWidget, &PlayerWidget::signalPlayModeChanged,
-                this, [this]() { Q_EMIT signalPlayModeChanged(); });
+                d->q_core, &Core::Core::changePlayMode);
 
-        connect(d->m_musicListWidget, &MusicListWidget::signalMusicListButtonClicked,
-                this, [this](const QString &list) { Q_EMIT signalPlaylistButtonClicked(list); });
+        // 12
+        connect(d->q_core, &Core::Core::signalInitUiDefaultSettings,
+                this, &WindowManager::initDefaultSettings);
 
-        connect(d->m_musicListWidget, &MusicListWidget::signalUserPlaylistButtonRemoved,
-                this, [this](const QString &key) { Q_EMIT signalUserPlaylistButtonRemoved(key); });
-        // add button
+        // 13
+        connect(d->m_viewWidget, &ViewWidget::signalViewItemPlayButtonClicked,
+                d->q_core, &Core::Core::playToggleWithListAndIndex);
+
+        // 14
+        connect(d->m_viewWidget, &ViewWidget::signalMusicRemovedFromList,
+                d->q_core, &Core::Core::removeMusicFromList);
+
+        //15
+        connect(d->m_viewWidget, &ViewWidget::signalMusicAddedToList,
+                d->q_core, &Core::Core::addMusicToList);
+
+        // 16
         connect(d->m_musicListWidget, &MusicListWidget::signalUserPlaylistButtonAdded,
-                this, [this](const QString &key) { Q_EMIT signalUserPlaylistButtonAdded(key); });
+                d->q_core, &Core::Core::addUserPlaylist);
+
+        // 17
+        connect(d->m_musicListWidget, &MusicListWidget::signalUserPlaylistButtonRemoved,
+                d->q_core, &Core::Core::removeUserPlaylist);
+
+        // 18
+        connect(d->q_core, &Core::Core::signalNotifyUiToRemoveUserPlaylist,
+                d->m_musicListWidget, &MusicListWidget::removeUserButton);
+
+        // 19
+        connect(d->q_core, &Core::Core::signalNotifyUiToAddUserPlaylist,
+                d->m_musicListWidget, &MusicListWidget::appendUserButton);
+
+        // 20
+        connect(d->m_musicListWidget, &MusicListWidget::signalMusicListButtonClicked,
+                d->q_core, &Core::Core::requestPlaylist);
+
+        // 21
+        connect(d->q_core, &Core::Core::signalSendUiCurrentTitleList,
+                d->m_viewWidget, &ViewWidget::showCurrentTitleListToView);
+
+        // 22
+        connect(d->q_core, &Core::Core::signalNotifyUiCacheModified
+                , d->m_viewWidget, &ViewWidget::refreshCurrentMusicList);
+
+        // 23
+        connect(d->m_settingsWidget, &SettingsWidget::signalLocalDirAdded,
+                d->q_core, &Core::Core::appendLocalMusicPath);
+
+        // 24
+        connect(d->m_settingsWidget, &SettingsWidget::signalLocalDirRemoved,
+                d->q_core, &Core::Core::removeLocalMusicPath);
+
+        // 25
+        connect(d->q_core, &Core::Core::signalNotifyUiToUpdateLocalPaths,
+                d->m_settingsWidget, &SettingsWidget::updateLocalPaths);
+
+        // 26
+        connect(d->q_core, &Core::Core::signalNotifyUiUserKeySetsChanged,
+                d->m_viewWidget, &ViewWidget::setUserPlaylistKeys);
+
+        // 27
+        connect(d->q_core, &Core::Core::signalNotifyUiCurrentListKeyChanged,
+                d->m_viewWidget, &ViewWidget::syncRenderWithCurrentPlaylist);
 
         connect(d->m_topBarWidget, &TopBarWidget::signalPreButtonClicked,
                 this, [this]() { d->m_stackedViewWidget->setCurrentIndex(0); });
 
         connect(d->m_topBarWidget, &TopBarWidget::signalSettingsButtonClicked,
                 this, [this]() { d->m_stackedViewWidget->setCurrentIndex(1); });
-
-
-        // 4 signal from settingsWidget
-        connect(d->m_settingsWidget, &SettingsWidget::signalLocalDirAdded,
-                this, [this](const QString &dir) { Q_EMIT signalLocalMusicDirectoryAdded(dir); });
-
-        connect(d->m_settingsWidget, &SettingsWidget::signalLocalDirRemoved,
-                this, [this](const QString &dir) { Q_EMIT signalLocalMusicDirectoryRemoved(dir); });
-        // 4 signal from settingsWidget
-
-
-        connect(d->m_viewWidget, &ViewWidget::signalMusicAddedToList,
-                this, [this](const QString &s, const QString &d, const int i) {
-                    Q_EMIT signalMusicAddedToList(s, d, i);
-                });
-
-        connect(d->m_viewWidget, &ViewWidget::signalMusicRemovedFromList,
-                this, [this](const QString &key, const QString &title) {
-                    Q_EMIT signalMusicRemovedFromList(key, title);
-                });
-
-        /// ViewWidget: ItemPlayButton -> Core: play music with index
-        connect(d->m_viewWidget, &ViewWidget::signalViewItemPlayButtonClicked,
-                this, [this](const QString &key, const int index) {
-                    Q_EMIT signalViewPlayButtonClicked(key, index);
-                });
     }
 }

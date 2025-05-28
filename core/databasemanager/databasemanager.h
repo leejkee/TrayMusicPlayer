@@ -2,7 +2,7 @@
 // Created by cww on 25-4-16.
 //
 #pragma once
-#include <Song.h>
+#include <song.h>
 #include <QLogger.h>
 #include <QSqlDatabase>
 #include <QObject>
@@ -28,7 +28,7 @@ namespace Tray::Core {
 
         bool deleteSongWithTitle(const QString &tableName, const QString &title);
 
-        QVector<Song> readAllSongsFromTable(const QString &tableName);
+        QList<Song> readAllSongsFromTable(const QString &tableName);
 
     private:
         static inline const auto FIELD_ID = QStringLiteral("id");

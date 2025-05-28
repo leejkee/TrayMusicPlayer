@@ -1,13 +1,14 @@
 //
 // Created by cww on 25-4-4.
 //
-#include "TrayConfig.h"
-#include <Core.h>
-#include <Player.h>
-#include <PlayList.h>
-#include <ListCache.h>
-#include <Settings.h>
-#include <DatabaseManager.h>
+#include <core.h>
+#include <qobject.h>
+#include <trayconfig.h>
+#include <player.h>
+#include <playlist.h>
+#include <listcache.h>
+#include <settings.h>
+#include <databasemanager.h>
 #include <QThread>
 
 

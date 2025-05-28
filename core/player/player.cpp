@@ -1,7 +1,7 @@
 //
 // Created by cww on 25-4-2.
 //
-#include "Player.h"
+#include "player.h"
 #include <QMediaPlayer>
 #include <QAudioOutput>
 

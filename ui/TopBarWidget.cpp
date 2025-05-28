@@ -1,12 +1,13 @@
 //
 // Created by cww on 25-4-10.
 //
-#include "TopBarWidget.h"
+#include <TopBarWidget.h>
 #include <BetterButton.h>
 #include <TraySVG.h>
 #include <TrayQSS.h>
 #include <QSvgWidget>
 #include <QHBoxLayout>
+
 namespace Tray::Ui {
 
 TopBarWidget::TopBarWidget(QWidget *parent) : QWidget(parent) {

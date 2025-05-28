@@ -3,7 +3,7 @@
 //
 #pragma once
 
-#include <Song.h>
+#include <song.h>
 #include <QLogger.h>
 #include <QObject>
 #include <QHash>

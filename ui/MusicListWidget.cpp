@@ -1,7 +1,7 @@
 //
 // Created by cww on 25-4-10.
 //
-#include "MusicListWidget.h"
+#include <MusicListWidget.h>
 #include <UiConfig.h>
 #include <BetterButton.h>
 #include <TraySVG.h>

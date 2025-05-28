@@ -1,9 +1,9 @@
 //
 // Created by cww on 25-4-10.
 //
-#include "ViewWidget.h"
 #include "DataModel.h"
 #include "ViewDelegate.h"
+#include <ViewWidget.h>
 #include <BetterButton.h>
 #include <UiConfig.h>
 #include <TraySVG.h>
