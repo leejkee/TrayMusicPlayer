@@ -1,7 +1,7 @@
 //
 // Created by cww on 25-4-26.
 //
-#include "ListSelectionDialog.h"
+#include "listselectiondialog.h"
 #include <QListWidget>
 #include <QVBoxLayout>
 #include <QLabel>

@@ -1,13 +1,13 @@
 //
 // Created by cww on 25-4-10.
 //
-#include "DataModel.h"
-#include "ViewDelegate.h"
-#include <ViewWidget.h>
-#include <BetterButton.h>
-#include <UiConfig.h>
-#include <TraySVG.h>
-#include <TrayQSS.h>
+#include "datamodel.h"
+#include "viewdelegate.h"
+#include <viewwidget.h>
+#include <betterbutton.h>
+#include <uiconfig.h>
+#include <traysvg.h>
+#include <trayqss.h>
 #include <QLabel>
 #include <QHBoxLayout>
 #include <QMenu>

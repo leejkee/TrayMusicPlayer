@@ -24,8 +24,6 @@ Q_SIGNALS:
 
     void signalNotifyUiCurrentMusicChanged(int, const QString&, int);
 
-    void signalIsMuted(bool);
-
     void signalPositionChanged(qint64);
 
     void signalNotifyUiPlayModeChanged(int mode);
@@ -72,8 +70,13 @@ Q_SIGNALS:
     void signalInitUiDefaultSettings(const QStringList& localList,
                                      const QStringList& userKeys,
                                      unsigned volume);
+
+    void signalNotifyUiUpdateMuteIcon(bool);
+
 public Q_SLOTS:
     void setVolume(unsigned int volume);
+
+    void setMute();
 
     void playToggle();
 

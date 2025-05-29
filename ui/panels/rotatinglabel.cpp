@@ -2,7 +2,7 @@
 // Created by cww on 25-4-9.
 //
 
-#include "RotatingLabel.h"
+#include "rotatinglabel.h"
 #include <QPainter>
 
 

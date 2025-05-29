@@ -1,10 +1,10 @@
 //
 // Created by cww on 25-4-10.
 //
-#include <TopBarWidget.h>
-#include <BetterButton.h>
-#include <TraySVG.h>
-#include <TrayQSS.h>
+#include <topbarwidget.h>
+#include <betterbutton.h>
+#include <traysvg.h>
+#include <trayqss.h>
 #include <QSvgWidget>
 #include <QHBoxLayout>
 

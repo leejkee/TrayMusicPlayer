@@ -2,7 +2,6 @@ QSlider::groove:horizontal {
     border: none;
     height: 4px;
     background: #ccc; /* 背景灰色 */
-    border-radius: 2px;
 }
 
 QSlider::sub-page:horizontal {
@@ -16,20 +15,13 @@ QSlider::add-page:horizontal {
 }
 
 QSlider::handle:horizontal {
-    background: transparent; /* 拖动圆点 */
-    border: none;
-    width: 0px;
-    height: 0px;
+    background: gray; /* 拖动圆点 */
+    border-radius: 5px;
+    width: 10px;
+    height: 10px;
+    margin: -3px 0;
 }
 
-/*QSlider::handle:horizontal:hover {*/
-/*    background: #333;*/
-/*    width: 10px;*/
-/*    height: 10px;*/
-/*    margin: -3px 0;*/
-/*    border-radius: 5px;*/
-/*}*/
-
-/*QSlider::handle:horizontal:pressed {*/
-/*    background: #222;*/
-/*}*/
+QSlider::handle:horizontal:pressed {
+    background: #222;
+}

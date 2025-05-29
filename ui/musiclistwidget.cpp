@@ -1,11 +1,11 @@
 //
 // Created by cww on 25-4-10.
 //
-#include <MusicListWidget.h>
-#include <UiConfig.h>
-#include <BetterButton.h>
-#include <TraySVG.h>
-#include <TrayQSS.h>
+#include <musiclistwidget.h>
+#include <uiconfig.h>
+#include <betterbutton.h>
+#include <traysvg.h>
+#include <trayqss.h>
 #include <QHBoxLayout>
 #include <QScrollArea>
 #include <QInputDialog>

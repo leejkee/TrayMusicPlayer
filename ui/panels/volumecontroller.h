@@ -29,6 +29,8 @@ namespace Tray::Ui::Panel {
     Q_SIGNALS:
         void signalSetValue(int);
 
+        void signalSetMute();
+
     public Q_SLOTS:
         void setVolumeButtonIcon(bool);
 
@@ -38,7 +40,7 @@ namespace Tray::Ui::Panel {
         QLabel *m_labelVolume;
         BetterButton *m_buttonMute;
 
-        void setLabelVolume(int v);
+        void setLabelVolume(unsigned v);
     };
 }
 

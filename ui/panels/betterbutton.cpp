@@ -1,10 +1,10 @@
 //
 // Created by cww on 25-4-1.
 //
-#include "BetterButton.h"
-#include <UiConfig.h>
-#include <TrayQSS.h>
-#include <TraySVG.h>
+#include "betterbutton.h"
+#include <uiconfig.h>
+#include <trayqss.h>
+#include <traysvg.h>
 #include <QEvent>
 
 

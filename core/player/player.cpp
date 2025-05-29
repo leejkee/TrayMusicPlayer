@@ -2,8 +2,10 @@
 // Created by cww on 25-4-2.
 //
 #include "player.h"
+#include "QLogger.h"
 #include <QMediaPlayer>
 #include <QAudioOutput>
+#include <qtmetamacros.h>
 
 
 namespace Tray::Core {
@@ -13,9 +15,7 @@ namespace Tray::Core {
         m_player = new QMediaPlayer(this);
         m_output = new QAudioOutput(this);
         m_player->setAudioOutput(m_output);
-        connect(m_output, &QAudioOutput::volumeChanged, this, [this](const float v) {
-            Q_EMIT signalIsMuted(v == 0);
-        });
+
         connect(m_player, &QMediaPlayer::positionChanged, this, [this](const qint64 pos) {
             Q_EMIT signalPositionChanged(pos);
         });
@@ -55,5 +55,12 @@ namespace Tray::Core {
 
     bool Player::isPlaying() const {
         return m_player->isPlaying();
+    }
+
+    void Player::setMute(){
+        bool b = m_output->isMuted();
+        m_output->setMuted(!b);
+        Log.log(Log::QLogger::LogLevel::Info, "set mute to " + Log::QLogger::boolToString(!b));
+        Q_EMIT signalMuteChanged(!b);
     }
 }

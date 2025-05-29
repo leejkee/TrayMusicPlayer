@@ -1,7 +1,7 @@
 //
 // Created by cww on 25-4-26.
 //
-#include "MarqueeLabel.h"
+#include "marqueelabel.h"
 #include <QPainter>
 #include <QTextDocument>
 

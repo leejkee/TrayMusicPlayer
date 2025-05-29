@@ -1,10 +1,10 @@
 //
 // Created by cww on 25-4-10.
 //
-#include <SettingsWidget.h>
-#include <UiConfig.h>
-#include <TraySVG.h>
-#include <TrayQSS.h>
+#include <settingswidget.h>
+#include <uiconfig.h>
+#include <traysvg.h>
+#include <trayqss.h>
 #include <QCoreApplication>
 #include <QFileDialog>
 #include <QHBoxLayout>

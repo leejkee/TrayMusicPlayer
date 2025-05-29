@@ -1,9 +1,9 @@
 //
 // Created by cww on 25-4-10.
 //
-#include "ViewDelegate.h"
-#include <UiConfig.h>
-#include <TraySVG.h>
+#include "viewdelegate.h"
+#include <uiconfig.h>
+#include <traysvg.h>
 #include <QListView>
 #include <QPainter>
 #include <QSvgRenderer>

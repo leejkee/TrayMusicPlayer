@@ -1,11 +1,12 @@
 //
 // Created by cww on 25-4-2.
 //
-#include "VolumeController.h"
-#include <BetterButton.h>
-#include <UiConfig.h>
-#include <TraySVG.h>
-#include <TrayQSS.h>
+#include "volumecontroller.h"
+#include <betterbutton.h>
+#include <qpushbutton.h>
+#include <uiconfig.h>
+#include <traysvg.h>
+#include <trayqss.h>
 #include <QSlider>
 #include <QVBoxLayout>
 #include <QLabel>
@@ -30,28 +31,27 @@ namespace Tray::Ui::Panel {
         m_buttonMute->setIconSize(QSize(10, 10));
 
         QVBoxLayout *layout = new QVBoxLayout;
-        // layout->addWidget(m_sliderV);
-        layout->addItem(hSliderLayout);
         layout->addWidget(m_labelVolume);
-
+        layout->addItem(hSliderLayout);
         layout->addWidget(m_buttonMute);
         layout->setContentsMargins(0, 0, 0, 0);
         layout->setSpacing(0);
         setLayout(layout);
-        // this->setFixedSize(30, 120);
         setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
-        connect(m_sliderV, &QSlider::valueChanged, this, &VolumeController::setLabelVolume);
-        connect(m_sliderV, &QSlider::valueChanged, this, [this](const int v) {
+        connect(m_sliderV, &QSlider::sliderMoved, this, &VolumeController::setLabelVolume);
+        connect(m_sliderV, &QSlider::sliderMoved, this, [this](const int v) {
             Q_EMIT signalSetValue(v);
         });
+        connect(m_buttonMute, &QPushButton::clicked, this, [this](){ Q_EMIT signalSetMute();});
     }
 
-    void VolumeController::setLabelVolume(const int v) {
+    void VolumeController::setLabelVolume(const unsigned v) {
         m_labelVolume->setText(QString("%1%").arg(v));
     }
 
     void VolumeController::setSliderVolumeValue(const unsigned v) {
         m_sliderV->setValue(v);
+        setLabelVolume(v);
     }
 
     void VolumeController::setVolumeButtonIcon(const bool isMuted)  {

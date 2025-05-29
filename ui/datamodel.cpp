@@ -1,7 +1,7 @@
 //
 // Created by cww on 25-4-10.
 //
-#include "DataModel.h"
+#include "datamodel.h"
 
 namespace Tray::Ui {
     DataModel::DataModel(const QStringList &list, QObject *parent): QAbstractListModel(parent), m_list(list) {

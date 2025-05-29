@@ -1,4 +1,4 @@
-#include "TrayApp.h"
+#include "trayapp.h"
 #include <QApplication>
 #include <QMessageBox>
 #include <QSystemTrayIcon>

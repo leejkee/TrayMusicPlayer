@@ -2,10 +2,10 @@
 // Created by cww on 25-2-13.
 //
 
-#include "TrayApp.h"
-#include "WindowManager.h"
+#include "trayapp.h"
+#include "windowmanager.h"
 #include <core.h>
-#include <TraySVG.h>
+#include <traysvg.h>
 #include <QApplication>
 #include <QCloseEvent>
 #include <QMenu>

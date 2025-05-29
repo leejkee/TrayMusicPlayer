@@ -91,7 +91,6 @@ graph LR
 
 * `void signalNotifyUiPlayingStatusChanged(bool b)`: 当播放状态（播放中/暂停）改变时发出。`b` 为 `true` 表示播放中，`false` 表示暂停，通知ui修改icon。
 * `void signalNotifyUiCurrentMusicChanged(int index, const QString &title, int duration)`: 当当前播放的音乐改变时发出。提供列表中的 `index`、歌曲 `title` 和其 `duration`。
-* `void signalIsMuted(bool)`: 音量变化时发出表示是否静音，通知ui修改icon。
 * `void signalPositionChanged(qint64 position)`: 更新音乐的当前播放位置，通知ui修改进度条位置。
 * `void signalNotifyUiPlayModeChanged(int mode)`: 当播放模式改变时发出，通知ui修改icon。
 * `void signalPlaylistSwitched(const QString &key, const QStringList &titleList)`: 当激活的播放列表切换时发出。提供新播放列表的 `key` 及其歌曲 `titleList` 的 `QStringList`。

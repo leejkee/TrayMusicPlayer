@@ -39,7 +39,6 @@ namespace Tray::Ui::Panel {
         QSlider *m_sliderP;
         QLabel *m_labelLeft;
         QLabel *m_labelRight;
-        bool m_isUpdatingSlider;
 
         static QString convertSecondsToTime(int seconds);
     };

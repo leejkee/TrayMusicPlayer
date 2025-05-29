@@ -26,14 +26,16 @@ namespace Tray::Core {
 
         [[nodiscard]] bool isPlaying() const;
 
+        void setMute();
+
     Q_SIGNALS:
         void signalPlayingChanged(bool b);
-
-        void signalIsMuted(bool);
 
         void signalPositionChanged(qint64 position);
 
         void signalMusicOver();
+
+        void signalMuteChanged(bool);
 
     private:
         QMediaPlayer *m_player;

@@ -1,15 +1,15 @@
 //
 // Created by cww on 25-4-1.
 //
-#include <PlayerWidget.h>
-#include <TraySVG.h>
-#include <TrayQSS.h>
-#include <UiConfig.h>
-#include <BetterButton.h>
-#include <ProgressBar.h>
-#include <VolumeController.h>
-#include <RotatingLabel.h>
-#include <MarqueeLabel.h>
+#include <playerwidget.h>
+#include <traysvg.h>
+#include <trayqss.h>
+#include <uiconfig.h>
+#include <betterbutton.h>
+#include <progressbar.h>
+#include <volumecontroller.h>
+#include <rotatinglabel.h>
+#include <marqueelabel.h>
 
 #include <QLabel>
 #include <QPushButton>
@@ -135,6 +135,8 @@ namespace Tray::Ui {
         connect(m_checkPlayMode, &QPushButton::clicked, this, [this]() {
             Q_EMIT signalPlayModeChanged();
         });
+
+        connect(m_volumeController, &Panel::VolumeController::signalSetMute, this, [this](){ Q_EMIT signalSetMute();});
     }
 
     void PlayerWidget::setPlayButtonIcon(const bool playStatus) {
@@ -197,5 +199,10 @@ namespace Tray::Ui {
 
     void PlayerWidget::setSliderVolumeValue(const unsigned v) {
         m_volumeController->setSliderVolumeValue(v);
+    }
+
+    void PlayerWidget::updateMuteIcon(const bool isMuted)
+    {
+        m_volumeController->setVolumeButtonIcon(isMuted);
     }
 }
