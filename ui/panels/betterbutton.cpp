@@ -3,23 +3,22 @@
 //
 #include "betterbutton.h"
 #include <uiconfig.h>
-#include <trayqss.h>
-#include <traysvg.h>
 #include <QEvent>
 
 
 namespace Tray::Ui::Panel {
 
     BetterButton::BetterButton(const BetterButtonMetaData &metaData, QWidget *parent) : QPushButton(parent){
-        init();
         setIcon(QIcon(metaData.iconPath));
         setText(metaData.name);
-        setFixedSize(metaData.width, metaData.height);
+        if (metaData.height > 0) {
+            setFixedHeight(metaData.height);
+        }
+        if (metaData.width > 0) {
+            setFixedWidth(metaData.width);
+        }
         loadStyleSheet(metaData.qssPath);
         connect(this, &QPushButton::clicked, this, &BetterButton::onButtonClicked);
-    }
-
-    void BetterButton::init() {
         installEventFilter(this);
     }
 
@@ -31,16 +30,8 @@ namespace Tray::Ui::Panel {
         init();
     }
 
-    BetterButton::BetterButton(QWidget *parent) : QPushButton(parent) {
-        init();
-    }
+    BetterButton::BetterButton(QWidget *parent) : BetterButton({}, parent) {}
 
-    BetterButton::BetterButton(const QString &name, const QIcon &icon, QWidget *parent) : QPushButton(parent) {
-        setIcon(icon);
-        setText(name);
-        loadStyleSheet(Res::BUTTON_LIST_QSS);
-        init();
-    }
     BetterButton::BetterButton(const QIcon &icon, QWidget *parent, const StyleMode style, const QString &name)
         : QPushButton(parent) {
         setIcon(icon);

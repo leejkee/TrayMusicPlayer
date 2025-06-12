@@ -4,6 +4,7 @@
 #pragma once
 
 #include <QWidget>
+#include <memory>
 
 class QLabel;
 class QListView;
@@ -15,6 +16,7 @@ namespace Tray::Ui::Panel {
 
 
 namespace Tray::Ui {
+    class ViewWidgetPrivate;
     class DataModel;
     class ViewDelegate;
 
@@ -60,18 +62,8 @@ namespace Tray::Ui {
         void syncRenderWithCurrentPlaylist(const QString &key);
 
     private:
-        QLabel *m_labelName;
-        QListView *m_playListView;
-        Panel::BetterButton *m_playAllButton;
-        DataModel *m_dataModel;
-        ViewDelegate *m_viewDelegate;
-        QStringList m_userPlaylistKeys;
-        QString m_currentPlaylistKey;
-
-        constexpr static int SIZE_TITLE_FONT = 14;
-
+        std::unique_ptr<ViewWidgetPrivate> d;
         void createConnections();
-
         void setListTitle(const QString &title);
     };
 }

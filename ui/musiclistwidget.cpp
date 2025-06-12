@@ -14,9 +14,8 @@
 namespace Tray::Ui {
     MusicListWidget::MusicListWidget(QWidget *parent)
         : QWidget(parent) {
-        m_localListButton = new Panel::BetterButton(LOCAL_LIST_KEY, this);
-        m_expandButton = new Panel::BetterButton(
-            QIcon(Res::UpSVG), this, Panel::BetterButton::NoQss,EXPAND_BTN_TEXT);
+        m_localListButton = new Panel::BetterButton({LOCAL_LIST_KEY, Res::MusicListSVG, Res::BUTTON_NORMAL_QSS, 30, 80 }, this);
+        m_expandButton = new Panel::BetterButton({EXPAND_BTN_TEXT, Res::UpSVG, {}, 30, 60}, this);
         m_expandButton->loadStyleSheet(Res::BUTTON_EXPAND_QSS);
         m_addButton = new Panel::BetterButton(QIcon(Res::AddSVG), this);
         m_addButton->loadStyleSheet(Res::BUTTON_ADD_QSS);

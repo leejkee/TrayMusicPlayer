@@ -19,15 +19,12 @@ namespace Tray::Ui::Panel {
         constexpr static int DefaultWidth = 30;
         constexpr static int DefaultHeight = 30;
 
-        BetterButton::BetterButton(const BetterButtonMetaData &metaData, QWidget *parent);
-        // others
         explicit BetterButton(QWidget *parent = nullptr);
 
-        BetterButton(const QString &name, const QIcon &icon, QWidget *parent = nullptr);
+        explicit BetterButton(const BetterButtonMetaData &metaData, QWidget *parent = nullptr);
 
         explicit BetterButton(const QIcon &icon, QWidget *parent = nullptr, StyleMode = WithQss, const QString &name = "");
 
-        // Music List buttons
         explicit BetterButton(const QString &name, QWidget *parent = nullptr);
 
         void loadStyleSheet(const QString &);

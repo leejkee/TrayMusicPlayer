@@ -7,7 +7,7 @@
 namespace Tray::Res{
     inline const auto BUTTON_ADD_QSS = QStringLiteral(":/qss/MusicListButton/ButtonAddList.qss");
     inline const auto BUTTON_EXPAND_QSS = QStringLiteral(":/qss/MusicListButton/ButtonExpand.qss");
-    inline const auto BUTTON_LIST_QSS = QStringLiteral(":/qss/MusicListButton/ButtonNormal.qss");
+    inline const auto BUTTON_NORMAL_QSS = QStringLiteral(":/qss/MusicListButton/ButtonNormal.qss");
     inline const auto BUTTON_VOLUME_QSS = QStringLiteral(":/qss/MusicListButton/ButtonVolume.qss");
     inline const auto BUTTON_SQUARE_QSS = QStringLiteral(":/qss/MusicListButton/ButtonSquare.qss");
     inline const auto LIST_VIEW_QSS = QStringLiteral(":/qss/ListView/PlayListView.qss");
