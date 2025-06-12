@@ -5,9 +5,11 @@
 namespace Tray::Ui {
 
 class ConfigWidgetPrivate;
-class ConfigWidget final : public QDialog {
+class ConfigWidget final : public QWidget {
 public:
     explicit ConfigWidget(QWidget* parent = nullptr);
+
+
 
 private:
     std::unique_ptr<ConfigWidgetPrivate> d;

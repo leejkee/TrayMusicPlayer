@@ -3,6 +3,7 @@
 //
 
 #pragma once
+#include <uimetadata.h>
 #include <QPushButton>
 
 
@@ -17,6 +18,8 @@ namespace Tray::Ui::Panel {
         };
         constexpr static int DefaultWidth = 30;
         constexpr static int DefaultHeight = 30;
+
+        BetterButton::BetterButton(const BetterButtonMetaData &metaData, QWidget *parent);
         // others
         explicit BetterButton(QWidget *parent = nullptr);
 

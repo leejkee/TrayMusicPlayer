@@ -9,6 +9,16 @@
 
 
 namespace Tray::Ui::Panel {
+
+    BetterButton::BetterButton(const BetterButtonMetaData &metaData, QWidget *parent) : QPushButton(parent){
+        init();
+        setIcon(QIcon(metaData.iconPath));
+        setText(metaData.name);
+        setFixedSize(metaData.width, metaData.height);
+        loadStyleSheet(metaData.qssPath);
+        connect(this, &QPushButton::clicked, this, &BetterButton::onButtonClicked);
+    }
+
     void BetterButton::init() {
         installEventFilter(this);
     }
@@ -43,6 +53,9 @@ namespace Tray::Ui::Panel {
     }
 
     void BetterButton::loadStyleSheet(const QString &qssPath) {
+        if (qssPath.isEmpty()) {
+            return;
+        }
         this->setStyleSheet(readQSS(qssPath));
     }
 
