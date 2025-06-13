@@ -22,26 +22,8 @@ namespace Tray::Ui::Panel {
         installEventFilter(this);
     }
 
-    BetterButton::BetterButton(const QString &name, QWidget *parent) : QPushButton(parent) {
-        setIcon(QIcon(Res::MusicListSVG));
-        setText(name);
-        loadStyleSheet(Res::BUTTON_LIST_QSS);
-        connect(this, &QPushButton::clicked, this, &BetterButton::onButtonClicked);
-        init();
-    }
-
     BetterButton::BetterButton(QWidget *parent) : BetterButton({}, parent) {}
 
-    BetterButton::BetterButton(const QIcon &icon, QWidget *parent, const StyleMode style, const QString &name)
-        : QPushButton(parent) {
-        setIcon(icon);
-        setText(name);
-        setFixedSize(DefaultWidth, DefaultHeight);
-        if (style == WithQss) {
-            loadStyleSheet(Res::BUTTON_LIST_QSS);
-        }
-        init();
-    }
 
     void BetterButton::loadStyleSheet(const QString &qssPath) {
         if (qssPath.isEmpty()) {

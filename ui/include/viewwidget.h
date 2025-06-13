@@ -6,25 +6,17 @@
 #include <QWidget>
 #include <memory>
 
-class QLabel;
-class QListView;
-
-
-namespace Tray::Ui::Panel {
-    class BetterButton;
-}
-
 
 namespace Tray::Ui {
     class ViewWidgetPrivate;
-    class DataModel;
-    class ViewDelegate;
 
     class ViewWidget final : public QWidget {
         Q_OBJECT
 
     public:
         explicit ViewWidget(QWidget *parent = nullptr);
+
+        ~ViewWidget() override;
 
         void setUserPlaylistKeys(const QStringList &keys);
 

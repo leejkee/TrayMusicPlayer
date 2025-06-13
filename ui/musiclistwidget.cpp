@@ -14,11 +14,9 @@
 namespace Tray::Ui {
     MusicListWidget::MusicListWidget(QWidget *parent)
         : QWidget(parent) {
-        m_localListButton = new Panel::BetterButton({LOCAL_LIST_KEY, Res::MusicListSVG, Res::BUTTON_NORMAL_QSS, 30, 80 }, this);
-        m_expandButton = new Panel::BetterButton({EXPAND_BTN_TEXT, Res::UpSVG, {}, 30, 60}, this);
-        m_expandButton->loadStyleSheet(Res::BUTTON_EXPAND_QSS);
-        m_addButton = new Panel::BetterButton(QIcon(Res::AddSVG), this);
-        m_addButton->loadStyleSheet(Res::BUTTON_ADD_QSS);
+        m_localListButton = new Panel::BetterButton({LOCAL_LIST_KEY, Res::MusicListSVG, Res::BUTTON_NORMAL_QSS, 30, 0 }, this);
+        m_expandButton = new Panel::BetterButton({EXPAND_BTN_TEXT, Res::UpSVG, Res::BUTTON_EXPAND_QSS, 30, 60}, this);
+        m_addButton = new Panel::BetterButton({{}, Res::AddSVG, Res::BUTTON_ADD_QSS, 0, 0}, this);
         const auto buttonLayout = new QHBoxLayout;
         const auto spaceH = new QSpacerItem(-1, 0, QSizePolicy::Expanding);
         buttonLayout->addWidget(m_expandButton);
@@ -90,7 +88,7 @@ namespace Tray::Ui {
     }
 
     void MusicListWidget::appendUserButton(const QString &playlistName) {
-        auto *button = new Panel::BetterButton(playlistName, this);
+        auto *button = new Panel::BetterButton({playlistName, Res::MusicListSVG, Res::BUTTON_NORMAL_QSS, 30, 0}, this);
         m_UserButtonHash[playlistName] = button;
         m_buttonLayout->addWidget(button);
         button->setContextMenuPolicy(Qt::CustomContextMenu);

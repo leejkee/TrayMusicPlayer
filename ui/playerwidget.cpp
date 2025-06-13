@@ -48,10 +48,10 @@ namespace Tray::Ui {
     }
 
     void PlayerWidget::initCenterLayout() {
-        m_pushButtonPlay = new Panel::BetterButton(QIcon(Res::PlayIconSVG), this);
-        m_pushButtonPre = new Panel::BetterButton(QIcon(Res::PreIconSVG), this);
-        m_pushButtonNext = new Panel::BetterButton(QIcon(Res::NextIconSVG), this);
-        m_checkPlayMode = new Panel::BetterButton(QIcon(Res::SequentialModeSVG), this);
+        m_pushButtonPlay = new Panel::BetterButton({{}, Res::PlayIconSVG, Res::BUTTON_NORMAL_QSS, 30, 30}, this);
+        m_pushButtonPre = new Panel::BetterButton({{}, Res::PreIconSVG, Res::BUTTON_NORMAL_QSS, 30, 30}, this);
+        m_pushButtonNext = new Panel::BetterButton({{}, Res::NextIconSVG, Res::BUTTON_NORMAL_QSS, 30, 30}, this);
+        m_checkPlayMode = new Panel::BetterButton({{}, Res::SequentialModeSVG, Res::BUTTON_NORMAL_QSS, 30, 30}, this);
         m_progressWidget = new Panel::ProgressBar(this);
 
         const auto buttonLayout = new QHBoxLayout;
@@ -68,8 +68,7 @@ namespace Tray::Ui {
 
     void PlayerWidget::initVolumeControl() {
         m_volumeController = new Panel::VolumeController(this);
-        m_pushButtonVolume = new Panel::BetterButton(QIcon(Res::VolumeBtnSVG), this);
-        m_pushButtonVolume->loadStyleSheet(Res::BUTTON_VOLUME_QSS);
+        m_pushButtonVolume = new Panel::BetterButton({{}, Res::VolumeBtnSVG, Res::BUTTON_VOLUME_QSS, 30, 30}, this);
 
         m_menuVolume = new QMenu(this);
         auto *action = new QWidgetAction(this);

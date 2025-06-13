@@ -9,7 +9,6 @@ namespace Tray::Ui::Panel {
 
 class VerticalButtonListWidgetPrivate;
 class VerticalButtonListWidget final : public QWidget {
-    Q_OBJECT
 
 public:
     explicit VerticalButtonListWidget(const QStringList &list, QWidget *parent = nullptr);

@@ -23,9 +23,6 @@ namespace Tray::Ui::Panel {
 
         explicit BetterButton(const BetterButtonMetaData &metaData, QWidget *parent = nullptr);
 
-        explicit BetterButton(const QIcon &icon, QWidget *parent = nullptr, StyleMode = WithQss, const QString &name = "");
-
-        explicit BetterButton(const QString &name, QWidget *parent = nullptr);
 
         void loadStyleSheet(const QString &);
 
@@ -38,7 +35,5 @@ namespace Tray::Ui::Panel {
     private Q_SLOTS:
         void onButtonClicked();
 
-    private:
-        void init();
     };
 }

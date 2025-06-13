@@ -15,8 +15,8 @@ public:
 VerticalButtonListWidget::VerticalButtonListWidget(const QStringList&list, QWidget *parent)
     : QWidget(parent),
       d(std::make_unique<VerticalButtonListWidgetPrivate>()) {
-    for (const auto& action: list) {
-        d->m_buttonMap[action] = new BetterButton(action, this);
-    }
+    // for (const auto& action: list) {
+    //     d->m_buttonMap[action] = new BetterButton(action, this);
+    // }
 }
 } // Tray

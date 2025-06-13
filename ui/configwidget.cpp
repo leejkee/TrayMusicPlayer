@@ -25,7 +25,6 @@ ConfigWidgetPrivate::ConfigWidgetPrivate(QWidget *w) : q_ptr(w)
     m_menuListWidget = new QListWidget(q_ptr);
     m_stackedWidget = new QStackedWidget(q_ptr);
     m_filePathConfigWidget = new FilePathConfigWidget(q_ptr);
-
     m_stackedWidget->addWidget(m_filePathConfigWidget);
 
     auto *configWidgetLayout = new QHBoxLayout;
@@ -36,7 +35,6 @@ ConfigWidgetPrivate::ConfigWidgetPrivate(QWidget *w) : q_ptr(w)
 ConfigWidget::ConfigWidget(QWidget* parent) : QWidget(parent) {
     d = std::make_unique<ConfigWidgetPrivate>(this);
     d->m_stackedWidget->addWidget(d->m_filePathConfigWidget);
-
 }
 
 void ConfigWidget::initConfigration()

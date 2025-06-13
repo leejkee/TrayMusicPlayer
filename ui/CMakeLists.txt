@@ -5,6 +5,7 @@ file(GLOB_RECURSE UI_SOURCES CONFIGURE_DEPENDS
         ${CMAKE_CURRENT_SOURCE_DIR}/panels/*.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/panels/*.h
         ${CMAKE_CURRENT_SOURCE_DIR}/common/uiconfig.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/common/uimetadata.h
         ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/*.h
 )
