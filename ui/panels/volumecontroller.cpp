@@ -27,7 +27,7 @@ namespace Tray::Ui::Panel {
         m_labelVolume = new QLabel(this);
         m_labelVolume->setStyleSheet("font-size: 7pt;");
         m_labelVolume->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
-        m_buttonMute = new BetterButton({{}, Res::VolumeBtnSVG, Res::BUTTON_NORMAL_QSS, 0, 0}, this);
+        m_buttonMute = new BetterButton({{}, Res::VolumeBtnSVG, Res::BUTTON_NORMAL_QSS, 30, 30}, this);
 
         QVBoxLayout *layout = new QVBoxLayout;
         layout->addWidget(m_labelVolume);

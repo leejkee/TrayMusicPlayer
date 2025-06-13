@@ -8,32 +8,32 @@
 
 
 namespace Tray::Ui::Panel {
-    class BetterButton final : public QPushButton {
-        Q_OBJECT
+class BetterButton final : public QPushButton {
+    Q_OBJECT
 
-    public:
-        enum StyleMode {
-            WithQss,
-            NoQss
-        };
-        constexpr static int DefaultWidth = 30;
-        constexpr static int DefaultHeight = 30;
-
-        explicit BetterButton(QWidget *parent = nullptr);
-
-        explicit BetterButton(const BetterButtonMetaData &metaData, QWidget *parent = nullptr);
-
-
-        void loadStyleSheet(const QString &);
-
-    protected:
-        bool eventFilter(QObject *watched, QEvent *event) override;
-
-    Q_SIGNALS:
-        void signalButtonClicked(const QString &listName);
-
-    private Q_SLOTS:
-        void onButtonClicked();
-
+public:
+    enum StyleMode {
+        WithQss,
+        NoQss
     };
+
+    constexpr static int DefaultWidth = 30;
+    constexpr static int DefaultHeight = 30;
+
+    explicit BetterButton(QWidget *parent = nullptr);
+
+    explicit BetterButton(const BetterButtonMetaData &metaData, QWidget *parent = nullptr);
+
+
+    void loadStyleSheet(const QString &);
+
+protected:
+    bool eventFilter(QObject *watched, QEvent *event) override;
+
+Q_SIGNALS:
+    void signalButtonClicked(const QString &listName);
+
+private Q_SLOTS:
+    void onButtonClicked();
+};
 }

@@ -20,7 +20,7 @@ public:
     explicit ViewWidgetPrivate(ViewWidget *w);
 
     constexpr static int PLAYALL_BTN_HEIGHT = 30;
-    constexpr static int PLAYALL_BTN_WIDTH = 60;
+    constexpr static int PLAYALL_BTN_WIDTH = 0;
     constexpr static int SIZE_TITLE_FONT = 14;
 
     QLabel *m_labelName;
