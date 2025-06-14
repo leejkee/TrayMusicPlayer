@@ -1,6 +1,6 @@
 <!DOCTYPE RCC><RCC version="1.0">
     <qresource prefix="/">
-        <file>images/icon.svg</file>
+        <file>images/tray-logo.svg</file>
         <file>images/logo.svg</file>
         <file>images/play.svg</file>
         <file>images/pause.svg</file>

@@ -5,7 +5,7 @@
 #include <QString>
 
 namespace Tray::Res {
-    inline const auto TrayIconSVG = QStringLiteral(":/images/icon.svg");
+    inline const auto TrayIconSVG = QStringLiteral(":/images/tray-logo.svg");
     inline const auto LogoSVG = QStringLiteral(":/images/logo.svg");
     inline const auto PlayIconSVG = QStringLiteral(":/images/play.svg");
     inline const auto PauseIconSVG = QStringLiteral(":/images/pause.svg");
