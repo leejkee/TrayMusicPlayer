@@ -1,44 +1,73 @@
 #include <configwidget.h>
+#include "betterbutton.h"
 #include <filepathconfigwidget.h>
-
-#include <QListWidget>
-#include <QStackedWidget>
+#include <QLogger.h>
 #include <memory>
+#include <QStackedWidget>
 #include <QHBoxLayout>
+#include <QLabel>
 
 
 namespace Tray::Ui {
 class ConfigWidgetPrivate {
 public:
-    explicit ConfigWidgetPrivate(QWidget* w);
-    enum ConfigType { FilePage, AppearancePage, LyricPage, InvalidPage = -1 };
-
-    QListWidget* m_menuListWidget;
     QStackedWidget* m_stackedWidget;
-    FilePathConfigWidget* m_filePathConfigWidget;
-
-    QWidget *q_ptr;
+    QLabel *m_titleLabel;
+    std::unique_ptr<QHash<QString, QWidget*>> m_actionMap;
+    QHBoxLayout* m_mainLayout;
+    QVBoxLayout* m_buttonLayout;
+    QVBoxLayout* m_areaLayout;
+    Log::QLogger Log;
 };
 
-ConfigWidgetPrivate::ConfigWidgetPrivate(QWidget *w) : q_ptr(w)
-{
-    m_menuListWidget = new QListWidget(q_ptr);
-    m_stackedWidget = new QStackedWidget(q_ptr);
-    m_filePathConfigWidget = new FilePathConfigWidget(q_ptr);
-    m_stackedWidget->addWidget(m_filePathConfigWidget);
 
-    auto *configWidgetLayout = new QHBoxLayout;
-    configWidgetLayout->addWidget(m_menuListWidget);
-    configWidgetLayout->addWidget(m_stackedWidget);
+ConfigWidget::ConfigWidget(QWidget* parent) : QWidget(parent), d(std::make_unique<ConfigWidgetPrivate>()){
+    setObjectName("ConfigWidget");
+    d->Log = Log::QLogger(this->objectName());
+    d->m_actionMap = std::make_unique<QHash<QString, QWidget*>>();
+    d->m_stackedWidget = new QStackedWidget(this);
+    d->m_titleLabel = new QLabel(this);
+    d->m_buttonLayout = new QVBoxLayout;
+    d->m_areaLayout = new QVBoxLayout;
+    d->m_mainLayout = new QHBoxLayout;
+
+    d->m_areaLayout->addWidget(d->m_titleLabel);
+    d->m_areaLayout->addWidget(d->m_stackedWidget);
+
+    d->m_mainLayout->addLayout(d->m_buttonLayout);
+    d->m_mainLayout->addLayout(d->m_areaLayout);
+    setLayout(d->m_mainLayout);
 }
 
-ConfigWidget::ConfigWidget(QWidget* parent) : QWidget(parent) {
-    d = std::make_unique<ConfigWidgetPrivate>(this);
-    d->m_stackedWidget->addWidget(d->m_filePathConfigWidget);
+ConfigWidget::~ConfigWidget() = default;
+
+
+void ConfigWidget::addConfigWidget(const QString &actionName, QWidget *w) {
+    addConfigWidget({actionName, {}, {}, 0, 0}, w);
 }
 
-void ConfigWidget::initConfigration()
-{
+
+void ConfigWidget::addConfigWidget(const BetterButtonMetaData &actionInfo, QWidget *w) {
+    if (w == nullptr) {
+        d->Log.log(Log::QLogger::LogLevel::Warning, "Null widget, add nothing to ConfigWidget");
+        return;
+    }
+    auto* actionButton = new Panel::BetterButton(actionInfo, this);
+    d->m_buttonLayout->addWidget(actionButton);
+    d->m_actionMap->insert(actionInfo.name, w);
+    d->m_stackedWidget->addWidget(w);
+
+    if (d->m_stackedWidget->count() == 1) {
+        showActionArea(actionInfo.name);
+    }
+
+    connect(actionButton, &Panel::BetterButton::signalButtonClicked, this, &ConfigWidget::showActionArea);
 }
+
+void ConfigWidget::showActionArea(const QString &actionName) {
+    d->m_titleLabel->setText(actionName);
+    d->m_stackedWidget->setCurrentWidget(d->m_actionMap->value(actionName));
+}
+
 
 } // namespace Tray::Ui

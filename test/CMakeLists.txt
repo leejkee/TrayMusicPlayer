@@ -1,5 +1,3 @@
-qt_add_executable(test_db
-        TestDB.cpp
-)
-
-target_link_libraries(test_db PRIVATE Qt6::Test tray_database_for_Test)
+qt_add_executable(test_config_widget TestConfigWidget.cpp)
+message("test")
+target_link_libraries(test_config_widget PRIVATE tray_music_ui)

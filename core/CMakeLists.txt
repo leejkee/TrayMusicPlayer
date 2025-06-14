@@ -43,21 +43,3 @@ target_link_libraries(tray_music_core PRIVATE
         Tray::tray_log
         TagLib::tag
 )
-
-if (TRAY_TEST)
-    add_library(tray_database_for_Test STATIC
-            databasemanager/DatabaseManager.h
-            databasemanager/DatabaseManager.cpp
-            common/Song.cpp
-            common/Song.h
-    )
-
-    target_link_libraries(tray_database_for_Test PRIVATE
-            Qt6::Sql
-            Tray::tray_log
-    )
-
-    target_include_directories(tray_database_for_Test PUBLIC
-            databasemanager
-    )
-endif ()
