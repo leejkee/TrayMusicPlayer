@@ -28,7 +28,6 @@ public:
     MusicListWidget* m_musicListWidget;
     ViewWidget* m_viewWidget;
     SettingsWidget* m_settingsWidget;
-
     PlayerWidget* m_playerWidget;
 
     QStackedWidget* m_stackedMainWidget;
@@ -238,17 +237,17 @@ void WindowManager::createConnections() {
     connect(d->q_core, &Core::Core::signalNotifyUiCacheModified,
             d->m_viewWidget, &ViewWidget::refreshCurrentMusicList);
 
-    // // 23
-    // connect(d->m_settingsWidget, &SettingsWidget::signalLocalDirAdded,
-    //         d->q_core, &Core::Core::appendLocalMusicPath);
-    //
-    // // 24
-    // connect(d->m_settingsWidget, &SettingsWidget::signalLocalDirRemoved,
-    //         d->q_core, &Core::Core::removeLocalMusicPath);
-    //
-    // // 25
-    // connect(d->q_core, &Core::Core::signalNotifyUiToUpdateLocalPaths,
-    //         d->m_settingsWidget, &SettingsWidget::updateLocalPaths);
+    // 23
+    connect(d->m_settingsWidget, &SettingsWidget::signalLocalDirAdded,
+            d->q_core, &Core::Core::appendLocalMusicPath);
+
+    // 24
+    connect(d->m_settingsWidget, &SettingsWidget::signalLocalDirRemoved,
+            d->q_core, &Core::Core::removeLocalMusicPath);
+
+    // 25
+    connect(d->q_core, &Core::Core::signalNotifyUiToUpdateLocalPaths,
+            d->m_settingsWidget, &SettingsWidget::updateLocalPaths);
 
     // 26
     connect(d->q_core, &Core::Core::signalNotifyUiUserKeySetsChanged,

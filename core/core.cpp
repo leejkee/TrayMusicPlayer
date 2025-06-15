@@ -10,8 +10,8 @@
 #include <qtmetamacros.h>
 #include <settings.h>
 #include <trayconfig.h>
-
 #include <QThread>
+
 namespace Tray::Core {
 class CorePrivate {
 public:

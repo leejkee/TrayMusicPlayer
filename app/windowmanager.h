@@ -5,18 +5,11 @@
 #include <QWidget>
 #include <memory>
 
-class QStackedWidget;
-
 namespace Tray::Core {
     class Core;
 }
-
 namespace Tray::Ui {
-    class SettingsWidget;
-    class TopBarWidget;
-    class MusicListWidget;
-    class ViewWidget;
-    class PlayerWidget;
+
     class WindowManagerPrivate;
 
     class WindowManager final : public QWidget {
