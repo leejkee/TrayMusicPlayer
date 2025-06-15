@@ -1,4 +1,4 @@
-#include <filepathconfigwidget.h>
+#include "filepathconfigwidget.h"
 #include <trayqss.h>
 #include <traysvg.h>
 #include <uiconfig.h>

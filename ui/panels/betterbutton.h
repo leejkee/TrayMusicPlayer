@@ -3,7 +3,7 @@
 //
 
 #pragma once
-#include <uimetadata.h>
+#include <../include/uimetadata.h>
 #include <QPushButton>
 
 

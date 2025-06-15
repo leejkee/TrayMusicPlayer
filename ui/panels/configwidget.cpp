@@ -1,6 +1,5 @@
 #include <configwidget.h>
-#include "betterbutton.h"
-#include <filepathconfigwidget.h>
+#include <betterbutton.h>
 #include <QLogger.h>
 #include <memory>
 #include <QStackedWidget>
@@ -8,7 +7,7 @@
 #include <QLabel>
 
 
-namespace Tray::Ui {
+namespace Tray::Ui::Panel {
 class ConfigWidgetPrivate {
 public:
     QStackedWidget* m_stackedWidget;
@@ -52,16 +51,22 @@ void ConfigWidget::addConfigWidget(const BetterButtonMetaData &actionInfo, QWidg
         d->Log.log(Log::QLogger::LogLevel::Warning, "Null widget, add nothing to ConfigWidget");
         return;
     }
-    auto* actionButton = new Panel::BetterButton(actionInfo, this);
-    d->m_buttonLayout->addWidget(actionButton);
+    auto* actionButton = new BetterButton(actionInfo, this);
+
+    if (d->m_buttonLayout->count() == 0) {
+        d->m_buttonLayout->addWidget(actionButton);
+        d->m_buttonLayout->addStretch();
+    }
+    else {
+        d->m_buttonLayout->insertWidget(d->m_buttonLayout->count() - 1, actionButton);
+    }
     d->m_actionMap->insert(actionInfo.name, w);
     d->m_stackedWidget->addWidget(w);
 
     if (d->m_stackedWidget->count() == 1) {
         showActionArea(actionInfo.name);
     }
-
-    connect(actionButton, &Panel::BetterButton::signalButtonClicked, this, &ConfigWidget::showActionArea);
+    connect(actionButton, &BetterButton::signalButtonClicked, this, &ConfigWidget::showActionArea);
 }
 
 void ConfigWidget::showActionArea(const QString &actionName) {

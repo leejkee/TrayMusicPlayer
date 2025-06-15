@@ -1,19 +1,20 @@
 //
 // Created by cww on 25-4-1.
 //
-
 #include "windowmanager.h"
 #include <core.h>
 #include <musiclistwidget.h>
 #include <playerwidget.h>
-#include <settingswidget.h>
 #include <topbarwidget.h>
 #include <viewwidget.h>
+#include <settingswidget.h>
 
 #include <QGroupBox>
 #include <QSplitter>
 #include <QStackedWidget>
 #include <QVBoxLayout>
+#include <trayqss.h>
+
 
 inline void InitMyQRC() {
     Q_INIT_RESOURCE(svg);
@@ -27,6 +28,7 @@ public:
     MusicListWidget* m_musicListWidget;
     ViewWidget* m_viewWidget;
     SettingsWidget* m_settingsWidget;
+
     PlayerWidget* m_playerWidget;
 
     QStackedWidget* m_stackedMainWidget;
@@ -79,7 +81,7 @@ WindowManager::WindowManager(Core::Core* core, QWidget* parent) :
 
 void WindowManager::initDefaultSettings(const QStringList& localDir,
                                         const QStringList& userKeys,
-                                        unsigned volume) {
+                                        const unsigned volume) {
     d->m_settingsWidget->updateLocalPaths(localDir);
     d->m_musicListWidget->initUserListButtons(userKeys);
     d->m_viewWidget->setUserPlaylistKeys(userKeys);
@@ -236,17 +238,17 @@ void WindowManager::createConnections() {
     connect(d->q_core, &Core::Core::signalNotifyUiCacheModified,
             d->m_viewWidget, &ViewWidget::refreshCurrentMusicList);
 
-    // 23
-    connect(d->m_settingsWidget, &SettingsWidget::signalLocalDirAdded,
-            d->q_core, &Core::Core::appendLocalMusicPath);
-
-    // 24
-    connect(d->m_settingsWidget, &SettingsWidget::signalLocalDirRemoved,
-            d->q_core, &Core::Core::removeLocalMusicPath);
-
-    // 25
-    connect(d->q_core, &Core::Core::signalNotifyUiToUpdateLocalPaths,
-            d->m_settingsWidget, &SettingsWidget::updateLocalPaths);
+    // // 23
+    // connect(d->m_settingsWidget, &SettingsWidget::signalLocalDirAdded,
+    //         d->q_core, &Core::Core::appendLocalMusicPath);
+    //
+    // // 24
+    // connect(d->m_settingsWidget, &SettingsWidget::signalLocalDirRemoved,
+    //         d->q_core, &Core::Core::removeLocalMusicPath);
+    //
+    // // 25
+    // connect(d->q_core, &Core::Core::signalNotifyUiToUpdateLocalPaths,
+    //         d->m_settingsWidget, &SettingsWidget::updateLocalPaths);
 
     // 26
     connect(d->q_core, &Core::Core::signalNotifyUiUserKeySetsChanged,

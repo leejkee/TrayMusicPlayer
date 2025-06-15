@@ -1,39 +1,21 @@
 //
-// Created by cww on 25-4-10.
+// Created by cww on 25-6-15.
 //
 #pragma once
-
-#include <QWidget>
-class QLabel;
-class Settings;
-class QPushButton;
-class QListWidget;
-
+#include <configwidget.h>
+#include <memory>
 
 namespace Tray::Ui {
-    class SettingsWidget final : public QWidget {
-        Q_OBJECT
 
-    public:
-        explicit SettingsWidget(QWidget *parent = nullptr);
+class SettingsWidgetPrivate;
+class SettingsWidget final : public Panel::ConfigWidget {
+public:
+    explicit SettingsWidget(QWidget *parent = nullptr);
+    ~SettingsWidget() override;
 
-    private:
-        QPushButton *m_addButton;
-        QPushButton *m_removeButton;
-        QListWidget *m_listWidget;
-        QLabel *m_messageLabel;
+    void updateLocalPaths(const QStringList &localDir);
 
-    Q_SIGNALS:
-        void signalLocalDirAdded(const QString &);
-
-        void signalLocalDirRemoved(const QString &);
-
-    private Q_SLOTS:
-        void addMusicPath();
-
-        void removeMusicPath();
-
-    public Q_SLOTS:
-        void updateLocalPaths(const QStringList &paths);
-    };
+private:
+    std::unique_ptr<SettingsWidgetPrivate> d;
+};
 }

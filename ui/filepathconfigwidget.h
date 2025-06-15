@@ -1,3 +1,5 @@
+#pragma once
+
 #include <QWidget>
 
 class QPushButton;
@@ -5,7 +7,7 @@ class QListWidget;
 class QLabel;
 
 namespace Tray::Ui {
-class FilePathConfigWidget : public QWidget {
+class FilePathConfigWidget final : public QWidget {
 public:
     Q_OBJECT
 

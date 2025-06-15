@@ -1,12 +1,12 @@
 #pragma once
+#include <uimetadata.h>
 #include <QDialog>
 #include <memory>
-#include <uimetadata.h>
 
-namespace Tray::Ui {
+namespace Tray::Ui::Panel {
 
 class ConfigWidgetPrivate;
-class ConfigWidget final : public QWidget {
+class ConfigWidget : public QWidget {
 public:
     explicit ConfigWidget(QWidget* parent = nullptr);
 
