@@ -17,11 +17,10 @@
 
 ## 运行
 - 部分功能演示(Windows 11)  
-  ![show](docs/img/shot_show.gif)
+  ![show](docs/img/show-windows11.gif)
 
 - Linux(Arch linux with cosmic)  
   ![show_linux](docs/img/show-view-linux.png)  
-  ![settings_linux](docs/img/show-settings-linux.png)
 
 ## 快速使用
 点击右上角`设置`图标，添加本地音乐路径，点击`Local`按钮加载Local歌单
