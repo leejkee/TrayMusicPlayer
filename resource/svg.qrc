@@ -1,6 +1,6 @@
 <!DOCTYPE RCC><RCC version="1.0">
     <qresource prefix="/">
-        <file>images/icon.svg</file>
+        <file>images/tray-logo.svg</file>
         <file>images/logo.svg</file>
         <file>images/play.svg</file>
         <file>images/pause.svg</file>
@@ -28,5 +28,8 @@
         <file>images/loopOne.svg</file>
         <file>images/sequentialList.svg</file>
         <file>images/options.svg</file>
+        <file>svg/appearance-act.svg</file>
+        <file>svg/directory-act.svg</file>
+        <file>svg/lyrics-act.svg</file>
     </qresource>
 </RCC>

@@ -10,5 +10,6 @@
    <file>qss/Slider/QSlider.qss</file>
    <file>qss/Slider/ProgressBar.qss</file>
    <file>qss/QMenu/VolumeMenu.qss</file>
+   <file>qss/MusicListButton/ButtonAction.qss</file>
 </qresource>
 </RCC>

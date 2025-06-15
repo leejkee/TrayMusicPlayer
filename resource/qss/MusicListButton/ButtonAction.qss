@@ -1,0 +1,10 @@
+QPushButton {
+    background-color: transparent;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    text-align: left;
+}
+
+QPushButton:hover {
+    background-color: rgb(200, 200, 200);
+}

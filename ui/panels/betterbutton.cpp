@@ -3,61 +3,47 @@
 //
 #include "betterbutton.h"
 #include <uiconfig.h>
-#include <trayqss.h>
-#include <traysvg.h>
 #include <QEvent>
 
 
 namespace Tray::Ui::Panel {
-    void BetterButton::init() {
-        installEventFilter(this);
+BetterButton::BetterButton(const BetterButtonMetaData &metaData, QWidget *parent) : QPushButton(parent) {
+    setIcon(QIcon(metaData.iconPath));
+    setText(metaData.name);
+    if (metaData.height > 0) {
+        setFixedHeight(metaData.height);
     }
+    if (metaData.width > 0) {
+        setFixedWidth(metaData.width);
+    }
+    loadStyleSheet(metaData.qssPath);
+    connect(this, &QPushButton::clicked, this, &BetterButton::onButtonClicked);
+    installEventFilter(this);
+}
 
-    BetterButton::BetterButton(const QString &name, QWidget *parent) : QPushButton(parent) {
-        setIcon(QIcon(Res::MusicListSVG));
-        setText(name);
-        loadStyleSheet(Res::BUTTON_LIST_QSS);
-        connect(this, &QPushButton::clicked, this, &BetterButton::onButtonClicked);
-        init();
-    }
+BetterButton::BetterButton(QWidget *parent) : BetterButton({}, parent) {
+}
 
-    BetterButton::BetterButton(QWidget *parent) : QPushButton(parent) {
-        init();
-    }
 
-    BetterButton::BetterButton(const QString &name, const QIcon &icon, QWidget *parent) : QPushButton(parent) {
-        setIcon(icon);
-        setText(name);
-        loadStyleSheet(Res::BUTTON_LIST_QSS);
-        init();
+void BetterButton::loadStyleSheet(const QString &qssPath) {
+    if (qssPath.isEmpty()) {
+        return;
     }
-    BetterButton::BetterButton(const QIcon &icon, QWidget *parent, const StyleMode style, const QString &name)
-        : QPushButton(parent) {
-        setIcon(icon);
-        setText(name);
-        setFixedSize(DefaultWidth, DefaultHeight);
-        if (style == WithQss) {
-            loadStyleSheet(Res::BUTTON_LIST_QSS);
+    this->setStyleSheet(readQSS(qssPath));
+}
+
+bool BetterButton::eventFilter(QObject *watched, QEvent *event) {
+    if (watched == this) {
+        if (event->type() == QEvent::Enter) {
+            setCursor(Qt::PointingHandCursor);
+        } else if (event->type() == QEvent::Leave) {
+            setCursor(Qt::ArrowCursor);
         }
-        init();
     }
+    return QPushButton::eventFilter(watched, event);
+}
 
-    void BetterButton::loadStyleSheet(const QString &qssPath) {
-        this->setStyleSheet(readQSS(qssPath));
-    }
-
-    bool BetterButton::eventFilter(QObject *watched, QEvent *event) {
-        if (watched == this) {
-            if (event->type() == QEvent::Enter) {
-                setCursor(Qt::PointingHandCursor);
-            } else if (event->type() == QEvent::Leave) {
-                setCursor(Qt::ArrowCursor);
-            }
-        }
-        return QPushButton::eventFilter(watched, event);
-    }
-
-    void BetterButton::onButtonClicked() {
-        Q_EMIT signalButtonClicked(this->text());
-    }
+void BetterButton::onButtonClicked() {
+    Q_EMIT signalButtonClicked(this->text());
+}
 }

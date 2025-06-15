@@ -34,8 +34,6 @@ namespace Tray::Ui::Panel {
         painter.setPen(palette().windowText().color());
         painter.setFont(font());
 
-        // int y = (height() + fontMetrics().ascent() - fontMetrics().descent()) / 2; // 垂直居中
-
         if (m_textWidth > width()) {
             int x = -m_offset;
             while (x < width()) {

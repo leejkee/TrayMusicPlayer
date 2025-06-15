@@ -51,7 +51,7 @@ public Q_SLOTS:
 
     void updateProgressBarPosition(qint64);
 
-    void updateMuteIcon(const bool isMuted);
+    void updateMuteIcon(bool isMuted);
 
 Q_SIGNALS:
     void signalNextMusic();

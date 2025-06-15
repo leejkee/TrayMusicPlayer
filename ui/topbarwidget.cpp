@@ -14,10 +14,8 @@ TopBarWidget::TopBarWidget(QWidget *parent) : QWidget(parent) {
 
     m_svgWidget = new QSvgWidget(Res::LogoSVG);
     m_svgWidget->setFixedSize(130, 25);
-    m_preButton = new Panel::BetterButton(QIcon(Res::BackPageSVG), this);
-    m_preButton->loadStyleSheet(Res::BUTTON_SQUARE_QSS);
-    m_settingsButton = new Panel::BetterButton(QIcon(Res::SettingSVG),  this);
-    m_settingsButton->loadStyleSheet(Res::BUTTON_SQUARE_QSS);
+    m_preButton = new Panel::BetterButton({{}, Res::BackPageSVG, Res::BUTTON_SQUARE_QSS, 30, 30}, this);
+    m_settingsButton = new Panel::BetterButton({{}, Res::SettingSVG, Res::BUTTON_SQUARE_QSS, 30, 30},  this);
 
     const auto spacerH = new QSpacerItem(-1, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
     const auto layout = new QHBoxLayout(this);

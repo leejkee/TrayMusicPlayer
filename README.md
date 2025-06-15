@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/img/icon.svg" alt="Tray Core Module Icon" width="150">
+  <img src="docs/img/tray-logo.svg" alt="Tray Core Module Icon" width="150">
   <h3 align="center">TrayMusicPlayer</h3>
   <p align="center">
     一个实现了播放列表管理并包含系统托盘的本地音乐播放器
@@ -17,10 +17,10 @@
 
 ## 运行
 - 部分功能演示(Windows 11)  
-  ![show](docs/img/shot_show.gif)
+  ![show](docs/img/show-windows11.gif)
 
 - Linux(Arch linux with cosmic)  
-  ![show_linux](docs/img/shot_linux_v0.5.png)
+  ![show_linux](docs/img/show-view-linux.png)  
 
 ## 快速使用
 点击右上角`设置`图标，添加本地音乐路径，点击`Local`按钮加载Local歌单
@@ -110,6 +110,8 @@ cmake --build build
 本项目logo **`TrayMusic`** 除外，其他svg资源均来自网络，商用联系阿里巴巴矢量图标社区作者
 
 ## ToDo
+- [x] 可扩展的设置页面嵌入
 - [ ] 可贴边的浮动歌词支持
+- [ ] 更美观的主题切换支持
 - [ ] 更用户友好的随机数生成算法
 

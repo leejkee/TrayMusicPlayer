@@ -5,7 +5,7 @@
 #include <QString>
 
 namespace Tray::Res {
-    inline const auto TrayIconSVG = QStringLiteral(":/images/icon.svg");
+    inline const auto TrayIconSVG = QStringLiteral(":/images/tray-logo.svg");
     inline const auto LogoSVG = QStringLiteral(":/images/logo.svg");
     inline const auto PlayIconSVG = QStringLiteral(":/images/play.svg");
     inline const auto PauseIconSVG = QStringLiteral(":/images/pause.svg");
@@ -31,5 +31,10 @@ namespace Tray::Res {
     inline const auto LoopOneModeSVG = QStringLiteral(":/images/loopOne.svg");
     inline const auto SequentialModeSVG = QStringLiteral(":/images/sequentialList.svg");
     inline const auto OptionsMenuSVG = QStringLiteral(":/images/options.svg");
+
+    inline const auto AppearanceActionSVG = QStringLiteral(":/svg/appearance-act.svg");
+    inline const auto DirectoryActionSVG = QStringLiteral(":/svg/directory-act.svg");
+    inline const auto LyricActionSVG = QStringLiteral(":/svg/lyrics-act.svg");
+
 }
 

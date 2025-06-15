@@ -1,19 +1,20 @@
 //
 // Created by cww on 25-4-1.
 //
-
 #include "windowmanager.h"
 #include <core.h>
 #include <musiclistwidget.h>
 #include <playerwidget.h>
-#include <settingswidget.h>
 #include <topbarwidget.h>
 #include <viewwidget.h>
+#include <settingswidget.h>
 
 #include <QGroupBox>
 #include <QSplitter>
 #include <QStackedWidget>
 #include <QVBoxLayout>
+#include <trayqss.h>
+
 
 inline void InitMyQRC() {
     Q_INIT_RESOURCE(svg);
@@ -79,7 +80,7 @@ WindowManager::WindowManager(Core::Core* core, QWidget* parent) :
 
 void WindowManager::initDefaultSettings(const QStringList& localDir,
                                         const QStringList& userKeys,
-                                        unsigned volume) {
+                                        const unsigned volume) {
     d->m_settingsWidget->updateLocalPaths(localDir);
     d->m_musicListWidget->initUserListButtons(userKeys);
     d->m_viewWidget->setUserPlaylistKeys(userKeys);
