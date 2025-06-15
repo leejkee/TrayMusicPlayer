@@ -10,6 +10,8 @@ namespace Tray::Ui {
 
 class SettingsWidgetPrivate {
 public:
+    constexpr static int BTN_HEIGHT = 30;
+    constexpr static int BTN_WIDTH = 90;
     inline const static auto PATH_ACTION_KEY = QStringLiteral("Local path");
     FilePathConfigWidget *m_filePathConfigWidget;
 };
@@ -17,8 +19,12 @@ public:
 SettingsWidget::SettingsWidget(QWidget *parent)
     : ConfigWidget(parent), d(std::make_unique<SettingsWidgetPrivate>()) {
     d->m_filePathConfigWidget = new FilePathConfigWidget(this);
-    addConfigWidget({SettingsWidgetPrivate::PATH_ACTION_KEY, Res::DirectoryActionSVG, Res::CONFIG_ACTION_QSS, 30, 100},
-                    d->m_filePathConfigWidget);
+    addConfigWidget({SettingsWidgetPrivate::PATH_ACTION_KEY
+        ,Res::DirectoryActionSVG
+        , Res::CONFIG_ACTION_QSS
+        , SettingsWidgetPrivate::BTN_HEIGHT
+        , SettingsWidgetPrivate::BTN_WIDTH}
+        , d->m_filePathConfigWidget);
 }
 
 SettingsWidget::~SettingsWidget() = default;

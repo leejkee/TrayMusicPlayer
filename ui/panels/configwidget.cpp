@@ -27,6 +27,7 @@ ConfigWidget::ConfigWidget(QWidget* parent) : QWidget(parent), d(std::make_uniqu
     d->m_stackedWidget = new QStackedWidget(this);
     d->m_titleLabel = new QLabel(this);
     d->m_buttonLayout = new QVBoxLayout;
+    d->m_buttonLayout->setSpacing(0);
     d->m_areaLayout = new QVBoxLayout;
     d->m_mainLayout = new QHBoxLayout;
 
