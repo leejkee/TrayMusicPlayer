@@ -41,6 +41,7 @@
 Windows 推荐使用本项目提供的taglib依赖处理方案，将taglib作为`git submodule`加入工程，在`dependencies`目录中将其作为一个CMake工程进行处理。  
 因为taglib官方仅提供CMake install之后将其作为CMake子模块加入项目
 - tips: [taglib官方编译教程](https://github.com/taglib/taglib/blob/master/INSTALL.md)
+- Windows平台上，你需要将qt提供的c++编译器加入**path**, 以便于编译器的identification可以通过，cmake需要使用测试程序来验证编译器，否则可能会无法开始编译
 
 #### 1. 使用Qt6官方提供的`MinGW-w64的g++工具链、CMake、 Ninja生成器`
 

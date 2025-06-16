@@ -4,14 +4,16 @@
 #pragma once
 #include <QWidget>
 
-namespace Tray::Ui {
-class LyricWidget : public QWidget{
-  public:
+namespace Tray::Ui
+{
+class LyricWidget : public QWidget
+{
+public:
     explicit LyricWidget(QWidget* parent = nullptr);
     ~LyricWidget() override;
 
-    enum LyricShowMode {
-
+    enum LyricShowMode
+    {
     };
 };
-}
+} // namespace Tray::Ui

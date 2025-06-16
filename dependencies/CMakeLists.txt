@@ -1,5 +1,4 @@
-# 最小 CMake 版本要求
-cmake_minimum_required(VERSION 3.20) # ExternalProject 通常需要较新版本
+cmake_minimum_required(VERSION 3.20)
 
 project(BuildTagLibExternally C CXX)
 
