@@ -14,10 +14,10 @@ target_link_libraries(TrayMusicPlayer PRIVATE
 )
 
 
-if(WIN32)
-    set_target_properties(TrayMusicPlayer PROPERTIES
-            WIN32_EXECUTABLE TRUE
-    )
-endif()
+# if(WIN32)
+#     set_target_properties(TrayMusicPlayer PROPERTIES
+#             WIN32_EXECUTABLE TRUE
+#     )
+# endif()
 
 qt_finalize_target(TrayMusicPlayer)

@@ -11,5 +11,7 @@
    <file>qss/Slider/ProgressBar.qss</file>
    <file>qss/QMenu/VolumeMenu.qss</file>
    <file>qss/MusicListButton/ButtonAction.qss</file>
+   <file>qss/Splitter/Splitter.qss</file>
+   <file>qss/QFrame/Line.qss</file>
 </qresource>
 </RCC>

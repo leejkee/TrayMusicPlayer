@@ -4,7 +4,7 @@
 #include "volumecontroller.h"
 #include <betterbutton.h>
 #include <qpushbutton.h>
-#include <uiconfig.h>
+#include <uitools.h>
 #include <traysvg.h>
 #include <trayqss.h>
 #include <QSlider>

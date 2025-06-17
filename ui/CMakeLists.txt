@@ -4,7 +4,7 @@ file(GLOB_RECURSE UI_SOURCES CONFIGURE_DEPENDS
         ${CMAKE_CURRENT_SOURCE_DIR}/include/*.h
         ${CMAKE_CURRENT_SOURCE_DIR}/panels/*.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/panels/*.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/common/uiconfig.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/common/uitools.h
         ${CMAKE_CURRENT_SOURCE_DIR}/common/uimetadata.h
         ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/*.h
@@ -17,7 +17,6 @@ if (TRAY_TEST)
     target_include_directories(tray_music_ui PUBLIC
             ${CMAKE_CURRENT_SOURCE_DIR}/include
             ${CMAKE_CURRENT_SOURCE_DIR}/panels
-            ${CMAKE_CURRENT_SOURCE_DIR}/common
     )
 else ()
     message(STATUS "No Test ready")
@@ -28,7 +27,6 @@ endif ()
 
 
 target_include_directories(tray_music_ui PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/common
         ${CMAKE_CURRENT_SOURCE_DIR}/panels
 )
 

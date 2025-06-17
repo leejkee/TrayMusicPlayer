@@ -2,7 +2,7 @@
 // Created by cww on 25-4-10.
 //
 #include <musiclistwidget.h>
-#include <uiconfig.h>
+#include <uitools.h>
 #include <betterbutton.h>
 #include <traysvg.h>
 #include <trayqss.h>

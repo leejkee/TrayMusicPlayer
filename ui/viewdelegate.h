@@ -61,6 +61,7 @@ namespace Tray::Ui {
         constexpr static int VIEW_TEXT_LEFT_PADDING = VIEW_PLAY_BUTTON_PADDING + VIEW_BUTTON_SIZE + 5;
         constexpr static int NAME_FONT_SIZE = 12;
         constexpr static int ARTIST_FONT_SIZE = 9;
+        constexpr static int UNINITIALIZED_VALUE = -1;
 
         inline static const auto COLOR_TEXT_NAME = QStringLiteral("#1C1C1E");
         inline static const auto COLOR_TEXT_ARTIST = QStringLiteral("#5E5E5E");
