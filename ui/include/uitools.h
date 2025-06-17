@@ -6,19 +6,6 @@
 #include <QFile>
 #include <QDebug>
 
-
-namespace Tray::Ui {
-    inline const auto LOCAL_LIST_KEY = QStringLiteral("Local");
-}
-
-
-namespace Tray::Ui {
-    inline const auto PLAY_ALL_KEY = QStringLiteral("Play All");
-    inline const auto EXPAND_BTN_TEXT = QStringLiteral("User's");
-    constexpr int UNINITIALIZED_VALUE = -1;
-}
-
-
 namespace Tray::Ui {
     inline QString readQSS(const QString &qssPath) {
         if (QFile file(qssPath); file.open(QFile::ReadOnly)) {

@@ -2,7 +2,7 @@
 // Created by cww on 25-4-10.
 //
 #include "viewdelegate.h"
-#include <uiconfig.h>
+#include <uitools.h>
 #include <traysvg.h>
 #include <QListView>
 #include <QPainter>

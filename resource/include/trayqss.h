@@ -16,4 +16,6 @@ namespace Tray::Res{
     inline const auto PLAY_MODE_QSS = QStringLiteral(":/qss/MusicListButton/ButtonPlayMode.qss");
     inline const auto PROGRESS_BAR_QSS = QStringLiteral(":/qss/Slider/ProgressBar.qss");
     inline const auto CONFIG_ACTION_QSS = QStringLiteral(":/qss/MusicListButton/ButtonAction.qss");
+    inline const auto VIEW_SPLITTER_QSS = QStringLiteral(":/qss/Splitter/Splitter.qss");
+    inline const auto HERIZONTAL_LINE_QSS = QStringLiteral(":/qss/QFrame/Line.qss");
 }

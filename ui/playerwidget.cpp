@@ -4,7 +4,7 @@
 #include <playerwidget.h>
 #include <traysvg.h>
 #include <trayqss.h>
-#include <uiconfig.h>
+#include <uitools.h>
 #include <betterbutton.h>
 #include <progressbar.h>
 #include <volumecontroller.h>

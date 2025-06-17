@@ -53,6 +53,9 @@ namespace Tray::Ui {
         Panel::BetterButton *m_localListButton;
         QHash<QString, Panel::BetterButton *> m_UserButtonHash;
 
+        static inline const auto LOCAL_LIST_KEY = QStringLiteral("Local");
+        static inline const auto EXPAND_BTN_TEXT = QStringLiteral("User's");
+
         void createConnections();
     };
 }
