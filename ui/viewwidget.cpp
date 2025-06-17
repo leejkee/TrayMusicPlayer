@@ -5,7 +5,7 @@
 #include "viewdelegate.h"
 #include <viewwidget.h>
 #include <betterbutton.h>
-#include <uiconfig.h>
+#include <uitools.h>
 #include <traysvg.h>
 #include <trayqss.h>
 #include <QLabel>
@@ -22,6 +22,7 @@ public:
     constexpr static int PLAYALL_BTN_HEIGHT = 30;
     constexpr static int PLAYALL_BTN_WIDTH = 0;
     constexpr static int SIZE_TITLE_FONT = 14;
+    const static inline auto PLAY_ALL_KEY = QStringLiteral("Play All");
 
     QLabel *m_labelName;
     QListView *m_playListView;

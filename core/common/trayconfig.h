@@ -12,7 +12,7 @@ inline constexpr int UNINITIALIZED_VALUE = -1;
 
 #if defined(Q_OS_WIN32)
 inline const auto PROJECT_PATH =
-    QStringLiteral("C:/Users/cww/Documents/Workspace/TrayMusicPlayer/");
+    QStringLiteral("C:/Users/31305/Documents/Workspace/TrayMusicPlayer/");
 #elif defined(Q_OS_LINUX)
 inline const auto PROJECT_PATH =
     QStringLiteral("/home/aude/workspace/qt/TrayMusicPlayer/");

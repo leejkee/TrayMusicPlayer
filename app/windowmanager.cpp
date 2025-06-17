@@ -8,79 +8,109 @@
 #include <topbarwidget.h>
 #include <viewwidget.h>
 #include <settingswidget.h>
+#include <trayqss.h>
+#include <uitools.h>
 
 #include <QGroupBox>
+#include <QListWidget>
 #include <QSplitter>
 #include <QStackedWidget>
 #include <QVBoxLayout>
-#include <trayqss.h>
+#include <QFrame>
 
 
-inline void InitMyQRC() {
+inline void InitMyQRC()
+{
     Q_INIT_RESOURCE(svg);
     Q_INIT_RESOURCE(qss);
 }
 
-namespace Tray::Ui {
-class WindowManagerPrivate {
+namespace Tray::Ui
+{
+
+class WindowManagerPrivate
+{
 public:
-    TopBarWidget* m_topBarWidget;
-    MusicListWidget* m_musicListWidget;
-    ViewWidget* m_viewWidget;
-    SettingsWidget* m_settingsWidget;
-    PlayerWidget* m_playerWidget;
+    explicit WindowManagerPrivate(Core::Core *core, WindowManager *w);
+    // Manages the playerWidget and a QStackedWidget that switches between the lyricWidget and the primary content widget.
+    QVBoxLayout *m_windowManagerLayout;
+    // Handles the primary display and the lyric display, allowing switching between them.
+    QStackedWidget *m_mainStackedWidget;
+    // Widget that contains the controller panels
+    PlayerWidget *m_playerWidget;
+    // Contains the topWidget, MusicListWidget, ViewWidget, SettingsWidget
+    QWidget *m_primaryWidget;
+    // LyricWidget *m_lyricWidget;
+    QVBoxLayout *m_primaryWidgetLayout;
+    TopBarWidget *m_topBarWidget;
+    MusicListWidget *m_musicListWidget;
+    QSplitter *m_viewAndPlaylistsSplitter;
+    QStackedWidget* m_viewStackedWidget;
+    ViewWidget *m_viewWidget;
+    SettingsWidget *m_settingsWidget;
+    QFrame *m_lineSplitterUp;
+    QFrame *m_lineSplitterDown;
 
-    QStackedWidget* m_stackedMainWidget;
-    QStackedWidget* m_stackedViewWidget;
-    QWidget* m_frontWidget;
-
-    Core::Core* q_core;
+    Core::Core *q_core;
+    WindowManager *q_ptr;
 };
 
+WindowManagerPrivate::WindowManagerPrivate(Core::Core *core, WindowManager *w) : q_core(core), q_ptr(w)
+{
+    m_windowManagerLayout = new QVBoxLayout;
+    m_mainStackedWidget = new QStackedWidget(q_ptr);
+    m_playerWidget = new PlayerWidget(q_ptr);
+    m_primaryWidget = new QWidget(q_ptr);
+    m_primaryWidgetLayout = new QVBoxLayout;
+    m_topBarWidget = new TopBarWidget(q_ptr);
+    m_musicListWidget = new MusicListWidget(q_ptr);
+    m_viewAndPlaylistsSplitter = new QSplitter(Qt::Horizontal, q_ptr);
+    m_viewAndPlaylistsSplitter->setStyleSheet(readQSS(Res::VIEW_SPLITTER_QSS));
+    m_viewStackedWidget = new QStackedWidget(q_ptr);
+    m_viewWidget = new ViewWidget(q_ptr);
+    m_settingsWidget = new SettingsWidget(q_ptr);
+    m_lineSplitterUp = new QFrame(q_ptr);
+    m_lineSplitterUp->setFrameShape(QFrame::HLine);
+    m_lineSplitterDown = new QFrame(q_ptr);
+    m_lineSplitterDown->setFrameShape(QFrame::HLine);
+    m_lineSplitterUp->setStyleSheet(readQSS(Res::HERIZONTAL_LINE_QSS));
+    m_lineSplitterDown->setStyleSheet(readQSS(Res::HERIZONTAL_LINE_QSS));
+}
+
 WindowManager::WindowManager(Core::Core* core, QWidget* parent) :
-    QWidget(parent), d(std::make_unique<WindowManagerPrivate>()) {
+    QWidget(parent)
+{
     InitMyQRC();
-    d->q_core = core;
-    d->m_stackedMainWidget = new QStackedWidget(this);
-    d->m_stackedViewWidget = new QStackedWidget(this);
-    d->m_frontWidget = new QWidget(this);
+    d = std::make_unique<WindowManagerPrivate>(core, this);
+    setLayout(d->m_windowManagerLayout);
+    d->m_windowManagerLayout->addWidget(d->m_mainStackedWidget);
+    d->m_windowManagerLayout->addWidget(d->m_lineSplitterDown);
+    d->m_windowManagerLayout->addWidget(d->m_playerWidget);
+    d->m_windowManagerLayout->setContentsMargins(0, 0, 0, 0);
+    d->m_windowManagerLayout->setSpacing(0);
 
-    d->m_musicListWidget = new MusicListWidget(this);
-    d->m_playerWidget = new PlayerWidget(this);
-    d->m_viewWidget = new ViewWidget(this);
-    d->m_topBarWidget = new TopBarWidget(this);
-    d->m_settingsWidget = new SettingsWidget(this);
+    d->m_mainStackedWidget->addWidget(d->m_primaryWidget);
 
-    d->m_stackedViewWidget->addWidget(d->m_viewWidget);
-    d->m_stackedViewWidget->addWidget(d->m_settingsWidget);
+    d->m_primaryWidget->setLayout(d->m_primaryWidgetLayout);
+    d->m_primaryWidgetLayout->addWidget(d->m_topBarWidget);
+    d->m_primaryWidgetLayout->addWidget(d->m_lineSplitterUp);
+    d->m_primaryWidgetLayout->addWidget(d->m_viewAndPlaylistsSplitter);
+    d->m_primaryWidgetLayout->setContentsMargins(0, 0, 0, 0);
+    d->m_primaryWidgetLayout->setSpacing(0);
 
-    const auto splitterMusicListAndView = new QSplitter(Qt::Horizontal);
-    splitterMusicListAndView->addWidget(d->m_musicListWidget);
-    splitterMusicListAndView->addWidget(d->m_stackedViewWidget);
+    d->m_viewAndPlaylistsSplitter->addWidget(d->m_musicListWidget);
+    d->m_viewAndPlaylistsSplitter->addWidget(d->m_viewStackedWidget);
 
-    const auto playerWidgetGroupBox = new QGroupBox;
-    const auto playerWidgetGroupBoxLayout = new QHBoxLayout;
-    playerWidgetGroupBoxLayout->setSpacing(0);
-    playerWidgetGroupBoxLayout->setContentsMargins(0, 0, 0, 0);
-    playerWidgetGroupBoxLayout->addWidget(d->m_playerWidget);
-    playerWidgetGroupBox->setLayout(playerWidgetGroupBoxLayout);
-    playerWidgetGroupBox->setFixedHeight(80);
+    d->m_viewStackedWidget->addWidget(d->m_viewWidget);
+    d->m_viewStackedWidget->addWidget(d->m_settingsWidget);
 
-    const auto frontLayout = new QVBoxLayout(d->m_frontWidget);
-    frontLayout->addWidget(d->m_topBarWidget);
-    frontLayout->addWidget(splitterMusicListAndView);
-    frontLayout->addWidget(playerWidgetGroupBox);
-
-    d->m_stackedMainWidget->addWidget(d->m_frontWidget);
-
-    const auto mainLayout = new QGridLayout(this);
-    mainLayout->addWidget(d->m_stackedMainWidget);
     createConnections();
 }
 
 void WindowManager::initDefaultSettings(const QStringList& localDir,
                                         const QStringList& userKeys,
-                                        const unsigned volume) {
+                                        const unsigned volume)
+{
     d->m_settingsWidget->updateLocalPaths(localDir);
     d->m_musicListWidget->initUserListButtons(userKeys);
     d->m_viewWidget->setUserPlaylistKeys(userKeys);
@@ -88,64 +118,78 @@ void WindowManager::initDefaultSettings(const QStringList& localDir,
 }
 
 void WindowManager::updateCurrentMusic(const int index, const QString& name,
-                                       const int duration) {
+                                       const int duration)
+{
     d->m_viewWidget->updateCurrentIndex(index);
     d->m_playerWidget->updateMusicName(name);
     d->m_playerWidget->updateMusicDuration(duration);
 }
 
-void WindowManager::updatePlayingStatus(const bool b) {
+void WindowManager::updatePlayingStatus(const bool b)
+{
     d->m_playerWidget->setRotationStatus(b);
     d->m_playerWidget->setPlayButtonIcon(b);
     d->m_viewWidget->updatePlayingStatus(b);
 }
 
-WindowManager::~WindowManager() {}
+WindowManager::~WindowManager()
+{
+}
 
-void WindowManager::updateProgressBarPosition(const qint64 pos) {
+void WindowManager::updateProgressBarPosition(const qint64 pos)
+{
     d->m_playerWidget->updateProgressBarPosition(pos);
 }
 
-void WindowManager::updateVolumeCtrlButtonIcon(const bool b) {
+void WindowManager::updateVolumeCtrlButtonIcon(const bool b)
+{
     d->m_playerWidget->setVolumeCtrlButtonIcon(b);
 }
 
-void WindowManager::updatePlayModeIcon(const int mode) {
+void WindowManager::updatePlayModeIcon(const int mode)
+{
     d->m_playerWidget->updatePlayModeIcon(mode);
 }
 
 void WindowManager::showCurrentTitleListToView(const QString& name,
-                                               const QStringList& titleList) {
+                                               const QStringList& titleList)
+{
     d->m_viewWidget->showCurrentTitleListToView(name, titleList);
 }
 
-void WindowManager::updateUserPlaylistKeys(const QStringList& list) {
+void WindowManager::updateUserPlaylistKeys(const QStringList& list)
+{
     d->m_viewWidget->setUserPlaylistKeys(list);
 }
 
 void WindowManager::updateCurrentViewList(const QString& key,
-                                          const QStringList& titleList) {
+                                          const QStringList& titleList)
+{
     d->m_viewWidget->refreshCurrentMusicList(key, titleList);
 }
 
-void WindowManager::updateCurrentPlaylistKey(const QString& key) {
+void WindowManager::updateCurrentPlaylistKey(const QString& key)
+{
     d->m_viewWidget->syncRenderWithCurrentPlaylist(key);
 }
 
-void WindowManager::updateSettingsLocalPaths(const QStringList& paths) {
+void WindowManager::updateSettingsLocalPaths(const QStringList& paths)
+{
     d->m_settingsWidget->updateLocalPaths(paths);
 }
 
-void WindowManager::removeUserPlaylistButton(const QString& key) {
+void WindowManager::removeUserPlaylistButton(const QString& key)
+{
     d->m_musicListWidget->removeUserButton(key);
 }
 
-void WindowManager::addUserPlaylistButton(const QString& key) {
+void WindowManager::addUserPlaylistButton(const QString& key)
+{
     d->m_musicListWidget->appendUserButton(key);
 }
 
-void WindowManager::createConnections() {
-
+void WindowManager::createConnections()
+{
     // 1
     connect(d->m_playerWidget, &PlayerWidget::signalPlayToggle, d->q_core,
             &Core::Core::playToggle);
@@ -262,9 +306,9 @@ void WindowManager::createConnections() {
             &Core::Core::setMute);
 
     connect(d->m_topBarWidget, &TopBarWidget::signalPreButtonClicked, this,
-            [this]() { d->m_stackedViewWidget->setCurrentIndex(0); });
+            [this]() { d->m_viewStackedWidget->setCurrentWidget(d->m_viewWidget); });
 
     connect(d->m_topBarWidget, &TopBarWidget::signalSettingsButtonClicked, this,
-            [this]() { d->m_stackedViewWidget->setCurrentIndex(1); });
+            [this]() { d->m_viewStackedWidget->setCurrentWidget(d->m_settingsWidget); });
 }
 } // namespace Tray::Ui

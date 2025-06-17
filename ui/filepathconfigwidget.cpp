@@ -1,7 +1,7 @@
 #include "filepathconfigwidget.h"
 #include <trayqss.h>
 #include <traysvg.h>
-#include <uiconfig.h>
+#include <uitools.h>
 
 #include <QCoreApplication>
 #include <QFileDialog>

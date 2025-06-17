@@ -4,7 +4,7 @@
 #include "progressbar.h"
 #include <qslider.h>
 #include <trayqss.h>
-#include <uiconfig.h>
+#include <uitools.h>
 
 #include <QHBoxLayout>
 #include <QLabel>

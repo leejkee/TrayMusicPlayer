@@ -1,0 +1,5 @@
+QFrame {
+    border: none; /* 移除默认边框 */
+    background-color: #999999; /* 设置线条颜色 */
+    max-height: 1px; /* 设置线条粗细 */
+}

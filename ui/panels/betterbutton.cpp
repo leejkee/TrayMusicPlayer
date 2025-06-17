@@ -2,7 +2,7 @@
 // Created by cww on 25-4-1.
 //
 #include "betterbutton.h"
-#include <uiconfig.h>
+#include <uitools.h>
 #include <QEvent>
 
 
