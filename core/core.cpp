@@ -7,13 +7,15 @@
 #include <listcache.h>
 #include <player.h>
 #include <playlist.h>
-#include <qtmetamacros.h>
 #include <settings.h>
 #include <trayconfig.h>
+
 #include <QThread>
+#include <memory>
 
 namespace Tray::Core {
 class CorePrivate {
+
 public:
     explicit CorePrivate(QObject* p_core);
 
