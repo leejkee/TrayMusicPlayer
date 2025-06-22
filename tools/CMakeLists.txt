@@ -8,4 +8,4 @@ target_link_libraries(tray_log PUBLIC
 add_library(Tray::tray_log ALIAS tray_log)
 
 add_library(lyric_parser STATIC lyricparser/lyricparser.cpp)
-target_link_directories(lyric_parser PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/lyricparser)
+target_include_directories(lyric_parser PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/lyricparser)

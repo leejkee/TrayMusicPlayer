@@ -72,8 +72,6 @@ public:
 
     [[nodiscard]] std::vector<LyricLine> getLyricArray() const;
     [[nodiscard]] std::vector<std::string> getLyricTags() const;
-    [[nodiscard]] std::string getLyricLine(std::string_view time_str) const;
-    [[nodiscard]] std::string getLyricLine(std::int64_t time_ms) const;
 
 private:
     std::vector<LyricLine> m_lyrics;

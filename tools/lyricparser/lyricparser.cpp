@@ -43,11 +43,15 @@ std::vector<LyricLine> LyricParser::readLycFile(const std::string_view file)
         if (std::regex_match(line, line_match, m_normalRegex))
         {
             std::string time = line_match[1].str() + ":" + line_match[2].str() + "." + line_match[3].str();
-            std::string text {line_match[5]};
-            if (std::regex_match(text, line_match, m_enhancedTextRegex))
+            if (std::string text {line_match[5]}; std::regex_match(text, line_match, m_enhancedTextRegex))
             {
-                // match loop for text
-                m_lyrics.emplace_back(timeStringToMS(time), std::move(text), true);
+                std::string result;
+                for (std::smatch sm; std::regex_search(text, sm, m_enhancedTextRegex);)
+                {
+                    result.append(sm.str());
+                    text = sm.suffix();
+                }
+                m_lyrics.emplace_back(timeStringToMS(time), std::move(result), true);
             }
             else
             {
@@ -74,25 +78,6 @@ std::vector<LyricLine> LyricParser::getLyricArray() const
 std::vector<std::string> LyricParser::getLyricTags() const
 {
     return m_lyricTags;
-}
-
-std::string LyricParser::getLyricLine(const std::string_view time_str) const
-{
-    return getLyricLine(timeStringToMS(time_str));
-}
-
-std::string LyricParser::getLyricLine(const std::int64_t time_ms) const
-{
-    auto comp = [](const std::int64_t ms, const LyricLine &lyric)
-    {
-        return ms < lyric.m_start_ms;
-    };
-
-    if (auto it = std::upper_bound(m_lyrics.begin(), m_lyrics.end(), time_ms, comp); it != m_lyrics.begin())
-    {
-        return (--it)->m_text;
-    }
-    return {};
 }
 
 std::int64_t LyricParser::timeStringToMS(const std::string_view time_str)
