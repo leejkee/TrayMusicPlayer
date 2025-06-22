@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/img/tray-logo.svg" alt="Tray Core Module Icon" width="150">
+  <img src="docs/img/MusicPlayerLogo.svg" alt="Tray Core Module Icon" width="150">
   <h3 align="center">TrayMusicPlayer</h3>
   <p align="center">
     一个实现了播放列表管理并包含系统托盘的本地音乐播放器
