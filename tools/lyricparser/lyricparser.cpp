@@ -12,72 +12,100 @@ namespace BadFish::AudioToolkit
 {
 LyricParser::LyricParser(const std::string_view file)
 {
-    m_lyrics = readLycFile(file);
+    readLycFile(file);
 }
 
 LyricParser::~LyricParser() = default;
 
-std::vector<LyricLine> LyricParser::readLycFile(const std::string_view file)
+
+void LyricParser::parseLRC(const std::string_view file)
 {
     if (file.empty())
     {
-        return {};
+        return;
     }
     std::ifstream file_stream{std::string{file}};
     if (!file_stream.is_open())
     {
-        std::cerr << "Failed to open file: " << file << std::endl;
-        return {};
+        std::cerr << "Error: Failed to open file: " << file << std::endl;
+        return;
     }
-
-    std::vector<LyricLine> tmp_lyric;
-    std::string line;
-    while (std::getline(file_stream, line))
+    std::string read_line;
+    std::smatch line_match;
+    while (std::getline(file_stream, read_line))
     {
-        std::smatch line_match = {};
-        if (line.empty())
+        trimString(read_line);
+        if (read_line.empty())
         {
             continue;
         }
-
-        if (std::regex_match(line, line_match, m_normalRegex))
+        if (std::regex_match(read_line, line_match, m_regexMatchTag))
         {
-            std::string time = line_match[1].str() + ":" + line_match[2].str() + "." + line_match[3].str();
-            if (std::string text {line_match[5]}; std::regex_match(text, line_match, m_enhancedTextRegex))
-            {
-                std::string result;
-                for (std::smatch sm; std::regex_search(text, sm, m_enhancedTextRegex);)
-                {
-                    result.append(sm.str());
-                    text = sm.suffix();
-                }
-                m_lyrics.emplace_back(timeStringToMS(time), std::move(result), true);
-            }
-            else
-            {
-                m_lyrics.emplace_back(timeStringToMS(time), std::move(text), false );
-            }
+            m_lyricTags.emplace_back(line_match[1].str());
+            continue;
         }
-        else if (std::regex_match(line, line_match, m_tagRegex))
+        if (std::regex_match(read_line, line_match, m_regexMatchText))
         {
-            if (line_match.size() == 3)
+            std::int64_t start_ms = timeStringToMS(line_match[1].str(), line_match[2].str(), line_match[3].str());
+            std::string text = line_match[5].str();
+            std::string result;
+            if (m_isEnhanced == State::Uninitialized)
             {
-                std::string tag = line_match[1].str() + ": " + line_match[2].str();
-                m_lyricTags.push_back(tag);
+                if (std::smatch text_match; std::regex_search(text, text_match, m_regexSearchEnhancedText))
+                {
+                    m_isEnhanced = State::True;
+                }
+                else
+                {
+                    m_isEnhanced = State::False;
+                }
             }
+
+            if (m_isEnhanced == State::True)
+            {
+                std::smatch text_match;
+                while (std::regex_search(text, text_match, m_regexSearchEnhancedText))
+                {
+                    result.append(text_match[2].str());
+                    text = text_match.suffix();
+                }
+            }
+            else if (m_isEnhanced == State::False)
+            {
+                result = text;
+            }
+
+            m_lyricVector.emplace_back(start_ms, std::move(result));
         }
     }
-    return tmp_lyric;
 }
+
+void LyricParser::trimString(std::string &s)
+{
+    s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](const unsigned char ch) {
+        return !std::isspace(ch);
+    }));
+
+    s.erase(std::find_if(s.rbegin(), s.rend(), [](const unsigned char ch) {
+        return !std::isspace(ch);
+    }).base(), s.end());
+}
+
+
 
 std::vector<LyricLine> LyricParser::getLyricArray() const
 {
-    return m_lyrics;
+    return m_lyricVector;
 }
 
 std::vector<std::string> LyricParser::getLyricTags() const
 {
     return m_lyricTags;
+}
+
+bool LyricParser::isEnhanced() const
+{
+    return m_isEnhanced == State::True;
 }
 
 std::int64_t LyricParser::timeStringToMS(const std::string_view time_str)
@@ -95,6 +123,14 @@ std::int64_t LyricParser::timeStringToMS(const std::string_view time_str)
         time_sec = std::stoi(time_match[2]);
         time_ms = std::stoi(time_match[3]);
     }
+    return (time_min * 60 + time_sec) * 1000 + time_ms;
+}
+
+std::int64_t LyricParser::timeStringToMS(const std::string_view min, const std::string_view sec, const std::string_view ms)
+{
+    const std::int64_t time_min{std::stoi(std::string{min})};
+    const std::int64_t time_sec{std::stoi(std::string{sec})};
+    const std::int64_t time_ms{std::stoi(std::string{ms})};
     return (time_min * 60 + time_sec) * 1000 + time_ms;
 }
 

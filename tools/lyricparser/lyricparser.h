@@ -4,7 +4,6 @@
 #pragma once
 #include <string>
 #include <string_view>
-#include <utility>
 #include <vector>
 #include <cstdint>
 #include <queue>
@@ -12,7 +11,6 @@
 
 namespace BadFish::AudioToolkit
 {
-
 /// Enhanced LRC supported
 /// to be completed
 struct EnhancedLyricLineInfo
@@ -39,20 +37,18 @@ struct EnhancedLyricLineInfo
         return *this;
     }
 };
+
 /// Enhanced LRC supported
 
 struct LyricLine
 {
     std::int64_t m_start_ms;
     std::string m_text;
-    bool m_isEnhanced;
 
     LyricLine(const std::int64_t time_ms
-              , std::string&& text
-              , const bool isEnhanced)
+              , std::string&& text)
         : m_start_ms(time_ms),
-          m_text(std::move(text)),
-          m_isEnhanced(isEnhanced)
+          m_text(std::move(text))
     {
     }
 
@@ -61,27 +57,39 @@ struct LyricLine
 };
 
 
-
 class LyricParser
 {
 public:
     LyricParser() = default;
     explicit LyricParser(std::string_view file);
     ~LyricParser();
-    std::vector<LyricLine> readLycFile(std::string_view file);
 
+    enum class State
+    {
+        Uninitialized, True, False
+    };
+
+    void parseLRC(std::string_view file);
+    static void trimString(std::string& str);
     [[nodiscard]] std::vector<LyricLine> getLyricArray() const;
     [[nodiscard]] std::vector<std::string> getLyricTags() const;
+    [[nodiscard]] bool isEnhanced() const;
 
 private:
-    std::vector<LyricLine> m_lyrics;
+    std::vector<LyricLine> m_lyricVector;
     std::vector<std::string> m_lyricTags;
+    State m_isEnhanced{State::Uninitialized};
 
-    inline static const std::regex m_normalRegex{
+    inline static const std::regex m_regexMatchTag{R"(\[(.*)\])"};
+    inline static const std::regex m_regexSearchEnhancedText{
+        R"(<([^>]+)>(.*?)(?=<|$))"
+    };
+    inline static const std::regex m_regexMatchText{
         R"(\[(\d{1,2}):(\d{1,2})\.(\d{2,3})(?:\.(\d{2,3}))?\](.*))"
     };
-    inline static const std::regex m_enhancedTextRegex{R"(^<(.*)>)"};
-    inline static const std::regex m_tagRegex{R"(\[(.*):(.*)\])"};
     static std::int64_t timeStringToMS(std::string_view time_str);
+    static std::int64_t timeStringToMS(std::string_view min
+                                       , std::string_view sec
+                                       , std::string_view ms);
 };
 }
