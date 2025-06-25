@@ -13,7 +13,7 @@ project(TrayMusicPlayer
 )
 
 #option(TRAY_TEST "Build the Test module" ON)
-set(TRAY_TEST OFF)
+set(TRAY_TEST ON)
 
 find_package(Qt6 REQUIRED COMPONENTS
     Multimedia
@@ -23,11 +23,16 @@ find_package(Qt6 REQUIRED COMPONENTS
     SvgWidgets
     Test
 )
+
+include(CTest)
+enable_testing()
+
 add_subdirectory(tools)
 add_subdirectory(core)
 add_subdirectory(ui)
 add_subdirectory(app)
 add_subdirectory(resource)
+add_subdirectory(3rdParty)
 
 if (TRAY_TEST)
     add_subdirectory(test)
