@@ -3,10 +3,13 @@
 //
 #pragma once
 #include <string>
+#include <algorithm>
+#include <fstream>
+#include <iostream>
+#include <regex>
 #include <string_view>
 #include <vector>
 #include <cstdint>
-#include <queue>
 #include <regex>
 
 namespace BadFish::AudioToolkit
@@ -45,7 +48,12 @@ template <typename CharT,
 struct LyricLine
 {
     std::int64_t m_start_ms;
+
     std::basic_string<CharT> m_text;
+
+    LyricLine() : LyricLine(0, std::basic_string<CharT>())
+    {
+    }
 
     LyricLine(const std::int64_t time_ms
               , std::basic_string<CharT>&& text)
@@ -54,8 +62,23 @@ struct LyricLine
     {
     }
 
+    LyricLine(const LyricLine& other) = default;
+
+    LyricLine(LyricLine&& other) = default;
+
     LyricLine& operator=(const LyricLine& other) = default;
-    LyricLine& operator=(LyricLine&& other) = default;
+
+    LyricLine& operator=(LyricLine&& other) noexcept = default;
+
+    bool operator==(const LyricLine& other) const
+    {
+        return (m_start_ms == other.m_start_ms) && (m_text == other.m_text);
+    }
+
+    bool operator!=(const LyricLine& other) const
+    {
+        return (m_start_ms != other.m_start_ms) || (m_text != other.m_text);
+    }
 };
 
 
@@ -66,7 +89,11 @@ class LyricParser
 {
 public:
     LyricParser() = default;
+
     explicit LyricParser(std::basic_string_view<CharT> file);
+
+    explicit LyricParser(std::basic_ifstream<CharT>& i_f_stream);
+
     ~LyricParser();
 
     enum class State
@@ -80,23 +107,36 @@ public:
     void parseLRC(std::basic_ifstream<CharT>& stream);
 
     static void trimString(std::basic_string<CharT>& str);
+
     [[nodiscard]] std::vector<LyricLine<CharT>> getLyricArray() const;
+
     [[nodiscard]] std::vector<std::basic_string<CharT>> getLyricTags() const;
+
     [[nodiscard]] bool isEnhanced() const;
+
+    void clearLyricContent();
 
 private:
     std::vector<LyricLine<CharT>> m_lyricVector;
+
     std::vector<std::basic_string<CharT>> m_lyricTags;
+
     State m_isEnhanced{State::Uninitialized};
 
     static const std::basic_regex<CharT> s_regexMatchTag;
+
     static const std::basic_regex<CharT> s_regexSearchEnhancedText;
+
     static const std::basic_regex<CharT> s_regexMatchText;
+
     static const std::basic_regex<CharT> s_regexMatchTime;
 
     static std::int64_t timeStringToMS(std::basic_string_view<CharT> time_str);
+
     static std::int64_t timeStringToMS(std::basic_string_view<CharT> min
                                        , std::basic_string_view<CharT> sec
                                        , std::basic_string_view<CharT> ms);
 };
 }
+
+#include "lyricparser.tpp"

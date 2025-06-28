@@ -11,8 +11,5 @@ target_link_libraries(test_splitter_ui PRIVATE tray_music_ui)
 ## TestSplitter
 
 ## TestLyricParser
-add_executable(TestLyricParser TestLyricParser.cpp)
-target_link_libraries(TestLyricParser PRIVATE catch2 lyric_parser)
-add_test(NAME TestLyricParser COMMAND TestLyricParser)
+add_subdirectory(TestLyricParser)
 ## TestLyricParser
-
