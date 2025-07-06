@@ -5,8 +5,6 @@
 #include <fstream>
 #include <iostream>
 
-#define NEWLINE_CHAR "\n"
-
 #if defined(_WIN32) || defined(_WIN64)
 // Windows API specific includes
 #include <windows.h>
@@ -54,13 +52,13 @@ FileHelper::~FileHelper()
 // -----------------------------------------------------------------------------
 #if defined(_WIN32) || defined(_WIN64)
 bool FileHelper::write_to_file_winapi(const std::string& content
-                                      , const Encoding encoding)
+                                      , const Encoding target_encoding)
 {
     int code_page = 0;
     std::vector<char> output_bytes;
     bool add_bom = false;
 
-    switch (encoding)
+    switch (target_encoding)
     {
     case Encoding::UTF8:
         code_page = CP_UTF8;
@@ -148,12 +146,12 @@ bool FileHelper::write_to_file_winapi(const std::string& content
 
     if (add_bom)
     {
-        if (encoding == Encoding::UTF8)
+        if (target_encoding == Encoding::UTF8)
         {
             constexpr unsigned char bom[] = {0xEF, 0xBB, 0xBF};
             outFile.write(reinterpret_cast<const char*>(bom), sizeof(bom));
         }
-        else if (encoding == Encoding::UTF16LE)
+        else if (target_encoding == Encoding::UTF16LE)
         {
             constexpr unsigned char bom[] = {0xFF, 0xFE};
             outFile.write(reinterpret_cast<const char*>(bom), sizeof(bom));

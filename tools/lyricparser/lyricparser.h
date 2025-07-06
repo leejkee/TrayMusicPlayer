@@ -4,13 +4,11 @@
 #pragma once
 #include <string>
 #include <algorithm>
-#include <fstream>
-#include <iostream>
 #include <regex>
 #include <string_view>
 #include <vector>
-#include <cstdint>
-#include <regex>
+#include <filesystem>
+
 
 namespace BadFish::AudioToolkit
 {
@@ -42,21 +40,16 @@ namespace BadFish::AudioToolkit
 // };
 /// Enhanced LRC supported
 
-template <typename CharT,
-    typename = std::enable_if_t<std::is_same_v<CharT, char>
-        || std::is_same_v<CharT, wchar_t>>>
 struct LyricLine
 {
     std::int64_t m_start_ms;
 
-    std::basic_string<CharT> m_text;
+    std::string m_text;
 
-    LyricLine() : LyricLine(0, std::basic_string<CharT>())
-    {
-    }
+    LyricLine() : LyricLine(0, std::string()){}
 
     LyricLine(const std::int64_t time_ms
-              , std::basic_string<CharT>&& text)
+              , std::string&& text)
         : m_start_ms(time_ms),
           m_text(std::move(text))
     {
@@ -82,17 +75,14 @@ struct LyricLine
 };
 
 
-template <typename CharT,
-    typename = std::enable_if_t<std::is_same_v<CharT, char>
-        || std::is_same_v<CharT, wchar_t>>>
 class LyricParser
 {
 public:
     LyricParser() = default;
 
-    explicit LyricParser(std::basic_string_view<CharT> file);
+    explicit LyricParser(const std::filesystem::path& file_path);
 
-    explicit LyricParser(std::basic_ifstream<CharT>& i_f_stream);
+    explicit LyricParser(std::ifstream& file_stream);
 
     ~LyricParser();
 
@@ -101,42 +91,79 @@ public:
         Uninitialized, True, False
     };
 
-    static void readFile(std::basic_ifstream<CharT>& stream
-                         , std::basic_string_view<CharT> file);
+    enum class Encoding
+    {
+        UTF8,
+        GBK,
+        UTF16LE,
+        UNKNOWN
+    };
 
-    void parseLRC(std::basic_ifstream<CharT>& stream);
+    void read_file(const std::filesystem::path& file_path);
 
-    static void trimString(std::basic_string<CharT>& str);
+    static Encoding detect_encoding(std::string_view str_line);
 
-    [[nodiscard]] std::vector<LyricLine<CharT>> getLyricArray() const;
+    void parse_lrc(std::ifstream& file_stream);
 
-    [[nodiscard]] std::vector<std::basic_string<CharT>> getLyricTags() const;
+    template <typename CharT, typename = std::enable_if_t<std::is_same_v<CharT, char>
+        || std::is_same_v<CharT, wchar_t>>>
+    static void trim_string(std::basic_string<CharT>& str)
+    {
+        str.erase(str.begin()
+                  , std::find_if(str.begin()
+                                 , str.end()
+                                 , [](const unsigned char ch)
+                                 {
+                                     return !std::isspace(ch);
+                                 }));
 
-    [[nodiscard]] bool isEnhanced() const;
+        str.erase(std::find_if(str.rbegin()
+                               , str.rend()
+                               , [](const unsigned char ch)
+                               {
+                                   return !std::isspace(ch);
+                               }).base()
+                  , str.end());
+    }
 
-    void clearLyricContent();
+    static std::string any_to_utf8(std::string_view any_str, Encoding encoding = Encoding::UTF8);
+
+    static std::int64_t time_to_ms(std::string_view time_str);
+
+    static std::int64_t time_to_ms(std::string_view min
+                                       , std::string_view sec
+                                       , std::string_view ms);
+
+    [[nodiscard]] std::vector<LyricLine> get_lrc_text() const;
+
+    [[nodiscard]] std::vector<std::string> get_lyric_tags() const;
+
+    [[nodiscard]] bool is_enhanced() const;
+
+    Encoding get_encoding() const;
+
+    void clear_result();
 
 private:
-    std::vector<LyricLine<CharT>> m_lyricVector;
+    std::filesystem::path m_file_path;
 
-    std::vector<std::basic_string<CharT>> m_lyricTags;
+    std::vector<std::string> m_lyric_original;
 
-    State m_isEnhanced{State::Uninitialized};
+    std::vector<LyricLine> m_lyric_vector;
 
-    static const std::basic_regex<CharT> s_regexMatchTag;
+    std::vector<std::string> m_lyric_tags;
 
-    static const std::basic_regex<CharT> s_regexSearchEnhancedText;
+    State m_is_enhanced{State::Uninitialized};
 
-    static const std::basic_regex<CharT> s_regexMatchText;
+    Encoding m_encoding{Encoding::UTF8};
 
-    static const std::basic_regex<CharT> s_regexMatchTime;
+    static const std::regex s_regex_match_tag;
 
-    static std::int64_t timeStringToMS(std::basic_string_view<CharT> time_str);
+    static const std::regex s_regex_search_enhanced_text;
 
-    static std::int64_t timeStringToMS(std::basic_string_view<CharT> min
-                                       , std::basic_string_view<CharT> sec
-                                       , std::basic_string_view<CharT> ms);
+    static const std::regex s_regex_match_text;
+
+    static const std::regex s_regex_match_time;
+
 };
 }
-
-#include "lyricparser.tpp"

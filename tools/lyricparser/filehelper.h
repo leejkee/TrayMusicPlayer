@@ -26,7 +26,7 @@ public:
     bool write_to_file(const std::vector<std::string>& content_lines
                        , Encoding encoding = Encoding::UTF8);
 
-    bool write_to_file_winapi(const std::string& content, Encoding encoding);
+    bool write_to_file_winapi(const std::string& content, Encoding target_encoding);
 
 #if defined(__linux__) || defined(__unix__) || defined(__APPLE__)
     bool write_to_file_iconv(const std::string& content, Encoding encoding);
@@ -34,4 +34,5 @@ public:
 
 private:
     std::filesystem::path m_filePath;
+    constexpr char NEWLINE_CHAR{'\n'};
 };
