@@ -8,22 +8,18 @@
 
 namespace BadFish::AudioToolkit
 {
-LyricParser::LyricParser(const std::filesystem::path& file_path)
+LyricParser::LyricParser(std::filesystem::path file_path) : m_file_path(std::move(file_path))
 {
-    std::ifstream file_stream;
-}
-
-LyricParser::LyricParser(std::ifstream& file_stream)
-{
-    parse_lrc(file_stream);
+    read_file();
+    parse_lrc();
 }
 
 LyricParser::~LyricParser() = default;
 
-void LyricParser::read_file(const std::filesystem::path& file_path)
+void LyricParser::read_file()
 {
     // refactor
-    std::ifstream lyric_stream(file_path, std::ios::binary);
+    std::ifstream lyric_stream(m_file_path, std::ios::binary | std::ios::in);
     if (!lyric_stream.is_open())
     {
         std::cerr << "Error: Failed to open file\n";
@@ -36,27 +32,67 @@ void LyricParser::read_file(const std::filesystem::path& file_path)
         {
             continue;
         }
-        std::string result_line;
-
-        if (m_encoding == Encoding::UNKNOWN)
-        {
-            m_encoding = detect_encoding(read_line);
-        }
-
-        if (m_encoding == Encoding::UTF8)
-        {
-            result_line = read_line;
-        }
-        else
-        {
-            result_line = any_to_utf8(read_line, m_encoding);
-        }
-        m_lyric_original.emplace_back(result_line);
+        m_lyric_original.emplace_back(read_line);
     }
 }
 
-LyricParser::Encoding LyricParser::detect_encoding(const std::string_view str_line)
+bool LyricParser::is_ascii(const std::string_view str)
 {
+    return std::all_of(str.begin(), str.end(), [](const char c) {
+        return (static_cast<unsigned char>(c) <= 0x7F);
+    });
+}
+
+bool LyricParser::detect_GBK(const std::string_view str)
+{
+    if (const int bytes_wchar = MultiByteToWideChar(936, 0, str.data(), -1, nullptr, 0); bytes_wchar == 0)
+    {
+        return false;
+    }
+    return true;
+}
+
+bool LyricParser::detect_UTF16LE(const std::string_view str)
+{
+    if ()
+}
+
+bool LyricParser::detect_UTF8(const std::string_view str)
+{
+
+}
+
+// refactor todo
+void LyricParser::detect_encoding()
+{
+    for (auto& line : m_lyric_original)
+    {
+        if (is_ascii(line))
+        {
+            continue;
+        }
+
+        if (detect_UTF8(line))
+        {
+            m_encoding = Encoding::UTF8;
+            break;
+        }
+
+        if (detect_GBK(line))
+        {
+            m_encoding = Encoding::GBK;
+            break;
+        }
+
+        if (detect_UTF16LE(line))
+        {
+            m_encoding = Encoding::UTF16LE;
+            break;
+        }
+    }
+}
+
+
     if (str_line.empty())
     {
         return Encoding::UNKNOWN;
@@ -76,7 +112,6 @@ LyricParser::Encoding LyricParser::detect_encoding(const std::string_view str_li
         {
             if (static_cast<unsigned char>(c) >= 0x80)
             {
-                // there are non-ASCII characters, it's not just ASCII
                 contains_high_bit_byte = true;
                 break;
             }
@@ -92,8 +127,7 @@ LyricParser::Encoding LyricParser::detect_encoding(const std::string_view str_li
          CP_UTF8
          , 0
          , str_line.data()
-         , static_cast<int>(str_line.
-             length())
+         , static_cast<int>(str_line.length())
          , nullptr
          , 0
         );
@@ -106,7 +140,8 @@ LyricParser::Encoding LyricParser::detect_encoding(const std::string_view str_li
     // --- Step 3: Minimal UTF-16LE check (if desired, less common for "Chinese file content") ---
     if (str_line.length() % 2 == 0)
     {
-        const auto* wide_str_ptr = reinterpret_cast<const wchar_t*>(str_line.data());
+        const auto* wide_str_ptr = reinterpret_cast<const wchar_t*>(str_line.
+            data());
         const int wide_str_len = static_cast<int>(str_line.length() / sizeof(
             wchar_t));
 
@@ -137,26 +172,21 @@ std::string LyricParser::any_to_utf8(const std::string_view any_str
     unsigned int code_page;
     switch (encoding)
     {
-    case Encoding::UTF8:
-        {
-            code_page = CP_UTF8;
-            return std::string(any_str);
-        }
-    case Encoding::UTF16LE:
-        {
-            code_page = 1200;
-            break;
-        }
-    case Encoding::GBK:
-        {
-            code_page = 936;
-            break;
-        }
-    default:
-        {
-            code_page = CP_UTF8;
-            return {};
-        }
+    case Encoding::UTF8: {
+        return std::string(any_str);
+    }
+    case Encoding::UTF16LE: {
+        code_page = 1200;
+        break;
+    }
+    case Encoding::GBK: {
+        code_page = 936;
+        break;
+    }
+    default: {
+        code_page = CP_UTF8;
+        return {};
+    }
     }
     // calculate the needed size for wide char string
     const int w_str_size = MultiByteToWideChar(code_page
@@ -202,6 +232,82 @@ std::string LyricParser::any_to_utf8(const std::string_view any_str
                                      , const Encoding encoding)
 #endif
 
+void LyricParser::parse_lrc()
+{
+    if (m_lyric_original.empty())
+    {
+        std::cerr << "LyricParser::parse_lrc: empty original LRC vector" <<
+                std::endl;
+        return;
+    }
+    for (auto& str_line : m_lyric_original)
+    {
+        trim_string(str_line);
+    }
+
+    std::smatch results_match;
+    auto o_it = m_lyric_original.begin();
+
+    // 1. Tags match
+    while (o_it != m_lyric_original.end() && std::regex_match(*o_it
+        , results_match
+        , s_regex_match_tag))
+    {
+        m_lyric_tags.emplace_back(results_match[1].str());
+        ++o_it;
+    }
+    // 1.
+
+    // 2. Text match
+    while (o_it != m_lyric_original.end() && std::regex_match(*o_it
+        , results_match
+        , s_regex_match_text))
+    {
+        std::int64_t start_ms = time_to_ms(results_match[1].str()
+                                           , results_match[2].str()
+                                           , results_match[3].str());
+        std::string text = results_match[5].str();
+        trim_string(text);
+        std::string result;
+        if (m_is_enhanced == State::Uninitialized)
+        {
+            if (std::regex_search(text
+                                  , results_match
+                                  , s_regex_search_enhanced_text))
+            {
+                m_is_enhanced = State::True;
+            }
+            else
+            {
+                m_is_enhanced = State::False;
+            }
+        }
+        if (m_is_enhanced == State::True)
+        {
+            while (std::regex_search(text
+                                     , results_match
+                                     , s_regex_search_enhanced_text))
+            {
+                std::string match_word = results_match[2].str();
+                trim_string(match_word);
+                match_word += ' ';
+                result.append(match_word);
+                text = results_match.suffix();
+            }
+            if (std::isspace(static_cast<unsigned char>(result.back())))
+            {
+                result.pop_back();
+            }
+        }
+        else if (m_is_enhanced == State::False)
+        {
+            result = text;
+        }
+        m_lyric_vector.emplace_back(start_ms, std::move(result));
+        ++o_it;
+    }
+    // 2.
+}
 
 void LyricParser::parse_lrc(std::ifstream& file_stream)
 {
@@ -272,7 +378,6 @@ void LyricParser::parse_lrc(std::ifstream& file_stream)
     }
 }
 
-
 std::vector<LyricLine> LyricParser::get_lrc_text() const
 {
     return m_lyric_vector;
@@ -315,6 +420,11 @@ std::int64_t LyricParser::time_to_ms(
     return (time_min * 60 + time_sec) * 1000 + time_ms;
 }
 
+LyricParser::Encoding LyricParser::get_encoding() const
+{
+    return m_encoding;
+}
+
 void LyricParser::clear_result()
 {
     m_is_enhanced = State::Uninitialized;
@@ -322,17 +432,17 @@ void LyricParser::clear_result()
     m_lyric_vector.clear();
 }
 
-const std::basic_regex<char> LyricParser::s_regex_match_tag{R"(\[(.*)\])"};
+const std::regex LyricParser::s_regex_match_tag{R"(\[(.*)\])"};
 
-const std::basic_regex<char> LyricParser::s_regex_search_enhanced_text{
+const std::regex LyricParser::s_regex_search_enhanced_text{
     R"(<([^>]+)>(.*?)(?=<|$))"
 };
 
-const std::basic_regex<char> LyricParser::s_regex_match_text{
+const std::regex LyricParser::s_regex_match_text{
     R"(\[(\d{1,2}):(\d{1,2})\.(\d{2,3})(?:\.(\d{2,3}))?\](.*))"
 };
 
-const std::basic_regex<char> LyricParser::s_regex_match_time{
+const std::regex LyricParser::s_regex_match_time{
     R"((\d{1,2}):(\d{1,2})\.(\d{2,3}))"
 };
 }

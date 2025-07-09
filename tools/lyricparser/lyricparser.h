@@ -13,7 +13,7 @@
 namespace BadFish::AudioToolkit
 {
 /// Enhanced LRC supported
-/// to be completed
+/// todo
 // struct EnhancedLyricLineInfo
 // {
 //     std::int64_t m_end_ms{0};
@@ -80,9 +80,7 @@ class LyricParser
 public:
     LyricParser() = default;
 
-    explicit LyricParser(const std::filesystem::path& file_path);
-
-    explicit LyricParser(std::ifstream& file_stream);
+    explicit LyricParser(std::filesystem::path file_path);
 
     ~LyricParser();
 
@@ -99,9 +97,11 @@ public:
         UNKNOWN
     };
 
-    void read_file(const std::filesystem::path& file_path);
+    void read_file();
 
-    static Encoding detect_encoding(std::string_view str_line);
+    void detect_encoding();
+
+    void parse_lrc();
 
     void parse_lrc(std::ifstream& file_stream);
 
@@ -109,6 +109,27 @@ public:
         || std::is_same_v<CharT, wchar_t>>>
     static void trim_string(std::basic_string<CharT>& str)
     {
+        if constexpr (std::is_same_v<CharT, char>)
+        {
+            if (str.length() >= 3 &&
+                static_cast<unsigned char>(str[0]) == 0xEF &&
+                static_cast<unsigned char>(str[1]) == 0xBB &&
+                static_cast<unsigned char>(str[2]) == 0xBF)
+            {
+                str.erase(0, 3); // Remove the 3-byte UTF-8 BOM
+            }
+        }
+        else if constexpr (std::is_same_v<CharT, wchar_t>)
+        {
+            if (str.length() >= 1)
+            {
+                if (static_cast<unsigned short>(str[0]) == 0xFFFE ||
+                    static_cast<unsigned short>(str[0]) == 0xFEFF)
+                {
+                    str.erase(0, 1); // Remove the 1-wchar_t BOM character
+                }
+            }
+        }
         str.erase(str.begin()
                   , std::find_if(str.begin()
                                  , str.end()
@@ -133,6 +154,11 @@ public:
     static std::int64_t time_to_ms(std::string_view min
                                        , std::string_view sec
                                        , std::string_view ms);
+    static bool detect_GBK(std::string_view str);
+    static bool detect_UTF16LE(std::string_view str);
+    bool detect_UTF8(std::string_view str);
+
+    static bool is_ascii(std::string_view str);
 
     [[nodiscard]] std::vector<LyricLine> get_lrc_text() const;
 
@@ -140,7 +166,7 @@ public:
 
     [[nodiscard]] bool is_enhanced() const;
 
-    Encoding get_encoding() const;
+    [[nodiscard]] Encoding get_encoding() const;
 
     void clear_result();
 
@@ -155,7 +181,7 @@ private:
 
     State m_is_enhanced{State::Uninitialized};
 
-    Encoding m_encoding{Encoding::UTF8};
+    Encoding m_encoding{Encoding::UNKNOWN};
 
     static const std::regex s_regex_match_tag;
 
@@ -164,6 +190,5 @@ private:
     static const std::regex s_regex_match_text;
 
     static const std::regex s_regex_match_time;
-
 };
 }

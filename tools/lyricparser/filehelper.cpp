@@ -8,8 +8,6 @@
 #if defined(_WIN32) || defined(_WIN64)
 // Windows API specific includes
 #include <windows.h>
-#include <locale>
-#include <codecvt>
 #include <utility>
 #endif
 
@@ -57,7 +55,6 @@ bool FileHelper::write_to_file_winapi(const std::string& content
     int code_page = 0;
     std::vector<char> output_bytes;
     bool add_bom = false;
-
     switch (target_encoding)
     {
     case Encoding::UTF8:
@@ -76,7 +73,6 @@ bool FileHelper::write_to_file_winapi(const std::string& content
         return false;
     }
 
-
     // 1. convert to Unicode UTF16LE for using Win API
     const int w_str_size = MultiByteToWideChar(CP_UTF8
                                                , 0
@@ -93,11 +89,11 @@ bool FileHelper::write_to_file_winapi(const std::string& content
     }
     std::wstring w_str(w_str_size - 1, L'\0');
     if (w_str_size != MultiByteToWideChar(CP_UTF8
-                            , 0
-                            , content.c_str()
-                            , -1
-                            , &w_str[0]
-                            , w_str_size))
+                                          , 0
+                                          , content.c_str()
+                                          , -1
+                                          , &w_str[0]
+                                          , w_str_size))
     {
         std::cerr <<
                 "WinAPI Error: MultiByteToWideChar (UTF-8 to UTF-16) failed, GetLastError: "
@@ -106,16 +102,15 @@ bool FileHelper::write_to_file_winapi(const std::string& content
     }
     // 1.
 
-
     // 2. convert to the target encoding by Win API
     const int mb_chars_needed = WideCharToMultiByte(code_page
-                                              , 0
-                                              , w_str.c_str()
-                                              , -1
-                                              , nullptr
-                                              , 0
-                                              , nullptr
-                                              , nullptr);
+                                                    , 0
+                                                    , w_str.c_str()
+                                                    , -1
+                                                    , nullptr
+                                                    , 0
+                                                    , nullptr
+                                                    , nullptr);
     if (mb_chars_needed == 0)
     {
         std::cerr <<
@@ -124,26 +119,29 @@ bool FileHelper::write_to_file_winapi(const std::string& content
         return false;
     }
     // -1 to exclude null terminator that WideCharToMultiByte adds
-    output_bytes.resize(mb_chars_needed - 1);
+    output_bytes.resize(mb_chars_needed);
     WideCharToMultiByte(code_page
                         , 0
                         , w_str.c_str()
                         , -1
                         , output_bytes.data()
-                        , mb_chars_needed
+                        , static_cast<int>(output_bytes.size())
                         , nullptr
                         , nullptr);
+    if (output_bytes.back() == '\0')
+    {
+        output_bytes.pop_back();
+    }
     // 2.
 
     // 3. write wstring to file
-    std::ofstream outFile(m_filePath, std::ios::binary);
+    std::ofstream outFile(m_filePath, std::ios::binary | std::ios::out);
     if (!outFile.is_open())
     {
         std::cerr << "WinAPI Error: Could not open file: " << m_filePath <<
                 std::endl;
         return false;
     }
-
     if (add_bom)
     {
         if (target_encoding == Encoding::UTF8)
@@ -151,17 +149,16 @@ bool FileHelper::write_to_file_winapi(const std::string& content
             constexpr unsigned char bom[] = {0xEF, 0xBB, 0xBF};
             outFile.write(reinterpret_cast<const char*>(bom), sizeof(bom));
         }
-        else if (target_encoding == Encoding::UTF16LE)
+        else
         {
             constexpr unsigned char bom[] = {0xFF, 0xFE};
             outFile.write(reinterpret_cast<const char*>(bom), sizeof(bom));
         }
     }
-
-    outFile.write(output_bytes.data(), output_bytes.size());
+    outFile.write(output_bytes.data()
+                  , static_cast<long long>(output_bytes.size()));
     outFile.close();
     // 3.
-
     return true;
 }
 #endif // _WIN32 || _WIN64

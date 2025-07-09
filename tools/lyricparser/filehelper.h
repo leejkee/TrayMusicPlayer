@@ -14,7 +14,7 @@ public:
         UTF8, GBK, UTF16LE
     };
 
-    explicit FileHelper(std::filesystem::path  filePath);
+    explicit FileHelper(std::filesystem::path filePath);
 
     ~FileHelper();
 
@@ -34,5 +34,5 @@ public:
 
 private:
     std::filesystem::path m_filePath;
-    constexpr char NEWLINE_CHAR{'\n'};
+    static constexpr char NEWLINE_CHAR{'\n'};
 };
