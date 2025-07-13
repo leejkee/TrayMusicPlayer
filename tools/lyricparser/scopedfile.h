@@ -6,22 +6,22 @@
 #include <filesystem>
 #include <vector>
 
-class FileHelper
+class ScopedFile
 {
 public:
     enum class Encoding
     {
-        UTF8, GBK, UTF16LE
+        UTF8, GBK
     };
 
-    explicit FileHelper(std::filesystem::path filePath);
+    explicit ScopedFile(std::filesystem::path filePath);
 
-    ~FileHelper();
+    ~ScopedFile();
 
-    FileHelper(const FileHelper&) = delete;
-    FileHelper(FileHelper&&) = delete;
-    FileHelper& operator=(const FileHelper&) = delete;
-    FileHelper& operator=(FileHelper&&) = delete;
+    ScopedFile(const ScopedFile&) = delete;
+    ScopedFile(ScopedFile&&) = delete;
+    ScopedFile& operator=(const ScopedFile&) = delete;
+    ScopedFile& operator=(ScopedFile&&) = delete;
 
     bool write_to_file(const std::vector<std::string>& content_lines
                        , Encoding encoding = Encoding::UTF8);

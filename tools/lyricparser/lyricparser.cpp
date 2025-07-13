@@ -6,231 +6,41 @@
 #include <fstream>
 #include <windows.h>
 
-namespace BadFish::AudioToolkit
+namespace Badfish::AudioToolkit
 {
-LyricParser::LyricParser(std::filesystem::path file_path) : m_file_path(std::move(file_path))
+LyricParser::LyricParser(const std::vector<std::string>& string_vector
+                         , const FileKits::Encoding encoding)
+    : m_encoding(encoding)
 {
-    read_file();
+    if (m_encoding == FileKits::Encoding::GBK)
+    {
+        for (const auto& str_line : string_vector)
+        {
+            m_lyric_original.
+                    emplace_back(FileKits::TextFileHelper::convert_encoding(str_line
+                                     , FileKits::Encoding::GBK
+                                     , FileKits::Encoding::UTF8));
+        }
+    }
+    else if (m_encoding == FileKits::Encoding::UTF8)
+    {
+        m_lyric_original = string_vector;
+    }
+    else
+    {
+        std::cerr << "Unknown encoding type" << std::endl;
+        return;
+    }
     parse_lrc();
 }
 
+LyricParser::LyricParser(const FileKits::TextFileHelper& text_file)
+    : LyricParser(text_file.get_content(), text_file.get_encoding())
+{
+}
+
+
 LyricParser::~LyricParser() = default;
-
-void LyricParser::read_file()
-{
-    // refactor
-    std::ifstream lyric_stream(m_file_path, std::ios::binary | std::ios::in);
-    if (!lyric_stream.is_open())
-    {
-        std::cerr << "Error: Failed to open file\n";
-        return;
-    }
-    std::string read_line;
-    while (std::getline(lyric_stream, read_line))
-    {
-        if (read_line.empty())
-        {
-            continue;
-        }
-        m_lyric_original.emplace_back(read_line);
-    }
-}
-
-bool LyricParser::is_ascii(const std::string_view str)
-{
-    return std::all_of(str.begin(), str.end(), [](const char c) {
-        return (static_cast<unsigned char>(c) <= 0x7F);
-    });
-}
-
-bool LyricParser::detect_GBK(const std::string_view str)
-{
-    if (const int bytes_wchar = MultiByteToWideChar(936, 0, str.data(), -1, nullptr, 0); bytes_wchar == 0)
-    {
-        return false;
-    }
-    return true;
-}
-
-bool LyricParser::detect_UTF16LE(const std::string_view str)
-{
-    if ()
-}
-
-bool LyricParser::detect_UTF8(const std::string_view str)
-{
-
-}
-
-// refactor todo
-void LyricParser::detect_encoding()
-{
-    for (auto& line : m_lyric_original)
-    {
-        if (is_ascii(line))
-        {
-            continue;
-        }
-
-        if (detect_UTF8(line))
-        {
-            m_encoding = Encoding::UTF8;
-            break;
-        }
-
-        if (detect_GBK(line))
-        {
-            m_encoding = Encoding::GBK;
-            break;
-        }
-
-        if (detect_UTF16LE(line))
-        {
-            m_encoding = Encoding::UTF16LE;
-            break;
-        }
-    }
-}
-
-
-    if (str_line.empty())
-    {
-        return Encoding::UNKNOWN;
-    }
-
-    // --- Step 1: Attempt to convert as GBK (Code Page 936) ---
-    const int wide_char_len_gbk = MultiByteToWideChar(936
-        , 0
-        , str_line.data()
-        , static_cast<int>(str_line.length())
-        , nullptr
-        , 0);
-    if (wide_char_len_gbk > 0)
-    {
-        bool contains_high_bit_byte = false;
-        for (const char c : str_line)
-        {
-            if (static_cast<unsigned char>(c) >= 0x80)
-            {
-                contains_high_bit_byte = true;
-                break;
-            }
-        }
-        if (contains_high_bit_byte)
-        {
-            return Encoding::GBK;
-        }
-    }
-
-    // --- Step 2: Attempt to convert as UTF-8 ---
-    const int wide_char_len_utf8 = MultiByteToWideChar(
-         CP_UTF8
-         , 0
-         , str_line.data()
-         , static_cast<int>(str_line.length())
-         , nullptr
-         , 0
-        );
-
-    if (wide_char_len_utf8 > 0)
-    {
-        return Encoding::UTF8;
-    }
-
-    // --- Step 3: Minimal UTF-16LE check (if desired, less common for "Chinese file content") ---
-    if (str_line.length() % 2 == 0)
-    {
-        const auto* wide_str_ptr = reinterpret_cast<const wchar_t*>(str_line.
-            data());
-        const int wide_str_len = static_cast<int>(str_line.length() / sizeof(
-            wchar_t));
-
-        const int utf8_len = WideCharToMultiByte(
-                                                 CP_UTF8
-                                                 , 0
-                                                 , wide_str_ptr
-                                                 , wide_str_len
-                                                 , nullptr
-                                                 , 0
-                                                 , nullptr
-                                                 , nullptr
-                                                );
-        if (utf8_len > 0)
-        {
-            return Encoding::UTF16LE;
-        }
-    }
-
-    // --- Step 4: Fallback ---
-    return Encoding::UNKNOWN;
-}
-
-#if defined(_WIN32) || defined(_WIN64)
-std::string LyricParser::any_to_utf8(const std::string_view any_str
-                                     , const Encoding encoding)
-{
-    unsigned int code_page;
-    switch (encoding)
-    {
-    case Encoding::UTF8: {
-        return std::string(any_str);
-    }
-    case Encoding::UTF16LE: {
-        code_page = 1200;
-        break;
-    }
-    case Encoding::GBK: {
-        code_page = 936;
-        break;
-    }
-    default: {
-        code_page = CP_UTF8;
-        return {};
-    }
-    }
-    // calculate the needed size for wide char string
-    const int w_str_size = MultiByteToWideChar(code_page
-                                               , 0
-                                               , any_str.data()
-                                               , -1
-                                               , nullptr
-                                               , 0);
-
-    std::wstring w_str(w_str_size - 1, L'\0');
-
-    MultiByteToWideChar(code_page
-                        , 0
-                        , any_str.data()
-                        , -1
-                        , w_str.data()
-                        , w_str_size);
-
-    const int size_utf8_str = WideCharToMultiByte(CP_UTF8
-                                                  , 0
-                                                  , w_str.c_str()
-                                                  , -1
-                                                  , nullptr
-                                                  , 0
-                                                  , nullptr
-                                                  , nullptr);
-    // -1 to exclude null terminator that WideCharToMultiByte adds
-
-    std::string str_utf8(size_utf8_str, '\0');
-    WideCharToMultiByte(CP_UTF8
-                        , 0
-                        , w_str.c_str()
-                        , -1
-                        , str_utf8.data()
-                        , size_utf8_str
-                        , nullptr
-                        , nullptr);
-    return str_utf8;
-}
-
-#elif defined(__linux__) || defined(__unix__) || defined(__APPLE__)
-    std::string LyricParser::any_to_utf8(const std::string_view str
-                                     , const Encoding encoding)
-#endif
 
 void LyricParser::parse_lrc()
 {
@@ -269,20 +79,20 @@ void LyricParser::parse_lrc()
         std::string text = results_match[5].str();
         trim_string(text);
         std::string result;
-        if (m_is_enhanced == State::Uninitialized)
+        if (m_is_enhanced == EnhancedState::Uninitialized)
         {
             if (std::regex_search(text
                                   , results_match
                                   , s_regex_search_enhanced_text))
             {
-                m_is_enhanced = State::True;
+                m_is_enhanced = EnhancedState::True;
             }
             else
             {
-                m_is_enhanced = State::False;
+                m_is_enhanced = EnhancedState::False;
             }
         }
-        if (m_is_enhanced == State::True)
+        if (m_is_enhanced == EnhancedState::True)
         {
             while (std::regex_search(text
                                      , results_match
@@ -299,7 +109,7 @@ void LyricParser::parse_lrc()
                 result.pop_back();
             }
         }
-        else if (m_is_enhanced == State::False)
+        else if (m_is_enhanced == EnhancedState::False)
         {
             result = text;
         }
@@ -337,21 +147,21 @@ void LyricParser::parse_lrc(std::ifstream& file_stream)
             std::string text = results_match[5].str();
             trim_string(text);
             std::string result;
-            if (m_is_enhanced == State::Uninitialized)
+            if (m_is_enhanced == EnhancedState::Uninitialized)
             {
                 if (std::regex_search(text
                                       , results_match
                                       , s_regex_search_enhanced_text))
                 {
-                    m_is_enhanced = State::True;
+                    m_is_enhanced = EnhancedState::True;
                 }
                 else
                 {
-                    m_is_enhanced = State::False;
+                    m_is_enhanced = EnhancedState::False;
                 }
             }
 
-            if (m_is_enhanced == State::True)
+            if (m_is_enhanced == EnhancedState::True)
             {
                 while (std::regex_search(text
                                          , results_match
@@ -368,7 +178,7 @@ void LyricParser::parse_lrc(std::ifstream& file_stream)
                     result.pop_back();
                 }
             }
-            else if (m_is_enhanced == State::False)
+            else if (m_is_enhanced == EnhancedState::False)
             {
                 result = text;
             }
@@ -390,7 +200,7 @@ std::vector<std::string> LyricParser::get_lyric_tags() const
 
 bool LyricParser::is_enhanced() const
 {
-    return m_is_enhanced == State::True;
+    return m_is_enhanced == EnhancedState::True;
 }
 
 std::int64_t LyricParser::time_to_ms(
@@ -420,17 +230,44 @@ std::int64_t LyricParser::time_to_ms(
     return (time_min * 60 + time_sec) * 1000 + time_ms;
 }
 
-LyricParser::Encoding LyricParser::get_encoding() const
+FileKits::Encoding LyricParser::get_encoding() const
 {
     return m_encoding;
 }
 
 void LyricParser::clear_result()
 {
-    m_is_enhanced = State::Uninitialized;
+    m_is_enhanced = EnhancedState::Uninitialized;
     m_lyric_tags.clear();
     m_lyric_vector.clear();
 }
+
+void LyricParser::trim_string(std::string& str)
+{
+    if (str.length() >= 3 &&
+        static_cast<unsigned char>(str[0]) == 0xEF &&
+        static_cast<unsigned char>(str[1]) == 0xBB &&
+        static_cast<unsigned char>(str[2]) == 0xBF)
+    {
+        str.erase(0, 3); // Remove the 3-byte UTF-8 BOM
+    }
+    str.erase(str.begin()
+              , std::find_if(str.begin()
+                             , str.end()
+                             , [](const unsigned char ch)
+                             {
+                                 return !std::isspace(ch);
+                             }));
+
+    str.erase(std::find_if(str.rbegin()
+                           , str.rend()
+                           , [](const unsigned char ch)
+                           {
+                               return !std::isspace(ch);
+                           }).base()
+              , str.end());
+}
+
 
 const std::regex LyricParser::s_regex_match_tag{R"(\[(.*)\])"};
 

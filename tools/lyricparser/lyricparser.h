@@ -2,6 +2,7 @@
 // Created by 31305 on 25-6-18.
 //
 #pragma once
+#include <textfilehelper.h>
 #include <string>
 #include <algorithm>
 #include <regex>
@@ -10,7 +11,7 @@
 #include <filesystem>
 
 
-namespace BadFish::AudioToolkit
+namespace Badfish::AudioToolkit
 {
 /// Enhanced LRC supported
 /// todo
@@ -80,85 +81,27 @@ class LyricParser
 public:
     LyricParser() = default;
 
-    explicit LyricParser(std::filesystem::path file_path);
+    LyricParser(const std::vector<std::string>& string_vector, FileKits::Encoding encoding);
+    explicit LyricParser(const FileKits::TextFileHelper& text_file);
 
     ~LyricParser();
 
-    enum class State
+    enum class EnhancedState
     {
         Uninitialized, True, False
     };
-
-    enum class Encoding
-    {
-        UTF8,
-        GBK,
-        UTF16LE,
-        UNKNOWN
-    };
-
-    void read_file();
-
-    void detect_encoding();
 
     void parse_lrc();
 
     void parse_lrc(std::ifstream& file_stream);
 
-    template <typename CharT, typename = std::enable_if_t<std::is_same_v<CharT, char>
-        || std::is_same_v<CharT, wchar_t>>>
-    static void trim_string(std::basic_string<CharT>& str)
-    {
-        if constexpr (std::is_same_v<CharT, char>)
-        {
-            if (str.length() >= 3 &&
-                static_cast<unsigned char>(str[0]) == 0xEF &&
-                static_cast<unsigned char>(str[1]) == 0xBB &&
-                static_cast<unsigned char>(str[2]) == 0xBF)
-            {
-                str.erase(0, 3); // Remove the 3-byte UTF-8 BOM
-            }
-        }
-        else if constexpr (std::is_same_v<CharT, wchar_t>)
-        {
-            if (str.length() >= 1)
-            {
-                if (static_cast<unsigned short>(str[0]) == 0xFFFE ||
-                    static_cast<unsigned short>(str[0]) == 0xFEFF)
-                {
-                    str.erase(0, 1); // Remove the 1-wchar_t BOM character
-                }
-            }
-        }
-        str.erase(str.begin()
-                  , std::find_if(str.begin()
-                                 , str.end()
-                                 , [](const unsigned char ch)
-                                 {
-                                     return !std::isspace(ch);
-                                 }));
-
-        str.erase(std::find_if(str.rbegin()
-                               , str.rend()
-                               , [](const unsigned char ch)
-                               {
-                                   return !std::isspace(ch);
-                               }).base()
-                  , str.end());
-    }
-
-    static std::string any_to_utf8(std::string_view any_str, Encoding encoding = Encoding::UTF8);
+    static void trim_string(std::string& str);
 
     static std::int64_t time_to_ms(std::string_view time_str);
 
     static std::int64_t time_to_ms(std::string_view min
                                        , std::string_view sec
                                        , std::string_view ms);
-    static bool detect_GBK(std::string_view str);
-    static bool detect_UTF16LE(std::string_view str);
-    bool detect_UTF8(std::string_view str);
-
-    static bool is_ascii(std::string_view str);
 
     [[nodiscard]] std::vector<LyricLine> get_lrc_text() const;
 
@@ -166,7 +109,7 @@ public:
 
     [[nodiscard]] bool is_enhanced() const;
 
-    [[nodiscard]] Encoding get_encoding() const;
+    [[nodiscard]] FileKits::Encoding get_encoding() const;
 
     void clear_result();
 
@@ -179,9 +122,9 @@ private:
 
     std::vector<std::string> m_lyric_tags;
 
-    State m_is_enhanced{State::Uninitialized};
+    EnhancedState m_is_enhanced{EnhancedState::Uninitialized};
 
-    Encoding m_encoding{Encoding::UNKNOWN};
+    FileKits::Encoding m_encoding{FileKits::Encoding::UNKNOWN};
 
     static const std::regex s_regex_match_tag;
 

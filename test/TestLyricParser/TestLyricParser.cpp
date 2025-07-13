@@ -2,11 +2,10 @@
 // Created by 31305 on 2025/6/24.
 //
 #define CATCH_CONFIG_MAIN
-#include <filehelper.h>
+#include <scopedfile.h>
 #include <lyricparser.h>
+#include <textfilehelper.h>
 #include <catch.hpp>
-
-using namespace BadFish::AudioToolkit;
 
 TEST_CASE("LyricParserNormalTest", "Normal-LRC Test")
 {
@@ -23,39 +22,30 @@ TEST_CASE("LyricParserNormalTest", "Normal-LRC Test")
         , "标签: 测试标签"
     };
 
-    const std::vector<LyricLine> expected_content_lines{
+    const std::vector<Badfish::AudioToolkit::LyricLine> expected_content_lines{
         {1, "Test lyric"}
         , {1010, "歌词测试"}
     };
 
     SECTION("Normal-LRC Test, Encode: UTF8")
     {
-        FileHelper fileHelper(filename);// de-constructor auto delete file
-        fileHelper.write_to_file(normal_lrc_toT, FileHelper::Encoding::UTF8);
-        const LyricParser lyricParser{filename};
-        REQUIRE(lyricParser.get_encoding() == LyricParser::Encoding::UTF8);
+        ScopedFile fileHelper(filename);// de-constructor auto delete file
+        fileHelper.write_to_file(normal_lrc_toT, ScopedFile::Encoding::UTF8);
+        Badfish::FileKits::TextFileHelper textFileHelper(filename);
+        const Badfish::AudioToolkit::LyricParser lyricParser{textFileHelper};
+        REQUIRE(lyricParser.get_encoding() == Badfish::FileKits::Encoding::UTF8);
         REQUIRE(lyricParser.is_enhanced() == false);
         REQUIRE(lyricParser.get_lyric_tags() == expected_tags);
         REQUIRE(lyricParser.get_lrc_text() == expected_content_lines);
     }
 
-    // SECTION("Normal-LRC Test, Encode: UTF16LE")
-    // {
-    //     FileHelper fileHelper(filename);// de-constructor auto delete file
-    //     fileHelper.write_to_file(normal_lrc_toT, FileHelper::Encoding::UTF16LE);
-    //     const LyricParser lyricParser{filename};
-    //     REQUIRE(lyricParser.get_encoding() == LyricParser::Encoding::UTF16LE);
-    //     REQUIRE(lyricParser.is_enhanced() == false);
-    //     REQUIRE(lyricParser.get_lyric_tags() == expected_tags);
-    //     REQUIRE(lyricParser.get_lrc_text() == expected_content_lines);
-    // }
-
     SECTION("Normal-LRC Test, Encode: GBK")
     {
-        FileHelper fileHelper(filename);// de-constructor auto delete file
-        fileHelper.write_to_file(normal_lrc_toT, FileHelper::Encoding::GBK);
-        const LyricParser lyricParser{filename};
-        REQUIRE(lyricParser.get_encoding() == LyricParser::Encoding::GBK);
+        ScopedFile fileHelper(filename);// de-constructor auto delete file
+        fileHelper.write_to_file(normal_lrc_toT, ScopedFile::Encoding::GBK);
+        const Badfish::FileKits::TextFileHelper textFileHelper(filename);
+        const Badfish::AudioToolkit::LyricParser lyricParser{textFileHelper};
+        REQUIRE(lyricParser.get_encoding() == Badfish::FileKits::Encoding::GBK);
         REQUIRE(lyricParser.is_enhanced() == false);
         REQUIRE(lyricParser.get_lyric_tags() == expected_tags);
         REQUIRE(lyricParser.get_lrc_text() == expected_content_lines);
@@ -84,7 +74,7 @@ TEST_CASE("LyricParserEnhancedTest", "Enhanced-LRC Test")
 
     // Expected content lines will have timestamps from [MM:SS.ms]
     // and combined text from <MM:SS.ms>Word parts
-    const std::vector<LyricLine> expected_content_lines{
+    const std::vector<Badfish::AudioToolkit::LyricLine> expected_content_lines{
         {5123, "And I remember all my childhood dreams"},
         {8500, "I find it hard to get them out of my mind"},
         {15000, "窗 透 初 晓 日 照 西 桥 云 自 摇"},
@@ -95,40 +85,31 @@ TEST_CASE("LyricParserEnhancedTest", "Enhanced-LRC Test")
 
     SECTION("Enhanced-LRC Test, Encode: UTF8")
     {
-        FileHelper fileHelper(filename); // Destructor automatically deletes the file
-        fileHelper.write_to_file(enhanced_lrc_toT, FileHelper::Encoding::UTF8);
-        const LyricParser lyricParser{filename};
+        ScopedFile fileHelper(filename); // Destructor automatically deletes the file
+        fileHelper.write_to_file(enhanced_lrc_toT, ScopedFile::Encoding::UTF8);
+        Badfish::FileKits::TextFileHelper textFileHelper(filename);
+        const Badfish::AudioToolkit::LyricParser lyricParser{textFileHelper};
 
-        REQUIRE(lyricParser.get_encoding() == LyricParser::Encoding::UTF8);
+        REQUIRE(lyricParser.get_encoding() == Badfish::FileKits::Encoding::UTF8);
         REQUIRE(lyricParser.is_enhanced() == true); // Should be true for enhanced files
         REQUIRE(lyricParser.get_lyric_tags() == expected_tags);
         REQUIRE(lyricParser.get_lrc_text() == expected_content_lines);
     }
 
-    // SECTION("Enhanced-LRC Test, Encode: UTF16LE")
-    // {
-    //     FileHelper fileHelper(filename);
-    //     fileHelper.write_to_file(enhanced_lrc_toT, FileHelper::Encoding::UTF16LE);
-    //     const LyricParser lyricParser{filename};
-    //
-    //     REQUIRE(lyricParser.get_encoding() == LyricParser::Encoding::UTF16LE);
-    //     REQUIRE(lyricParser.is_enhanced() == true);
-    //     REQUIRE(lyricParser.get_lyric_tags() == expected_tags);
-    //     REQUIRE(lyricParser.get_lrc_text() == expected_content_lines);
-    // }
+    SECTION("Enhanced-LRC Test, Encode: GBK")
+    {
+        // Note: For GBK, ensure your 'FileHelper::write_to_file' and 'LyricParser'
+        // can correctly handle the Chinese characters when converting from/to std::string.
+        // This often requires proper locale settings or explicit encoding conversion logic.
 
-    // SECTION("Enhanced-LRC Test, Encode: GBK")
-    // {
-    //     // Note: For GBK, ensure your 'FileHelper::write_to_file' and 'LyricParser'
-    //     // can correctly handle the Chinese characters when converting from/to std::string.
-    //     // This often requires proper locale settings or explicit encoding conversion logic.
-    //     FileHelper fileHelper(filename);
-    //     fileHelper.write_to_file(enhanced_lrc_toT, FileHelper::Encoding::GBK);
-    //     const LyricParser lyricParser{filename};
-    //
-    //     REQUIRE(lyricParser.get_encoding() == LyricParser::Encoding::GBK);
-    //     REQUIRE(lyricParser.is_enhanced() == true);
-    //     REQUIRE(lyricParser.get_lyric_tags() == expected_tags);
-    //     REQUIRE(lyricParser.get_lrc_text() == expected_content_lines);
-    // }
+        ScopedFile fileHelper(filename);
+        fileHelper.write_to_file(enhanced_lrc_toT, ScopedFile::Encoding::GBK);
+        Badfish::FileKits::TextFileHelper textFileHelper(filename);
+        const Badfish::AudioToolkit::LyricParser lyricParser{textFileHelper};
+
+        REQUIRE(lyricParser.get_encoding() == Badfish::FileKits::Encoding::GBK);
+        REQUIRE(lyricParser.is_enhanced() == true);
+        REQUIRE(lyricParser.get_lyric_tags() == expected_tags);
+        REQUIRE(lyricParser.get_lrc_text() == expected_content_lines);
+    }
 }

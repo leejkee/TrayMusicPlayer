@@ -1,7 +1,7 @@
 //
 // Created by 31305 on 2025/6/28.
 //
-#include "filehelper.h"
+#include "scopedfile.h"
 #include <fstream>
 #include <iostream>
 
@@ -18,12 +18,12 @@
 #include <string.h>
 #endif
 
-FileHelper::FileHelper(std::filesystem::path filePath)
+ScopedFile::ScopedFile(std::filesystem::path filePath)
     : m_filePath(std::move(filePath))
 {
 }
 
-FileHelper::~FileHelper()
+ScopedFile::~ScopedFile()
 {
     if (std::filesystem::exists(m_filePath))
     {
@@ -49,7 +49,7 @@ FileHelper::~FileHelper()
 // Private helper for Windows API implementation
 // -----------------------------------------------------------------------------
 #if defined(_WIN32) || defined(_WIN64)
-bool FileHelper::write_to_file_winapi(const std::string& content
+bool ScopedFile::write_to_file_winapi(const std::string& content
                                       , const Encoding target_encoding)
 {
     int code_page = 0;
@@ -63,10 +63,6 @@ bool FileHelper::write_to_file_winapi(const std::string& content
         break;
     case Encoding::GBK:
         code_page = 936;
-        break;
-    case Encoding::UTF16LE:
-        code_page = 1200;
-        add_bom = true;
         break;
     default:
         std::cerr << "Unsupported encoding for WinAPI." << std::endl;
@@ -144,16 +140,8 @@ bool FileHelper::write_to_file_winapi(const std::string& content
     }
     if (add_bom)
     {
-        if (target_encoding == Encoding::UTF8)
-        {
-            constexpr unsigned char bom[] = {0xEF, 0xBB, 0xBF};
-            outFile.write(reinterpret_cast<const char*>(bom), sizeof(bom));
-        }
-        else
-        {
-            constexpr unsigned char bom[] = {0xFF, 0xFE};
-            outFile.write(reinterpret_cast<const char*>(bom), sizeof(bom));
-        }
+        constexpr unsigned char bom[] = {0xEF, 0xBB, 0xBF};
+        outFile.write(reinterpret_cast<const char*>(bom), sizeof(bom));
     }
     outFile.write(output_bytes.data()
                   , static_cast<long long>(output_bytes.size()));
@@ -181,10 +169,6 @@ bool FileHelper::write_to_file_iconv(const std::string& content
         break;
     case Encoding::GBK:
         target_encoding_str = "GBK";
-        break;
-    case Encoding::UTF16LE:
-        target_encoding_str = "UTF-16LE";
-        add_bom = true;
         break;
     default:
         std::cerr << "Unsupported encoding for iconv." << std::endl;
@@ -240,21 +224,14 @@ bool FileHelper::write_to_file_iconv(const std::string& content
     // Write BOM
     if (add_bom)
     {
-        if (encoding == Encoding::UTF8)
-        {
-            unsigned char bom[] = {0xEF, 0xBB, 0xBF};
-            outFile.write(reinterpret_cast<const char*>(bom), sizeof(bom));
-        }
-        else if (encoding == Encoding::UTF16LE)
-        {
-            unsigned char bom[] = {0xFF, 0xFE};
-            outFile.write(reinterpret_cast<const char*>(bom), sizeof(bom));
-        }
+        unsigned char bom[] = {0xEF, 0xBB, 0xBF};
+        outFile.write(reinterpret_cast<const char*>(bom), sizeof(bom));
+        unsigned char bom[] = {0xFF, 0xFE};
+        outFile.write(reinterpret_cast<const char*>(bom), sizeof(bom));
     }
 
     outFile.write(output_bytes.data(), converted_bytes);
     outFile.close();
-
     return true;
 }
 
@@ -263,7 +240,7 @@ bool FileHelper::write_to_file_iconv(const std::string& content
 // -----------------------------------------------------------------------------
 // Public write_to_file function implementation
 // -----------------------------------------------------------------------------
-bool FileHelper::write_to_file(const std::vector<std::string>& content_lines
+bool ScopedFile::write_to_file(const std::vector<std::string>& content_lines
                                , const Encoding encoding)
 {
     // Concatenate all content lines into a single UTF-8 string
