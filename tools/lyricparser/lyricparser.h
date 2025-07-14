@@ -96,6 +96,7 @@ public:
     void parse_lrc(std::ifstream& file_stream);
 
     static void trim_string(std::string& str);
+    static bool is_English(std::string_view str);
 
     static std::int64_t time_to_ms(std::string_view time_str);
 

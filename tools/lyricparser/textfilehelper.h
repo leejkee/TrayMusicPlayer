@@ -39,6 +39,8 @@ public:
         return m_content;
     }
 
+    static bool is_ascii(const std::string& str);
+
 #if defined(_WIN32) || defined(_WIN64)
     static std::string convert_encoding(const std::string& o_str
                                         , Encoding o_encoding
@@ -55,7 +57,6 @@ private:
 
     static int encoding_to_codepage(Encoding encoding);
 
-    static bool is_ascii(const std::string& str);
 
     void detect_file_encoding();
 };

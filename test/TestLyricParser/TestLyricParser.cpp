@@ -54,7 +54,7 @@ TEST_CASE("LyricParserNormalTest", "Normal-LRC Test")
 
 TEST_CASE("LyricParserEnhancedTest", "Enhanced-LRC Test")
 {
-    const std::string filename{"test_enhanced_complex.lyc"}; // Use a distinct filename
+    const std::string filename{"test_enhanced_complex.lyc"};
     const std::vector<std::string> enhanced_lrc_toT{
         " [t1: Tags Test] "
         , " [标签: 诗意歌词测试] "
@@ -66,42 +66,35 @@ TEST_CASE("LyricParserEnhancedTest", "Enhanced-LRC Test")
         , "[00:30.000] <00:30.000> 因 <00:30.200> 为 <00:30.400> 我 <00:30.600> 今 <00:31.000> 生 <00:31.200> 挥 <00:31.400> 毫 <00:31.600> 只 <00:31.800> 为 <00:32.000> 你"
     };
 
-    // Expected tags are trimmed of leading/trailing spaces
     const std::vector<std::string> expected_tags{
         "t1: Tags Test",
         "标签: 诗意歌词测试"
     };
 
-    // Expected content lines will have timestamps from [MM:SS.ms]
-    // and combined text from <MM:SS.ms>Word parts
     const std::vector<Badfish::AudioToolkit::LyricLine> expected_content_lines{
         {5123, "And I remember all my childhood dreams"},
         {8500, "I find it hard to get them out of my mind"},
-        {15000, "窗 透 初 晓 日 照 西 桥 云 自 摇"},
-        {20000, "想 你 当 年 荷 风 微 摆 的 衣 角"},
-        {25000, "木 雕 流 金 岁 月 涟 漪 七 年 前 封 笔"},
-        {30000, "因 为 我 今 生 挥 毫 只 为 你"}
+        {15000, "窗透初晓日照西桥云自摇"},
+        {20000, "想你当年荷风微摆的衣角"},
+        {25000, "木雕流金岁月涟漪七年前封笔"},
+        {30000, "因为我今生挥毫只为你"}
     };
 
     SECTION("Enhanced-LRC Test, Encode: UTF8")
     {
-        ScopedFile fileHelper(filename); // Destructor automatically deletes the file
+        ScopedFile fileHelper(filename);
         fileHelper.write_to_file(enhanced_lrc_toT, ScopedFile::Encoding::UTF8);
         Badfish::FileKits::TextFileHelper textFileHelper(filename);
         const Badfish::AudioToolkit::LyricParser lyricParser{textFileHelper};
 
         REQUIRE(lyricParser.get_encoding() == Badfish::FileKits::Encoding::UTF8);
-        REQUIRE(lyricParser.is_enhanced() == true); // Should be true for enhanced files
+        REQUIRE(lyricParser.is_enhanced() == true);
         REQUIRE(lyricParser.get_lyric_tags() == expected_tags);
         REQUIRE(lyricParser.get_lrc_text() == expected_content_lines);
     }
 
     SECTION("Enhanced-LRC Test, Encode: GBK")
     {
-        // Note: For GBK, ensure your 'FileHelper::write_to_file' and 'LyricParser'
-        // can correctly handle the Chinese characters when converting from/to std::string.
-        // This often requires proper locale settings or explicit encoding conversion logic.
-
         ScopedFile fileHelper(filename);
         fileHelper.write_to_file(enhanced_lrc_toT, ScopedFile::Encoding::GBK);
         Badfish::FileKits::TextFileHelper textFileHelper(filename);

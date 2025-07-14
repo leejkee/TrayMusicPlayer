@@ -106,6 +106,7 @@ bool TextFileHelper::is_ascii(const std::string& str)
                        });
 }
 
+
 int TextFileHelper::encoding_to_codepage(const Encoding encoding)
 {
     switch (encoding)

@@ -100,7 +100,10 @@ void LyricParser::parse_lrc()
             {
                 std::string match_word = results_match[2].str();
                 trim_string(match_word);
-                match_word += ' ';
+                if (is_English(match_word))
+                {
+                    match_word += ' ';
+                }
                 result.append(match_word);
                 text = results_match.suffix();
             }
@@ -169,7 +172,10 @@ void LyricParser::parse_lrc(std::ifstream& file_stream)
                 {
                     std::string match_word = results_match[2].str();
                     trim_string(match_word);
-                    match_word += ' ';
+                    if (is_English(match_word))
+                    {
+                        match_word += ' ';
+                    }
                     result.append(match_word);
                     text = results_match.suffix();
                 }
@@ -266,6 +272,14 @@ void LyricParser::trim_string(std::string& str)
                                return !std::isspace(ch);
                            }).base()
               , str.end());
+}
+
+bool LyricParser::is_English(const std::string_view str)
+{
+    return std::all_of(str.begin(), str.end(), [](const unsigned char ch)
+    {
+        return std::isalpha(ch);
+    });
 }
 
 
