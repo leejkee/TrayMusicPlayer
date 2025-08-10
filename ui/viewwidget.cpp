@@ -1,7 +1,7 @@
 //
 // Created by cww on 25-4-10.
 //
-#include "datamodel.h"
+#include "viewdatamodel.h"
 #include "viewdelegate.h"
 #include <viewwidget.h>
 #include <betterbutton.h>
@@ -25,9 +25,9 @@ public:
     const static inline auto PLAY_ALL_KEY = QStringLiteral("Play All");
 
     QLabel *m_labelName;
-    QListView *m_playListView;
+    QListView *m_playlistView;
     Panel::BetterButton *m_playAllButton;
-    DataModel *m_dataModel;
+    ViewDataModel *m_dataModel;
     ViewDelegate *m_viewDelegate;
     QStringList m_userPlaylistKeys;
     QString m_currentPlaylistKey;
@@ -45,23 +45,23 @@ ViewWidgetPrivate::ViewWidgetPrivate(ViewWidget *w) : q_ptr(w) {
     layoutH->addWidget(m_playAllButton);
     layoutH->addSpacerItem(spaceH);
 
-    m_dataModel = new DataModel({}, q_ptr);
+    m_dataModel = new ViewDataModel({}, q_ptr);
     // init fun
-    m_playListView = new QListView(q_ptr);
-    m_viewDelegate = new ViewDelegate(m_playListView);
-    m_playListView->setModel(m_dataModel);
-    m_playListView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    m_playListView->setContextMenuPolicy(Qt::CustomContextMenu);
-    m_playListView->setStyleSheet(readQSS(Res::LIST_VIEW_QSS));
-    m_playListView->viewport()->setMouseTracking(true);
+    m_playlistView = new QListView(q_ptr);
+    m_viewDelegate = new ViewDelegate(m_playlistView);
+    m_playlistView->setModel(m_dataModel);
+    m_playlistView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    m_playlistView->setContextMenuPolicy(Qt::CustomContextMenu);
+    m_playlistView->setStyleSheet(readQSS(Res::LIST_VIEW_QSS));
+    m_playlistView->viewport()->setMouseTracking(true);
 
     // Delegate Func
-    m_playListView->setItemDelegate(m_viewDelegate);
+    m_playlistView->setItemDelegate(m_viewDelegate);
 
     auto *Layout = new QVBoxLayout;
     Layout->addWidget(m_labelName);
     Layout->addItem(layoutH);
-    Layout->addWidget(m_playListView);
+    Layout->addWidget(m_playlistView);
     q_ptr->setLayout(Layout);
 }
 
@@ -73,10 +73,10 @@ ViewWidget::ViewWidget(QWidget *parent): QWidget(parent) {
 }
 
 void ViewWidget::createConnections() {
-    connect(d->m_playListView, &QListView::customContextMenuRequested,
+    connect(d->m_playlistView, &QListView::customContextMenuRequested,
             this, &ViewWidget::showContextMenu);
 
-    connect(d->m_playListView, &QListView::doubleClicked,
+    connect(d->m_playlistView, &QListView::doubleClicked,
             this, [this](const QModelIndex &index) {
                 Q_EMIT signalViewItemPlayButtonClicked(d->m_labelName->text(), index.row());
             });
@@ -112,7 +112,7 @@ void ViewWidget::handleMenuPop(const QPoint &pos, const QModelIndex &index) {
         });
     }
     addToPlaylistAction->setMenu(addToOtherPlaylistMenu);
-    optionsMenu->exec(d->m_playListView->viewport()->mapToGlobal(pos));
+    optionsMenu->exec(d->m_playlistView->viewport()->mapToGlobal(pos));
 }
 
 void ViewWidget::setUserPlaylistKeys(const QStringList &keys) {
@@ -121,19 +121,19 @@ void ViewWidget::setUserPlaylistKeys(const QStringList &keys) {
 
 void ViewWidget::updateCurrentIndex(const int row) {
     const auto index = d->m_dataModel->index(row, 0);
-    d->m_playListView->selectionModel()->select(index, QItemSelectionModel::ClearAndSelect);
+    d->m_playlistView->selectionModel()->select(index, QItemSelectionModel::ClearAndSelect);
 
-    const QRect viewportRect = d->m_playListView->viewport()->rect();
-    const QModelIndex firstVisible = d->m_playListView->indexAt(viewportRect.topLeft());
-    const QModelIndex lastVisible = d->m_playListView->indexAt(viewportRect.bottomLeft());
+    const QRect viewportRect = d->m_playlistView->viewport()->rect();
+    const QModelIndex firstVisible = d->m_playlistView->indexAt(viewportRect.topLeft());
+    const QModelIndex lastVisible = d->m_playlistView->indexAt(viewportRect.bottomLeft());
     if (row < firstVisible.row() + 1 || row > lastVisible.row() - 1) {
-        d->m_playListView->scrollTo(index, QAbstractItemView::EnsureVisible);
+        d->m_playlistView->scrollTo(index, QAbstractItemView::EnsureVisible);
     }
     d->m_viewDelegate->updatePreviousIndex(row);
 }
 
 void ViewWidget::showContextMenu(const QPoint &pos) {
-    const QModelIndex index = d->m_playListView->indexAt(pos);
+    const QModelIndex index = d->m_playlistView->indexAt(pos);
     if (!index.isValid()) {
         return;
     }

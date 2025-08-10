@@ -6,9 +6,9 @@
 #include <QAbstractListModel>
 
 namespace Tray::Ui {
-    class DataModel final : public QAbstractListModel {
+    class ViewDataModel final : public QAbstractListModel {
     public:
-        explicit DataModel(const QStringList &list = {}, QObject *parent = nullptr);
+        explicit ViewDataModel(const QStringList &list = {}, QObject *parent = nullptr);
 
         void setMusicList(const QStringList &list);
 

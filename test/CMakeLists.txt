@@ -10,6 +10,7 @@ qt_add_executable(test_splitter_ui TestSplitter.cpp)
 target_link_libraries(test_splitter_ui PRIVATE tray_music_ui)
 ## TestSplitter
 
-## TestLyricParser
-add_subdirectory(TestLyricParser)
-## TestLyricParser
+## TestListView
+qt_add_executable(test_Lyric_view TestLyricView.cpp)
+target_link_libraries(test_Lyric_view PRIVATE tray_music_ui)
+## TestListView

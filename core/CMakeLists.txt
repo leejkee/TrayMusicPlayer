@@ -17,6 +17,8 @@ set(CORE_SOURCES
         settings/settings.cpp
         common/song.h
         common/song.cpp
+        lyricservice/lyricservice.h
+        lyricservice/lyricservice.cpp
 )
 
 add_library(tray_music_core STATIC ${CORE_SOURCES})
@@ -34,6 +36,7 @@ target_include_directories(tray_music_core PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/databasemanager
         ${CMAKE_CURRENT_SOURCE_DIR}/common
         ${CMAKE_CURRENT_SOURCE_DIR}/settings
+        ${CMAKE_CURRENT_SOURCE_DIR}/lyricservice
 )
 
 
@@ -42,4 +45,5 @@ target_link_libraries(tray_music_core PRIVATE
         Qt6::Sql
         Tray::tray_log
         TagLib::tag
+        lyric_parser
 )

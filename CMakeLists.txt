@@ -33,6 +33,7 @@ add_subdirectory(ui)
 add_subdirectory(app)
 add_subdirectory(resource)
 add_subdirectory(3rdParty)
+add_subdirectory(model)
 
 if (TRAY_TEST)
     add_subdirectory(test)

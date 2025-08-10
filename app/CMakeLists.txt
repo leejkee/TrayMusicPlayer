@@ -13,7 +13,6 @@ target_link_libraries(TrayMusicPlayer PRIVATE
         tray_qrc
 )
 
-
 # if(WIN32)
 #     set_target_properties(TrayMusicPlayer PROPERTIES
 #             WIN32_EXECUTABLE TRUE
