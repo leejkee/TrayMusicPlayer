@@ -19,8 +19,9 @@ LyricModel::LyricModel(QObject* parent) : QAbstractListModel(parent), d(std::mak
 {
 }
 
-/// @param lyricPath Must be a validated existing path
-/// @note Ensure that the provided path is valid and exists before calling this method
+/// @param lyricsText the text of lyric line
+/// @param lyricsTiming the timing of lyric line
+/// Update the lyrics when a new MP3 file with a same-name LRC file is loaded.
 void LyricModel::setLyric(const QStringList& lyricsText, const QList<int64_t>& lyricsTiming)
 {
     beginResetModel();
