@@ -57,30 +57,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void updateCurrentMusic(int index, const QString& name, int duration);
 
-    void updateProgressBarPosition(qint64 pos);
-
-    void updateVolumeCtrlButtonIcon(bool b);
-
-    void updatePlayModeIcon(int mode);
-
-    void showCurrentTitleListToView(const QString& name, const QStringList& titleList);
-
     void updatePlayingStatus(bool b);
-
-    void updateUserPlaylistKeys(const QStringList& list);
-
-    void updateCurrentViewList(const QString& key, const QStringList& titleList);
-
-    /// @brief This function is connected with the signal that will be emitted when current playlist changed
-    /// this function calls the viewWidget's function to update the current playlist key
-    /// @param key playlist key
-    void updateCurrentPlaylistKey(const QString& key);
-
-    void updateSettingsLocalPaths(const QStringList& paths);
-
-    void removeUserPlaylistButton(const QString& key);
-
-    void addUserPlaylistButton(const QString& key);
 
 private:
     std::unique_ptr<WindowManagerPrivate> d;

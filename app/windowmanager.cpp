@@ -27,35 +27,36 @@ inline void InitMyQRC()
 
 namespace Tray::Ui
 {
-
 class WindowManagerPrivate
 {
 public:
-    explicit WindowManagerPrivate(Core::Core *core, WindowManager *w);
+    explicit WindowManagerPrivate(Core::Core* core, WindowManager* w);
     // Manages the playerWidget and a QStackedWidget that switches between the lyricWidget and the primary content widget.
-    QVBoxLayout *m_windowManagerLayout;
+    QVBoxLayout* m_windowManagerLayout;
     // Handles the primary display and the lyric display, allowing switching between them.
-    QStackedWidget *m_mainStackedWidget;
+    QStackedWidget* m_mainStackedWidget;
     // Widget that contains the controller panels
-    PlayerWidget *m_playerWidget;
+    PlayerWidget* m_playerWidget;
     // Contains the topWidget, MusicListWidget, ViewWidget, SettingsWidget
-    QWidget *m_primaryWidget;
+    QWidget* m_primaryWidget;
     // LyricWidget *m_lyricWidget;
-    QVBoxLayout *m_primaryWidgetLayout;
-    TopBarWidget *m_topBarWidget;
-    MusicListWidget *m_musicListWidget;
-    QSplitter *m_viewAndPlaylistsSplitter;
+    QVBoxLayout* m_primaryWidgetLayout;
+    TopBarWidget* m_topBarWidget;
+    MusicListWidget* m_musicListWidget;
+    QSplitter* m_viewAndPlaylistsSplitter;
     QStackedWidget* m_viewStackedWidget;
-    ViewWidget *m_viewWidget;
-    SettingsWidget *m_settingsWidget;
-    QFrame *m_lineSplitterUp;
-    QFrame *m_lineSplitterDown;
+    ViewWidget* m_viewWidget;
+    SettingsWidget* m_settingsWidget;
+    QFrame* m_lineSplitterUp;
+    QFrame* m_lineSplitterDown;
 
-    Core::Core *q_core;
-    WindowManager *q_ptr;
+    Core::Core* q_core;
+    WindowManager* q_ptr;
 };
 
-WindowManagerPrivate::WindowManagerPrivate(Core::Core *core, WindowManager *w) : q_core(core), q_ptr(w)
+WindowManagerPrivate::WindowManagerPrivate(Core::Core* core, WindowManager* w)
+    : q_core(core),
+      q_ptr(w)
 {
     m_windowManagerLayout = new QVBoxLayout;
     m_mainStackedWidget = new QStackedWidget(q_ptr);
@@ -77,8 +78,8 @@ WindowManagerPrivate::WindowManagerPrivate(Core::Core *core, WindowManager *w) :
     m_lineSplitterDown->setStyleSheet(readQSS(Res::HERIZONTAL_LINE_QSS));
 }
 
-WindowManager::WindowManager(Core::Core* core, QWidget* parent) :
-    QWidget(parent)
+WindowManager::WindowManager(Core::Core* core, QWidget* parent)
+    : QWidget(parent)
 {
     InitMyQRC();
     d = std::make_unique<WindowManagerPrivate>(core, this);
@@ -107,9 +108,9 @@ WindowManager::WindowManager(Core::Core* core, QWidget* parent) :
     createConnections();
 }
 
-void WindowManager::initDefaultSettings(const QStringList& localDir,
-                                        const QStringList& userKeys,
-                                        const unsigned volume)
+void WindowManager::initDefaultSettings(const QStringList& localDir
+                                        , const QStringList& userKeys
+                                        , const unsigned volume)
 {
     d->m_settingsWidget->updateLocalPaths(localDir);
     d->m_musicListWidget->initUserListButtons(userKeys);
@@ -117,8 +118,9 @@ void WindowManager::initDefaultSettings(const QStringList& localDir,
     d->m_playerWidget->setSliderVolumeValue(volume);
 }
 
-void WindowManager::updateCurrentMusic(const int index, const QString& name,
-                                       const int duration)
+void WindowManager::updateCurrentMusic(const int index
+                                       , const QString& name
+                                       , const int duration)
 {
     d->m_viewWidget->updateCurrentIndex(index);
     d->m_playerWidget->updateMusicName(name);
@@ -132,183 +134,195 @@ void WindowManager::updatePlayingStatus(const bool b)
     d->m_viewWidget->updatePlayingStatus(b);
 }
 
-WindowManager::~WindowManager()
-{
-}
-
-void WindowManager::updateProgressBarPosition(const qint64 pos)
-{
-    d->m_playerWidget->updateProgressBarPosition(pos);
-}
-
-void WindowManager::updateVolumeCtrlButtonIcon(const bool b)
-{
-    d->m_playerWidget->setVolumeCtrlButtonIcon(b);
-}
-
-void WindowManager::updatePlayModeIcon(const int mode)
-{
-    d->m_playerWidget->updatePlayModeIcon(mode);
-}
-
-void WindowManager::showCurrentTitleListToView(const QString& name,
-                                               const QStringList& titleList)
-{
-    d->m_viewWidget->showCurrentTitleListToView(name, titleList);
-}
-
-void WindowManager::updateUserPlaylistKeys(const QStringList& list)
-{
-    d->m_viewWidget->setUserPlaylistKeys(list);
-}
-
-void WindowManager::updateCurrentViewList(const QString& key,
-                                          const QStringList& titleList)
-{
-    d->m_viewWidget->refreshCurrentMusicList(key, titleList);
-}
-
-void WindowManager::updateCurrentPlaylistKey(const QString& key)
-{
-    d->m_viewWidget->syncRenderWithCurrentPlaylist(key);
-}
-
-void WindowManager::updateSettingsLocalPaths(const QStringList& paths)
-{
-    d->m_settingsWidget->updateLocalPaths(paths);
-}
-
-void WindowManager::removeUserPlaylistButton(const QString& key)
-{
-    d->m_musicListWidget->removeUserButton(key);
-}
-
-void WindowManager::addUserPlaylistButton(const QString& key)
-{
-    d->m_musicListWidget->appendUserButton(key);
-}
+WindowManager::~WindowManager() = default;
 
 void WindowManager::createConnections()
 {
     // 1
-    connect(d->m_playerWidget, &PlayerWidget::signalPlayToggle, d->q_core,
-            &Core::Core::playToggle);
+    connect(d->m_playerWidget
+            , &PlayerWidget::signalPlayToggle
+            , d->q_core
+            , &Core::Core::playToggle);
 
     // 2
-    connect(d->q_core, &Core::Core::signalNotifyUiCurrentMusicChanged, this,
-            &WindowManager::updateCurrentMusic);
+    connect(d->q_core
+            , &Core::Core::signalNotifyUiCurrentMusicChanged
+            , this
+            , &WindowManager::updateCurrentMusic);
 
     // 3
-    connect(d->q_core, &Core::Core::signalPositionChanged, d->m_playerWidget,
-            &PlayerWidget::updateProgressBarPosition);
+    connect(d->q_core
+            , &Core::Core::signalPositionChanged
+            , d->m_playerWidget
+            , &PlayerWidget::updateProgressBarPosition);
 
     // 4
-    connect(d->q_core, &Core::Core::signalNotifyUiPlayingStatusChanged, this,
-            &WindowManager::updatePlayingStatus);
+    connect(d->q_core
+            , &Core::Core::signalNotifyUiPlayingStatusChanged
+            , this
+            , &WindowManager::updatePlayingStatus);
 
     // 5
-    connect(d->m_playerWidget, &PlayerWidget::signalPreviousMusic, d->q_core,
-            &Core::Core::preMusic);
+    connect(d->m_playerWidget
+            , &PlayerWidget::signalPreviousMusic
+            , d->q_core
+            , &Core::Core::preMusic);
 
     // 6
-    connect(d->m_playerWidget, &PlayerWidget::signalNextMusic, d->q_core,
-            &Core::Core::nextMusic);
+    connect(d->m_playerWidget
+            , &PlayerWidget::signalNextMusic
+            , d->q_core
+            , &Core::Core::nextMusic);
 
     // 7
-    connect(d->q_core, &Core::Core::signalNotifyUiUpdateMuteIcon, d->m_playerWidget,
-            &PlayerWidget::updateMuteIcon);
+    connect(d->q_core
+            , &Core::Core::signalNotifyUiUpdateMuteIcon
+            , d->m_playerWidget
+            , &PlayerWidget::updateMuteIcon);
 
     // 8
-    connect(d->m_playerWidget, &PlayerWidget::signalSetVolume, d->q_core,
-            &Core::Core::setVolume);
+    connect(d->m_playerWidget
+            , &PlayerWidget::signalSetVolume
+            , d->q_core
+            , &Core::Core::setVolume);
 
     // 9
-    connect(d->m_playerWidget, &PlayerWidget::signalSetMusicPosition, d->q_core,
-            &Core::Core::setPlayerPosition);
+    connect(d->m_playerWidget
+            , &PlayerWidget::signalSetMusicPosition
+            , d->q_core
+            , &Core::Core::setPlayerPosition);
 
     // 10
-    connect(d->q_core, &Core::Core::signalNotifyUiPlayModeChanged,
-            d->m_playerWidget, &PlayerWidget::updatePlayModeIcon);
+    connect(d->q_core
+            , &Core::Core::signalNotifyUiPlayModeChanged
+            , d->m_playerWidget
+            , &PlayerWidget::updatePlayModeIcon);
 
     // 11
-    connect(d->m_playerWidget, &PlayerWidget::signalPlayModeChanged, d->q_core,
-            &Core::Core::changePlayMode);
+    connect(d->m_playerWidget
+            , &PlayerWidget::signalPlayModeChanged
+            , d->q_core
+            , &Core::Core::changePlayMode);
 
     // 12
-    connect(d->q_core, &Core::Core::signalInitUiDefaultSettings, this,
-            &WindowManager::initDefaultSettings);
+    connect(d->q_core
+            , &Core::Core::signalInitUiDefaultSettings
+            , this
+            , &WindowManager::initDefaultSettings);
 
     // 13
-    connect(d->m_viewWidget, &ViewWidget::signalViewItemPlayButtonClicked,
-            d->q_core, &Core::Core::playToggleWithListAndIndex);
+    connect(d->m_viewWidget
+            , &ViewWidget::signalViewItemPlayButtonClicked
+            , d->q_core
+            , &Core::Core::playToggleWithListAndIndex);
 
     // 14
-    connect(d->m_viewWidget, &ViewWidget::signalMusicRemovedFromList, d->q_core,
-            &Core::Core::removeMusicFromList);
+    connect(d->m_viewWidget
+            , &ViewWidget::signalMusicRemovedFromList
+            , d->q_core
+            , &Core::Core::removeMusicFromList);
 
     // 15
-    connect(d->m_viewWidget, &ViewWidget::signalMusicAddedToList, d->q_core,
-            &Core::Core::addMusicToList);
+    connect(d->m_viewWidget
+            , &ViewWidget::signalMusicAddedToList
+            , d->q_core
+            , &Core::Core::addMusicToList);
 
     // 16
-    connect(d->m_musicListWidget,
-            &MusicListWidget::signalUserPlaylistButtonAdded, d->q_core,
-            &Core::Core::addUserPlaylist);
+    connect(d->m_musicListWidget
+            , &MusicListWidget::signalUserPlaylistButtonAdded
+            , d->q_core
+            , &Core::Core::addUserPlaylist);
 
     // 17
-    connect(d->m_musicListWidget,
-            &MusicListWidget::signalUserPlaylistButtonRemoved, d->q_core,
-            &Core::Core::removeUserPlaylist);
+    connect(d->m_musicListWidget
+            , &MusicListWidget::signalUserPlaylistButtonRemoved
+            , d->q_core
+            , &Core::Core::removeUserPlaylist);
 
     // 18
-    connect(d->q_core, &Core::Core::signalNotifyUiToRemoveUserPlaylist,
-            d->m_musicListWidget, &MusicListWidget::removeUserButton);
+    connect(d->q_core
+            , &Core::Core::signalNotifyUiToRemoveUserPlaylist
+            , d->m_musicListWidget
+            , &MusicListWidget::removeUserButton);
 
     // 19
-    connect(d->q_core, &Core::Core::signalNotifyUiToAddUserPlaylist,
-            d->m_musicListWidget, &MusicListWidget::appendUserButton);
+    connect(d->q_core
+            , &Core::Core::signalNotifyUiToAddUserPlaylist
+            , d->m_musicListWidget
+            , &MusicListWidget::appendUserButton);
 
     // 20
-    connect(d->m_musicListWidget,
-            &MusicListWidget::signalMusicListButtonClicked, d->q_core,
-            &Core::Core::requestPlaylist);
+    connect(d->m_musicListWidget
+            , &MusicListWidget::signalMusicListButtonClicked
+            , d->q_core
+            , &Core::Core::requestPlaylist);
 
     // 21
-    connect(d->q_core, &Core::Core::signalSendUiCurrentTitleList,
-            d->m_viewWidget, &ViewWidget::showCurrentTitleListToView);
+    connect(d->q_core
+            , &Core::Core::signalSendUiCurrentTitleList
+            , d->m_viewWidget
+            , &ViewWidget::showCurrentTitleListToView);
 
     // 22
-    connect(d->q_core, &Core::Core::signalNotifyUiCacheModified,
-            d->m_viewWidget, &ViewWidget::refreshCurrentMusicList);
+    connect(d->q_core
+            , &Core::Core::signalNotifyUiCacheModified
+            , d->m_viewWidget
+            , &ViewWidget::refreshCurrentMusicList);
 
     // 23
-    connect(d->m_settingsWidget, &SettingsWidget::signalLocalDirAdded,
-            d->q_core, &Core::Core::appendLocalMusicPath);
+    connect(d->m_settingsWidget
+            , &SettingsWidget::signalLocalDirAdded
+            , d->q_core
+            , &Core::Core::appendLocalMusicPath);
 
     // 24
-    connect(d->m_settingsWidget, &SettingsWidget::signalLocalDirRemoved,
-            d->q_core, &Core::Core::removeLocalMusicPath);
+    connect(d->m_settingsWidget
+            , &SettingsWidget::signalLocalDirRemoved
+            , d->q_core
+            , &Core::Core::removeLocalMusicPath);
 
     // 25
-    connect(d->q_core, &Core::Core::signalNotifyUiToUpdateLocalPaths,
-            d->m_settingsWidget, &SettingsWidget::updateLocalPaths);
+    connect(d->q_core
+            , &Core::Core::signalNotifyUiToUpdateLocalPaths
+            , d->m_settingsWidget
+            , &SettingsWidget::updateLocalPaths);
 
     // 26
-    connect(d->q_core, &Core::Core::signalNotifyUiUserKeySetsChanged,
-            d->m_viewWidget, &ViewWidget::setUserPlaylistKeys);
+    connect(d->q_core
+            , &Core::Core::signalNotifyUiUserKeySetsChanged
+            , d->m_viewWidget
+            , &ViewWidget::setUserPlaylistKeys);
 
     // 27
-    connect(d->q_core, &Core::Core::signalNotifyUiCurrentListKeyChanged,
-            d->m_viewWidget, &ViewWidget::syncRenderWithCurrentPlaylist);
+    connect(d->q_core
+            , &Core::Core::signalNotifyUiCurrentListKeyChanged
+            , d->m_viewWidget
+            , &ViewWidget::syncRenderWithCurrentPlaylist);
 
     // 28
-    connect(d->m_playerWidget, &PlayerWidget::signalSetMute, d->q_core,
-            &Core::Core::setMute);
+    connect(d->m_playerWidget
+            , &PlayerWidget::signalSetMute
+            , d->q_core
+            , &Core::Core::setMute);
 
-    connect(d->m_topBarWidget, &TopBarWidget::signalPreButtonClicked, this,
-            [this]() { d->m_viewStackedWidget->setCurrentWidget(d->m_viewWidget); });
+    // 29
+    connect(d->m_topBarWidget
+            , &TopBarWidget::signalPreButtonClicked
+            , this
+            , [this]()
+            {
+                d->m_viewStackedWidget->setCurrentWidget(d->m_viewWidget);
+            });
 
-    connect(d->m_topBarWidget, &TopBarWidget::signalSettingsButtonClicked, this,
-            [this]() { d->m_viewStackedWidget->setCurrentWidget(d->m_settingsWidget); });
+    // 30
+    connect(d->m_topBarWidget
+            , &TopBarWidget::signalSettingsButtonClicked
+            , this
+            , [this]()
+            {
+                d->m_viewStackedWidget->setCurrentWidget(d->m_settingsWidget);
+            });
 }
+
 } // namespace Tray::Ui
