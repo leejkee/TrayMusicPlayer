@@ -2,7 +2,6 @@
 // Created by 31305 on 2025/8/8.
 //
 #include <lyricmodel.h>
-#include <lyricparser.h>
 
 namespace Tray::Model
 {
@@ -10,7 +9,6 @@ namespace Tray::Model
 class LyricModelPrivate
 {
 public:
-    Badfish::AudioToolkit::LyricParser* m_parser;
     QStringList m_lyricsText;
     QList<int64_t> m_lyricsTiming;
 };
@@ -19,9 +17,6 @@ LyricModel::LyricModel(QObject* parent) : QAbstractListModel(parent), d(std::mak
 {
 }
 
-/// @param lyricsText the text of lyric line
-/// @param lyricsTiming the timing of lyric line
-/// Update the lyrics when a new MP3 file with a same-name LRC file is loaded.
 void LyricModel::setLyric(const QStringList& lyricsText, const QList<int64_t>& lyricsTiming)
 {
     beginResetModel();
@@ -30,7 +25,7 @@ void LyricModel::setLyric(const QStringList& lyricsText, const QList<int64_t>& l
     endResetModel();
 }
 
-QVariant LyricModel::data(const QModelIndex& index, int role) const
+QVariant LyricModel::data(const QModelIndex& index, const int role) const
 {
     if (!index.isValid())
     {
