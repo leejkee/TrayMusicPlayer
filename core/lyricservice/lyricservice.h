@@ -5,27 +5,32 @@
 #include <song.h>
 #include <QString>
 #include <memory>
+
 namespace Tray::Core
 {
-
 class LyricServicePrivate;
+
 class LyricService
 {
 public:
     LyricService();
 
-    void loadLRC(const QString &lrcPath);
+    void loadLRC(const QString& lrcPath);
 
 Q_SIGNALS:
-    void signalUpdateLRCToUi(const QStringList &lrc);
+    void signalUpdateLRCToModel(const QString& musicName, const QStringList& lrcText
+                             , const QList<int64_t>& lrcTiming);
 
 public Q_SLOTS:
 
-    void handleLRCToUi(const Song &song);
+/// Updates the lyrics (LRC) for the currently playing music track.
+/// This function is triggered when the music changes.
+/// @param musicName The file name of the MP3 file that will be played.
+    void updateLRC(const QString& musicName);
 
 private:
     std::unique_ptr<LyricServicePrivate> d;
 
-    static bool findLRC(const QString& musicPath, QString &lrcPath);
+    static bool findLRC(const QString& musicPath, QString& lrcPath);
 };
 }
