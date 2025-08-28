@@ -12,6 +12,8 @@ class CoreService final: public QObject
 {
 public:
     CoreService(QObject *parent = nullptr);
+    void connectSS();
+    void run();
     ~CoreService() override;
 
 private:
