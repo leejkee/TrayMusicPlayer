@@ -31,6 +31,8 @@ public:
 
     [[nodiscard]] unsigned getDefaultVolume() const;
 
+    QString getPreloadKey() const;
+
 Q_SIGNALS:
     void signalUserKeySetsChanged(const QStringList&);
 
@@ -44,6 +46,10 @@ public Q_SLOTS:
     void removeUserPlaylist(const QString& name);
 
     void removeLocalMusicDirectory(const QString& path);
+
+    void changeDefaultVolume(int volume);
+
+    void changePreloadKey(const QString& key);
 
 private:
     std::unique_ptr<SettingsPrivate> d;
@@ -69,6 +75,7 @@ private:
     /// and the function returns without modifying the current settings.
     void parseJson();
 
-    bool saveToJson() const;
+    [[nodiscard]] bool saveToJson() const;
+
 };
 }

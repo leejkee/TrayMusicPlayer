@@ -2,6 +2,7 @@
 #include <settings/settings.h>
 #include <trayconfig.h>
 #include <log/log.h>
+#include <utils/jsonutils.h>
 #include <QFile>
 #include <QDir>
 #include <QJsonArray>
@@ -17,15 +18,17 @@ public:
 
     struct Key
     {
-        static inline const auto MUSIC_KEY = QStringLiteral("Music");
+        static inline const auto PLAYLIST_KEY = QStringLiteral("Playlist");
 
         static inline const auto AUDIO_KEY = QStringLiteral("Audio");
 
-        struct Music
+        struct Playlist
         {
             static inline const auto MUSIC_PATHS = QStringLiteral("MusicPaths");
 
             static inline const auto USER_LISTS = QStringLiteral("UserLists");
+
+            static inline const auto PRELOAD_LIST = QStringLiteral("PreloadList");
         };
 
         struct Audio
@@ -42,8 +45,9 @@ public:
             int defaultVolume;
         };
 
-        struct Music
+        struct Playlist
         {
+            QString preloadList;
             QStringList musicPaths;
             QStringList userLists;
         };
@@ -55,7 +59,7 @@ public:
         // };
 
         Audio audio;
-        Music music;
+        Playlist playlist;
     };
 
 #define SETTING_RELEASE 0
@@ -63,6 +67,8 @@ public:
     static inline const auto SETTINGS_DIRECTORY = QStringLiteral("settings/");
 
     static inline const auto SETTINGS_FILE = QStringLiteral("init.json");
+
+    static inline const auto LOCAL_KEY = QStringLiteral("Local");
 
     QString m_settingFilePath;
 
@@ -92,34 +98,16 @@ void Settings::parseJson()
 
     const QJsonObject jsonObj = jsonDoc.object();
 
-    auto parseContent = [](const QJsonObject& json, const QString& key)
+    if (jsonObj.contains(SettingsPrivate::Key::PLAYLIST_KEY))
     {
-        if (json.contains(key))
-        {
-            if (const QJsonValue value = json.value(key); value.isArray())
-            {
-                QStringList list;
-                for (const auto& item : value.toArray())
-                {
-                    if (item.isString())
-                    {
-                        list.append(item.toString());
-                    }
-                }
-                return list;
-            }
-        }
-        return {};
-    };
-
-    if (jsonObj.contains(SettingsPrivate::Key::MUSIC_KEY))
-    {
-        const QJsonObject obj = jsonObj.value(SettingsPrivate::Key::MUSIC_KEY).
+        const QJsonObject obj = jsonObj.value(SettingsPrivate::Key::PLAYLIST_KEY).
                                         toObject();
-        d->m_data.music.musicPaths = parseContent(obj
-                                                  , SettingsPrivate::Key::Music::MUSIC_PATHS);
-        d->m_data.music.userLists = parseContent(obj
-                                                 , SettingsPrivate::Key::Music::USER_LISTS);
+        d->m_data.playlist.musicPaths = Utils::getJsonValue<QStringList>(obj
+                                                  , SettingsPrivate::Key::Playlist::MUSIC_PATHS);
+        d->m_data.playlist.userLists = Utils::getJsonValue<QStringList>(obj
+                                                 , SettingsPrivate::Key::Playlist::USER_LISTS);
+        d->m_data.playlist.preloadList = Utils::getJsonValue<QString>(obj
+                                                 , SettingsPrivate::Key::Playlist::PRELOAD_LIST);
     }
     else
     {
@@ -131,18 +119,7 @@ void Settings::parseJson()
     {
         const QJsonObject obj = jsonObj.value(SettingsPrivate::Key::AUDIO_KEY).
                                         toObject();
-        if (const auto value = obj.
-                    value(SettingsPrivate::Key::Audio::DEFAULT_VOLUME); value.
-            isDouble())
-        {
-            d->m_data.audio.defaultVolume = value.toInt();
-        }
-        else
-        {
-            LOG_ERROR("The Key 'DefaultVolume' is missing in 'Audio' or not a number, using default value")
-            ;
-            d->m_data.audio.defaultVolume = 20;
-        }
+        d->m_data.audio.defaultVolume = Utils::getJsonValue<int>(obj, SettingsPrivate::Key::Audio::DEFAULT_VOLUME);
     }
     else
     {
@@ -151,13 +128,15 @@ void Settings::parseJson()
     }
 }
 
+
 bool Settings::initJsonFile(const QString& filePath) const
 {
     if (!QFile::exists(filePath))
     {
         d->m_data.audio.defaultVolume = 20;
-        d->m_data.music.musicPaths.clear();
-        d->m_data.music.userLists.clear();
+        d->m_data.playlist.musicPaths.clear();
+        d->m_data.playlist.userLists.clear();
+        d->m_data.playlist.preloadList = SettingsPrivate::LOCAL_KEY;
         return saveToJson();
     }
     return true;
@@ -187,17 +166,18 @@ Settings::Settings(QObject* parent)
 
 bool Settings::saveToJson() const
 {
-    QJsonObject musicJson;
+    QJsonObject listJson;
     QJsonObject audioJson;
-    musicJson[SettingsPrivate::Key::Music::MUSIC_PATHS] =
-            QJsonArray::fromStringList(d->m_data.music.musicPaths);
-    musicJson[SettingsPrivate::Key::Music::USER_LISTS] =
-            QJsonArray::fromStringList(d->m_data.music.userLists);
+    listJson[SettingsPrivate::Key::Playlist::MUSIC_PATHS] =
+            QJsonArray::fromStringList(d->m_data.playlist.musicPaths);
+    listJson[SettingsPrivate::Key::Playlist::USER_LISTS] =
+            QJsonArray::fromStringList(d->m_data.playlist.userLists);
+    listJson[SettingsPrivate::Key::Playlist::PRELOAD_LIST] = QJsonValue(d->m_data.playlist.preloadList);
     audioJson[SettingsPrivate::Key::Audio::DEFAULT_VOLUME] =
             QJsonValue(d->m_data.audio.defaultVolume);
 
     QJsonObject jsonObj;
-    jsonObj[SettingsPrivate::Key::MUSIC_KEY] = musicJson;
+    jsonObj[SettingsPrivate::Key::PLAYLIST_KEY] = listJson;
     jsonObj[SettingsPrivate::Key::AUDIO_KEY] = audioJson;
 
     const QJsonDocument doc(jsonObj);
@@ -222,70 +202,75 @@ void Settings::addLocalMusicDirectory(const QString& path)
                   ).arg(path));
         return;
     }
-    if (!d->m_data.music.musicPaths.contains(path))
+    if (!d->m_data.playlist.musicPaths.contains(path))
     {
-        d->m_data.music.musicPaths.append(path);
+        d->m_data.playlist.musicPaths.append(path);
         if (!saveToJson())
         {
             return;
         }
-        Q_EMIT signalLocalDirectoryChanged(d->m_data.music.musicPaths);
+        Q_EMIT signalLocalDirectoryChanged(d->m_data.playlist.musicPaths);
         LOG_INFO(QString("Add path successfully: %1").arg(path));
     }
 }
 
 void Settings::removeLocalMusicDirectory(const QString& path)
 {
-    if (d->m_data.music.musicPaths.removeOne(path))
+    if (d->m_data.playlist.musicPaths.removeOne(path))
     {
         if (!saveToJson())
         {
             return;
         }
-        Q_EMIT signalLocalDirectoryChanged(d->m_data.music.musicPaths);
+        Q_EMIT signalLocalDirectoryChanged(d->m_data.playlist.musicPaths);
         LOG_INFO(QString("Remove directory: %1").arg(path));
     }
 }
 
 void Settings::addUserPlaylist(const QString& name)
 {
-    if (!d->m_data.music.userLists.contains(name))
+    if (!d->m_data.playlist.userLists.contains(name))
     {
-        d->m_data.music.userLists.append(name);
+        d->m_data.playlist.userLists.append(name);
         if (!saveToJson())
         {
             return;
         }
-        Q_EMIT signalUserKeySetsChanged(d->m_data.music.userLists);
+        Q_EMIT signalUserKeySetsChanged(d->m_data.playlist.userLists);
         LOG_INFO(QString("Added user music: %1").arg(name));
     }
 }
 
 void Settings::removeUserPlaylist(const QString& name)
 {
-    if (d->m_data.music.userLists.removeOne(name))
+    if (d->m_data.playlist.userLists.removeOne(name))
     {
         if (!saveToJson())
         {
             return;
         }
-        Q_EMIT signalUserKeySetsChanged(d->m_data.music.userLists);
+        Q_EMIT signalUserKeySetsChanged(d->m_data.playlist.userLists);
         LOG_INFO(QString("Removed user music: %1").arg(name));
     }
 }
 
 QStringList Settings::getLocalMusicDirectories() const
 {
-    return d->m_data.music.musicPaths;
+    return d->m_data.playlist.musicPaths;
 }
 
 QStringList Settings::getKeysUserPlaylist() const
 {
-    return d->m_data.music.userLists;
+    return d->m_data.playlist.userLists;
 }
 
 unsigned Settings::getDefaultVolume() const
 {
     return d->m_data.audio.defaultVolume;
+}
+
+QString Settings::getPreloadKey() const
+{
+    return d->m_data.playlist.preloadList;
 }
 }

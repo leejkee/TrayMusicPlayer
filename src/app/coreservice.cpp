@@ -8,7 +8,6 @@
 #include <settings/settings.h>
 #include <lyricservice/lyricservice.h>
 
-#include <QThread>
 namespace Tray::App
 {
 class CoreServicePrivate
@@ -49,7 +48,8 @@ void CoreService::initConnections()
 void CoreService::initPreload()
 {
     d->m_listCache->init(d->m_settings->getLocalMusicDirectories(), d->m_settings->getKeysUserPlaylist());
-    d->m_playlist->loadMusicList()
+    const auto preloadKey = d->m_settings->getPreloadKey();
+    d->m_playlist->loadMusicList(preloadKey, d->m_listCache->getMusicTitleList(preloadKey));
 }
 
 

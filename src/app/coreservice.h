@@ -11,11 +11,12 @@ class CoreServicePrivate;
 class CoreService final: public QObject
 {
 public:
-    CoreService(QObject *parent = nullptr);
+    explicit CoreService(QObject *parent = nullptr);
+
     void initConnections();
+
     void initPreload();
-    void initPlaylist();
-    void run();
+
     ~CoreService() override;
 
 private:
