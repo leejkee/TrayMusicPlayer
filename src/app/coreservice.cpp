@@ -31,27 +31,12 @@ CoreService::CoreService(QObject *parent) : QObject(parent), d(std::make_unique<
     d->m_playlist = new Core::PlayList(this);
     d->m_lyricService = new Core::LyricService(this);
     d->m_listCache = new Core::ListCache(this);
-    d->m_lyricServiceThread = new QThread(this);
-    d->m_listCacheThread = new QThread(this);
-    d->m_listCache->moveToThread(d->m_listCacheThread);
-    d->m_lyricServiceThread->moveToThread(d->m_lyricServiceThread);
-    connectSS();
+    initConnections();
+    initPreload();
 }
 
-void CoreService::connectSS()
+void CoreService::initConnections()
 {
-    connect(d->m_listCacheThread, &QThread::started, this, [this]()
-    {
-        QMetaObject::invokeMethod(d->m_listCache
-                                  , "init"
-                                  , Qt::QueuedConnection
-                                  , Q_ARG(QStringList
-                                          , d->m_settings->getLocalMusicDirectories())
-                                  , Q_ARG(QStringList
-                                          , d->m_settings->getKeysUserPlaylist()));
-    });
-
-    connect(d->m_listCache, &Core::ListCache::signalInitCompleted, this, &CoreService::run);
 }
 
 /// init function
@@ -60,14 +45,16 @@ void CoreService::connectSS()
 /// 3) playlist loaded
 /// 4) player loaded
 ///
-///
-void CoreService::run()
+
+void CoreService::initPreload()
 {
-    d->m_listCacheThread->start();
-    // d->m_playlist->loadMusicList();
+    d->m_listCache->init(d->m_settings->getLocalMusicDirectories(), d->m_settings->getKeysUserPlaylist());
+    d->m_playlist->loadMusicList()
 }
 
-CoreService::~CoreService()
-= default;
+
+
+CoreService::~CoreService() = default;
+
 
 }

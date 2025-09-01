@@ -12,7 +12,9 @@ class CoreService final: public QObject
 {
 public:
     CoreService(QObject *parent = nullptr);
-    void connectSS();
+    void initConnections();
+    void initPreload();
+    void initPlaylist();
     void run();
     ~CoreService() override;
 

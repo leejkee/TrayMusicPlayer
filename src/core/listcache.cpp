@@ -34,7 +34,7 @@ void ListCache::init(const QStringList& localDir
 {
     initLocalPlaylist(localDir);
     initUserPlaylists(userListKeys);
-    Q_EMIT signalInitCompleted();
+    // Q_EMIT signalInitCompleted();
 }
 
 void ListCache::initLocalPlaylist(const QStringList& localDir)

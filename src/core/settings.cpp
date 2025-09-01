@@ -8,7 +8,6 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
-
 namespace Tray::Core
 {
 class SettingsPrivate
@@ -18,18 +17,45 @@ public:
 
     struct Key
     {
-        static inline const auto MUSIC_PATHS =
-                QStringLiteral("LocalMusicPaths");
-        static inline const auto USER_LISTS = QStringLiteral("UserLists");
-        static inline const auto DEFAULT_VOLUME =
-                QStringLiteral("DefaultVolume");
+        static inline const auto MUSIC_KEY = QStringLiteral("Music");
+
+        static inline const auto AUDIO_KEY = QStringLiteral("Audio");
+
+        struct Music
+        {
+            static inline const auto MUSIC_PATHS = QStringLiteral("MusicPaths");
+
+            static inline const auto USER_LISTS = QStringLiteral("UserLists");
+        };
+
+        struct Audio
+        {
+            static inline const auto DEFAULT_VOLUME =
+                    QStringLiteral("DefaultVolume");
+        };
     };
 
     struct SettingsData
     {
-        int defaultVolume;
-        QStringList musicPaths;
-        QStringList userLists;
+        struct Audio
+        {
+            int defaultVolume;
+        };
+
+        struct Music
+        {
+            QStringList musicPaths;
+            QStringList userLists;
+        };
+
+        // struct RememberSet
+        // {
+        //     QString theLastListKey;
+        //     QString theLastMusic;
+        // };
+
+        Audio audio;
+        Music music;
     };
 
 #define SETTING_RELEASE 0
@@ -38,13 +64,15 @@ public:
 
     static inline const auto SETTINGS_FILE = QStringLiteral("init.json");
 
-    QString m_path;
+    QString m_settingFilePath;
+
     SettingsData m_data;
 };
 
+
 void Settings::parseJson()
 {
-    QFile file(d->m_path);
+    QFile file(d->m_settingFilePath);
     if (!file.open(QIODevice::ReadOnly))
     {
         LOG_ERROR("Failed to open file");
@@ -52,32 +80,84 @@ void Settings::parseJson()
     }
     const QByteArray jsonData = file.readAll();
     file.close();
-    const QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonData);
+    QJsonParseError parseError;
+    const QJsonDocument jsonDoc =
+            QJsonDocument::fromJson(jsonData, &parseError);
     if (jsonDoc.isNull() || !jsonDoc.isObject())
     {
-        LOG_ERROR("Failed to parse JSON");
+        LOG_ERROR("Failed to parse JSON" + parseError.errorString());
         return;
     }
-    LOG_INFO("Parsed JSON successfully");
-    QJsonObject jsonObj = jsonDoc.object();
-    d->m_data.musicPaths = jsonObj[SettingsPrivate::Key::MUSIC_PATHS].
-                           toVariant().toStringList();
-    d->m_data.userLists = jsonObj[SettingsPrivate::Key::USER_LISTS].
-                          toVariant().toStringList();
-    d->m_data.defaultVolume = jsonObj[SettingsPrivate::Key::DEFAULT_VOLUME].
-            toInt();
+    LOG_INFO("Parse JSON successfully");
+
+    const QJsonObject jsonObj = jsonDoc.object();
+
+    auto parseContent = [](const QJsonObject& json, const QString& key)
+    {
+        if (json.contains(key))
+        {
+            if (const QJsonValue value = json.value(key); value.isArray())
+            {
+                QStringList list;
+                for (const auto& item : value.toArray())
+                {
+                    if (item.isString())
+                    {
+                        list.append(item.toString());
+                    }
+                }
+                return list;
+            }
+        }
+        return {};
+    };
+
+    if (jsonObj.contains(SettingsPrivate::Key::MUSIC_KEY))
+    {
+        const QJsonObject obj = jsonObj.value(SettingsPrivate::Key::MUSIC_KEY).
+                                        toObject();
+        d->m_data.music.musicPaths = parseContent(obj
+                                                  , SettingsPrivate::Key::Music::MUSIC_PATHS);
+        d->m_data.music.userLists = parseContent(obj
+                                                 , SettingsPrivate::Key::Music::USER_LISTS);
+    }
+    else
+    {
+        LOG_ERROR("The Key 'Music' is missing in init.json, using default values")
+        ;
+    }
+
+    if (jsonObj.contains(SettingsPrivate::Key::AUDIO_KEY))
+    {
+        const QJsonObject obj = jsonObj.value(SettingsPrivate::Key::AUDIO_KEY).
+                                        toObject();
+        if (const auto value = obj.
+                    value(SettingsPrivate::Key::Audio::DEFAULT_VOLUME); value.
+            isDouble())
+        {
+            d->m_data.audio.defaultVolume = value.toInt();
+        }
+        else
+        {
+            LOG_ERROR("The Key 'DefaultVolume' is missing in 'Audio' or not a number, using default value")
+            ;
+            d->m_data.audio.defaultVolume = 20;
+        }
+    }
+    else
+    {
+        LOG_ERROR("The Key 'Audio' is missing in init.json, using default values")
+        ;
+    }
 }
 
 bool Settings::initJsonFile(const QString& filePath) const
 {
     if (!QFile::exists(filePath))
     {
-        const SettingsPrivate::SettingsData tempData{
-            20
-            , {}
-            , {}
-        };
-        d->m_data = tempData;
+        d->m_data.audio.defaultVolume = 20;
+        d->m_data.music.musicPaths.clear();
+        d->m_data.music.userLists.clear();
         return saveToJson();
     }
     return true;
@@ -94,10 +174,10 @@ Settings::Settings(QObject* parent)
             SettingsPrivate::SETTINGS_DIRECTORY +
             SettingsPrivate::SETTINGS_FILE;
 #else
-    d->m_path = PROJECT_PATH + SettingsPrivate::SETTINGS_DIRECTORY +
+    d->m_settingFilePath = PROJECT_PATH + SettingsPrivate::SETTINGS_DIRECTORY +
             SettingsPrivate::SETTINGS_FILE;
 #endif
-    if (!initJsonFile(d->m_path))
+    if (!initJsonFile(d->m_settingFilePath))
     {
         LOG_ERROR("Failed to init Json file");
         return;
@@ -107,15 +187,21 @@ Settings::Settings(QObject* parent)
 
 bool Settings::saveToJson() const
 {
+    QJsonObject musicJson;
+    QJsonObject audioJson;
+    musicJson[SettingsPrivate::Key::Music::MUSIC_PATHS] =
+            QJsonArray::fromStringList(d->m_data.music.musicPaths);
+    musicJson[SettingsPrivate::Key::Music::USER_LISTS] =
+            QJsonArray::fromStringList(d->m_data.music.userLists);
+    audioJson[SettingsPrivate::Key::Audio::DEFAULT_VOLUME] =
+            QJsonValue(d->m_data.audio.defaultVolume);
+
     QJsonObject jsonObj;
-    jsonObj[SettingsPrivate::Key::MUSIC_PATHS] =
-            QJsonArray::fromStringList(d->m_data.musicPaths);
-    jsonObj[SettingsPrivate::Key::DEFAULT_VOLUME] =
-            QJsonValue(d->m_data.defaultVolume);
-    jsonObj[SettingsPrivate::Key::USER_LISTS] =
-            QJsonArray::fromStringList(d->m_data.userLists);
+    jsonObj[SettingsPrivate::Key::MUSIC_KEY] = musicJson;
+    jsonObj[SettingsPrivate::Key::AUDIO_KEY] = audioJson;
+
     const QJsonDocument doc(jsonObj);
-    QFile file(d->m_path);
+    QFile file(d->m_settingFilePath);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
     {
         LOG_ERROR("Could not write to Json file");
@@ -136,70 +222,70 @@ void Settings::addLocalMusicDirectory(const QString& path)
                   ).arg(path));
         return;
     }
-    if (!d->m_data.musicPaths.contains(path))
+    if (!d->m_data.music.musicPaths.contains(path))
     {
-        d->m_data.musicPaths.append(path);
+        d->m_data.music.musicPaths.append(path);
         if (!saveToJson())
         {
             return;
         }
-        Q_EMIT signalLocalDirectoryChanged(d->m_data.musicPaths);
+        Q_EMIT signalLocalDirectoryChanged(d->m_data.music.musicPaths);
         LOG_INFO(QString("Add path successfully: %1").arg(path));
     }
 }
 
 void Settings::removeLocalMusicDirectory(const QString& path)
 {
-    if (d->m_data.musicPaths.removeOne(path))
+    if (d->m_data.music.musicPaths.removeOne(path))
     {
         if (!saveToJson())
         {
             return;
         }
-        Q_EMIT signalLocalDirectoryChanged(d->m_data.musicPaths);
+        Q_EMIT signalLocalDirectoryChanged(d->m_data.music.musicPaths);
         LOG_INFO(QString("Remove directory: %1").arg(path));
     }
 }
 
 void Settings::addUserPlaylist(const QString& name)
 {
-    if (!d->m_data.userLists.contains(name))
+    if (!d->m_data.music.userLists.contains(name))
     {
-        d->m_data.userLists.append(name);
+        d->m_data.music.userLists.append(name);
         if (!saveToJson())
         {
             return;
         }
-        Q_EMIT signalUserKeySetsChanged(d->m_data.userLists);
+        Q_EMIT signalUserKeySetsChanged(d->m_data.music.userLists);
         LOG_INFO(QString("Added user music: %1").arg(name));
     }
 }
 
 void Settings::removeUserPlaylist(const QString& name)
 {
-    if (d->m_data.userLists.removeOne(name))
+    if (d->m_data.music.userLists.removeOne(name))
     {
         if (!saveToJson())
         {
             return;
         }
-        Q_EMIT signalUserKeySetsChanged(d->m_data.userLists);
+        Q_EMIT signalUserKeySetsChanged(d->m_data.music.userLists);
         LOG_INFO(QString("Removed user music: %1").arg(name));
     }
 }
 
 QStringList Settings::getLocalMusicDirectories() const
 {
-    return d->m_data.musicPaths;
+    return d->m_data.music.musicPaths;
 }
 
 QStringList Settings::getKeysUserPlaylist() const
 {
-    return d->m_data.userLists;
+    return d->m_data.music.userLists;
 }
 
 unsigned Settings::getDefaultVolume() const
 {
-    return d->m_data.defaultVolume;
+    return d->m_data.audio.defaultVolume;
 }
 }

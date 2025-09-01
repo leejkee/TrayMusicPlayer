@@ -84,7 +84,7 @@ Q_SIGNALS:
 
     void signalUserPlaylistDeleted(const QString& key);
 
-    void signalInitCompleted();
+    // void signalInitCompleted();
 
     void signalRespondPlayListSwitchAndPlayIndex(
         const QString& key

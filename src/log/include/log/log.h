@@ -39,10 +39,7 @@ inline void log(const LogLevel level
     const QString timestamp = QDateTime::currentDateTime().
             toString("yyyy-MM-dd hh:mm:ss.zzz");
     const QString logMessage = QString("[%1] [%2] [%3] %4")
-                              .arg(timestamp)
-                              .arg(logLevelToString(level))
-                              .arg(moduleName)
-                              .arg(message);
+                              .arg(timestamp, logLevelToString(level), moduleName, message);
 
     qDebug() << logMessage;
 }
