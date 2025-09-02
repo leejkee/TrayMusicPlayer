@@ -11,6 +11,7 @@ target_link_libraries(tray_music_app PRIVATE
         tray_music_ui
         tray_music_core
         tray_qrc
+        tray_music_log
 )
 
 set_property(TARGET tray_music_app PROPERTY AUTOMOC ON)

@@ -273,4 +273,37 @@ QString Settings::getPreloadKey() const
 {
     return d->m_data.playlist.preloadList;
 }
+
+void Settings::changeDefaultVolume(const int volume)
+{
+    if (d->m_data.audio.defaultVolume != volume)
+    {
+        d->m_data.audio.defaultVolume = volume;
+        if (saveToJson())
+        {
+            LOG_INFO(QString("Changed default volume: %1").arg(volume));
+        }
+        else
+        {
+            LOG_ERROR(QString("Could not change default volume: %1").arg(volume));
+        }
+    }
+}
+
+void Settings::changePreloadKey(const QString& key)
+{
+    if (d->m_data.playlist.preloadList != key)
+    {
+        d->m_data.playlist.preloadList = key;
+        if (saveToJson())
+        {
+            LOG_INFO(QString("Changed preload key: %1").arg(key));
+        }
+        else
+        {
+            LOG_ERROR(QString("Could not change preload key: %1").arg(key));
+        }
+    }
+}
+
 }
