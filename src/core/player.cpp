@@ -66,6 +66,27 @@ void Player::playTg()
     Q_EMIT signalPlayingChanged(!isPlaying);
 }
 
+void Player::pause()
+{
+    if (m_player->isPlaying())
+    {
+        m_player->pause();
+    }
+    LOG_INFO("Player state changed to [Paused]");
+    Q_EMIT signalPlayingChanged(false);
+}
+
+void Player::play()
+{
+    if (!m_player->isPlaying())
+    {
+        m_player->play();
+    }
+    LOG_INFO("Player state changed to [Playing]");
+    Q_EMIT signalPlayingChanged(true);
+}
+
+
 void Player::setMusicPosition(const qint64 position)
 {
     m_player->setPosition(position);
@@ -76,11 +97,26 @@ bool Player::isPlaying() const
     return m_player->isPlaying();
 }
 
-void Player::setMute()
+void Player::muteTg()
 {
     const bool b = m_output->isMuted();
     m_output->setMuted(!b);
     LOG_INFO(QString("set mute to %1").arg(!b));
     Q_EMIT signalMuteChanged(!b);
 }
+
+void Player::muteOn()
+{
+    m_output->setMuted(true);
+    LOG_INFO("set mute to ON");
+    Q_EMIT signalMuteChanged(true);
+}
+
+void Player::muteOff()
+{
+    m_output->setMuted(false);
+    LOG_INFO("set mute to OFF");
+    Q_EMIT signalMuteChanged(false);
+}
+
 }

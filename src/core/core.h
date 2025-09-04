@@ -5,7 +5,7 @@
 
 namespace Tray::Core {
 class Player;
-class PlayList;
+class Playlist;
 class ListCache;
 class CorePrivate;
 

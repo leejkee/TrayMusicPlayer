@@ -15,7 +15,7 @@ class CoreServicePrivate
 {
 public:
     Core::Player* m_player;
-    Core::PlayList* m_playlist;
+    Core::Playlist* m_playlist;
     Core::Settings* m_settings;
     Core::ListCache* m_listCache;
     Core::LyricService* m_lyricService;
@@ -27,7 +27,7 @@ CoreService::CoreService(QObject* parent)
 {
     d->m_settings = new Core::Settings(this);
     d->m_player = new Core::Player(this);
-    d->m_playlist = new Core::PlayList(this);
+    d->m_playlist = new Core::Playlist(this);
     d->m_lyricService = new Core::LyricService(this);
     d->m_listCache = new Core::ListCache(this);
     initConnections();
@@ -36,6 +36,27 @@ CoreService::CoreService(QObject* parent)
 
 void CoreService::initConnections()
 {
+    connect(
+        d->m_player
+        , &Core::Player::signalPlayingChanged
+        , this
+        , [this](const bool b)
+        {
+            Q_EMIT signalNotifyUiPlayingStatusChanged(b);
+        });
+
+    connect(
+            d->m_playlist
+            , &Core::Playlist::signalCurrentMusicChanged
+            , this
+            , [this](const qsizetype index
+                     , const QString& name
+                     , const int duration)
+            {
+                Q_EMIT signalNotifyUiCurrentMusicChanged(static_cast<int>(index)
+                    , name
+                    , duration);
+            });
 }
 
 /// init function
@@ -50,7 +71,7 @@ void CoreService::initPreload()
     d->m_listCache->init(d->m_settings->getLocalMusicDirectories()
                          , d->m_settings->getKeysUserPlaylist());
     const auto preloadKey = d->m_settings->getPreloadKey();
-    d->m_playlist->loadMusicList(preloadKey
+    d->m_playlist->loadPlaylist(preloadKey
                                  , d->m_listCache->
                                       getMusicTitleList(preloadKey));
 }
@@ -58,17 +79,66 @@ void CoreService::initPreload()
 CoreService::~CoreService() = default;
 
 
-/* Interface Begin */
+/*!
+    \internal
+    Implementation of Player Controller Interface
+*/
+
+// 1) Player volume control
 void CoreService::setVolume(const int volume)
 {
     d->m_player->setVolume(static_cast<float>(volume) / 100);
 }
 
-// 2
-void CoreService::playToggle() { d->m_player->playTg(); }
+// 2) Player playback control
+void CoreService::playToggle()
+{
+    d->m_player->playTg();
+}
 
-// 3
-void CoreService::playToggleWithListAndIndex(const QString& listKey
+// 3) Start playback
+void CoreService::play()
+{
+    d->m_player->play();
+}
+
+// 4) Pause playback
+void CoreService::pause()
+{
+    d->m_player->pause();
+}
+
+// 5) Mute controls
+void CoreService::muteToggle()
+{
+    d->m_player->muteTg();
+}
+
+// 6) Mute on
+void CoreService::muteOn()
+{
+    d->m_player->muteOn();
+}
+
+// 7) Mute off
+void CoreService::muteOff()
+{
+    d->m_player->muteOff();
+}
+
+// 8) Position control
+void CoreService::setPlayerPosition(const qint64 position)
+{
+    d->m_player->setMusicPosition(position);
+}
+
+/*!
+    \internal
+    Implementation of Playlist Controller Interface
+*/
+
+// 9) Playlist selection handling
+void CoreService::handlePlaylistItemSelection(const QString& listKey
                                              , const int index)
 {
     // check playlist ?
@@ -76,108 +146,98 @@ void CoreService::playToggleWithListAndIndex(const QString& listKey
     {
         // yes, switch to new playlist
         LOG_INFO("Current list is not [" + listKey + "], switch to it");
-        Q_EMIT signalRequestSwitchPlaylistAndPlayIndex(listKey, index);
+        d->m_listCache->handleSwitchPlaylistAndPlayIndex(listKey, index);
+        d->m_playlist->loadPlaylist(listKey, d->m_listCache->findList(listKey));
     }
-    else
-    {
-        // no, keep the current playlist
-        if (d->m_playlist->getCurrentMusicIndex() != index)
-        {
-            d->m_playlist->setCurrentMusicIndex(index);
-            d->m_player->setMusicSource(d->m_playlist->getCurrentMusicPath());
-        }
-        d->m_player->playTg();
-    }
+    d->m_playlist->setCurrentMusicIndex(index);
+    d->m_player->setMusicSource(d->m_playlist->getCurrentMusicPath());
 }
 
-// 4
+// 10) Next track
 void CoreService::nextMusic()
 {
     d->m_playlist->nextMusic();
     d->m_player->setMusicSource(d->m_playlist->getCurrentMusicPath());
-    d->m_player->playTg();
 }
 
-// 5
+// 11) Previous track
 void CoreService::preMusic()
 {
     d->m_playlist->preMusic();
     d->m_player->setMusicSource(d->m_playlist->getCurrentMusicPath());
-    d->m_player->playTg();
 }
 
-// 6
-void CoreService::setPlayerPosition(const qint64 position)
+// 12) Playback mode cycling
+void CoreService::changePlayMode()
 {
-    d->m_player->setMusicPosition(position);
+    d->m_playlist->changePlayMode();
 }
 
-// 7
-void CoreService::changePlayMode() { d->m_playlist->changePlayMode(); }
-
-// 8
-void CoreService::requestPlaylist(const QString& listName)
+// 13) Playlist display
+void CoreService::handleDisplayPlaylist(const QString& listKey)
 {
-    Q_EMIT signalRequestTitleList(listName);
+    if (d->m_playlist->getListKey() != listKey)
+    {
+        Q_EMIT signalSendUiCurrentTitleList(listKey, d->m_listCache->getMusicTitleList(listKey));
+    }
+    else {
+        LOG_INFO("Current list is already [" + listKey + "], do nothing");
+    }
 }
 
-// 9
-QStringList CoreService::getKeysOfUserPlaylist()
+// 14) User playlist management
+void CoreService::addUserPlaylist(const QString& listKey)
+{
+    d->m_listCache->newUserPlaylist(listKey);
+}
+
+// 15) Remove user playlist
+void CoreService::removeUserPlaylist(const QString& listKey)
+{
+    d->m_listCache->deleteUserPlaylist(listKey);
+}
+
+// 16) Music list operations
+void CoreService::addMusicToList(const QString& sourceListKey
+                                 , const QString& destinationListKey
+                                 , const int index)
+{
+    d->m_listCache->copyMusicFromListToList(sourceListKey, destinationListKey, index);
+}
+
+// 17) Remove music from list
+void CoreService::removeMusicFromList(const QString& key
+                                      , const QString& songTitle)
+{
+    d->m_listCache->removeSongFromListByTitle(key, songTitle);
+}
+
+/*!
+    \internal
+    Implementation of Settings Interface
+*/
+
+// 18) User playlist keys
+QStringList CoreService::getUserListKeys()
 {
     return d->m_settings->getKeysUserPlaylist();
 }
 
-// 10
-void CoreService::addUserPlaylist(const QString& listName)
-{
-    Q_EMIT signalAddUserPlaylistToCache(listName);
-}
-
-// 11
-void CoreService::removeUserPlaylist(const QString& key)
-{
-    Q_EMIT signalRemoveUserPlaylistFromCache(key);
-}
-
-// 12
+// 19) Local music paths
 QStringList CoreService::getLocalMusicPaths()
 {
     return d->m_settings->getLocalMusicDirectories();
 }
 
-// 13
+// 20) Add local music path
 void CoreService::appendLocalMusicPath(const QString& path)
 {
     d->m_settings->addLocalMusicDirectory(path);
 }
 
-// 14
+// 21) Remove local music path
 void CoreService::removeLocalMusicPath(const QString& path)
 {
     d->m_settings->removeLocalMusicDirectory(path);
 }
-
-// 15
-void CoreService::addMusicToList(const QString& sourceListKey
-                                 , const QString& destinationListKey
-                                 , const int index)
-{
-    Q_EMIT signalCopyMusicFromListToList(sourceListKey
-                                         , destinationListKey
-                                         , index);
-}
-
-// 16
-void CoreService::removeMusicFromList(const QString& key
-                                      , const QString& songTitle)
-{
-    Q_EMIT signalRemoveMusicFromList(key, songTitle);
-}
-
-// 17
-void CoreService::setMute()
-{
-    d->m_player->setMute();
-}
-/* Interface End  */
 }

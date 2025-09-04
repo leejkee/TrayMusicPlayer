@@ -9,13 +9,13 @@
 
 namespace Tray::Core
 {
-class PlayList final : public QObject
+class Playlist final : public QObject
 {
     Q_OBJECT
 
 public:
 
-    explicit PlayList(QObject* parent = nullptr);
+    explicit Playlist(QObject* parent = nullptr);
 
     enum class PlayMode
     {
@@ -41,8 +41,8 @@ public:
 
     [[nodiscard]] QString getCurrentMusicPath() const;
 
-    void loadMusicList(const QString& listKey
-                       , const QList<MusicMetaData>& musicList);
+    void loadPlaylist(const QString& listKey
+                       , const QList<MusicMetaData>& playlist);
 
     void nextMusic();
 

@@ -23,11 +23,19 @@ public:
 
     void playTg();
 
+    void play();
+
+    void pause();
+
     void setMusicPosition(qint64 position);
 
     [[nodiscard]] bool isPlaying() const;
 
-    void setMute();
+    void muteTg();
+
+    void muteOn();
+
+    void muteOff();
 
 Q_SIGNALS:
     void signalPlayingChanged(bool b);

@@ -31,7 +31,7 @@ public:
                                           , int index);
 
     Player* m_player;
-    PlayList* m_playList;
+    Playlist* m_playList;
     ListCache* m_listCache;
     Settings* m_settings;
     LyricService* m_lyricService;
@@ -43,7 +43,7 @@ CorePrivate::CorePrivate(QObject* p_core)
     : p_ptr(p_core)
 {
     m_player = new Player(p_ptr);
-    m_playList = new PlayList(p_ptr);
+    m_playList = new Playlist(p_ptr);
     m_settings = new Settings(p_ptr);
     m_listCache = new ListCache(Q_NULLPTR);
     m_lyricService = new LyricService;
@@ -69,7 +69,7 @@ void CorePrivate::updatePlaylistIfPlayingThis(const QString& key
 {
     if (m_playList->getListKey() == key)
     {
-        m_playList->loadMusicList(key, list);
+        m_playList->loadPlaylist(key, list);
     }
 }
 
@@ -78,7 +78,7 @@ void CorePrivate::handleSwitchPlaylistAndPlayIndex(
     , const QList<MusicMetaData>& list
     , const int index)
 {
-    m_playList->loadMusicList(key, list);
+    m_playList->loadPlaylist(key, list);
     m_playList->setCurrentMusicIndex(index);
     m_player->setMusicSource(m_playList->getCurrentMusicPath());
     m_player->playTg();
@@ -129,7 +129,7 @@ void Core::createConnections()
 
     connect(
             d->m_playList
-            , &PlayList::signalCurrentMusicChanged
+            , &Playlist::signalCurrentMusicChanged
             , this
             , [this](const qsizetype index
                      , const QString& name
@@ -152,7 +152,7 @@ void Core::createConnections()
 
     connect(
             d->m_playList
-            , &PlayList::signalPlayModeChanged
+            , &Playlist::signalPlayModeChanged
             , this
             , [this](const int mode)
             {
@@ -230,7 +230,7 @@ void Core::createConnections()
     /// Local paths
 
     connect(d->m_playList
-            , &PlayList::signalNotifyUiCurrentPlaylistKeyChanged
+            , &Playlist::signalNotifyUiCurrentPlaylistKeyChanged
             , this
             , [this](const QString& key)
             {
@@ -417,6 +417,6 @@ void Core::removeMusicFromList(const QString& key, const QString& songTitle)
 }
 
 // 17
-void Core::setMute() { d->m_player->setMute(); }
+void Core::setMute() { d->m_player->muteTg(); }
 /* Interface End */
 } // namespace Tray::Core

@@ -9,7 +9,7 @@
 namespace Tray::Core
 {
 
-PlayList::PlayList(QObject* parent)
+Playlist::Playlist(QObject* parent)
     : QObject(parent),
       m_index(UNINITIALIZED_VALUE),
       m_playMode(PlayMode::Sequential),
@@ -20,30 +20,30 @@ PlayList::PlayList(QObject* parent)
     LOG_INFO("Playlist initialized with empty, Sequential mode");
 }
 
-void PlayList::loadMusicList(const QString& listKey
-                             , const QList<MusicMetaData>& musicList)
+void Playlist::loadPlaylist(const QString& listKey
+                             , const QList<MusicMetaData>& playlist)
 {
-    if (musicList.isEmpty())
+    if (playlist.isEmpty())
     {
-        LOG_WARNING("load empty musicList");
+        LOG_WARNING("Load empty playlist");
     }
     m_currentListKey = listKey;
-    m_musicList = musicList;
+    m_musicList = playlist;
     Q_EMIT signalNotifyUiCurrentPlaylistKeyChanged(listKey);
-    LOG_INFO("load musicList successfully");
+    LOG_INFO(QString("Load playlist %1 successfully").arg(listKey));
 }
 
-void PlayList::nextMusic()
+void Playlist::nextMusic()
 {
     setCurrentMusicIndex(getNextMusicIndex());
 }
 
-void PlayList::preMusic()
+void Playlist::preMusic()
 {
     setCurrentMusicIndex(getPreMusicIndex());
 }
 
-qsizetype PlayList::getNextMusicIndex() const
+qsizetype Playlist::getNextMusicIndex() const
 {
     switch (m_playMode)
     {
@@ -59,7 +59,7 @@ qsizetype PlayList::getNextMusicIndex() const
     }
 }
 
-qsizetype PlayList::getPreMusicIndex() const
+qsizetype Playlist::getPreMusicIndex() const
 {
     switch (m_playMode)
     {
@@ -77,17 +77,17 @@ qsizetype PlayList::getPreMusicIndex() const
     }
 }
 
-QString PlayList::getCurrentMusicPath() const
+QString Playlist::getCurrentMusicPath() const
 {
     return m_musicList.at(m_index).m_path;
 }
 
-qsizetype PlayList::getCurrentMusicIndex() const
+qsizetype Playlist::getCurrentMusicIndex() const
 {
     return m_index;
 }
 
-void PlayList::setCurrentMusicIndex(const qsizetype index)
+void Playlist::setCurrentMusicIndex(const qsizetype index)
 {
     if (index >= m_musicList.size())
     {
@@ -100,7 +100,7 @@ void PlayList::setCurrentMusicIndex(const qsizetype index)
                                      , m_musicList.at(m_index).m_duration);
 }
 
-void PlayList::setPlayMode(const PlayMode playMode)
+void Playlist::setPlayMode(const PlayMode playMode)
 {
     if (m_playMode != playMode)
     {
@@ -111,7 +111,7 @@ void PlayList::setPlayMode(const PlayMode playMode)
     }
 }
 
-void PlayList::changePlayMode()
+void Playlist::changePlayMode()
 {
     switch (m_playMode)
     {
@@ -132,7 +132,7 @@ void PlayList::changePlayMode()
     }
 }
 
-QString PlayList::getListKey() const
+QString Playlist::getListKey() const
 {
     return m_currentListKey;
 }
