@@ -3,8 +3,6 @@ cmake_minimum_required(VERSION 3.20)
 qt_add_executable(tray_music_app
         MANUAL_FINALIZATION
         main.cpp
-        coreservice.cpp
-        coreservice.h
 )
 
 target_link_libraries(tray_music_app PRIVATE

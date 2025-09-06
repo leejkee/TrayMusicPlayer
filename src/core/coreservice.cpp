@@ -1,13 +1,15 @@
 //
 // Created by 31305 on 2025/8/26.
 //
-#include "coreservice.h"
+#include <coreservice/coreservice.h>
 #include <player/player.h>
 #include <playlist/playlist.h>
 #include <listcache/listcache.h>
 #include <settings/settings.h>
 #include <log/log.h>
 #include <lyricservice/lyricservice.h>
+
+#include "musicmetadata.h"
 
 namespace Tray::App
 {
@@ -36,26 +38,124 @@ CoreService::CoreService(QObject* parent)
 
 void CoreService::initConnections()
 {
-    connect(
-        d->m_player
-        , &Core::Player::signalPlayingChanged
-        , this
-        , [this](const bool b)
-        {
-            Q_EMIT signalNotifyUiPlayingStatusChanged(b);
-        });
+    connect(d->m_player
+            , &Core::Player::signalPlayingChanged
+            , this
+            , [this](const bool b)
+            {
+                Q_EMIT signalPlayingStatusChanged(b);
+            });
 
-    connect(
-            d->m_playlist
+    connect(d->m_playlist
             , &Core::Playlist::signalCurrentMusicChanged
             , this
             , [this](const qsizetype index
-                     , const QString& name
+                     , const QString& listKey
                      , const int duration)
             {
-                Q_EMIT signalNotifyUiCurrentMusicChanged(static_cast<int>(index)
-                    , name
+                Q_EMIT signalCurrentMusicSourceChanged(static_cast<int>(index)
+                    , listKey
                     , duration);
+            });
+
+    connect(d->m_player
+            , &Core::Player::signalPositionChanged
+            , this
+            , [this](const qint64 pos)
+            {
+                Q_EMIT signalPlayerPositionChanged(pos);
+            });
+
+    connect(
+            d->m_playlist
+            , &Core::Playlist::signalPlayModeChanged
+            , this
+            , [this](const int mode)
+            {
+                Q_EMIT signalPlayModeChanged(mode);
+            });
+
+    connect(d->m_player
+            , &Core::Player::signalMusicOver
+            , this
+            , &CoreService::nextMusic);
+
+    /// User playlist Add/Remove
+    // listCache --> settings
+    connect(d->m_listCache
+            , &Core::ListCache::signalUserPlaylistCreated
+            , d->m_settings
+            , &Core::Settings::addUserPlaylist);
+    connect(d->m_listCache
+            , &Core::ListCache::signalUserPlaylistDeleted
+            , d->m_settings
+            , &Core::Settings::removeUserPlaylist);
+
+    // listCache --> ui
+    connect(d->m_listCache
+            , &Core::ListCache::signalUserPlaylistCreated
+            , this
+            , [this](const QString& key)
+            {
+                Q_EMIT signalUserPlaylistAdded(key);
+            });
+
+    connect(d->m_listCache
+            , &Core::ListCache::signalUserPlaylistDeleted
+            , this
+            , [this](const QString& key)
+            {
+                Q_EMIT signalUserPlaylistRemoved(key);
+            });
+
+    // settings --> ui (viewWidget)
+    connect(d->m_settings
+            , &Core::Settings::signalUserKeySetsChanged
+            , this
+            , [this](const QStringList& keySets)
+            {
+                Q_EMIT signalUserKeysChanged(keySets);
+            });
+    /// User playlist Add/Remove
+
+    /// List cache changed
+    connect(d->m_listCache
+            , &Core::ListCache::signalNotifyPlayListCacheModified
+            , d->m_playlist
+            , &Core::Playlist::updateCurrentList);
+
+    connect(d->m_listCache
+            , &Core::ListCache::signalNotifyUiCacheModified
+            , this
+            , [this](const QString& key, const QStringList& titleList)
+            {
+                Q_EMIT signalListCacheChanged(key, titleList);
+            });
+    /// List cache changed
+
+    /// Local paths
+    // settings --> listCache (Local)
+    connect(d->m_settings
+            , &Core::Settings::signalLocalDirectoryChanged
+            , d->m_listCache
+            , &Core::ListCache::initLocalPlaylist);
+
+    // settings --> ui
+    connect(d->m_settings
+            , &Core::Settings::signalLocalDirectoryChanged
+            , this
+            , [this](const QStringList& paths)
+            {
+                Q_EMIT signalLocalPathsChanged(paths);
+            });
+    /// Local paths
+
+    connect(d->m_playlist
+            , &Core::Playlist::signalNotifyUiCurrentPlaylistKeyChanged
+            , this
+            , [this](const QString& key)
+            {
+                Q_EMIT signalCurrentListChanged(key);
             });
 }
 
@@ -64,7 +164,6 @@ void CoreService::initConnections()
 /// 2) listCache loaded
 /// 3) playlist loaded
 /// 4) player loaded
-///
 
 void CoreService::initPreload()
 {
@@ -72,12 +171,10 @@ void CoreService::initPreload()
                          , d->m_settings->getKeysUserPlaylist());
     const auto preloadKey = d->m_settings->getPreloadKey();
     d->m_playlist->loadPlaylist(preloadKey
-                                 , d->m_listCache->
-                                      getMusicTitleList(preloadKey));
+                                , d->m_listCache->findList(preloadKey));
 }
 
 CoreService::~CoreService() = default;
-
 
 /*!
     \internal
@@ -139,7 +236,7 @@ void CoreService::setPlayerPosition(const qint64 position)
 
 // 9) Playlist selection handling
 void CoreService::handlePlaylistItemSelection(const QString& listKey
-                                             , const int index)
+                                              , const int index)
 {
     // check playlist ?
     if (d->m_playlist->getListKey() != listKey)
@@ -178,9 +275,12 @@ void CoreService::handleDisplayPlaylist(const QString& listKey)
 {
     if (d->m_playlist->getListKey() != listKey)
     {
-        Q_EMIT signalSendUiCurrentTitleList(listKey, d->m_listCache->getMusicTitleList(listKey));
+        Q_EMIT signalCurrentTitleListChanged(listKey
+                                             , d->m_listCache->
+                                                  getMusicTitleList(listKey));
     }
-    else {
+    else
+    {
         LOG_INFO("Current list is already [" + listKey + "], do nothing");
     }
 }
@@ -197,12 +297,14 @@ void CoreService::removeUserPlaylist(const QString& listKey)
     d->m_listCache->deleteUserPlaylist(listKey);
 }
 
-// 16) Music list operations
-void CoreService::addMusicToList(const QString& sourceListKey
-                                 , const QString& destinationListKey
-                                 , const int index)
+// 16) Music copy
+void CoreService::copyMusicToList(const QString& sourceListKey
+                                  , const QString& destinationListKey
+                                  , const int index)
 {
-    d->m_listCache->copyMusicFromListToList(sourceListKey, destinationListKey, index);
+    d->m_listCache->copyMusicFromListToList(sourceListKey
+                                            , destinationListKey
+                                            , index);
 }
 
 // 17) Remove music from list

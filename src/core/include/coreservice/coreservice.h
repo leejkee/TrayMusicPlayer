@@ -8,10 +8,11 @@
 namespace Tray::App
 {
 class CoreServicePrivate;
-class CoreService final: public QObject
+
+class CoreService final : public QObject
 {
 public:
-    explicit CoreService(QObject *parent = nullptr);
+    explicit CoreService(QObject* parent = nullptr);
 
     /*!
      * @brief Initializes signal/slot connections between core components.
@@ -25,17 +26,15 @@ public:
 
     ~CoreService() override;
 
-
 Q_SIGNALS:
-
     /*!
      * @brief Emitted when handling a UI request to display the contents of a specific playlist.
      *        Sends the list of song titles for the given playlist.
      * @param key The identifier (key) of the playlist.
      * @param list A string list containing only the titles of the songs in the playlist.
      */
-    void signalSendUiCurrentTitleList(const QString& key, const QStringList& list);
-
+    void signalCurrentTitleListChanged(const QString& key
+                                       , const QStringList& list);
 
     /*!
      * @brief Emitted when the current music source changes, to notify the UI
@@ -45,18 +44,67 @@ Q_SIGNALS:
      * @param listKey The identifier (key) of the current playlist.
      * @param duration The total duration of the current song in milliseconds.
      */
-    void signalNotifyUiCurrentMusicChanged(int index
-                                          , const QString& listKey
-                                          , int duration);
+    void signalCurrentMusicSourceChanged(int index
+                                         , const QString& listKey
+                                         , int duration);
 
     /*!
      * @brief Emitted when the playback status changes, to notify the UI about play/pause state.
      * @param b True if the player is now playing, false if paused.
      */
-    void signalNotifyUiPlayingStatusChanged(bool b);
+    void signalPlayingStatusChanged(bool b);
+
+    /*!
+     * @brief Emitted when the playback position of the current track changes.
+     * @param pos The current playback position in milliseconds.
+     */
+    void signalPlayerPositionChanged(qint64 pos);
+
+    /*!
+     * @brief Emitted when the playback mode changes.
+     * @param mode The new playback mode (0: Sequential, 1: Playlist Repeat, 
+     *             2: Single Repeat, 3: Random).
+     */
+    void signalPlayModeChanged(int mode);
+
+    /*!
+     * @brief Emitted when a new user playlist is created.
+     * @param key The identifier of the newly created playlist.
+     */
+    void signalUserPlaylistAdded(const QString& key);
+
+    /*!
+     * @brief Emitted when a user playlist is deleted.
+     * @param key The identifier of the removed playlist.
+     */
+    void signalUserPlaylistRemoved(const QString& key);
+
+    /*!
+     * @brief Emitted when the list of user playlist keys is updated.
+     * @param list The updated list of all user playlist identifiers.
+     */
+    void signalUserKeysChanged(const QStringList& list);
+
+    /*!
+     * @brief Emitted when the contents of a playlist in the cache are modified.
+     * @param key The identifier of the modified playlist.
+     * @param list The updated list of song titles in the playlist.
+     */
+    void signalListCacheChanged(const QString& key, const QStringList& list);
+
+    /*!
+     * @brief Emitted when the list of local music scan directories changes.
+     * @param list The updated list of directory paths for local music scanning.
+     */
+    void signalLocalPathsChanged(const QStringList& list);
+
+    /*!
+     * @brief Emitted when the current active playlist changes.
+     * @param key The identifier of the newly active playlist.
+     */
+    void signalCurrentListChanged(const QString& key);
 
 public Q_SLOTS:
-
     /* Player Controller Begin */
 
     /*!
@@ -151,14 +199,14 @@ public Q_SLOTS:
     void removeUserPlaylist(const QString& listKey);
 
     /*!
-     * @brief Moves or copies a song between playlists.
+     * @brief Copies a song between playlists.
      * @param sourceListKey The identifier of the source playlist.
      * @param destinationListKey The identifier of the destination playlist.
      * @param index The index of the song in the source playlist to move/copy.
      */
-    void addMusicToList(const QString& sourceListKey
-                        , const QString& destinationListKey
-                        , int index);
+    void copyMusicToList(const QString& sourceListKey
+                         , const QString& destinationListKey
+                         , int index);
 
     /*!
      * @brief Removes a song from a specified playlist.
@@ -197,5 +245,4 @@ public Q_SLOTS:
 private:
     std::unique_ptr<CoreServicePrivate> d;
 };
-
 }

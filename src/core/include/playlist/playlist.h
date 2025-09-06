@@ -54,6 +54,9 @@ public:
 
     [[nodiscard]] QString getListKey() const;
 
+    void updateCurrentList(const QString& listKey
+                           , const QList<MusicMetaData>& playlist);
+
     void changePlayMode();
 
 Q_SIGNALS:

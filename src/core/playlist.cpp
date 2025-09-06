@@ -136,4 +136,11 @@ QString Playlist::getListKey() const
 {
     return m_currentListKey;
 }
-}
+
+void Playlist::updateCurrentList(const QString& listKey, const QList<MusicMetaData>& playlist)
+{
+    if (m_currentListKey == listKey)
+    {
+        loadPlaylist(listKey, playlist);
+    }
+}}
