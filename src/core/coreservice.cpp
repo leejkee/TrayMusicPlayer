@@ -86,6 +86,7 @@ void CoreService::initConnections()
             , &Core::ListCache::signalUserPlaylistCreated
             , d->m_settings
             , &Core::Settings::addUserPlaylist);
+
     connect(d->m_listCache
             , &Core::ListCache::signalUserPlaylistDeleted
             , d->m_settings
