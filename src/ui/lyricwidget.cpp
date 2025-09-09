@@ -1,7 +1,7 @@
 //
 // Created by 31305 on 2025/7/16.
 //
-#include "../widgets/lyricwidget.h"
+#include <lyricwidget/lyricwidget.h>
 
 #include <QListView>
 

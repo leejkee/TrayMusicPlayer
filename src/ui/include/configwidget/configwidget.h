@@ -1,5 +1,4 @@
 #pragma once
-#include <uimetadata.h>
 #include <QDialog>
 #include <memory>
 
@@ -11,12 +10,15 @@ public:
     explicit ConfigWidget(QWidget* parent = nullptr);
 
     void addConfigWidget(const QString& actionName, QWidget* w);
-    void addConfigWidget(const BetterButtonMetaData &actionInfo, QWidget* w);
-    ~ConfigWidget() override;
+    void addConfigWidget(const QString& buttonId
+                         , const QSize& size
+                         , const QString& iconPath
+                         , const QString& qssPath
+                         , QWidget* w);
 
 private:
     std::unique_ptr<ConfigWidgetPrivate> d;
-    
+
 
 private Q_SLOTS:
     void showActionArea(const QString &actionName);

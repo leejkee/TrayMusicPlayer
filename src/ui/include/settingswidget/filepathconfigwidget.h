@@ -1,12 +1,14 @@
 #pragma once
 
 #include <QWidget>
+#include <memory>
 
 class QPushButton;
 class QListWidget;
 class QLabel;
 
 namespace Tray::Ui {
+class FilepathConfigWidgetPrivate;
 class FilePathConfigWidget final : public QWidget {
 public:
     Q_OBJECT
@@ -15,10 +17,8 @@ public:
     explicit FilePathConfigWidget(QWidget* parent = nullptr);
 
 private:
-    QPushButton* m_addButton;
-    QPushButton* m_removeButton;
-    QListWidget* m_listWidget;
-    QLabel* m_messageLabel;
+    std::unique_ptr<FilepathConfigWidgetPrivate> d;
+
 
 Q_SIGNALS:
     void signalLocalDirAdded(const QString&);

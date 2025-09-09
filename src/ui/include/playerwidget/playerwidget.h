@@ -2,26 +2,11 @@
 // Created by cww on 25-4-1.
 //
 #pragma once
-
-#include <QVBoxLayout>
 #include <QWidget>
-
-class QHBoxLayout;
-class QGroupBox;
-class QLabel;
-class QSlider;
-class QPushButton;
-class QPropertyAnimation;
-
-namespace Tray::Ui::Panel {
-class ProgressBar;
-class StyleButton;
-class VolumeController;
-class RotatingLabel;
-class MarqueeLabel;
-} // namespace Tray::Ui::Panel
+#include <memory>
 
 namespace Tray::Ui {
+class PlayerWidgetPrivate;
 class PlayerWidget final : public QWidget {
     Q_OBJECT
 
@@ -69,24 +54,7 @@ Q_SIGNALS:
     void signalSetMute();
 
 private:
-    // left
-    Panel::MarqueeLabel* m_labelMusicName;
-    Panel::MarqueeLabel* m_labelArtistName;
-    Panel::RotatingLabel* m_labelLogo;
-    QHBoxLayout* m_leftLayout;
-
-    // center
-    Panel::StyleButton* m_pushButtonPlay;
-    Panel::StyleButton* m_pushButtonPre;
-    Panel::StyleButton* m_pushButtonNext;
-    Panel::StyleButton* m_checkPlayMode;
-    Panel::ProgressBar* m_progressWidget;
-    QVBoxLayout* m_centerLayout;
-
-    // right
-    Panel::VolumeController* m_volumeController;
-    Panel::StyleButton* m_pushButtonVolume;
-    QMenu* m_menuVolume;
+    std::unique_ptr<PlayerWidgetPrivate> d;
 
     void initWidget();
 

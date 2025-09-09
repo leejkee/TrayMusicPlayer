@@ -17,7 +17,6 @@ set_property(TARGET tray_music_widgets PROPERTY AUTOMOC ON)
 target_link_libraries(tray_music_widgets PRIVATE
         Qt6::Widgets
         Qt6::Core
-        Qt6::SvgWidgets
         tray_qrc
         tray_music_log
 )

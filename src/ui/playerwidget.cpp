@@ -1,15 +1,14 @@
 //
 // Created by cww on 25-4-1.
 //
-#include <playerwidget.h>
+#include <playerwidget/playerwidget.h>
 #include <traysvg.h>
 #include <trayqss.h>
-#include <uitools.h>
-#include <../widgets/include/stylebutton/stylebutton.h>
-#include <../widgets/include/progressbar/progressbar.h>
-#include <../widgets/include/volumecontroller/volumecontroller.h>
-#include <../widgets/include/rotatinglabel/rotatinglabel.h>
-#include <../widgets/include/marqueelabel/marqueelabel.h>
+#include <stylebutton/stylebutton.h>
+#include <progressbar/progressbar.h>
+#include <volumecontroller/volumecontroller.h>
+#include <rotatinglabel/rotatinglabel.h>
+#include <marqueelabel/marqueelabel.h>
 
 #include <QLabel>
 #include <QPushButton>
@@ -19,6 +18,28 @@
 
 
 namespace Tray::Ui {
+class PlayerWidgetPrivate
+{
+    public:
+
+    Panel::MarqueeLabel* m_labelMusicName;
+    Panel::MarqueeLabel* m_labelArtistName;
+    Panel::RotatingLabel* m_labelLogo;
+    QHBoxLayout* m_leftLayout;
+
+    // center
+    Panel::StyleButton* m_pushButtonPlay;
+    Panel::StyleButton* m_pushButtonPre;
+    Panel::StyleButton* m_pushButtonNext;
+    Panel::StyleButton* m_checkPlayMode;
+    Panel::ProgressBar* m_progressWidget;
+    QVBoxLayout* m_centerLayout;
+
+    // right
+    Panel::VolumeController* m_volumeController;
+    Panel::StyleButton* m_pushButtonVolume;
+    QMenu* m_menuVolume;
+};
     PlayerWidget::PlayerWidget(QWidget *parent) : QWidget(parent) {
         initWidget();
         createConnections();

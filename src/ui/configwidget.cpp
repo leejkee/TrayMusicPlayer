@@ -1,10 +1,11 @@
-#include <configwidget.h>
-#include <../widgets/include/stylebutton/stylebutton.h>
+#include <configwidget/configwidget.h>
+#include <stylebutton/stylebutton.h>
+#include <log/log.h>
 #include <memory>
+
 #include <QStackedWidget>
 #include <QHBoxLayout>
 #include <QLabel>
-
 
 namespace Tray::Ui::Panel {
 class ConfigWidgetPrivate {
@@ -17,9 +18,7 @@ public:
     QVBoxLayout* m_areaLayout;
 };
 
-
 ConfigWidget::ConfigWidget(QWidget* parent) : QWidget(parent), d(std::make_unique<ConfigWidgetPrivate>()){
-    setObjectName("ConfigWidget");
     d->m_actionMap = std::make_unique<QHash<QString, QWidget*>>();
     d->m_stackedWidget = new QStackedWidget(this);
     d->m_titleLabel = new QLabel(this);
@@ -36,20 +35,21 @@ ConfigWidget::ConfigWidget(QWidget* parent) : QWidget(parent), d(std::make_uniqu
     setLayout(d->m_mainLayout);
 }
 
-ConfigWidget::~ConfigWidget() = default;
-
 
 void ConfigWidget::addConfigWidget(const QString &actionName, QWidget *w) {
-    addConfigWidget({actionName, {}, {}, 0, 0}, w);
+    addConfigWidget(actionName, {}, {}, {}, w);
 }
 
 
-void ConfigWidget::addConfigWidget(const BetterButtonMetaData &actionInfo, QWidget *w) {
+void ConfigWidget::addConfigWidget(const QString& buttonId, const QSize& size
+                , const QString& iconPath
+                , const QString& qssPath
+                ,  QWidget *w) {
     if (w == nullptr) {
-        d->Log.log(Log::QLogger::LogLevel::Warning, "Null widget, add nothing to ConfigWidget");
+        LOG_ERROR("Null widget, do nothing");
         return;
     }
-    auto* actionButton = new StyleButton(actionInfo, this);
+    auto* actionButton = new StyleButton(buttonId, size, iconPath, qssPath, this);
 
     if (d->m_buttonLayout->count() == 0) {
         d->m_buttonLayout->addWidget(actionButton);
@@ -58,11 +58,11 @@ void ConfigWidget::addConfigWidget(const BetterButtonMetaData &actionInfo, QWidg
     else {
         d->m_buttonLayout->insertWidget(d->m_buttonLayout->count() - 1, actionButton);
     }
-    d->m_actionMap->insert(actionInfo.name, w);
+    d->m_actionMap->insert(buttonId, w);
     d->m_stackedWidget->addWidget(w);
 
     if (d->m_stackedWidget->count() == 1) {
-        showActionArea(actionInfo.name);
+        showActionArea(buttonId);
     }
     connect(actionButton, &StyleButton::signalButtonClicked, this, &ConfigWidget::showActionArea);
 }

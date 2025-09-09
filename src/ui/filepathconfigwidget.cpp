@@ -1,8 +1,7 @@
-#include "../widgets/filepathconfigwidget.h"
+#include <settingswidget/filepathconfigwidget.h>
+#include <stylebutton/stylebutton.h>
 #include <trayqss.h>
 #include <traysvg.h>
-#include <uitools.h>
-
 #include <QCoreApplication>
 #include <QFileDialog>
 #include <QHBoxLayout>
@@ -12,53 +11,84 @@
 #include <QPushButton>
 #include <QSpacerItem>
 
-namespace Tray::Ui {
-FilePathConfigWidget::FilePathConfigWidget(QWidget* parent) : QWidget(parent) {
+namespace Tray::Ui
+{
+class FilepathConfigWidgetPrivate
+{
+public:
+    Panel::StyleButton* m_addButton;
+    Panel::StyleButton* m_removeButton;
+    QListWidget* m_listWidget;
+    QLabel* m_messageLabel;
 
-    this->m_addButton = new QPushButton(QIcon(Res::AddSVG), "", this);
-    m_addButton->setStyleSheet(readQSS(Res::BUTTON_SQUARE_QSS));
+    static inline int BUTTON_SIZE = 30;
+    static inline auto MESSAGE_TEXT = QStringLiteral("Local Music Paths: ");
+};
 
-    this->m_listWidget = new QListWidget(this);
-    this->m_removeButton = new QPushButton(QIcon(Res::RemoveSVG), "", this);
-
-    m_removeButton->setStyleSheet(readQSS(Res::BUTTON_SQUARE_QSS));
-    this->m_messageLabel = new QLabel(this);
-
-    m_messageLabel->setText("Local Music Paths: ");
-    m_listWidget->setStyleSheet("QListWidget { font-size: 15px; }");
+FilePathConfigWidget::FilePathConfigWidget(QWidget* parent)
+    : QWidget(parent)
+{
+    d->m_addButton = new Panel::StyleButton({}
+                                            , {
+                                                FilepathConfigWidgetPrivate::BUTTON_SIZE
+                                                , FilepathConfigWidgetPrivate::BUTTON_SIZE
+                                            }
+                                            , Res::AddSVG
+                                            , Res::BUTTON_SQUARE_QSS
+                                            , this);
+    d->m_listWidget = new QListWidget(this);
+    d->m_removeButton = new Panel::StyleButton({}
+                                               , {
+                                                   FilepathConfigWidgetPrivate::BUTTON_SIZE
+                                                   , FilepathConfigWidgetPrivate::BUTTON_SIZE
+                                               }
+                                               , Res::RemoveSVG
+                                               , Res::BUTTON_SQUARE_QSS
+                                               , this);
+    d->m_messageLabel = new QLabel(this);
+    d->m_messageLabel->setText(FilepathConfigWidgetPrivate::MESSAGE_TEXT);
+    d->m_listWidget->setStyleSheet("QListWidget { font-size: 15px; }");
 
     const auto hlayout = new QHBoxLayout;
     const auto spaceH = new QSpacerItem(-1, 0, QSizePolicy::Expanding);
 
-    hlayout->addWidget(m_messageLabel);
+    hlayout->addWidget(d->m_messageLabel);
     hlayout->addItem(spaceH);
-    hlayout->addWidget(m_addButton);
-    hlayout->addWidget(m_removeButton);
+    hlayout->addWidget(d->m_addButton);
+    hlayout->addWidget(d->m_removeButton);
 
     const auto layout = new QVBoxLayout(this);
     layout->addItem(hlayout);
-    layout->addWidget(m_listWidget);
+    layout->addWidget(d->m_listWidget);
 
-    connect(m_addButton, &QPushButton::clicked, this,
-            &FilePathConfigWidget::addMusicPath);
-    connect(m_removeButton, &QPushButton::clicked, this,
-            &FilePathConfigWidget::removeMusicPath);
+    connect(d->m_addButton
+            , &QPushButton::clicked
+            , this
+            , &FilePathConfigWidget::addMusicPath);
+    connect(d->m_removeButton
+            , &QPushButton::clicked
+            , this
+            , &FilePathConfigWidget::removeMusicPath);
 }
 
-void FilePathConfigWidget::addMusicPath() {
+void FilePathConfigWidget::addMusicPath()
+{
     const QString newMusicPath = QFileDialog::getExistingDirectory(
-        this, tr("Open Directory"), QCoreApplication::applicationDirPath(),
-        QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+     this
+     , tr("Open Directory")
+     , QCoreApplication::applicationDirPath()
+     , QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
     Q_EMIT signalLocalDirAdded(newMusicPath);
 }
 
-void FilePathConfigWidget::removeMusicPath() {
-    Q_EMIT signalLocalDirRemoved(m_listWidget->currentItem()->text());
+void FilePathConfigWidget::removeMusicPath()
+{
+    Q_EMIT signalLocalDirRemoved(d->m_listWidget->currentItem()->text());
 }
 
-void FilePathConfigWidget::updateLocalPaths(const QStringList& paths) {
-    m_listWidget->clear();
-    m_listWidget->addItems(paths);
+void FilePathConfigWidget::updateLocalPaths(const QStringList& paths)
+{
+    d->m_listWidget->clear();
+    d->m_listWidget->addItems(paths);
 }
-
 } // namespace Tray::Ui
