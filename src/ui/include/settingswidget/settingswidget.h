@@ -3,6 +3,7 @@
 //
 #pragma once
 #include <memory>
+#include <configwidget/configwidget.h>
 
 namespace Tray::Ui {
 

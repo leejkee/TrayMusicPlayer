@@ -28,7 +28,6 @@ enable_testing()
 add_subdirectory(src)
 add_subdirectory(app)
 add_subdirectory(3rdParty)
-add_subdirectory(model)
 
 if (TRAY_TEST)
     add_subdirectory(test)

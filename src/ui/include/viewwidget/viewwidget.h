@@ -17,16 +17,20 @@ class ViewWidget final : public QWidget
 public:
     explicit ViewWidget(QWidget* parent = nullptr);
 
-    void setUserPlaylistKeys(const QStringList& keys);
+    void updateUserListKeys(const QStringList& keys);
 
 Q_SIGNALS:
+
     void signalViewItemPlayButtonClicked(const QString& key, int index);
+
     void signalMusicAddedToList(const QString& sourceList
                                 , const QString& destinationList
                                 , int index);
+
     void signalMusicRemovedFromList(const QString& key, const QString& title);
 
 private Q_SLOTS:
+
     // handle the context menu pop for right-click event
     void showContextMenu(const QPoint& pos);
 
@@ -35,17 +39,19 @@ private Q_SLOTS:
 
     void syncRenderMatchStatus();
 
+
 public Q_SLOTS:
+
     /// @brief update the current selection when the current music changed
     /// Also, keep the current item is shown in the visible area is supported
     void updateCurrentIndex(int);
 
     // update the view when a music list button is pressed
-    void showCurrentTitleListToView(const QString& name
+    void displayTitleListToView(const QString& name
                                     , const QStringList& nameList);
 
-    // update the view when the current list is updated
-    void refreshCurrentMusicList(const QString& key
+    // update the view if the currently shown list is updated
+    void handleListCacheUpdated(const QString& key
                                  , const QStringList& nameList);
 
     /// @brief update the status of playing on ListView
@@ -57,7 +63,6 @@ public Q_SLOTS:
 private:
     std::unique_ptr<ViewWidgetPrivate> d;
     void createConnections();
-    void setListTitle(const QString& title);
     void setListViewQss(const QString& qssPath);
 };
 }

@@ -1,7 +1,6 @@
 //
 // Created by cww on 25-4-10.
 //
-#include <configwidget/configwidget.h>
 #include <settingswidget/settingswidget.h>
 #include <settingswidget/filepathconfigwidget.h>
 #include <trayqss.h>

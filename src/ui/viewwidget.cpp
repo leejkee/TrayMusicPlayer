@@ -23,8 +23,8 @@ public:
     constexpr static int PLAYALL_BTN_WIDTH = 0;
     constexpr static int SIZE_TITLE_FONT = 14;
     const static inline auto PLAY_ALL_KEY = QStringLiteral("Play All");
-    const static inline auto ADD_TO_LIST = QStringLiteral("Play All");
-    const static inline auto REMOVE_FROM_LIST = QStringLiteral("Play All");
+    const static inline auto ADD_TO_LIST = QStringLiteral("Add to");
+    const static inline auto REMOVE_FROM_LIST = QStringLiteral("Remove from");
 
     QLabel* m_labelName;
     QListView* m_playlistView;
@@ -32,6 +32,7 @@ public:
     ViewDataModel* m_dataModel;
     ViewDelegate* m_viewDelegate;
     QStringList m_userPlaylistKeys;
+    QString m_displayPlaylistKey;
     QString m_currentPlaylistKey;
 };
 
@@ -39,6 +40,12 @@ ViewWidget::ViewWidget(QWidget* parent)
     : QWidget(parent), d(std::make_unique<ViewWidgetPrivate>())
 {
     d->m_labelName = new QLabel(this);
+    d->m_labelName->setAlignment(Qt::AlignCenter);
+    QFont font = d->m_labelName->font();
+    font.setPointSize(ViewWidgetPrivate::SIZE_TITLE_FONT);
+    font.setBold(true);
+    d->m_labelName->setFont(font);
+
     d->m_playAllButton = new Panel::StyleButton(
                                                 ViewWidgetPrivate::PLAY_ALL_KEY
                                                 , {
@@ -87,8 +94,7 @@ void ViewWidget::createConnections()
             , this
             , [this](const QModelIndex& index)
             {
-                Q_EMIT signalViewItemPlayButtonClicked(d->m_labelName->text()
-                    , index.row());
+                Q_EMIT signalViewItemPlayButtonClicked(d->m_displayPlaylistKey, index.row());
             });
 
     connect(d->m_playAllButton
@@ -96,8 +102,7 @@ void ViewWidget::createConnections()
             , this
             , [this]()
             {
-                Q_EMIT signalViewItemPlayButtonClicked(d->m_labelName->text()
-                    , 0);
+                Q_EMIT signalViewItemPlayButtonClicked(d->m_displayPlaylistKey, 0);
             });
 
     connect(d->m_viewDelegate
@@ -105,8 +110,7 @@ void ViewWidget::createConnections()
             , this
             , [this](const int index)
             {
-                Q_EMIT signalViewItemPlayButtonClicked(d->m_labelName->text()
-                    , index);
+                Q_EMIT signalViewItemPlayButtonClicked(d->m_displayPlaylistKey, index);
             });
 
     connect(d->m_viewDelegate
@@ -146,7 +150,7 @@ void ViewWidget::handleMenuPop(const QPoint& pos, const QModelIndex& index)
             , this
             , [this, index]()
             {
-                Q_EMIT signalMusicRemovedFromList(d->m_labelName->text()
+                Q_EMIT signalMusicRemovedFromList(d->m_displayPlaylistKey
                                                   , index.data(Qt::UserRole + 1)
                                                  .toString());
             });
@@ -156,13 +160,17 @@ void ViewWidget::handleMenuPop(const QPoint& pos, const QModelIndex& index)
     auto* addToOtherPlaylistMenu = new QMenu(optionsMenu);
     for (const QString& playlistName : d->m_userPlaylistKeys)
     {
+        if (playlistName == d->m_displayPlaylistKey)
+        {
+            continue;
+        }
         const auto* action = addToOtherPlaylistMenu->addAction(playlistName);
         connect(action
                 , &QAction::triggered
                 , this
                 , [this, playlistName, index]()
                 {
-                    Q_EMIT signalMusicAddedToList(d->m_labelName->text()
+                    Q_EMIT signalMusicAddedToList(d->m_displayPlaylistKey
                                                   , playlistName
                                                   , index.row());
                 });
@@ -171,7 +179,7 @@ void ViewWidget::handleMenuPop(const QPoint& pos, const QModelIndex& index)
     optionsMenu->exec(d->m_playlistView->viewport()->mapToGlobal(pos));
 }
 
-void ViewWidget::setUserPlaylistKeys(const QStringList& keys)
+void ViewWidget::updateUserListKeys(const QStringList& keys)
 {
     d->m_userPlaylistKeys = keys;
 }
@@ -205,32 +213,23 @@ void ViewWidget::showContextMenu(const QPoint& pos)
 }
 
 
-void ViewWidget::showCurrentTitleListToView(const QString& name
+void ViewWidget::displayTitleListToView(const QString& name
                                             , const QStringList& nameList)
 {
-    setListTitle(name);
+    d->m_displayPlaylistKey = name;
+    d->m_labelName->setText(name);
     d->m_dataModel->setMusicList(nameList);
     syncRenderMatchStatus();
 }
 
-void ViewWidget::refreshCurrentMusicList(const QString& key
+void ViewWidget::handleListCacheUpdated(const QString& key
                                          , const QStringList& nameList)
 {
-    if (d->m_labelName->text() == key)
+    if (d->m_displayPlaylistKey == key)
     {
+        // the List "key" is shown now
         d->m_dataModel->setMusicList(nameList);
     }
-}
-
-void ViewWidget::setListTitle(const QString& title)
-{
-    d->m_labelName->setText(title);
-    d->m_labelName->setAlignment(Qt::AlignCenter);
-
-    QFont font = d->m_labelName->font();
-    font.setPointSize(ViewWidgetPrivate::SIZE_TITLE_FONT);
-    font.setBold(true);
-    d->m_labelName->setFont(font);
 }
 
 void ViewWidget::updatePlayingStatus(const bool b)
@@ -247,7 +246,7 @@ void ViewWidget::syncRenderWithCurrentPlaylist(const QString& key)
 void ViewWidget::syncRenderMatchStatus()
 {
     d->m_viewDelegate->
-       setCurrentPlaylistMatched(d->m_labelName->text() == d->
-                                 m_currentPlaylistKey);
+       setCurrentPlaylistMatched(d->m_currentPlaylistKey == d->m_displayPlaylistKey);
 }
+
 }

@@ -1,7 +1,7 @@
 //
 // Created by 31305 on 2025/8/8.
 //
-#include <lyricmodel.h>
+#include <../src/ui/include/lyricwidget/lyricmodel.h>
 
 namespace Tray::Model
 {
