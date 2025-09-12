@@ -5,12 +5,13 @@
 #include <memory>
 #include <QObject>
 
-namespace Tray::App
+namespace Tray::Core
 {
 class CoreServicePrivate;
 
 class CoreService final : public QObject
 {
+    Q_OBJECT
 public:
     explicit CoreService(QObject* parent = nullptr);
 

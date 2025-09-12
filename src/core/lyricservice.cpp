@@ -19,6 +19,8 @@ LyricService::LyricService(QObject* parent)
 {
 }
 
+LyricService::~LyricService() = default;
+
 void LyricService::loadLRC(const QString& lrcPath)
 {
     d->m_parser.clear_result();

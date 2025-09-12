@@ -28,6 +28,7 @@ public:
                            , const QSize& targetSize
                            , RotatingLabelMode mode = NoRotating
                            , QWidget* parent = nullptr);
+    ~RotatingLabel() override;
 
     void setLabelMode(RotatingLabelMode mode);
 

@@ -2,9 +2,10 @@
 // Created by cww on 25-2-13.
 //
 #include "trayapp.h"
-#include "windowmanager.h"
-#include <core.h>
+#include <coreservice/coreservice.h>
+#include <windowmanager/windowmanager.h>
 #include <traysvg.h>
+#include <trayqss.h>
 #include <QApplication>
 #include <QCloseEvent>
 #include <QMenu>
@@ -22,8 +23,6 @@ namespace Tray
 class TrayAppPrivate
 {
 public:
-    explicit TrayAppPrivate(TrayApp* w);
-
     static constexpr int MAIN_MINIMUM_WIDTH = 600;
     static constexpr int MAIN_MINIMUM_HEIGHT = 450;
     QAction* m_minimizeAction;
@@ -33,47 +32,42 @@ public:
     QSystemTrayIcon* m_systemTrayIcon;
     QMenu* m_trayIconMenu;
     Ui::WindowManager* m_windowManager;
-    Core::Core* m_core;
-    QPixmap* m_pixmapBackGround;
-    TrayApp* q_ptr;
+    Core::CoreService* m_core;
+    QPixmap m_pixmapBackGround;
 };
 
-TrayAppPrivate::TrayAppPrivate(TrayApp* w): q_ptr(w)
-{
-    m_trayIconMenu = new QMenu(q_ptr);
-    m_systemTrayIcon = new QSystemTrayIcon(q_ptr);
-    m_minimizeAction = new QAction(QCoreApplication::translate("TrayUI", "Minimize"), q_ptr);
-    m_maximizeAction = new QAction(QCoreApplication::translate("TrayUI", "Maximize"), q_ptr);
-    m_restoreAction = new QAction(QCoreApplication::translate("TrayUI", "Restore"), q_ptr);
-    m_quitAction = new QAction(QCoreApplication::translate("TrayUI", "Quit"), q_ptr);
-    m_trayIconMenu->addAction(m_minimizeAction);
-    m_trayIconMenu->addAction(m_maximizeAction);
-    m_trayIconMenu->addAction(m_restoreAction);
-    m_trayIconMenu->addSeparator();
-    m_trayIconMenu->addAction(m_quitAction);
-    m_systemTrayIcon->setContextMenu(m_trayIconMenu);
-    const auto icon = QIcon(Res::TrayIconSVG);
-    m_systemTrayIcon->setIcon(icon);
-    q_ptr->setWindowIcon(icon);
-    m_systemTrayIcon->setToolTip("Tray Music");
-    m_systemTrayIcon->show();
-
-    m_core = new Core::Core(q_ptr);
-    m_windowManager = new Ui::WindowManager(m_core, q_ptr);
-    m_core->initWork();
-    q_ptr->setCentralWidget(m_windowManager);
-    q_ptr->setMinimumWidth(MAIN_MINIMUM_WIDTH);
-    q_ptr->setMinimumHeight(MAIN_MINIMUM_HEIGHT);
-
-    m_pixmapBackGround = new QPixmap();
-}
 
 TrayApp::TrayApp(QWidget* parent)
-    : QMainWindow(parent)
+    : QMainWindow(parent), d(std::make_unique<TrayAppPrivate>())
 {
     Init_qrc();
-    d = std::make_unique<TrayAppPrivate>(this);
+    d->m_trayIconMenu = new QMenu(this);
+    d->m_systemTrayIcon = new QSystemTrayIcon(this);
+    d->m_minimizeAction = new QAction(QCoreApplication::translate("TrayUI", "Minimize"), this);
+    d->m_maximizeAction = new QAction(QCoreApplication::translate("TrayUI", "Maximize"), this);
+    d->m_restoreAction = new QAction(QCoreApplication::translate("TrayUI", "Restore"), this);
+    d->m_quitAction = new QAction(QCoreApplication::translate("TrayUI", "Quit"), this);
+    d->m_trayIconMenu->addAction(d->m_minimizeAction);
+    d->m_trayIconMenu->addAction(d->m_maximizeAction);
+    d->m_trayIconMenu->addAction(d->m_restoreAction);
+    d->m_trayIconMenu->addSeparator();
+    d->m_trayIconMenu->addAction(d->m_quitAction);
+    d->m_systemTrayIcon->setContextMenu(d->m_trayIconMenu);
+    const auto icon = QIcon(Res::TrayIconSVG);
+    d->m_systemTrayIcon->setIcon(icon);
+    setWindowIcon(icon);
+    d->m_systemTrayIcon->setToolTip("Tray Music");
+    d->m_systemTrayIcon->show();
+
+    d->m_core = new Core::CoreService(this);
+    // todo
+    d->m_windowManager = new Ui::WindowManager({},this);
+    setCentralWidget(d->m_windowManager);
+    setMinimumWidth(TrayAppPrivate::MAIN_MINIMUM_WIDTH);
+    setMinimumHeight(TrayAppPrivate::MAIN_MINIMUM_HEIGHT);
+
     initConnections();
+    connectCoreWindow();
 }
 
 TrayApp::~TrayApp() = default;
@@ -87,6 +81,10 @@ void TrayApp::initConnections()
     connect(d->m_maximizeAction, &QAction::triggered, this, &TrayApp::showMaximized);
     connect(d->m_minimizeAction, &QAction::triggered, this, &TrayApp::hide);
     connect(d->m_restoreAction, &QAction::triggered, this, &TrayApp::showNormal);
+}
+
+void TrayApp::connectCoreWindow()
+{
 }
 
 void TrayApp::closeEvent(QCloseEvent* event)

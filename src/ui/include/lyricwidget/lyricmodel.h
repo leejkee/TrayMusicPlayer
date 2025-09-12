@@ -5,7 +5,7 @@
 #include <memory>
 #include <QAbstractListModel>
 
-namespace Tray::Model
+namespace Tray::Ui
 {
 
 class LyricModelPrivate;
@@ -15,10 +15,12 @@ class LyricModel final: public QAbstractListModel
 public:
     explicit LyricModel(QObject *parent = nullptr);
 
+    ~LyricModel() override;
+
     /// @param lyricsText the text of lyric line
     /// @param lyricsTiming the timing of lyric line
     /// Update the lyrics when a new MP3 file with a same-name LRC file is loaded.
-    void LyricModel::setLyric(const QStringList& lyricsText, const QList<int64_t>& lyricsTiming);
+    void setLyric(const QStringList& lyricsText, const QList<int64_t>& lyricsTiming);
 
 protected:
     [[nodiscard]] int rowCount(const QModelIndex &parent) const override;

@@ -21,6 +21,8 @@ public:
 
     explicit StyleButton(QWidget* parent = nullptr);
 
+    ~StyleButton() override;
+
     void setQss(const QString& qssPath);
 
     void setId(const QString& id);

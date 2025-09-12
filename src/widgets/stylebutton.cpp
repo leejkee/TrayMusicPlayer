@@ -42,6 +42,8 @@ StyleButton::StyleButton(QWidget* parent)
 {
 }
 
+StyleButton::~StyleButton() = default;
+
 
 bool StyleButton::eventFilter(QObject* watched, QEvent* event)
 {

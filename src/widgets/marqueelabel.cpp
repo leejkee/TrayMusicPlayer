@@ -29,6 +29,7 @@ MarqueeLabel::MarqueeLabel(QWidget* parent)
     d->m_document = new QTextDocument(this);
 }
 
+MarqueeLabel::~MarqueeLabel() = default;
 
 void MarqueeLabel::setMarqueeText(const QString& text)
 {

@@ -66,6 +66,8 @@ VolumeController::VolumeController(QWidget* parent)
             , [this]() { Q_EMIT signalSetMute(); });
 }
 
+VolumeController::~VolumeController() = default;
+
 void VolumeController::setLabelVolume(const unsigned v)
 {
     d->m_labelVolume->setText(QString("%1%").arg(v));

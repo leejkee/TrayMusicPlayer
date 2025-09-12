@@ -62,6 +62,8 @@ TopBarWidget::TopBarWidget(QWidget* parent)
             });
 }
 
+TopBarWidget::~TopBarWidget() = default;
+
 void TopBarWidget::setPreBtnShow(const bool b)
 {
     d->m_preButtonIsVisible = b;

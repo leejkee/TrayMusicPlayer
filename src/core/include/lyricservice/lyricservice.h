@@ -16,6 +16,8 @@ class LyricService final : QObject
 public:
     explicit LyricService(QObject *parent = nullptr);
 
+    ~LyricService();
+
     void loadLRC(const QString& lrcPath);
 
 Q_SIGNALS:

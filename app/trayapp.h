@@ -28,6 +28,6 @@ namespace Tray {
     private:
         std::unique_ptr<TrayAppPrivate> d;
 
-        void createConnections();
+        void initConnections();
     };
 }

@@ -18,6 +18,8 @@ public:
 
     void setMarqueeText(const QString& text);
 
+    ~MarqueeLabel();
+
 protected:
     void paintEvent(QPaintEvent* event) override;
 

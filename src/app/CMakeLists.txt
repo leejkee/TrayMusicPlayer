@@ -3,6 +3,8 @@ cmake_minimum_required(VERSION 3.20)
 qt_add_executable(tray_music_app
         MANUAL_FINALIZATION
         main.cpp
+        trayapp.cpp
+        trayapp.h
 )
 
 target_link_libraries(tray_music_app PRIVATE
@@ -11,6 +13,8 @@ target_link_libraries(tray_music_app PRIVATE
         tray_qrc
         tray_music_log
 )
+
+target_compile_features(tray_music_app PRIVATE cxx_std_17)
 
 set_property(TARGET tray_music_app PROPERTY AUTOMOC ON)
 

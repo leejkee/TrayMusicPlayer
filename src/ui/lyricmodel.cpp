@@ -1,9 +1,9 @@
 //
 // Created by 31305 on 2025/8/8.
 //
-#include <../src/ui/include/lyricwidget/lyricmodel.h>
+#include <lyricwidget/lyricmodel.h>
 
-namespace Tray::Model
+namespace Tray::Ui
 {
 
 class LyricModelPrivate
@@ -16,6 +16,8 @@ public:
 LyricModel::LyricModel(QObject* parent) : QAbstractListModel(parent), d(std::make_unique<LyricModelPrivate>())
 {
 }
+
+LyricModel::~LyricModel() = default;
 
 void LyricModel::setLyric(const QStringList& lyricsText, const QList<int64_t>& lyricsTiming)
 {

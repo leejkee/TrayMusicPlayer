@@ -71,6 +71,8 @@ FilePathConfigWidget::FilePathConfigWidget(QWidget* parent)
             , &FilePathConfigWidget::removeMusicPath);
 }
 
+FilePathConfigWidget::~FilePathConfigWidget() = default;
+
 void FilePathConfigWidget::addMusicPath()
 {
     const QString newMusicPath = QFileDialog::getExistingDirectory(

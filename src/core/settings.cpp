@@ -14,8 +14,6 @@ namespace Tray::Core
 class SettingsPrivate
 {
 public:
-    SettingsPrivate();
-
     struct Key
     {
         static inline const auto PLAYLIST_KEY = QStringLiteral("Playlist");

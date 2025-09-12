@@ -29,6 +29,8 @@ RotatingLabel::RotatingLabel(const QPixmap& logo
     setLabelMode(mode);
 }
 
+RotatingLabel::~RotatingLabel() = default;
+
 RotatingLabel::RotatingLabel(QWidget* parent)
     : QWidget(parent)
 {

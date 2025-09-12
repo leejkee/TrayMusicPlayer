@@ -9,6 +9,8 @@ class ConfigWidget : public QWidget {
 public:
     explicit ConfigWidget(QWidget* parent = nullptr);
 
+    ~ConfigWidget() override;
+
     void addConfigWidget(const QString& actionName, QWidget* w);
     void addConfigWidget(const QString& buttonId
                          , const QSize& size

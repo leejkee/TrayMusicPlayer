@@ -35,6 +35,8 @@ ConfigWidget::ConfigWidget(QWidget* parent) : QWidget(parent), d(std::make_uniqu
     setLayout(d->m_mainLayout);
 }
 
+ConfigWidget::~ConfigWidget() = default;
+
 
 void ConfigWidget::addConfigWidget(const QString &actionName, QWidget *w) {
     addConfigWidget(actionName, {}, {}, {}, w);

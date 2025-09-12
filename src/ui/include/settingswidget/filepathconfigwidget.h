@@ -16,6 +16,8 @@ public:
 public:
     explicit FilePathConfigWidget(QWidget* parent = nullptr);
 
+    ~FilePathConfigWidget() override;
+
 private:
     std::unique_ptr<FilepathConfigWidgetPrivate> d;
 

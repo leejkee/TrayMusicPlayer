@@ -19,6 +19,8 @@ public:
 
     explicit PlayerWidget(QWidget* parent = nullptr);
 
+    ~PlayerWidget() override;
+
     void setSliderVolumeValue(unsigned v);
 
 public Q_SLOTS:
@@ -55,8 +57,6 @@ Q_SIGNALS:
 
 private:
     std::unique_ptr<PlayerWidgetPrivate> d;
-
-    void initWidget();
 
     void initLeftLayout();
 

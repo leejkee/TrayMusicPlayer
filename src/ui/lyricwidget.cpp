@@ -8,14 +8,14 @@
 namespace Tray::Ui
 {
 
-class LyricViewDelegate;
+// class LyricViewDelegate;
 class LyricDataModel;
 
 class LyricWidgetPrivate
 {
 public:
     QListView *m_listView;
-    LyricViewDelegate *m_delegate;
+    // LyricViewDelegate *m_delegate;
     LyricDataModel *m_dataModel;
 
 };

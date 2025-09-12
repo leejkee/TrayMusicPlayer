@@ -16,6 +16,8 @@ class ProgressBar final : public QWidget
 public:
     explicit ProgressBar(QWidget* parent = nullptr);
 
+    ~ProgressBar();
+
 Q_SIGNALS:
     void signalProgressValueChanged(int value);
 

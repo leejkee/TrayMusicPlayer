@@ -26,7 +26,6 @@ find_package(Qt6 REQUIRED COMPONENTS
 include(CTest)
 enable_testing()
 add_subdirectory(src)
-add_subdirectory(app)
 add_subdirectory(3rdParty)
 
 if (TRAY_TEST)

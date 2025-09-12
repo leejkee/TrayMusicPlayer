@@ -15,6 +15,8 @@ class VolumeController final : public QWidget
 public:
     explicit VolumeController(QWidget* parent = nullptr);
 
+    ~VolumeController() override;
+
     void setSliderVolumeValue(int v);
 
     void setSliderStyleSheet(const QString& styleSheet);

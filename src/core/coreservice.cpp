@@ -11,27 +11,27 @@
 
 #include "musicmetadata.h"
 
-namespace Tray::App
+namespace Tray::Core
 {
 class CoreServicePrivate
 {
 public:
-    Core::Player* m_player;
-    Core::Playlist* m_playlist;
-    Core::Settings* m_settings;
-    Core::ListCache* m_listCache;
-    Core::LyricService* m_lyricService;
+    Player* m_player;
+    Playlist* m_playlist;
+    Settings* m_settings;
+    ListCache* m_listCache;
+    LyricService* m_lyricService;
 };
 
 CoreService::CoreService(QObject* parent)
     : QObject(parent),
       d(std::make_unique<CoreServicePrivate>())
 {
-    d->m_settings = new Core::Settings(this);
-    d->m_player = new Core::Player(this);
-    d->m_playlist = new Core::Playlist(this);
-    d->m_lyricService = new Core::LyricService(this);
-    d->m_listCache = new Core::ListCache(this);
+    d->m_settings = new Settings(this);
+    d->m_player = new Player(this);
+    d->m_playlist = new Playlist(this);
+    d->m_lyricService = new LyricService(this);
+    d->m_listCache = new ListCache(this);
     initConnections();
     initPreload();
 }
@@ -39,7 +39,7 @@ CoreService::CoreService(QObject* parent)
 void CoreService::initConnections()
 {
     connect(d->m_player
-            , &Core::Player::signalPlayingChanged
+            , &Player::signalPlayingChanged
             , this
             , [this](const bool b)
             {
@@ -47,7 +47,7 @@ void CoreService::initConnections()
             });
 
     connect(d->m_playlist
-            , &Core::Playlist::signalCurrentMusicChanged
+            , &Playlist::signalCurrentMusicChanged
             , this
             , [this](const qsizetype index
                      , const QString& listKey
@@ -59,7 +59,7 @@ void CoreService::initConnections()
             });
 
     connect(d->m_player
-            , &Core::Player::signalPositionChanged
+            , &Player::signalPositionChanged
             , this
             , [this](const qint64 pos)
             {
@@ -68,7 +68,7 @@ void CoreService::initConnections()
 
     connect(
             d->m_playlist
-            , &Core::Playlist::signalPlayModeChanged
+            , &Playlist::signalPlayModeChanged
             , this
             , [this](const int mode)
             {
@@ -76,25 +76,25 @@ void CoreService::initConnections()
             });
 
     connect(d->m_player
-            , &Core::Player::signalMusicOver
+            , &Player::signalMusicOver
             , this
             , &CoreService::nextMusic);
 
     /// User playlist Add/Remove
     // listCache --> settings
     connect(d->m_listCache
-            , &Core::ListCache::signalUserPlaylistCreated
+            , &ListCache::signalUserPlaylistCreated
             , d->m_settings
-            , &Core::Settings::addUserPlaylist);
+            , &Settings::addUserPlaylist);
 
     connect(d->m_listCache
-            , &Core::ListCache::signalUserPlaylistDeleted
+            , &ListCache::signalUserPlaylistDeleted
             , d->m_settings
-            , &Core::Settings::removeUserPlaylist);
+            , &Settings::removeUserPlaylist);
 
     // listCache --> ui
     connect(d->m_listCache
-            , &Core::ListCache::signalUserPlaylistCreated
+            , &ListCache::signalUserPlaylistCreated
             , this
             , [this](const QString& key)
             {
@@ -102,7 +102,7 @@ void CoreService::initConnections()
             });
 
     connect(d->m_listCache
-            , &Core::ListCache::signalUserPlaylistDeleted
+            , &ListCache::signalUserPlaylistDeleted
             , this
             , [this](const QString& key)
             {
@@ -111,7 +111,7 @@ void CoreService::initConnections()
 
     // settings --> ui (viewWidget)
     connect(d->m_settings
-            , &Core::Settings::signalUserKeySetsChanged
+            , &Settings::signalUserKeySetsChanged
             , this
             , [this](const QStringList& keySets)
             {
@@ -121,12 +121,12 @@ void CoreService::initConnections()
 
     /// List cache changed
     connect(d->m_listCache
-            , &Core::ListCache::signalNotifyPlayListCacheModified
+            , &ListCache::signalNotifyPlayListCacheModified
             , d->m_playlist
-            , &Core::Playlist::updateCurrentList);
+            , &Playlist::updateCurrentList);
 
     connect(d->m_listCache
-            , &Core::ListCache::signalNotifyUiCacheModified
+            , &ListCache::signalNotifyUiCacheModified
             , this
             , [this](const QString& key, const QStringList& titleList)
             {
@@ -137,13 +137,13 @@ void CoreService::initConnections()
     /// Local paths
     // settings --> listCache (Local)
     connect(d->m_settings
-            , &Core::Settings::signalLocalDirectoryChanged
+            , &Settings::signalLocalDirectoryChanged
             , d->m_listCache
-            , &Core::ListCache::initLocalPlaylist);
+            , &ListCache::initLocalPlaylist);
 
     // settings --> ui
     connect(d->m_settings
-            , &Core::Settings::signalLocalDirectoryChanged
+            , &Settings::signalLocalDirectoryChanged
             , this
             , [this](const QStringList& paths)
             {
@@ -152,7 +152,7 @@ void CoreService::initConnections()
     /// Local paths
 
     connect(d->m_playlist
-            , &Core::Playlist::signalNotifyUiCurrentPlaylistKeyChanged
+            , &Playlist::signalNotifyUiCurrentPlaylistKeyChanged
             , this
             , [this](const QString& key)
             {

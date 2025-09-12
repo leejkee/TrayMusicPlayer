@@ -18,6 +18,8 @@ public:
     QLabel* m_labelRight;
 };
 
+ProgressBar::~ProgressBar() = default;
+
 ProgressBar::ProgressBar(QWidget* parent)
     : QWidget(parent),
       d(std::make_unique<ProgressBarPrivate>())

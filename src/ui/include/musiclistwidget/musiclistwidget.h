@@ -24,6 +24,8 @@ class MusicListWidget final : public QWidget
 public:
     explicit MusicListWidget(QWidget* parent = nullptr);
 
+    ~MusicListWidget() override;
+
 public Q_SLOTS:
     // buttons created by user from settings
     void initUserListButtons(const QStringList& playlistNames);

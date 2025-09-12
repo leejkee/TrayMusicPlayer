@@ -3,6 +3,7 @@
 //
 #pragma once
 #include <QJsonObject>
+#include <QJsonArray>
 
 namespace Tray::Core::Utils
 {

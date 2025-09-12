@@ -17,6 +17,8 @@ class ViewWidget final : public QWidget
 public:
     explicit ViewWidget(QWidget* parent = nullptr);
 
+    ~ViewWidget() override;
+
     void updateUserListKeys(const QStringList& keys);
 
 Q_SIGNALS:

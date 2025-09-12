@@ -13,12 +13,6 @@
 #include <QStackedWidget>
 #include <QVBoxLayout>
 
-inline void InitQRC()
-{
-    Q_INIT_RESOURCE(svg);
-    Q_INIT_RESOURCE(qss);
-}
-
 namespace Tray::Ui
 {
 class WindowManagerPrivate
@@ -48,7 +42,6 @@ WindowManager::WindowManager(const WindowInitData& initData, QWidget* parent)
     : QWidget(parent),
       d(std::make_unique<WindowManagerPrivate>())
 {
-    InitQRC();
     d->m_windowManagerLayout = new QVBoxLayout;
     d->m_mainStackedWidget = new QStackedWidget(this);
     d->m_playerWidget = new PlayerWidget(this);
@@ -66,8 +59,8 @@ WindowManager::WindowManager(const WindowInitData& initData, QWidget* parent)
     d->m_lineSplitterUp->setFrameShape(QFrame::HLine);
     d->m_lineSplitterDown = new QFrame(this);
     d->m_lineSplitterDown->setFrameShape(QFrame::HLine);
-    d->m_lineSplitterUp->setStyleSheet(readQSS(Res::HERIZONTAL_LINE_QSS));
-    d->m_lineSplitterDown->setStyleSheet(readQSS(Res::HERIZONTAL_LINE_QSS));
+    d->m_lineSplitterUp->setStyleSheet(readQSS(Res::HORIZONTAL_LINE_QSS));
+    d->m_lineSplitterDown->setStyleSheet(readQSS(Res::HORIZONTAL_LINE_QSS));
 
     setLayout(d->m_windowManagerLayout);
     d->m_windowManagerLayout->addWidget(d->m_mainStackedWidget);
@@ -95,6 +88,8 @@ WindowManager::WindowManager(const WindowInitData& initData, QWidget* parent)
                         , initData.initUserKeys
                         , initData.initVolume);
 }
+
+WindowManager::~WindowManager() = default;
 
 QString WindowManager::readQSS(const QString& qssPath)
 {

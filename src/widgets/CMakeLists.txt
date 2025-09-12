@@ -12,6 +12,8 @@ target_include_directories(tray_music_widgets PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
+target_compile_features(tray_music_widgets PRIVATE cxx_std_17)
+
 set_property(TARGET tray_music_widgets PROPERTY AUTOMOC ON)
 
 target_link_libraries(tray_music_widgets PRIVATE

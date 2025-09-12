@@ -15,6 +15,8 @@ class TopBarWidget final : public QWidget
 public:
     explicit TopBarWidget(QWidget* parent = nullptr);
 
+    ~TopBarWidget() override;
+
     void setPreBtnShow(bool b);
 
 Q_SIGNALS:

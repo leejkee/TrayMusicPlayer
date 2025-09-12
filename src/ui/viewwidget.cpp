@@ -82,6 +82,8 @@ ViewWidget::ViewWidget(QWidget* parent)
     createConnections();
 }
 
+ViewWidget::~ViewWidget() = default;
+
 void ViewWidget::createConnections()
 {
     connect(d->m_playlistView

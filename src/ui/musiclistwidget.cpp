@@ -90,6 +90,8 @@ MusicListWidget::MusicListWidget(QWidget* parent)
     createConnections();
 }
 
+MusicListWidget::~MusicListWidget() = default;
+
 void MusicListWidget::createConnections()
 {
     connect(d->m_localListButton
