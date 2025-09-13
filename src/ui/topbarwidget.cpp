@@ -20,7 +20,7 @@ public:
 };
 
 TopBarWidget::TopBarWidget(QWidget* parent)
-    : QWidget(parent)
+    : QWidget(parent), d(std::make_unique<TopBarWidgetPrivate>())
 {
     d->m_svgWidget = new QSvgWidget(Res::LogoSVG);
     d->m_svgWidget->setFixedSize(130, 25);

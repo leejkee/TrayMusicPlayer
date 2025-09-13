@@ -1,6 +1,6 @@
 #include <QCoreApplication>
 #include <settings/settings.h>
-#include <trayconfig.h>
+#include <include/common/trayconfig.h>
 #include <log/log.h>
 #include <utils/jsonutils.h>
 #include <QFile>
@@ -109,8 +109,7 @@ void Settings::parseJson()
     }
     else
     {
-        LOG_ERROR("The Key 'Music' is missing in init.json, using default values")
-        ;
+        LOG_ERROR("The Key 'Music' is missing in init.json, using default value");
     }
 
     if (jsonObj.contains(SettingsPrivate::Key::AUDIO_KEY))
@@ -121,8 +120,7 @@ void Settings::parseJson()
     }
     else
     {
-        LOG_ERROR("The Key 'Audio' is missing in init.json, using default values")
-        ;
+        LOG_ERROR("The Key 'Audio' is missing in init.json, using default value");
     }
 }
 
@@ -159,6 +157,7 @@ Settings::Settings(QObject* parent)
         LOG_ERROR("Failed to init Json file");
         return;
     }
+    LOG_INFO("[init.json] exists, parsing it.");
     parseJson();
 }
 

@@ -65,7 +65,7 @@ void StyleButton::setQss(const QString& qssPath)
 {
     if (qssPath.isEmpty())
     {
-        LOG_WARNING("Empty qssPath");
+        return;
     }
     d->m_qssPath = qssPath;
     if (QFile file(qssPath); file.open(QFile::ReadOnly))
@@ -73,11 +73,10 @@ void StyleButton::setQss(const QString& qssPath)
         const QString qss = QString::fromUtf8(file.readAll()).trimmed();
         file.close();
         setStyleSheet(qss);
-        LOG_INFO(QString("QSS [%1] has been loaded.").arg(qssPath));
     }
     else
     {
-        LOG_WARNING(QString("Load QSS [%1] failed.").arg(qssPath));
+        LOG_ERROR(QString("Load QSS [%1] failed.").arg(qssPath));
     }
 }
 
@@ -85,7 +84,7 @@ void StyleButton::setId(const QString& id)
 {
     if (id.isEmpty())
     {
-        LOG_WARNING("Empty id");
+        return;
     }
     d->m_id = id;
     setText(d->m_id);
@@ -95,7 +94,7 @@ void StyleButton::setButtonIcon(const QString& iconPath)
 {
     if (iconPath.isEmpty())
     {
-        LOG_WARNING("Empty iconPath");
+        return;
     }
     d->m_iconPath = iconPath;
     setIcon(QIcon(iconPath));

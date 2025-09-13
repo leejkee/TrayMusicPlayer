@@ -3,7 +3,6 @@
 //
 #include <playlist/playlist.h>
 #include <log/log.h>
-#include <trayconfig.h>
 #include <QRandomGenerator>
 
 namespace Tray::Core
@@ -11,7 +10,7 @@ namespace Tray::Core
 
 Playlist::Playlist(QObject* parent)
     : QObject(parent),
-      m_index(UNINITIALIZED_VALUE),
+      m_index(-1),
       m_playMode(PlayMode::Sequential),
       m_musicList(QList<MusicMetaData>{}),
       m_currentListKey(QString{})

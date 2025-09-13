@@ -42,7 +42,7 @@ public:
 };
 
 PlayerWidget::PlayerWidget(QWidget* parent)
-    : QWidget(parent)
+    : QWidget(parent), d(std::make_unique<PlayerWidgetPrivate>())
 {
     initLeftLayout();
     initCenterLayout();

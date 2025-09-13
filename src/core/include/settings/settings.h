@@ -3,7 +3,6 @@
 #include <QStringList>
 #include <memory>
 
-
 namespace Tray::Core
 {
 class SettingsPrivate;
@@ -31,7 +30,7 @@ public:
 
     [[nodiscard]] unsigned getDefaultVolume() const;
 
-    QString getPreloadKey() const;
+    [[nodiscard]] QString getPreloadKey() const;
 
 Q_SIGNALS:
     void signalUserKeySetsChanged(const QStringList&);

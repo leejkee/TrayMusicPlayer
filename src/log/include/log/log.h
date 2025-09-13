@@ -5,7 +5,6 @@
 
 #include <QString>
 #include <QDebug>
-#include <QFileInfo>
 #include <QDir>
 #include <QDateTime>
 
@@ -43,7 +42,7 @@ inline void log(const LogLevel level
 
     qDebug() << logMessage;
 }
-} // namespace Tray::Log
+}
 
 #define GET_MODULE_NAME() QFileInfo(__FILE__).fileName()
 

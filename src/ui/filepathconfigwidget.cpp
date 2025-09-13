@@ -26,7 +26,7 @@ public:
 };
 
 FilePathConfigWidget::FilePathConfigWidget(QWidget* parent)
-    : QWidget(parent)
+    : QWidget(parent), d(std::make_unique<FilepathConfigWidgetPrivate>())
 {
     d->m_addButton = new Panel::StyleButton({}
                                             , {

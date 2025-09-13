@@ -25,6 +25,7 @@ class TrayAppPrivate
 public:
     static constexpr int MAIN_MINIMUM_WIDTH = 600;
     static constexpr int MAIN_MINIMUM_HEIGHT = 450;
+    static inline const auto WINDOW_TITLE = QStringLiteral("Tray Music");
     QAction* m_minimizeAction;
     QAction* m_maximizeAction;
     QAction* m_restoreAction;
@@ -38,15 +39,20 @@ public:
 
 
 TrayApp::TrayApp(QWidget* parent)
-    : QMainWindow(parent), d(std::make_unique<TrayAppPrivate>())
+    : QMainWindow(parent),
+      d(std::make_unique<TrayAppPrivate>())
 {
     Init_qrc();
     d->m_trayIconMenu = new QMenu(this);
     d->m_systemTrayIcon = new QSystemTrayIcon(this);
-    d->m_minimizeAction = new QAction(QCoreApplication::translate("TrayUI", "Minimize"), this);
-    d->m_maximizeAction = new QAction(QCoreApplication::translate("TrayUI", "Maximize"), this);
-    d->m_restoreAction = new QAction(QCoreApplication::translate("TrayUI", "Restore"), this);
-    d->m_quitAction = new QAction(QCoreApplication::translate("TrayUI", "Quit"), this);
+    d->m_minimizeAction = new
+            QAction(QCoreApplication::translate("TrayUI", "Minimize"), this);
+    d->m_maximizeAction = new
+            QAction(QCoreApplication::translate("TrayUI", "Maximize"), this);
+    d->m_restoreAction = new
+            QAction(QCoreApplication::translate("TrayUI", "Restore"), this);
+    d->m_quitAction = new QAction(QCoreApplication::translate("TrayUI", "Quit")
+                                  , this);
     d->m_trayIconMenu->addAction(d->m_minimizeAction);
     d->m_trayIconMenu->addAction(d->m_maximizeAction);
     d->m_trayIconMenu->addAction(d->m_restoreAction);
@@ -56,15 +62,24 @@ TrayApp::TrayApp(QWidget* parent)
     const auto icon = QIcon(Res::TrayIconSVG);
     d->m_systemTrayIcon->setIcon(icon);
     setWindowIcon(icon);
-    d->m_systemTrayIcon->setToolTip("Tray Music");
+    d->m_systemTrayIcon->setToolTip(TrayAppPrivate::WINDOW_TITLE);
     d->m_systemTrayIcon->show();
 
     d->m_core = new Core::CoreService(this);
-    // todo
-    d->m_windowManager = new Ui::WindowManager({},this);
+    const QString preloadKey = d->m_core->getPreloadKey();
+    const Ui::WindowManager::WindowInitData initData{
+        preloadKey
+        , d->m_core->getLocalMusicPaths()
+        , d->m_core->getUserListKeys()
+        , d->m_core->getTitleList(preloadKey)
+        , d->m_core->getDefaultVolume()
+    };
+    d->m_windowManager = new Ui::WindowManager(initData, this);
+
     setCentralWidget(d->m_windowManager);
     setMinimumWidth(TrayAppPrivate::MAIN_MINIMUM_WIDTH);
     setMinimumHeight(TrayAppPrivate::MAIN_MINIMUM_HEIGHT);
+    setWindowTitle(TrayAppPrivate::WINDOW_TITLE);
 
     initConnections();
     connectCoreWindow();
@@ -78,9 +93,15 @@ void TrayApp::initConnections()
     connect(d->m_quitAction, &QAction::triggered, qApp, &QApplication::quit);
 
     // resize the main window
-    connect(d->m_maximizeAction, &QAction::triggered, this, &TrayApp::showMaximized);
+    connect(d->m_maximizeAction
+            , &QAction::triggered
+            , this
+            , &TrayApp::showMaximized);
     connect(d->m_minimizeAction, &QAction::triggered, this, &TrayApp::hide);
-    connect(d->m_restoreAction, &QAction::triggered, this, &TrayApp::showNormal);
+    connect(d->m_restoreAction
+            , &QAction::triggered
+            , this
+            , &TrayApp::showNormal);
 }
 
 void TrayApp::connectCoreWindow()
@@ -93,11 +114,12 @@ void TrayApp::closeEvent(QCloseEvent* event)
         return;
     if (d->m_systemTrayIcon->isVisible())
     {
-        QMessageBox::information(this, tr("Exit the application"),
-                                 tr("The program will keep running in the "
-                                     "system tray. To terminate the program, "
-                                     "choose <b>Quit</b> in the context menu "
-                                     "of the system tray entry."));
+        QMessageBox::information(this
+                                 , tr("Exit the application")
+                                 , tr("The program will keep running in the "
+                                      "system tray. To terminate the program, "
+                                      "choose <b>Quit</b> in the context menu "
+                                      "of the system tray entry."));
         this->hide();
         event->ignore();
     }

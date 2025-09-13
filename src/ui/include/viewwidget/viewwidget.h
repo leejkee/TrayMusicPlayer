@@ -2,7 +2,6 @@
 // Created by cww on 25-4-9.
 //
 #pragma once
-
 #include <QWidget>
 #include <memory>
 

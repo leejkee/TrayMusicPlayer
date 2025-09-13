@@ -18,6 +18,7 @@ public:
         QString initKey;
         QStringList initLocalPaths;
         QStringList initUserKeys;
+        QStringList initTitleList;
         int initVolume;
     };
 
@@ -77,10 +78,7 @@ private:
     std::unique_ptr<WindowManagerPrivate> d;
 
     void createConnections();
-    void initDefaultSettings(const QStringList& localDir
-                             , const QStringList& userKeys
-                             , int volume);
 
-    QString readQSS(const QString& qssPath);
+    void initDefaultSettings(const WindowInitData& initData);
 };
 }

@@ -3,7 +3,7 @@
 //
 #include <listcache/listcache.h>
 #include <databasemanager/databasemanager.h>
-#include <trayconfig.h>
+#include <common/trayconfig.h>
 #include <log/log.h>
 #include <QDirIterator>
 #include <algorithm>

@@ -27,6 +27,27 @@ public:
 
     ~CoreService() override;
 
+    /* Settings Interface Begin */
+    /*!
+     * @brief Retrieves the list of all user playlist identifiers.
+     * @return A list of playlist keys created by the user.
+     */
+    [[nodiscard]] QStringList getUserListKeys() const;
+
+    /*!
+     * @brief Gets the list of directories monitored for local music.
+     * @return A list of paths where the application scans for music files.
+     */
+    [[nodiscard]] QStringList getLocalMusicPaths() const;
+
+    [[nodiscard]] QString getPreloadKey() const;
+
+    [[nodiscard]] QStringList getTitleList(const QString& listKey) const;
+
+    [[nodiscard]] int getDefaultVolume() const;
+
+    /* Settings Interface End */
+
 Q_SIGNALS:
     /*!
      * @brief Emitted when handling a UI request to display the contents of a specific playlist.
@@ -144,7 +165,6 @@ public Q_SLOTS:
      */
     void muteOff();
 
-
     /*!
      * @brief Sets the current playback position.
      * @param position The position to seek to in milliseconds.
@@ -217,19 +237,6 @@ public Q_SLOTS:
     void removeMusicFromList(const QString& key, const QString& songTitle);
     /* Playlist Controller End */
 
-    /* Settings Interface Begin */
-    /*!
-     * @brief Retrieves the list of all user playlist identifiers.
-     * @return A list of playlist keys created by the user.
-     */
-    QStringList getUserListKeys();
-
-    /*!
-     * @brief Gets the list of directories monitored for local music.
-     * @return A list of paths where the application scans for music files.
-     */
-    QStringList getLocalMusicPaths();
-
     /*!
      * @brief Adds a new directory to scan for local music files.
      * @param path The directory path to add to the scan list.
@@ -241,7 +248,6 @@ public Q_SLOTS:
      * @param path The directory path to remove from scanning.
      */
     void removeLocalMusicPath(const QString& path);
-    /* Settings Interface End */
 
 private:
     std::unique_ptr<CoreServicePrivate> d;

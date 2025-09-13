@@ -51,7 +51,7 @@ WindowManager::WindowManager(const WindowInitData& initData, QWidget* parent)
     d->m_musicListWidget = new MusicListWidget(this);
     d->m_viewAndPlaylistsSplitter = new QSplitter(Qt::Horizontal, this);
     d->m_viewAndPlaylistsSplitter->
-       setStyleSheet(readQSS(Res::VIEW_SPLITTER_QSS));
+       setStyleSheet(Res::readQss(Res::VIEW_SPLITTER_QSS));
     d->m_viewStackedWidget = new QStackedWidget(this);
     d->m_viewWidget = new ViewWidget(this);
     d->m_settingsWidget = new SettingsWidget(this);
@@ -59,8 +59,8 @@ WindowManager::WindowManager(const WindowInitData& initData, QWidget* parent)
     d->m_lineSplitterUp->setFrameShape(QFrame::HLine);
     d->m_lineSplitterDown = new QFrame(this);
     d->m_lineSplitterDown->setFrameShape(QFrame::HLine);
-    d->m_lineSplitterUp->setStyleSheet(readQSS(Res::HORIZONTAL_LINE_QSS));
-    d->m_lineSplitterDown->setStyleSheet(readQSS(Res::HORIZONTAL_LINE_QSS));
+    d->m_lineSplitterUp->setStyleSheet(Res::readQss(Res::HORIZONTAL_LINE_QSS));
+    d->m_lineSplitterDown->setStyleSheet(Res::readQss(Res::HORIZONTAL_LINE_QSS));
 
     setLayout(d->m_windowManagerLayout);
     d->m_windowManagerLayout->addWidget(d->m_mainStackedWidget);
@@ -84,27 +84,11 @@ WindowManager::WindowManager(const WindowInitData& initData, QWidget* parent)
     d->m_viewStackedWidget->addWidget(d->m_viewWidget);
     d->m_viewStackedWidget->addWidget(d->m_settingsWidget);
     createConnections();
-    initDefaultSettings(initData.initLocalPaths
-                        , initData.initUserKeys
-                        , initData.initVolume);
+    initDefaultSettings(initData);
 }
 
 WindowManager::~WindowManager() = default;
 
-QString WindowManager::readQSS(const QString& qssPath)
-{
-    if (qssPath.isEmpty())
-    {
-        LOG_WARNING("Empty qssPath");
-    }
-    if (QFile file(qssPath); file.open(QFile::ReadOnly))
-    {
-        const QString qss = QString::fromUtf8(file.readAll()).trimmed();
-        file.close();
-        return qss;
-    }
-    return {};
-}
 
 void WindowManager::createConnections()
 {
@@ -232,14 +216,13 @@ void WindowManager::createConnections()
             });
 }
 
-void WindowManager::initDefaultSettings(const QStringList& localDir
-                                        , const QStringList& userKeys
-                                        , const int volume)
+void WindowManager::initDefaultSettings(const WindowInitData& initData)
 {
-    d->m_settingsWidget->updateLocalPaths(localDir);
-    d->m_musicListWidget->initUserListButtons(userKeys);
-    d->m_viewWidget->updateUserListKeys(userKeys);
-    d->m_playerWidget->setSliderVolumeValue(volume);
+    d->m_settingsWidget->updateLocalPaths(initData.initLocalPaths);
+    d->m_musicListWidget->initUserListButtons(initData.initUserKeys);
+    d->m_viewWidget->updateUserListKeys(initData.initUserKeys);
+    d->m_viewWidget->displayTitleListToView(initData.initKey, initData.initTitleList);
+    d->m_playerWidget->setSliderVolumeValue(initData.initVolume);
 }
 
 

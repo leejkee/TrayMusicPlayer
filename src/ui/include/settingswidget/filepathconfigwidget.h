@@ -18,10 +18,6 @@ public:
 
     ~FilePathConfigWidget() override;
 
-private:
-    std::unique_ptr<FilepathConfigWidgetPrivate> d;
-
-
 Q_SIGNALS:
     void signalLocalDirAdded(const QString&);
     void signalLocalDirRemoved(const QString&);
@@ -33,6 +29,8 @@ private Q_SLOTS:
 public Q_SLOTS:
     void updateLocalPaths(const QStringList& paths);
 
+private:
+    std::unique_ptr<FilepathConfigWidgetPrivate> d;
 };
 
 } // namespace Tray::Ui

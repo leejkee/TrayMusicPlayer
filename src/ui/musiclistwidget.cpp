@@ -30,7 +30,7 @@ public:
 };
 
 MusicListWidget::MusicListWidget(QWidget* parent)
-    : QWidget(parent)
+    : QWidget(parent), d(std::make_unique<MusicListWidgetPrivate>())
 {
     d->m_localListButton = new
             Panel::StyleButton(MusicListWidgetPrivate::LOCAL_LIST_KEY

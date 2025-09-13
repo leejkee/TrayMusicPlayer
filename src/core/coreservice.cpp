@@ -321,15 +321,30 @@ void CoreService::removeMusicFromList(const QString& key
 */
 
 // 18) User playlist keys
-QStringList CoreService::getUserListKeys()
+QStringList CoreService::getUserListKeys() const
 {
     return d->m_settings->getKeysUserPlaylist();
 }
 
 // 19) Local music paths
-QStringList CoreService::getLocalMusicPaths()
+QStringList CoreService::getLocalMusicPaths() const
 {
     return d->m_settings->getLocalMusicDirectories();
+}
+
+QString CoreService::getPreloadKey() const
+{
+    return d->m_settings->getPreloadKey();
+}
+
+QStringList CoreService::getTitleList(const QString& listKey) const
+{
+    return d->m_listCache->getMusicTitleList(listKey);
+}
+
+int CoreService::getDefaultVolume() const
+{
+    return d->m_settings->getDefaultVolume();
 }
 
 // 20) Add local music path

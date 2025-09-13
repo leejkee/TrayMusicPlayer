@@ -20,7 +20,7 @@ public:
 };
 
 VolumeController::VolumeController(QWidget* parent)
-    : QWidget(parent)
+    : QWidget(parent), d(std::make_unique<VolumeControllerPrivate>())
 {
     d->m_sliderV = new QSlider(this);
     d->m_sliderV->setRange(0, 100);

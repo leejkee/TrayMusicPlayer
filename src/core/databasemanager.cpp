@@ -2,7 +2,7 @@
 // Created by cww on 25-4-16.
 //
 #include <databasemanager/databasemanager.h>
-#include "trayconfig.h"
+#include <common/trayconfig.h>
 #include <log/log.h>
 #include <QSqlQuery>
 #include <QSqlError>
