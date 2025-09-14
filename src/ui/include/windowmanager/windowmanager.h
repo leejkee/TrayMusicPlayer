@@ -38,7 +38,7 @@ Q_SIGNALS:
 
     void signalSetPlayerPosition(qint64);
 
-    void signalPlayModeChanged();
+    void signalChangePlayMode();
 
     void signalPlaylistButtonClicked(const QString&);
 
@@ -50,9 +50,9 @@ Q_SIGNALS:
 
     void signalLocalMusicDirectoryRemoved(const QString&);
 
-    void signalMusicAddedToList(const QString&, const QString&, int);
+    void signalCopyMusicToList(const QString&, const QString&, int);
 
-    void signalMusicRemovedFromList(const QString&, const QString&);
+    void signalRemoveMusicFromList(const QString&, const QString&);
 
     void signalUserPlaylistButtonRemoved(const QString&);
 
@@ -62,16 +62,25 @@ public Q_SLOTS:
     void updatePlayingStatus(bool b);
 
     void updateProgressBarPosition(qint64 pos);
+
     void updateMuteIcon(bool isMuted);
+
     void updatePlayModeIcon(int mode);
+
     void removeUserListButton(const QString& listKey);
+
     void addUserListButton(const QString& listKey);
+
     void handlePlaylistDisplayingOnView(const QString& listKey
                                         , const QStringList& titleList);
+
     void handleListCacheUpdated(const QString& listKey
                                 , const QStringList& titleList);
+
     void handleUserListKeysUpdated(const QStringList& keys);
+
     void handleCurrentPlaylistKeyChanged(const QString& listKey);
+
     void handleLocalPathSettingsUpdated(const QStringList& localPaths);
 
 private:

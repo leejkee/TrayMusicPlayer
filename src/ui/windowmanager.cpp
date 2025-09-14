@@ -146,7 +146,7 @@ void WindowManager::createConnections()
             , this
             , [this]
             {
-                Q_EMIT signalPlayModeChanged();
+                Q_EMIT signalChangePlayMode();
             });
 
     connect(d->m_viewWidget
@@ -162,7 +162,7 @@ void WindowManager::createConnections()
             , this
             , [this](const QString& listKey, const QString& title)
             {
-                Q_EMIT signalMusicRemovedFromList(listKey, title);
+                Q_EMIT signalRemoveMusicFromList(listKey, title);
             });
 
     connect(d->m_viewWidget
@@ -172,7 +172,7 @@ void WindowManager::createConnections()
                      , const QString& destination
                      , const int index)
             {
-                Q_EMIT signalMusicAddedToList(source, destination, index);
+                Q_EMIT signalCopyMusicToList(source, destination, index);
             });
 
     connect(d->m_musicListWidget

@@ -106,6 +106,56 @@ void TrayApp::initConnections()
 
 void TrayApp::connectCoreWindow()
 {
+    connect(d->m_windowManager, &Ui::WindowManager::signalPlayToggle, d->m_core, &Core::CoreService::playToggle);
+
+    connect(d->m_windowManager, &Ui::WindowManager::signalNextMusic, d->m_core, &Core::CoreService::nextMusic);
+
+    connect(d->m_windowManager, &Ui::WindowManager::signalPreMusic, d->m_core, &Core::CoreService::preMusic);
+
+    connect(d->m_windowManager, &Ui::WindowManager::signalSetVolume, d->m_core, &Core::CoreService::setVolume);
+
+    connect(d->m_windowManager, &Ui::WindowManager::signalSetPlayerPosition, d->m_core, &Core::CoreService::setPlayerPosition);
+
+    connect(d->m_windowManager, &Ui::WindowManager::signalChangePlayMode, d->m_core, &Core::CoreService::changePlayMode);
+
+    connect(d->m_windowManager, &Ui::WindowManager::signalPlaylistButtonClicked, d->m_core, &Core::CoreService::handleDisplayPlaylist);
+
+    connect(d->m_windowManager, &Ui::WindowManager::signalViewPlayButtonClicked, d->m_core, &Core::CoreService::handlePlaylistItemSelection);
+
+    connect(d->m_windowManager, &Ui::WindowManager::signalUserPlaylistButtonAdded, d->m_core, &Core::CoreService::addUserPlaylist);
+
+    connect(d->m_windowManager, &Ui::WindowManager::signalUserPlaylistButtonRemoved, d->m_core, &Core::CoreService::removeUserPlaylist);
+
+    connect(d->m_windowManager, &Ui::WindowManager::signalLocalMusicDirectoryAdded, d->m_core, &Core::CoreService::appendLocalMusicPath);
+
+    connect(d->m_windowManager, &Ui::WindowManager::signalLocalMusicDirectoryRemoved, d->m_core, &Core::CoreService::removeLocalMusicPath);
+
+    connect(d->m_windowManager, &Ui::WindowManager::signalCopyMusicToList, d->m_core, &Core::CoreService::copyMusicToList);
+
+    connect(d->m_windowManager, &Ui::WindowManager::signalRemoveMusicFromList, d->m_core, &Core::CoreService::removeMusicFromList);
+
+
+    connect(d->m_core, &Core::CoreService::signalCurrentTitleListChanged, d->m_windowManager, &Ui::WindowManager::handlePlaylistDisplayingOnView);
+
+    connect(d->m_core, &Core::CoreService::signalCurrentMusicSourceChanged, d->m_windowManager, &Ui::WindowManager::updateCurrentMusic);
+
+    connect(d->m_core, &Core::CoreService::signalPlayingStatusChanged, d->m_windowManager, &Ui::WindowManager::updatePlayingStatus);
+
+    connect(d->m_core, &Core::CoreService::signalPlayerPositionChanged, d->m_windowManager, &Ui::WindowManager::updateProgressBarPosition);
+
+    connect(d->m_core, &Core::CoreService::signalPlayModeChanged, d->m_windowManager, &Ui::WindowManager::updatePlayModeIcon);
+
+    connect(d->m_core, &Core::CoreService::signalUserPlaylistAdded, d->m_windowManager, &Ui::WindowManager::addUserListButton);
+
+    connect(d->m_core, &Core::CoreService::signalUserPlaylistRemoved, d->m_windowManager, &Ui::WindowManager::removeUserListButton);
+
+    connect(d->m_core, &Core::CoreService::signalUserKeysChanged, d->m_windowManager, &Ui::WindowManager::handleUserListKeysUpdated);
+
+    connect(d->m_core, &Core::CoreService::signalListCacheChanged, d->m_windowManager, &Ui::WindowManager::handleListCacheUpdated);
+
+    connect(d->m_core, &Core::CoreService::signalLocalPathsChanged, d->m_windowManager, &Ui::WindowManager::handleLocalPathSettingsUpdated);
+
+    connect(d->m_core, &Core::CoreService::signalCurrentListChanged, d->m_windowManager, &Ui::WindowManager::handleCurrentPlaylistKeyChanged);
 }
 
 void TrayApp::closeEvent(QCloseEvent* event)

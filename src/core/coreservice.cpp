@@ -8,7 +8,6 @@
 #include <settings/settings.h>
 #include <log/log.h>
 #include <lyricservice/lyricservice.h>
-
 #include "musicmetadata.h"
 
 namespace Tray::Core
@@ -31,9 +30,10 @@ CoreService::CoreService(QObject* parent)
     d->m_player = new Player(this);
     d->m_playlist = new Playlist(this);
     d->m_lyricService = new LyricService(this);
-    d->m_listCache = new ListCache(this);
+    d->m_listCache = new ListCache(d->m_settings->getLocalMusicDirectories()
+                                   , d->m_settings->getKeysUserPlaylist()
+                                   , this);
     initConnections();
-    initPreload();
 }
 
 void CoreService::initConnections()
@@ -160,21 +160,6 @@ void CoreService::initConnections()
             });
 }
 
-/// init function
-/// 1) settings init
-/// 2) listCache loaded
-/// 3) playlist loaded
-/// 4) player loaded
-
-void CoreService::initPreload()
-{
-    d->m_listCache->init(d->m_settings->getLocalMusicDirectories()
-                         , d->m_settings->getKeysUserPlaylist());
-    const auto preloadKey = d->m_settings->getPreloadKey();
-    d->m_playlist->loadPlaylist(preloadKey
-                                , d->m_listCache->findList(preloadKey));
-}
-
 CoreService::~CoreService() = default;
 
 /*!
@@ -249,6 +234,7 @@ void CoreService::handlePlaylistItemSelection(const QString& listKey
     }
     d->m_playlist->setCurrentMusicIndex(index);
     d->m_player->setMusicSource(d->m_playlist->getCurrentMusicPath());
+    play();
 }
 
 // 10) Next track
@@ -256,6 +242,7 @@ void CoreService::nextMusic()
 {
     d->m_playlist->nextMusic();
     d->m_player->setMusicSource(d->m_playlist->getCurrentMusicPath());
+    play();
 }
 
 // 11) Previous track
@@ -263,6 +250,7 @@ void CoreService::preMusic()
 {
     d->m_playlist->preMusic();
     d->m_player->setMusicSource(d->m_playlist->getCurrentMusicPath());
+    play();
 }
 
 // 12) Playback mode cycling

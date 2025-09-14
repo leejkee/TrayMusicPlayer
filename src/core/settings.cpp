@@ -45,7 +45,7 @@ public:
 
         struct Playlist
         {
-            QString preloadList;
+            QString preloadListKey;
             QStringList musicPaths;
             QStringList userLists;
         };
@@ -104,7 +104,7 @@ void Settings::parseJson()
                                                   , SettingsPrivate::Key::Playlist::MUSIC_PATHS);
         d->m_data.playlist.userLists = Utils::getJsonValue<QStringList>(obj
                                                  , SettingsPrivate::Key::Playlist::USER_LISTS);
-        d->m_data.playlist.preloadList = Utils::getJsonValue<QString>(obj
+        d->m_data.playlist.preloadListKey = Utils::getJsonValue<QString>(obj
                                                  , SettingsPrivate::Key::Playlist::PRELOAD_LIST);
     }
     else
@@ -132,7 +132,7 @@ bool Settings::initJsonFile(const QString& filePath) const
         d->m_data.audio.defaultVolume = 20;
         d->m_data.playlist.musicPaths.clear();
         d->m_data.playlist.userLists.clear();
-        d->m_data.playlist.preloadList = SettingsPrivate::LOCAL_KEY;
+        d->m_data.playlist.preloadListKey = SettingsPrivate::LOCAL_KEY;
         return saveToJson();
     }
     return true;
@@ -169,7 +169,7 @@ bool Settings::saveToJson() const
             QJsonArray::fromStringList(d->m_data.playlist.musicPaths);
     listJson[SettingsPrivate::Key::Playlist::USER_LISTS] =
             QJsonArray::fromStringList(d->m_data.playlist.userLists);
-    listJson[SettingsPrivate::Key::Playlist::PRELOAD_LIST] = QJsonValue(d->m_data.playlist.preloadList);
+    listJson[SettingsPrivate::Key::Playlist::PRELOAD_LIST] = QJsonValue(d->m_data.playlist.preloadListKey);
     audioJson[SettingsPrivate::Key::Audio::DEFAULT_VOLUME] =
             QJsonValue(d->m_data.audio.defaultVolume);
 
@@ -268,7 +268,7 @@ unsigned Settings::getDefaultVolume() const
 
 QString Settings::getPreloadKey() const
 {
-    return d->m_data.playlist.preloadList;
+    return d->m_data.playlist.preloadListKey;
 }
 
 void Settings::changeDefaultVolume(const int volume)
@@ -289,9 +289,9 @@ void Settings::changeDefaultVolume(const int volume)
 
 void Settings::changePreloadKey(const QString& key)
 {
-    if (d->m_data.playlist.preloadList != key)
+    if (d->m_data.playlist.preloadListKey != key)
     {
-        d->m_data.playlist.preloadList = key;
+        d->m_data.playlist.preloadListKey = key;
         if (saveToJson())
         {
             LOG_INFO(QString("Changed preload key: %1").arg(key));

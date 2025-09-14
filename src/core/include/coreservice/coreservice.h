@@ -20,11 +20,6 @@ public:
      */
     void initConnections();
 
-    /*!
-     * @brief Performs initial loading of settings and playlists.
-     */
-    void initPreload();
-
     ~CoreService() override;
 
     /* Settings Interface Begin */

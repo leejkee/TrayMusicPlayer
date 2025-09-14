@@ -18,13 +18,13 @@ ListCache::ListCache(QObject* parent)
     LOG_INFO("Constructor: no list has been initialized.");
 }
 
-ListCache::ListCache(const QStringList& localDir
+ListCache::ListCache(const QStringList& localPaths
                      , const QStringList& userListKeys
                      , QObject* parent)
     : QObject(parent)
 {
     setObjectName(QStringLiteral("ListCache"));
-    init(localDir, userListKeys);
+    init(localPaths, userListKeys);
     LOG_INFO("Constructor: local list and user lists have been initialized.");
 }
 
@@ -34,7 +34,6 @@ void ListCache::init(const QStringList& localDir
 {
     initLocalPlaylist(localDir);
     initUserPlaylists(userListKeys);
-    // Q_EMIT signalInitCompleted();
 }
 
 void ListCache::initLocalPlaylist(const QStringList& localDir)

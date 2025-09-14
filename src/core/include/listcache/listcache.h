@@ -18,7 +18,7 @@ public:
     explicit ListCache(QObject* parent = nullptr);
 
     /// This constructor will call @loadUserPlaylists() and @loadLocalPlaylist()
-    ListCache(const QStringList& localDir
+    ListCache(const QStringList& localPaths
               , const QStringList& userListKeys
               , QObject* parent = nullptr);
 
