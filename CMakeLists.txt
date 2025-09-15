@@ -3,7 +3,6 @@ cmake_minimum_required(VERSION 3.20)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_AUTOMOC ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 project(TrayMusicPlayer
@@ -26,14 +25,8 @@ find_package(Qt6 REQUIRED COMPONENTS
 
 include(CTest)
 enable_testing()
-
-add_subdirectory(tools)
-add_subdirectory(core)
-add_subdirectory(ui)
-add_subdirectory(app)
-add_subdirectory(resource)
+add_subdirectory(src)
 add_subdirectory(3rdParty)
-add_subdirectory(model)
 
 if (TRAY_TEST)
     add_subdirectory(test)
