@@ -21,7 +21,7 @@ public:
 
     ~PlayerWidget() override;
 
-    void setSliderVolumeValue(unsigned v);
+    void setSliderVolumeValue(int v);
 
 public Q_SLOTS:
     void setPlayButtonIcon(bool playStatus);

@@ -54,8 +54,8 @@ void CoreService::initConnections()
                      , const int duration)
             {
                 Q_EMIT signalCurrentMusicSourceChanged(static_cast<int>(index)
-                    , listKey
-                    , duration);
+                         , listKey
+                         , duration);
             });
 
     connect(d->m_player
@@ -262,16 +262,9 @@ void CoreService::changePlayMode()
 // 13) Playlist display
 void CoreService::handleDisplayPlaylist(const QString& listKey)
 {
-    if (d->m_playlist->getListKey() != listKey)
-    {
-        Q_EMIT signalCurrentTitleListChanged(listKey
-                                             , d->m_listCache->
-                                                  getMusicTitleList(listKey));
-    }
-    else
-    {
-        LOG_INFO("Current list is already [" + listKey + "], do nothing");
-    }
+    Q_EMIT signalCurrentTitleListChanged(listKey
+                                         , d->m_listCache->
+                                              getMusicTitleList(listKey));
 }
 
 // 14) User playlist management

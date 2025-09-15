@@ -40,7 +40,7 @@ MusicListWidget::MusicListWidget(QWidget* parent)
                                , this);
     d->m_expandButton = new
             Panel::StyleButton(MusicListWidgetPrivate::EXPAND_BTN_TEXT
-                               , {30, 60}
+                               , {60, 30}
                                , Res::UpSVG
                                , Res::BUTTON_EXPAND_QSS
                                , this);
@@ -194,7 +194,7 @@ void MusicListWidget::initUserListButtons(const QStringList& playlistNames)
 
 void MusicListWidget::handleMusicButtonClicked(const QString& name)
 {
-    LOG_INFO("buttonWidget handleMusicButtonClicked");
+    LOG_INFO(QString("Button [%1] clicked").arg(name));
     Q_EMIT signalMusicListButtonClicked(name);
 }
 }

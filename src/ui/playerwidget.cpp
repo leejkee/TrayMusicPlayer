@@ -9,6 +9,7 @@
 #include <volumecontroller/volumecontroller.h>
 #include <rotatinglabel/rotatinglabel.h>
 #include <marqueelabel/marqueelabel.h>
+#include <log/log.h>
 
 #include <QLabel>
 #include <QPushButton>
@@ -146,6 +147,7 @@ void PlayerWidget::initMainLayout()
     setLayout(mainLayout);
 }
 
+// todo HTML -> paintEvent()
 void PlayerWidget::updateMusicName(const QString& songName)
 {
     // update name label
@@ -285,8 +287,7 @@ void PlayerWidget::showVolumeSlider() const
     if (d->m_menuVolume->isVisible())
     {
         d->m_menuVolume->hide();
-
-        qDebug() << "Menu hide";
+        LOG_INFO("Volume Menu hide");
     }
     else
     {
@@ -296,7 +297,7 @@ void PlayerWidget::showVolumeSlider() const
                                               width()) / 2
          , -d->m_menuVolume->sizeHint().height()));
         d->m_menuVolume->popup(pos);
-        qDebug() << "Menu show";
+        LOG_INFO("Volume Menu show");
     }
 }
 
@@ -305,7 +306,7 @@ void PlayerWidget::updateProgressBarPosition(const qint64 position)
     d->m_progressWidget->updateSliderPosition(position);
 }
 
-void PlayerWidget::setSliderVolumeValue(const unsigned v)
+void PlayerWidget::setSliderVolumeValue(const int v)
 {
     d->m_volumeController->setSliderVolumeValue(v);
 }

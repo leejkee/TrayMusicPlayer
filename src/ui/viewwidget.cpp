@@ -25,6 +25,7 @@ public:
     const static inline auto PLAY_ALL_KEY = QStringLiteral("Play All");
     const static inline auto ADD_TO_LIST = QStringLiteral("Add to");
     const static inline auto REMOVE_FROM_LIST = QStringLiteral("Remove from");
+    const static inline auto LOCAL_LIST_KEY = QStringLiteral("Local");
 
     QLabel* m_labelName;
     QListView* m_playlistView;
@@ -145,17 +146,20 @@ void ViewWidget::handleMenuPop(const QPoint& pos, const QModelIndex& index)
     auto* optionsMenu = new QMenu(this);
     connect(optionsMenu, &QMenu::aboutToHide, optionsMenu, &QMenu::deleteLater);
 
-    const QAction* delAction = optionsMenu->
-            addAction(ViewWidgetPrivate::REMOVE_FROM_LIST);
-    connect(delAction
-            , &QAction::triggered
-            , this
-            , [this, index]()
-            {
-                Q_EMIT signalMusicRemovedFromList(d->m_displayPlaylistKey
-                                                  , index.data(Qt::UserRole + 1)
-                                                 .toString());
-            });
+    if (d->m_displayPlaylistKey != ViewWidgetPrivate::LOCAL_LIST_KEY)
+    {
+        const QAction* delAction = optionsMenu->
+                addAction(ViewWidgetPrivate::REMOVE_FROM_LIST);
+        connect(delAction
+                , &QAction::triggered
+                , this
+                , [this, index]()
+                {
+                    Q_EMIT signalMusicRemovedFromList(d->m_displayPlaylistKey
+                                                      , index.data(Qt::UserRole + 1)
+                                                     .toString());
+                });
+    }
 
     QAction* addToPlaylistAction = optionsMenu->
             addAction(ViewWidgetPrivate::ADD_TO_LIST);

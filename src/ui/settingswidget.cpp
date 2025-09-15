@@ -25,8 +25,8 @@ SettingsWidget::SettingsWidget(QWidget* parent)
     d->m_filePathConfigWidget = new FilePathConfigWidget(this);
     addConfigWidget(SettingsWidgetPrivate::PATH_ACTION_KEY
                     , {
-                        SettingsWidgetPrivate::BTN_HEIGHT
-                        , SettingsWidgetPrivate::BTN_WIDTH
+                        SettingsWidgetPrivate::BTN_WIDTH
+                        , SettingsWidgetPrivate::BTN_HEIGHT
                     }
                     , Res::DirectoryActionSVG
                     , Res::CONFIG_ACTION_QSS
