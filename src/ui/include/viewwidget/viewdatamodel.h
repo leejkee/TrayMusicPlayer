@@ -15,8 +15,11 @@ public:
 
     void setMusicList(const QStringList& list);
 
-protected:
     [[nodiscard]] int rowCount(const QModelIndex& parent) const override;
+
+    [[nodiscard]] int rowCount() const { return rowCount(QModelIndex()); };
+
+protected:
 
     [[nodiscard]] QVariant
     data(const QModelIndex& index, int role) const override;

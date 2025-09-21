@@ -28,7 +28,7 @@ public:
 
     [[nodiscard]] QStringList getKeysUserPlaylist() const;
 
-    [[nodiscard]] unsigned getDefaultVolume() const;
+    [[nodiscard]] int getDefaultVolume() const;
 
     [[nodiscard]] QString getPreloadKey() const;
 

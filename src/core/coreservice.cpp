@@ -54,8 +54,8 @@ void CoreService::initConnections()
                      , const int duration)
             {
                 Q_EMIT signalCurrentMusicSourceChanged(static_cast<int>(index)
-                         , listKey
-                         , duration);
+                    , listKey
+                    , duration);
             });
 
     connect(d->m_player
@@ -158,6 +158,17 @@ void CoreService::initConnections()
             {
                 Q_EMIT signalCurrentListChanged(key);
             });
+
+    connect(d->m_player
+            , &Player::signalPositionChanged
+            , d->m_lyricService
+            , &LyricService::handlePlayerPositionChange);
+
+    connect(d->m_lyricService, &LyricService::signalTimingUpdated, this, [](const int index)
+    {
+        Q_EMIT signalLyricLineIndexChanged(index);
+    });
+
 }
 
 CoreService::~CoreService() = default;

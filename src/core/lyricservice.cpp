@@ -10,7 +10,9 @@ namespace Tray::Core
 class LyricServicePrivate
 {
 public:
-    Badfish::AudioToolkit::LyricParser m_parser;
+    QStringList m_lyrics;
+    QList<int64_t> m_lrcTiming;
+    int m_lyricLineIndex{0};
 };
 
 LyricService::LyricService(QObject* parent)
@@ -21,50 +23,62 @@ LyricService::LyricService(QObject* parent)
 
 LyricService::~LyricService() = default;
 
-void LyricService::loadLRC(const QString& lrcPath)
-{
-    d->m_parser.clear_result();
-    d->m_parser.load_file(lrcPath.toStdString());
-}
-
 void LyricService::updateLRC(const QString& musicName)
 {
-    QStringList lrcText;
-    QList<int64_t> lrcTiming;
+    d->m_lyrics.clear();
+    d->m_lrcTiming.clear();
+    d->m_lyricLineIndex = 0;
+
     if (QString lrcPath; findLRC(musicName, lrcPath))
     {
-        loadLRC(lrcPath);
-        for (const auto& lyric : d->m_parser.get_lrc())
+        Badfish::AudioToolkit::LyricParser lyricParser;
+        lyricParser.load_file(lrcPath.toStdString());
+        for (const auto& lyric : lyricParser.get_lrc())
         {
-            lrcText.append(QString::fromStdString(lyric.m_text));
+            d->m_lyrics.append(QString::fromStdString(lyric.m_text));
             if (lyric.isTag())
             {
-                lrcTiming.append(-1);
+                d->m_lrcTiming.append(0);
             }
             else
             {
-                lrcTiming.append(lyric.m_start_ms.value());
+                d->m_lrcTiming.append(lyric.m_start_ms.value());
             }
         }
     }
-    Q_EMIT signalUpdateLRCToModel(musicName, lrcText, lrcTiming);
 }
 
 bool LyricService::findLRC(const QString& musicPath, QString& lrcPath)
 {
     if (const auto indexSuffix = musicPath.lastIndexOf('.'); indexSuffix != -1)
     {
-        const auto LRC_SUFFIX = "lrc";
+        const QString LRC_SUFFIX{"lrc"};
         lrcPath = musicPath.left(indexSuffix + 1) + LRC_SUFFIX;
     }
     else
     {
         return false;
     }
+
     if (const QFile file(lrcPath); file.exists())
     {
         return true;
     }
     return false;
 }
+
+void LyricService::handlePlayerPositionChange(const qint64 pos)
+{
+    if (d->m_lyricLineIndex > d->m_lyrics.length() - 2)
+    {
+        return;
+    }
+
+    if (pos >= d->m_lrcTiming.at(d->m_lyricLineIndex + 1))
+    {
+        d->m_lyricLineIndex ++;
+        Q_EMIT signalTimingUpdated(d->m_lyricLineIndex);
+    }
+}
+
 }

@@ -5,7 +5,6 @@
 
 namespace Tray::Ui
 {
-
 class LyricModelPrivate
 {
 public:
@@ -13,13 +12,16 @@ public:
     QList<int64_t> m_lyricsTiming;
 };
 
-LyricModel::LyricModel(QObject* parent) : QAbstractListModel(parent), d(std::make_unique<LyricModelPrivate>())
+LyricModel::LyricModel(QObject* parent)
+    : QAbstractListModel(parent),
+      d(std::make_unique<LyricModelPrivate>())
 {
 }
 
 LyricModel::~LyricModel() = default;
 
-void LyricModel::setLyric(const QStringList& lyricsText, const QList<int64_t>& lyricsTiming)
+void LyricModel::setLyric(const QStringList& lyricsText
+                          , const QList<int64_t>& lyricsTiming)
 {
     beginResetModel();
     d->m_lyricsText = lyricsText;
@@ -37,13 +39,16 @@ QVariant LyricModel::data(const QModelIndex& index, const int role) const
     const QString lyricText = d->m_lyricsText.at(index.row());
     switch (role)
     {
-        case Qt::DisplayRole: return lyricText;
-        case Qt::UserRole: return lyricTiming;
-        default: return {};
+    case Qt::DisplayRole:
+        return lyricText;
+    case Qt::UserRole:
+        return lyricTiming;
+    default:
+        return {};
     }
 }
 
-int LyricModel::rowCount(const QModelIndex &parent) const
+int LyricModel::rowCount(const QModelIndex& parent) const
 {
     if (parent.isValid())
     {
@@ -52,4 +57,8 @@ int LyricModel::rowCount(const QModelIndex &parent) const
     return static_cast<int>(d->m_lyricsText.size());
 }
 
+int LyricModel::rowCount() const
+{
+    return rowCount(QModelIndex());
+}
 }

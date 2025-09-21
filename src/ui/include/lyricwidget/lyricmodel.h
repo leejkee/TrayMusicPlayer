@@ -22,8 +22,11 @@ public:
     /// Update the lyrics when a new MP3 file with a same-name LRC file is loaded.
     void setLyric(const QStringList& lyricsText, const QList<int64_t>& lyricsTiming);
 
-protected:
     [[nodiscard]] int rowCount(const QModelIndex &parent) const override;
+
+    [[nodiscard]] int rowCount() const;
+
+protected:
 
     [[nodiscard]] QVariant data(const QModelIndex &index, int role) const override;
 

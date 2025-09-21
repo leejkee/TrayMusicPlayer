@@ -261,7 +261,7 @@ QStringList Settings::getKeysUserPlaylist() const
     return d->m_data.playlist.userLists;
 }
 
-unsigned Settings::getDefaultVolume() const
+int Settings::getDefaultVolume() const
 {
     return d->m_data.audio.defaultVolume;
 }

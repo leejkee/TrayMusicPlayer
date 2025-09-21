@@ -15,7 +15,13 @@ class LyricWidget final : public QWidget
     public:
     explicit LyricWidget(QWidget *parent = nullptr);
     ~LyricWidget() override;
-public slots:
+
+    [[nodiscard]] int currentIndex() const;
+
+public Q_SLOTS:
+    void updateCurrentTiming(int index);
+
+    void updateLyric(const QStringList& lyricText, const QList<int64_t>& lyricsTiming);
 
 private:
     std::unique_ptr<LyricWidgetPrivate> d;
