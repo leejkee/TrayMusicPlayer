@@ -121,6 +121,10 @@ Q_SIGNALS:
      */
     void signalCurrentListChanged(const QString& key);
 
+    void signalLyricChanged(const QString& chars, const QStringList& list, const QList<int64_t>& lrc_timing);
+
+    void signalLyricLineIndexChanged(int index);
+
 public Q_SLOTS:
     /* Player Controller Begin */
 

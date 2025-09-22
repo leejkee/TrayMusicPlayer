@@ -36,6 +36,7 @@ CoreService::CoreService(QObject* parent)
     initConnections();
 }
 
+
 void CoreService::initConnections()
 {
     connect(d->m_player
@@ -49,13 +50,15 @@ void CoreService::initConnections()
     connect(d->m_playlist
             , &Playlist::signalCurrentMusicChanged
             , this
-            , [this](const qsizetype index
-                     , const QString& listKey
-                     , const int duration)
+            , [this](const int index, const MusicMetaData& music)
             {
-                Q_EMIT signalCurrentMusicSourceChanged(static_cast<int>(index)
-                    , listKey
-                    , duration);
+                Q_EMIT signalCurrentMusicSourceChanged(index
+                    , music.m_title
+                    , music.m_duration);
+                d->m_lyricService->updateLRC(music.m_path);
+                Q_EMIT signalLyricChanged(music.m_title
+                                          , d->m_lyricService->lrcText()
+                                          , d->m_lyricService->lrcTiming());
             });
 
     connect(d->m_player
@@ -63,6 +66,7 @@ void CoreService::initConnections()
             , this
             , [this](const qint64 pos)
             {
+                d->m_lyricService->handlePlayerPositionChange(pos);
                 Q_EMIT signalPlayerPositionChanged(pos);
             });
 
@@ -123,7 +127,7 @@ void CoreService::initConnections()
     connect(d->m_listCache
             , &ListCache::signalNotifyPlayListCacheModified
             , d->m_playlist
-            , &Playlist::updateCurrentList);
+            , &Playlist::handleCurrentListChanged);
 
     connect(d->m_listCache
             , &ListCache::signalNotifyUiCacheModified
@@ -159,16 +163,13 @@ void CoreService::initConnections()
                 Q_EMIT signalCurrentListChanged(key);
             });
 
-    connect(d->m_player
-            , &Player::signalPositionChanged
-            , d->m_lyricService
-            , &LyricService::handlePlayerPositionChange);
-
-    connect(d->m_lyricService, &LyricService::signalTimingUpdated, this, [](const int index)
-    {
-        Q_EMIT signalLyricLineIndexChanged(index);
-    });
-
+    connect(d->m_lyricService
+            , &LyricService::signalTimingUpdated
+            , this
+            , [this](const int index)
+            {
+                Q_EMIT signalLyricLineIndexChanged(index);
+            });
 }
 
 CoreService::~CoreService() = default;

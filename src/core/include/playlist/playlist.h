@@ -5,16 +5,15 @@
 #include <musicmetadata.h>
 #include <QObject>
 #include <QVector>
-
+#include <memory>
 
 namespace Tray::Core
 {
+class PlaylistPrivate;
 class Playlist final : public QObject
 {
     Q_OBJECT
-
 public:
-
     explicit Playlist(QObject* parent = nullptr);
 
     enum class PlayMode
@@ -22,7 +21,7 @@ public:
         Sequential = 0, LoopOne = 1, LoopAll = 2, Shuffle = 3
     };
 
-    static QString PlayModeToString(const PlayMode mode)
+    static QString PlayModeToString(const PlayMode& mode)
     {
         switch (mode)
         {
@@ -39,8 +38,6 @@ public:
         }
     }
 
-    [[nodiscard]] QString getCurrentMusicPath() const;
-
     void loadPlaylist(const QString& listKey
                        , const QList<MusicMetaData>& playlist);
 
@@ -48,31 +45,31 @@ public:
 
     void preMusic();
 
-    void setCurrentMusicIndex(qsizetype index);
+    [[nodiscard]] QString getCurrentMusicPath() const;
 
     [[nodiscard]] qsizetype getCurrentMusicIndex() const;
 
     [[nodiscard]] QString getListKey() const;
 
-    void updateCurrentList(const QString& listKey
-                           , const QList<MusicMetaData>& playlist);
+    void setCurrentMusicIndex(qsizetype index);
 
     void changePlayMode();
 
+    [[nodiscard]] MusicMetaData currentMusic() const;
+
 Q_SIGNALS:
-    void signalCurrentMusicChanged(qsizetype index
-                                   , const QString& title
-                                   , int duration);
+    void signalCurrentMusicChanged(int index, const Tray::Core::MusicMetaData& music);
 
     void signalPlayModeChanged(int);
 
     void signalNotifyUiCurrentPlaylistKeyChanged(const QString& key);
 
+public Q_SLOTS:
+    void handleCurrentListChanged(const QString& listKey
+                           , const QList<Tray::Core::MusicMetaData>& playlist);
+
 private:
-    qsizetype m_index;
-    PlayMode m_playMode;
-    QList<MusicMetaData> m_musicList;
-    QString m_currentListKey;
+    std::unique_ptr<PlaylistPrivate> d;
 
     [[nodiscard]] qsizetype getNextMusicIndex() const;
 

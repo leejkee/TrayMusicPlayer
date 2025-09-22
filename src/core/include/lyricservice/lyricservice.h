@@ -18,8 +18,12 @@ public:
 
     /// Updates the lyrics (LRC) for the currently playing music track.
     /// This function is triggered when the music changes.
-    /// @param musicName The file name of the MP3 file that will be played.
-    void updateLRC(const QString& musicName);
+    /// @param musicPath The path of the MP3 file that will be played.
+    void updateLRC(const QString& musicPath);
+
+    [[nodiscard]] QList<int64_t> lrcTiming() const;
+
+    [[nodiscard]] QStringList lrcText() const;
 
 Q_SIGNALS:
     void signalTimingUpdated(int index);

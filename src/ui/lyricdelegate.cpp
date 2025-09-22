@@ -3,6 +3,7 @@
 //
 #include <QPainter>
 #include <lyricwidget/lyricdelegate.h>
+
 namespace Tray::Ui
 {
 

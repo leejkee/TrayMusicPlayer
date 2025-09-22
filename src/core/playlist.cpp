@@ -7,14 +7,20 @@
 
 namespace Tray::Core
 {
+class PlaylistPrivate
+{
+public:
+    qsizetype m_index;
+    Playlist::PlayMode m_playMode;
+    QList<MusicMetaData> m_musicList;
+    QString m_currentListKey;
+};
 
 Playlist::Playlist(QObject* parent)
-    : QObject(parent),
-      m_index(-1),
-      m_playMode(PlayMode::Sequential),
-      m_musicList(QList<MusicMetaData>{}),
-      m_currentListKey(QString{})
+    : QObject(parent), d(std::make_unique<PlaylistPrivate>())
 {
+    d->m_index = -1;
+    d->m_playMode = PlayMode::Sequential;
     setObjectName(QStringLiteral("PlayList"));
     LOG_INFO("Playlist initialized with empty, Sequential mode");
 }
@@ -26,8 +32,8 @@ void Playlist::loadPlaylist(const QString& listKey
     {
         LOG_WARNING("Load empty playlist");
     }
-    m_currentListKey = listKey;
-    m_musicList = playlist;
+    d->m_currentListKey = listKey;
+    d->m_musicList = playlist;
     Q_EMIT signalNotifyUiCurrentPlaylistKeyChanged(listKey);
     LOG_INFO(QString("Load playlist %1 successfully").arg(listKey));
 }
@@ -44,15 +50,15 @@ void Playlist::preMusic()
 
 qsizetype Playlist::getNextMusicIndex() const
 {
-    switch (m_playMode)
+    switch (d->m_playMode)
     {
     case PlayMode::Sequential:
     case PlayMode::LoopAll:
-        return (m_index + 1) % m_musicList.size();
+        return (d->m_index + 1) % d->m_musicList.size();
     case PlayMode::LoopOne:
-        return m_index;
+        return d->m_index;
     case PlayMode::Shuffle:
-        return QRandomGenerator::global()->bounded(m_musicList.size());
+        return QRandomGenerator::global()->bounded(d->m_musicList.size());
     default:
         return 0;
     }
@@ -60,17 +66,17 @@ qsizetype Playlist::getNextMusicIndex() const
 
 qsizetype Playlist::getPreMusicIndex() const
 {
-    switch (m_playMode)
+    switch (d->m_playMode)
     {
     case PlayMode::Sequential:
     case PlayMode::LoopAll:
-        return (m_index == 0)
-               ? m_musicList.size() - 1
-               : m_index - 1;
+        return (d->m_index == 0)
+               ? d->m_musicList.size() - 1
+               : d->m_index - 1;
     case PlayMode::LoopOne:
-        return m_index;
+        return d->m_index;
     case PlayMode::Shuffle:
-        return QRandomGenerator::global()->bounded(m_musicList.size());
+        return QRandomGenerator::global()->bounded(d->m_musicList.size());
     default:
         return 0;
     }
@@ -78,41 +84,38 @@ qsizetype Playlist::getPreMusicIndex() const
 
 QString Playlist::getCurrentMusicPath() const
 {
-    return m_musicList.at(m_index).m_path;
+    return d->m_musicList.at(d->m_index).m_path;
 }
 
 qsizetype Playlist::getCurrentMusicIndex() const
 {
-    return m_index;
+    return d->m_index;
 }
 
 void Playlist::setCurrentMusicIndex(const qsizetype index)
 {
-    if (index >= m_musicList.size())
+    if (index >= d->m_musicList.size())
     {
         LOG_ERROR("index out of range");
     }
-    m_index = index;
-    LOG_INFO(QString("index changed: %1").arg(QString::number(m_index)));
-    Q_EMIT signalCurrentMusicChanged(m_index
-                                     , m_musicList.at(m_index).m_title
-                                     , m_musicList.at(m_index).m_duration);
+    d->m_index = index;
+    LOG_INFO(QString("index changed: %1").arg(QString::number(d->m_index)));
+    Q_EMIT signalCurrentMusicChanged(static_cast<int>(d->m_index), d->m_musicList.at(d->m_index));
 }
 
 void Playlist::setPlayMode(const PlayMode playMode)
 {
-    if (m_playMode != playMode)
+    if (d->m_playMode != playMode)
     {
-        m_playMode = playMode;
+        d->m_playMode = playMode;
         Q_EMIT signalPlayModeChanged(static_cast<int>(playMode));
-        LOG_INFO(QString("play mode changed: %1").arg(PlayModeToString(playMode)
-                 ));
+        LOG_INFO(QString("play mode changed: %1").arg(PlayModeToString(playMode)));
     }
 }
 
 void Playlist::changePlayMode()
 {
-    switch (m_playMode)
+    switch (d->m_playMode)
     {
     case PlayMode::Sequential:
         setPlayMode(PlayMode::LoopOne);
@@ -133,13 +136,20 @@ void Playlist::changePlayMode()
 
 QString Playlist::getListKey() const
 {
-    return m_currentListKey;
+    return d->m_currentListKey;
 }
 
-void Playlist::updateCurrentList(const QString& listKey, const QList<MusicMetaData>& playlist)
+void Playlist::handleCurrentListChanged(const QString& listKey, const QList<MusicMetaData>& playlist)
 {
-    if (m_currentListKey == listKey)
+    if (d->m_currentListKey == listKey)
     {
         loadPlaylist(listKey, playlist);
     }
-}}
+}
+
+MusicMetaData Playlist::currentMusic() const
+{
+    return d->m_musicList.at(d->m_index);
+}
+
+}

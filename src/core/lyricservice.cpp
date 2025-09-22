@@ -23,13 +23,13 @@ LyricService::LyricService(QObject* parent)
 
 LyricService::~LyricService() = default;
 
-void LyricService::updateLRC(const QString& musicName)
+void LyricService::updateLRC(const QString& musicPath)
 {
     d->m_lyrics.clear();
     d->m_lrcTiming.clear();
     d->m_lyricLineIndex = 0;
 
-    if (QString lrcPath; findLRC(musicName, lrcPath))
+    if (QString lrcPath; findLRC(musicPath, lrcPath))
     {
         Badfish::AudioToolkit::LyricParser lyricParser;
         lyricParser.load_file(lrcPath.toStdString());
@@ -79,6 +79,16 @@ void LyricService::handlePlayerPositionChange(const qint64 pos)
         d->m_lyricLineIndex ++;
         Q_EMIT signalTimingUpdated(d->m_lyricLineIndex);
     }
+}
+
+QList<int64_t> LyricService::lrcTiming() const
+{
+    return d->m_lrcTiming;
+}
+
+QStringList LyricService::lrcText() const
+{
+    return d->m_lyrics;
 }
 
 }
