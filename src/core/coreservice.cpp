@@ -56,8 +56,7 @@ void CoreService::initConnections()
                     , music.m_title
                     , music.m_duration);
                 d->m_lyricService->updateLRC(music.m_path);
-                Q_EMIT signalLyricChanged(music.m_title
-                                          , d->m_lyricService->lrcText()
+                Q_EMIT signalLyricChanged(d->m_lyricService->lrcText()
                                           , d->m_lyricService->lrcTiming());
             });
 

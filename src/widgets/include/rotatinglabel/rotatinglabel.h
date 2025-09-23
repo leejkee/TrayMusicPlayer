@@ -51,11 +51,16 @@ public:
                       , int msecs
                       , int loopCount);
 
-signals:
+
+Q_SIGNALS:
     void rotationChanged(qreal angle);
+
+    void signalClicked();
 
 protected:
     void paintEvent(QPaintEvent* event) override;
+
+    void mousePressEvent(QMouseEvent* event) override;
 
     [[nodiscard]] QSize sizeHint() const override;
 

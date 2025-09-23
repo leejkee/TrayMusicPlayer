@@ -16,6 +16,8 @@ class Playlist final : public QObject
 public:
     explicit Playlist(QObject* parent = nullptr);
 
+    ~Playlist() override;
+
     enum class PlayMode
     {
         Sequential = 0, LoopOne = 1, LoopAll = 2, Shuffle = 3

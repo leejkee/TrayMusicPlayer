@@ -83,6 +83,11 @@ public Q_SLOTS:
 
     void handleLocalPathSettingsUpdated(const QStringList& localPaths);
 
+    void updateLyric(const QStringList& lyricText
+                     , const QList<int64_t>& lyricsTiming);
+
+    void updateLyricLineIndex(int index);
+
 private:
     std::unique_ptr<WindowManagerPrivate> d;
 

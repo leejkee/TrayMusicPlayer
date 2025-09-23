@@ -16,13 +16,6 @@ class LyricDelegate final : public QStyledItemDelegate
 
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
-protected:
-
-    bool editorEvent(QEvent* event, QAbstractItemModel* model, const QStyleOptionViewItem& option, const QModelIndex& index) override;
-
-private:
-    std::unique_ptr<LyricDelegatePrivate> d;
-
 };
 
 }

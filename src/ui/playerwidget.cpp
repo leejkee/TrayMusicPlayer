@@ -227,6 +227,11 @@ void PlayerWidget::createConnections()
             , &Panel::VolumeController::signalSetMute
             , this
             , [this]() { Q_EMIT signalSetMute(); });
+
+    connect(d->m_labelLogo, &Panel::RotatingLabel::signalClicked, this, [this]
+    {
+        Q_EMIT signalShowLyricWidget();
+    });
 }
 
 void PlayerWidget::setPlayButtonIcon(const bool playStatus)

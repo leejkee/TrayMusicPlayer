@@ -55,6 +55,8 @@ Q_SIGNALS:
 
     void signalSetMute();
 
+    void signalShowLyricWidget();
+
 private:
     std::unique_ptr<PlayerWidgetPrivate> d;
 

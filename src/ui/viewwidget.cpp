@@ -13,7 +13,6 @@
 #include <QMenu>
 #include <QListView>
 
-
 namespace Tray::Ui
 {
 class ViewWidgetPrivate

@@ -7,21 +7,26 @@
 
 namespace Tray::Ui
 {
-
 class LyricWidgetPrivate;
+
 class LyricWidget final : public QWidget
 {
     Q_OBJECT
-    public:
-    explicit LyricWidget(QWidget *parent = nullptr);
+
+public:
+    explicit LyricWidget(QWidget* parent = nullptr);
     ~LyricWidget() override;
 
     [[nodiscard]] int currentIndex() const;
 
+Q_SIGNALS:
+    void signalBackButtonClicked();
+
 public Q_SLOTS:
     void updateCurrentTiming(int index);
 
-    void updateLyric(const QStringList& lyricText, const QList<int64_t>& lyricsTiming);
+    void updateLyric(const QStringList& lyricText
+                     , const QList<int64_t>& lyricsTiming);
 
 private:
     std::unique_ptr<LyricWidgetPrivate> d;

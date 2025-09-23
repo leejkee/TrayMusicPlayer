@@ -156,6 +156,10 @@ void TrayApp::connectCoreWindow()
     connect(d->m_core, &Core::CoreService::signalLocalPathsChanged, d->m_windowManager, &Ui::WindowManager::handleLocalPathSettingsUpdated);
 
     connect(d->m_core, &Core::CoreService::signalCurrentListChanged, d->m_windowManager, &Ui::WindowManager::handleCurrentPlaylistKeyChanged);
+
+    connect(d->m_core, &Core::CoreService::signalLyricChanged, d->m_windowManager, &Ui::WindowManager::updateLyric);
+
+    connect(d->m_core, &Core::CoreService::signalLyricLineIndexChanged, d->m_windowManager, &Ui::WindowManager::updateLyricLineIndex);
 }
 
 void TrayApp::closeEvent(QCloseEvent* event)

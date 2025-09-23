@@ -6,6 +6,7 @@
 #include <topbarwidget/topbarwidget.h>
 #include <musiclistwidget/musiclistwidget.h>
 #include <viewwidget/viewwidget.h>
+#include <lyricwidget/lyricwidget.h>
 #include <settingswidget/settingswidget.h>
 #include <trayqss.h>
 #include <log/log.h>
@@ -33,6 +34,7 @@ public:
     QSplitter* m_viewAndPlaylistsSplitter;
     QStackedWidget* m_viewStackedWidget;
     ViewWidget* m_viewWidget;
+    LyricWidget* m_lyricWidget;
     SettingsWidget* m_settingsWidget;
     QFrame* m_lineSplitterUp;
     QFrame* m_lineSplitterDown;
@@ -54,13 +56,15 @@ WindowManager::WindowManager(const WindowInitData& initData, QWidget* parent)
        setStyleSheet(Res::readQss(Res::VIEW_SPLITTER_QSS));
     d->m_viewStackedWidget = new QStackedWidget(this);
     d->m_viewWidget = new ViewWidget(this);
+    d->m_lyricWidget = new LyricWidget(this);
     d->m_settingsWidget = new SettingsWidget(this);
     d->m_lineSplitterUp = new QFrame(this);
     d->m_lineSplitterUp->setFrameShape(QFrame::HLine);
     d->m_lineSplitterDown = new QFrame(this);
     d->m_lineSplitterDown->setFrameShape(QFrame::HLine);
     d->m_lineSplitterUp->setStyleSheet(Res::readQss(Res::HORIZONTAL_LINE_QSS));
-    d->m_lineSplitterDown->setStyleSheet(Res::readQss(Res::HORIZONTAL_LINE_QSS));
+    d->m_lineSplitterDown->
+       setStyleSheet(Res::readQss(Res::HORIZONTAL_LINE_QSS));
 
     setLayout(d->m_windowManagerLayout);
     d->m_windowManagerLayout->addWidget(d->m_mainStackedWidget);
@@ -69,7 +73,9 @@ WindowManager::WindowManager(const WindowInitData& initData, QWidget* parent)
     d->m_windowManagerLayout->setContentsMargins(0, 0, 0, 0);
     d->m_windowManagerLayout->setSpacing(0);
 
+    // primaryWidget and lyricWidget
     d->m_mainStackedWidget->addWidget(d->m_primaryWidget);
+    d->m_mainStackedWidget->addWidget(d->m_lyricWidget);
 
     d->m_primaryWidget->setLayout(d->m_primaryWidgetLayout);
     d->m_primaryWidgetLayout->addWidget(d->m_topBarWidget);
@@ -214,6 +220,22 @@ void WindowManager::createConnections()
             {
                 Q_EMIT signalLocalMusicDirectoryRemoved(path);
             });
+
+    connect(d->m_lyricWidget
+            , &LyricWidget::signalBackButtonClicked
+            , this
+            , [this]
+            {
+                d->m_mainStackedWidget->setCurrentWidget(d->m_primaryWidget);
+            });
+
+    connect(d->m_playerWidget
+            , &PlayerWidget::signalShowLyricWidget
+            , this
+            , [this]
+            {
+                d->m_mainStackedWidget->setCurrentWidget(d->m_lyricWidget);
+            });
 }
 
 void WindowManager::initDefaultSettings(const WindowInitData& initData)
@@ -221,7 +243,8 @@ void WindowManager::initDefaultSettings(const WindowInitData& initData)
     d->m_settingsWidget->updateLocalPaths(initData.initLocalPaths);
     d->m_musicListWidget->initUserListButtons(initData.initUserKeys);
     d->m_viewWidget->updateUserListKeys(initData.initUserKeys);
-    d->m_viewWidget->displayTitleListToView(initData.initKey, initData.initTitleList);
+    d->m_viewWidget->displayTitleListToView(initData.initKey
+                                            , initData.initTitleList);
     d->m_playerWidget->setSliderVolumeValue(initData.initVolume);
 }
 
@@ -294,5 +317,16 @@ void WindowManager::handleLocalPathSettingsUpdated(
     const QStringList& localPaths)
 {
     d->m_settingsWidget->updateLocalPaths(localPaths);
+}
+
+void WindowManager::updateLyric(const QStringList& lyricText
+                                , const QList<int64_t>& lyricsTiming)
+{
+    d->m_lyricWidget->updateLyric(lyricText, lyricsTiming);
+}
+
+void WindowManager::updateLyricLineIndex(const int index)
+{
+    d->m_lyricWidget->updateCurrentTiming(index);
 }
 }

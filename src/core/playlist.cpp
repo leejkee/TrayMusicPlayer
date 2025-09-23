@@ -25,6 +25,8 @@ Playlist::Playlist(QObject* parent)
     LOG_INFO("Playlist initialized with empty, Sequential mode");
 }
 
+Playlist::~Playlist() = default;
+
 void Playlist::loadPlaylist(const QString& listKey
                              , const QList<MusicMetaData>& playlist)
 {

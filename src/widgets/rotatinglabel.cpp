@@ -2,6 +2,7 @@
 // Created by cww on 25-4-9.
 //
 
+#include <QMouseEvent>
 #include <rotatinglabel/rotatinglabel.h>
 #include <QPainter>
 #include <QPropertyAnimation>
@@ -118,5 +119,14 @@ QSize RotatingLabel::sizeHint() const
 {
     // return m_pixmap.size().isEmpty() ? QSize(100, 100) : m_pixmap.size();
     return {50, 50};
+}
+
+void RotatingLabel::mousePressEvent(QMouseEvent* event)
+{
+    if (event->button() == Qt::LeftButton)
+    {
+        Q_EMIT signalClicked();
+    }
+    QWidget::mousePressEvent(event);
 }
 }
