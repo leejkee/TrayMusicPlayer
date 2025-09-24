@@ -19,7 +19,6 @@ public:
     LyricDelegate* m_viewDelegate;
     QVBoxLayout* m_layout;
     Panel::StyleButton* m_backButton;
-    int m_currentLineIndex{0};
 };
 
 LyricWidget::LyricWidget(QWidget* parent)
@@ -59,7 +58,8 @@ void LyricWidget::updateCurrentTiming(const int index)
 {
     if (index >= 0 && index < d->m_lyricModel->rowCount())
     {
-        d->m_currentLineIndex = index;
+        d->m_viewDelegate->setCurrentLineIndex(index);
+        d->m_listView->update();
     }
     else
     {
@@ -73,12 +73,6 @@ void LyricWidget::updateLyric(const QStringList& lyricText
     d->m_lyricModel->setLyric(lyricText, lyricsTiming);
     updateCurrentTiming(0);
 }
-
-int LyricWidget::currentIndex() const
-{
-    return d->m_currentLineIndex;
-}
-
 
 LyricWidget::~LyricWidget() = default;
 }
