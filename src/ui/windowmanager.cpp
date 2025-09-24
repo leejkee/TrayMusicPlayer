@@ -96,6 +96,7 @@ WindowManager::WindowManager(const WindowInitData& initData, QWidget* parent)
 WindowManager::~WindowManager() = default;
 
 
+
 void WindowManager::createConnections()
 {
     /* TopBar */
@@ -236,6 +237,16 @@ void WindowManager::createConnections()
             {
                 d->m_mainStackedWidget->setCurrentWidget(d->m_lyricWidget);
             });
+
+    connect(d->m_playerWidget, &PlayerWidget::signalSetMusicPosition, this, [this](const qint64 value)
+    {
+        Q_EMIT signalSetPlayerPosition(value);
+    });
+
+    connect(d->m_playerWidget, &PlayerWidget::signalSetMute, this, [this]
+    {
+        Q_EMIT signalMuteTg();
+    });
 }
 
 void WindowManager::initDefaultSettings(const WindowInitData& initData)

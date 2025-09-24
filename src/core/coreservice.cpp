@@ -69,8 +69,7 @@ void CoreService::initConnections()
                 Q_EMIT signalPlayerPositionChanged(pos);
             });
 
-    connect(
-            d->m_playlist
+    connect(d->m_playlist
             , &Playlist::signalPlayModeChanged
             , this
             , [this](const int mode)
@@ -82,6 +81,14 @@ void CoreService::initConnections()
             , &Player::signalMusicOver
             , this
             , &CoreService::nextMusic);
+
+    connect(d->m_player
+            , &Player::signalMuteChanged
+            , this
+            , [this](const bool b)
+            {
+                Q_EMIT signalMuteChanged(b);
+            });
 
     /// User playlist Add/Remove
     // listCache --> settings

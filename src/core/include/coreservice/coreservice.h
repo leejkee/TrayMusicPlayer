@@ -12,6 +12,7 @@ class CoreServicePrivate;
 class CoreService final : public QObject
 {
     Q_OBJECT
+
 public:
     explicit CoreService(QObject* parent = nullptr);
 
@@ -121,9 +122,12 @@ Q_SIGNALS:
      */
     void signalCurrentListChanged(const QString& key);
 
-    void signalLyricChanged(const QStringList& list, const QList<int64_t>& lrc_timing);
+    void signalLyricChanged(const QStringList& list
+                            , const QList<int64_t>& lrc_timing);
 
     void signalLyricLineIndexChanged(int index);
+
+    void signalMuteChanged(bool b);
 
 public Q_SLOTS:
     /* Player Controller Begin */

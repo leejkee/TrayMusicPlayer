@@ -40,10 +40,17 @@ public:
     Panel::VolumeController* m_volumeController;
     Panel::StyleButton* m_pushButtonVolume;
     QMenu* m_menuVolume;
+
+    constexpr static int CIRCLE_LOGO_SIZE = 45;
+
+    constexpr static int HEIGHT_PLAYER_WIDGET = 45;
+
+    constexpr static int WIDTH_TITLE_LABEL = 120;
 };
 
 PlayerWidget::PlayerWidget(QWidget* parent)
-    : QWidget(parent), d(std::make_unique<PlayerWidgetPrivate>())
+    : QWidget(parent),
+      d(std::make_unique<PlayerWidgetPrivate>())
 {
     initLeftLayout();
     initCenterLayout();
@@ -58,15 +65,17 @@ void PlayerWidget::initLeftLayout()
 {
     d->m_labelMusicName = new Panel::MarqueeLabel(this);
     d->m_labelMusicName->setAlignment(Qt::AlignVCenter);
-    d->m_labelMusicName->setFixedSize(WIDTH_TITLE_LABEL, HEIGHT_PLAYER_WIDGET);
+    d->m_labelMusicName->setFixedSize(PlayerWidgetPrivate::WIDTH_TITLE_LABEL
+                                      , PlayerWidgetPrivate::HEIGHT_PLAYER_WIDGET);
 
     const QPixmap pixmap(Res::TrayIconSVG);
     d->m_labelLogo = new Panel::RotatingLabel(pixmap
-                                              , QSize(CIRCLE_LOGO_SIZE
-                                                  , CIRCLE_LOGO_SIZE));
+                                              , QSize(PlayerWidgetPrivate::CIRCLE_LOGO_SIZE
+                                                  , PlayerWidgetPrivate::CIRCLE_LOGO_SIZE));
     d->m_labelLogo->initRotation(0, 360, 15000, -1);
     d->m_labelLogo->setLabelMode(Panel::RotatingLabel::NoRotating);
-    d->m_labelLogo->setFixedSize(CIRCLE_LOGO_SIZE + 5, CIRCLE_LOGO_SIZE + 5);
+    d->m_labelLogo->setFixedSize(PlayerWidgetPrivate::CIRCLE_LOGO_SIZE + 5
+                                 , PlayerWidgetPrivate::CIRCLE_LOGO_SIZE + 5);
 
     d->m_leftLayout = new QHBoxLayout;
     d->m_leftLayout->addWidget(d->m_labelLogo);
@@ -228,10 +237,13 @@ void PlayerWidget::createConnections()
             , this
             , [this]() { Q_EMIT signalSetMute(); });
 
-    connect(d->m_labelLogo, &Panel::RotatingLabel::signalClicked, this, [this]
-    {
-        Q_EMIT signalShowLyricWidget();
-    });
+    connect(d->m_labelLogo
+            , &Panel::RotatingLabel::signalClicked
+            , this
+            , [this]
+            {
+                Q_EMIT signalShowLyricWidget();
+            });
 }
 
 void PlayerWidget::setPlayButtonIcon(const bool playStatus)

@@ -11,12 +11,6 @@ class PlayerWidget final : public QWidget {
     Q_OBJECT
 
 public:
-    constexpr static int CIRCLE_LOGO_SIZE = 45;
-
-    constexpr static int HEIGHT_PLAYER_WIDGET = 45;
-
-    constexpr static int WIDTH_TITLE_LABEL = 120;
-
     explicit PlayerWidget(QWidget* parent = nullptr);
 
     ~PlayerWidget() override;

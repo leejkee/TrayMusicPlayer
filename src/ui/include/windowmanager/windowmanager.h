@@ -36,6 +36,8 @@ Q_SIGNALS:
 
     void signalSetVolume(int);
 
+    void signalMuteTg();
+
     void signalSetPlayerPosition(qint64);
 
     void signalChangePlayMode();
