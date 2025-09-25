@@ -19,8 +19,6 @@ public:
 
     void setSliderVolumeValue(int v);
 
-    void setSliderStyleSheet(const QString& styleSheet);
-
 protected:
     QSize sizeHint() const override;
 

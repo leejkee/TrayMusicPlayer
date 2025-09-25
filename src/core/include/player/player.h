@@ -46,6 +46,8 @@ Q_SIGNALS:
 
     void signalMuteChanged(bool);
 
+    void signalVolumeChanged(float x) const;
+
 private:
     QMediaPlayer* m_player;
     QAudioOutput* m_output;

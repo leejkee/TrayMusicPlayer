@@ -27,6 +27,8 @@ inline const auto PLAY_MODE_QSS =
         QStringLiteral(":/qss/MusicListButton/ButtonPlayMode.qss");
 inline const auto PROGRESS_BAR_QSS =
         QStringLiteral(":/qss/Slider/ProgressBar.qss");
+inline const auto VOLUME_CONTROLLER_QSS =
+        QStringLiteral(":/qss/Slider/VolumeController.qss");
 inline const auto CONFIG_ACTION_QSS =
         QStringLiteral(":/qss/MusicListButton/ButtonAction.qss");
 inline const auto VIEW_SPLITTER_QSS =

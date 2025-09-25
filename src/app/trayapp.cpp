@@ -251,6 +251,8 @@ void TrayApp::connectCoreWindow()
             , &Core::CoreService::signalMuteChanged
             , d->m_windowManager
             , &Ui::WindowManager::updateMuteIcon);
+
+        connect(d->m_core, &Core::CoreService::signalVolumeChanged, d->m_windowManager, &Ui::WindowManager::updateVolumeValue);
 }
 
 void TrayApp::closeEvent(QCloseEvent* event)

@@ -5,7 +5,7 @@
 #include <stylebutton/stylebutton.h>
 #include <traysvg.h>
 #include <trayqss.h>
-#include <QSlider>
+#include <styleslider/styleslider.h>
 #include <QVBoxLayout>
 #include <QLabel>
 
@@ -14,7 +14,7 @@ namespace Tray::Ui::Panel
 class VolumeControllerPrivate
 {
 public:
-    QSlider* m_sliderV;
+    StyleSlider* m_sliderV;
     QLabel* m_labelVolume;
     StyleButton* m_buttonMute;
 };
@@ -22,9 +22,10 @@ public:
 VolumeController::VolumeController(QWidget* parent)
     : QWidget(parent), d(std::make_unique<VolumeControllerPrivate>())
 {
-    d->m_sliderV = new QSlider(this);
+    d->m_sliderV = new StyleSlider(Qt::Vertical, this);
     d->m_sliderV->setRange(0, 100);
     d->m_sliderV->setSingleStep(5);
+    d->m_sliderV->setStyleSheet(Res::readQss(Res::VOLUME_CONTROLLER_QSS));
 
     QHBoxLayout* hSliderLayout = new QHBoxLayout;
     hSliderLayout->addStretch();
@@ -49,12 +50,9 @@ VolumeController::VolumeController(QWidget* parent)
     layout->setSpacing(0);
     setLayout(layout);
     setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+
     connect(d->m_sliderV
-            , &QSlider::sliderMoved
-            , this
-            , &VolumeController::setLabelVolume);
-    connect(d->m_sliderV
-            , &QSlider::sliderMoved
+            , &StyleSlider::signalValueChanged
             , this
             , [this](const int v)
             {
@@ -96,8 +94,4 @@ QSize VolumeController::sizeHint() const
     return {30, 120};
 }
 
-void VolumeController::setSliderStyleSheet(const QString& styleSheet)
-{
-    d->m_sliderV->setStyleSheet(styleSheet);
-}
 }

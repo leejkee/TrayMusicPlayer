@@ -8,6 +8,7 @@
    <file>qss/MusicListButton/ButtonSquare.qss</file>
    <file>qss/ListView/PlayListView.qss</file>
    <file>qss/Slider/QSlider.qss</file>
+   <file>qss/Slider/VolumeController.qss</file>
    <file>qss/Slider/ProgressBar.qss</file>
    <file>qss/QMenu/VolumeMenu.qss</file>
    <file>qss/MusicListButton/ButtonAction.qss</file>

@@ -9,7 +9,6 @@ namespace Tray::Ui::Panel
 StyleSlider::StyleSlider(const Qt::Orientation orientation, QWidget* parent)
     : QSlider(orientation, parent)
 {
-    setStyleSheet(Res::readQss(Res::PROGRESS_BAR_QSS));
     connect(this
             , &QSlider::valueChanged
             , this

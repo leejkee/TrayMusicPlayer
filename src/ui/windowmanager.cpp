@@ -330,14 +330,19 @@ void WindowManager::handleLocalPathSettingsUpdated(
     d->m_settingsWidget->updateLocalPaths(localPaths);
 }
 
-void WindowManager::updateLyric(const QStringList& lyricText
+void WindowManager::updateLyric(const QString& musicTitle, const QStringList& lyricText
                                 , const QList<int64_t>& lyricsTiming)
 {
-    d->m_lyricWidget->updateLyric(lyricText, lyricsTiming);
+    d->m_lyricWidget->updateLyric(musicTitle, lyricText, lyricsTiming);
 }
 
 void WindowManager::updateLyricLineIndex(const int index)
 {
     d->m_lyricWidget->updateCurrentTiming(index);
+}
+
+void WindowManager::updateVolumeValue(const float volume)
+{
+    d->m_playerWidget->updateVolumeValue(volume);
 }
 }

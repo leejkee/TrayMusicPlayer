@@ -49,6 +49,7 @@ void Player::setMusicSource(const QString& source) const
 void Player::setVolume(const float v) const
 {
     m_output->setVolume(v);
+    Q_EMIT signalVolumeChanged(m_output->volume());
 }
 
 void Player::playTg()

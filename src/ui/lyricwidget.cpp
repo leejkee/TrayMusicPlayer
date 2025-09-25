@@ -1,11 +1,13 @@
 //
 // Created by 31305 on 2025/7/16.
 //
+#include <QLabel>
 #include <lyricwidget/lyricwidget.h>
 #include <lyricwidget/lyricdelegate.h>
 #include <lyricwidget/lyricmodel.h>
 #include <stylebutton/stylebutton.h>
 #include <log/log.h>
+#include <traysvg.h>
 #include <QListView>
 #include <QVBoxLayout>
 
@@ -18,7 +20,10 @@ public:
     LyricModel* m_lyricModel;
     LyricDelegate* m_viewDelegate;
     QVBoxLayout* m_layout;
+    QLabel* m_titleLabel;
     Panel::StyleButton* m_backButton;
+
+    inline static auto INFO_NO_LRC = QStringLiteral("Lyric file not found: ");
 };
 
 LyricWidget::LyricWidget(QWidget* parent)
@@ -32,16 +37,16 @@ LyricWidget::LyricWidget(QWidget* parent)
     d->m_listView->setItemDelegate(d->m_viewDelegate);
     d->m_listView->setModel(d->m_lyricModel);
     d->m_layout = new QVBoxLayout;
-    d->m_backButton = new Panel::StyleButton({"↓"}, {30, 30}, {}, {}, this);
-    auto* spaceH = new QSpacerItem(-1
-                                   , 0
-                                   , QSizePolicy::Expanding
-                                   , QSizePolicy::Minimum);
+    d->m_backButton = new Panel::StyleButton({}, {30, 30}, Res::DownSVG, {}, this);
+    d->m_titleLabel = new QLabel(this);
+    d->m_titleLabel->setAlignment(Qt::AlignCenter);
+    d->m_titleLabel->setFixedHeight(30);
+
     auto* topLayout = new QHBoxLayout;
     topLayout->addWidget(d->m_backButton);
-    topLayout->addItem(spaceH);
+    topLayout->addWidget(d->m_titleLabel);
     d->m_layout->setContentsMargins(0, 0, 0, 0);
-    d->m_layout->setSpacing(0);
+    d->m_layout->setSpacing(2);
     d->m_layout->addItem(topLayout);
     d->m_layout->addWidget(d->m_listView);
     setLayout(d->m_layout);
@@ -67,12 +72,19 @@ void LyricWidget::updateCurrentTiming(const int index)
     }
 }
 
-void LyricWidget::updateLyric(const QStringList& lyricText
+void LyricWidget::updateLyric(const QString& musicTitle, const QStringList& lyricText
                               , const QList<int64_t>& lyricsTiming)
 {
+    QString title = musicTitle;
+    if (lyricText.isEmpty())
+    {
+        title = LyricWidgetPrivate::INFO_NO_LRC + title;
+    }
+    d->m_titleLabel->setText(title);
     d->m_lyricModel->setLyric(lyricText, lyricsTiming);
     updateCurrentTiming(0);
 }
+
 
 LyricWidget::~LyricWidget() = default;
 }

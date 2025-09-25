@@ -34,5 +34,6 @@ public Q_SLOTS:
 private:
     std::unique_ptr<LyricServicePrivate> d;
     static bool findLRC(const QString& musicPath, QString& lrcPath);
+    static int findPositionIndex(const QList<int64_t>& lrcTiming, int64_t value);
 };
 }

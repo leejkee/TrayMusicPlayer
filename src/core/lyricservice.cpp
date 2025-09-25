@@ -6,6 +6,8 @@
 #include <QFile>
 #include <algorithm>
 
+#include "log/log.h"
+
 namespace Tray::Core
 {
 class LyricServicePrivate
@@ -65,6 +67,7 @@ bool LyricService::findLRC(const QString& musicPath, QString& lrcPath)
     {
         return true;
     }
+    LOG_ERROR(QString("File [%1] doesn't exist.").arg(lrcPath));
     return false;
 }
 
@@ -82,19 +85,23 @@ void LyricService::handlePlayerPositionChange(const qint64 pos)
     }
     else
     {
-        auto findPositionIndex = [](const QList<int64_t>& lrcTiming
-                                    , const int64_t value)
-        {
-            const auto it = std::upper_bound(lrcTiming.begin()
-                                             , lrcTiming.end()
-                                             , value);
-            return static_cast<int>(std::distance(lrcTiming.begin(), it)) - 1;
-        };
         d->m_lyricLineIndex = findPositionIndex(d->m_lrcTiming, pos);
     }
     Q_EMIT signalTimingUpdated(d->m_lyricLineIndex);
 }
 
+int LyricService::findPositionIndex(const QList<int64_t>& lrcTiming
+                                    , const int64_t value)
+{
+    const auto it = std::upper_bound(lrcTiming.begin()
+                                     , lrcTiming.end()
+                                     , value);
+    if (it == lrcTiming.begin())
+    {
+        return 0;
+    }
+    return static_cast<int>(std::distance(lrcTiming.begin(), it)) - 1;
+};
 
 QList<int64_t> LyricService::lrcTiming() const
 {

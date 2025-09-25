@@ -34,6 +34,8 @@ public Q_SLOTS:
 
     void updateMuteIcon(bool isMuted);
 
+    void updateVolumeValue(float volume);
+
 Q_SIGNALS:
     void signalNextMusic();
 

@@ -2,9 +2,10 @@
 // Created by cww on 25-4-1.
 //
 #include <progressbar/progressbar.h>
+#include <styleslider/styleslider.h>
+#include <trayqss.h>
 #include <QHBoxLayout>
 #include <QLabel>
-#include <styleslider/styleslider.h>
 
 namespace Tray::Ui::Panel
 {
@@ -38,6 +39,7 @@ ProgressBar::ProgressBar(QWidget* parent)
     d->m_labelRight->setText("00:00");
     setFixedWidth(ProgressBarPrivate::PROGRESS_BAR_WIDTH);
 
+    d->m_sliderP->setStyleSheet(Res::readQss(Res::PROGRESS_BAR_QSS));
     connect(d->m_sliderP
             , &StyleSlider::signalValueChanged
             , this

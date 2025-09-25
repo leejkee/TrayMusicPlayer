@@ -56,7 +56,7 @@ void CoreService::initConnections()
                     , music.m_title
                     , music.m_duration);
                 d->m_lyricService->updateLRC(music.m_path);
-                Q_EMIT signalLyricChanged(d->m_lyricService->lrcText()
+                Q_EMIT signalLyricChanged(music.m_title, d->m_lyricService->lrcText()
                                           , d->m_lyricService->lrcTiming());
             });
 
@@ -89,6 +89,12 @@ void CoreService::initConnections()
             {
                 Q_EMIT signalMuteChanged(b);
             });
+
+    connect(d->m_player, &Player::signalVolumeChanged, this, [this](const float v)
+    {
+        Q_EMIT signalVolumeChanged(v);
+    });
+
 
     /// User playlist Add/Remove
     // listCache --> settings

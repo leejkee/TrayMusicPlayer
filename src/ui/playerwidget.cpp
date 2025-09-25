@@ -332,4 +332,9 @@ void PlayerWidget::updateMuteIcon(const bool isMuted)
 {
     d->m_volumeController->setVolumeButtonIcon(isMuted);
 }
+
+void PlayerWidget::updateVolumeValue(const float volume)
+{
+    setSliderVolumeValue(volume * 100);
+}
 }

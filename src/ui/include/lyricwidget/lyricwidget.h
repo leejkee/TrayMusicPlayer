@@ -23,7 +23,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void updateCurrentTiming(int index);
 
-    void updateLyric(const QStringList& lyricText
+    void updateLyric(const QString& musicTitle, const QStringList& lyricText
                      , const QList<int64_t>& lyricsTiming);
 
 private:
