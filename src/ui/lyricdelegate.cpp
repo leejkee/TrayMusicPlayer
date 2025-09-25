@@ -42,6 +42,7 @@ void LyricDelegate::drawText(QPainter* painter
                             , const QString& text)
 {
     painter->save();
+    painter->setPen(QPen(color, Qt::SolidLine));
     painter->setFont(font);
     painter->drawText(rect, text, Qt::AlignVCenter | Qt::AlignHCenter);
     painter->restore();
@@ -62,13 +63,13 @@ void LyricDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option,
     }
 }
 
-void LyricDelegate::setCurrentLineIndex(int index)
+void LyricDelegate::setCurrentLineIndex(const int lineIndex)
 {
-    if (d->currentLineIndex == index)
+    if (d->currentLineIndex == lineIndex)
     {
         return;
     }
-    d->currentLineIndex = index;
+    d->currentLineIndex = lineIndex;
 }
 
 

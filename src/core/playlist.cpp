@@ -37,7 +37,7 @@ void Playlist::loadPlaylist(const QString& listKey
     d->m_currentListKey = listKey;
     d->m_musicList = playlist;
     Q_EMIT signalNotifyUiCurrentPlaylistKeyChanged(listKey);
-    LOG_INFO(QString("Load playlist %1 successfully").arg(listKey));
+    LOG_INFO(QString("Load playlist [%1] successfully").arg(listKey));
 }
 
 void Playlist::nextMusic()

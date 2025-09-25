@@ -16,7 +16,7 @@ class LyricDelegate final : public QStyledItemDelegate
 
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
-    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+    [[nodiscard]] QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
     static void drawText(QPainter* painter
                          , const QFont& font
@@ -27,7 +27,7 @@ class LyricDelegate final : public QStyledItemDelegate
 protected:
 
 public Q_SLOTS:
-    void setCurrentLineIndex(int line);
+    void setCurrentLineIndex(int lineIndex);
 
 private:
     std::unique_ptr<LyricDelegatePrivate> d;

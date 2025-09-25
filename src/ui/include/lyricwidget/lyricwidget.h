@@ -17,8 +17,6 @@ public:
     explicit LyricWidget(QWidget* parent = nullptr);
     ~LyricWidget() override;
 
-    [[nodiscard]] int currentIndex() const;
-
 Q_SIGNALS:
     void signalBackButtonClicked();
 

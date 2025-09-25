@@ -4,6 +4,7 @@
 #include <lyricservice/lyricservice.h>
 #include <lyricparser.h>
 #include <QFile>
+#include <algorithm>
 
 namespace Tray::Core
 {
@@ -74,12 +75,26 @@ void LyricService::handlePlayerPositionChange(const qint64 pos)
         return;
     }
 
-    if (pos >= d->m_lrcTiming.at(d->m_lyricLineIndex + 1))
+    if (pos >= d->m_lrcTiming.at(d->m_lyricLineIndex + 1) && pos < d->
+        m_lrcTiming.at(d->m_lyricLineIndex + 2))
     {
-        d->m_lyricLineIndex ++;
-        Q_EMIT signalTimingUpdated(d->m_lyricLineIndex);
+        d->m_lyricLineIndex++;
     }
+    else
+    {
+        auto findPositionIndex = [](const QList<int64_t>& lrcTiming
+                                    , const int64_t value)
+        {
+            const auto it = std::upper_bound(lrcTiming.begin()
+                                             , lrcTiming.end()
+                                             , value);
+            return static_cast<int>(std::distance(lrcTiming.begin(), it)) - 1;
+        };
+        d->m_lyricLineIndex = findPositionIndex(d->m_lrcTiming, pos);
+    }
+    Q_EMIT signalTimingUpdated(d->m_lyricLineIndex);
 }
+
 
 QList<int64_t> LyricService::lrcTiming() const
 {
@@ -90,5 +105,4 @@ QStringList LyricService::lrcText() const
 {
     return d->m_lyrics;
 }
-
 }
