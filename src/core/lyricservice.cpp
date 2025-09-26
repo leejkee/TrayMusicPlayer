@@ -73,21 +73,16 @@ bool LyricService::findLRC(const QString& musicPath, QString& lrcPath)
 
 void LyricService::handlePlayerPositionChange(const qint64 pos)
 {
-    if (d->m_lyricLineIndex > d->m_lyrics.length() - 2)
-    {
-        return;
-    }
-
-    if (pos >= d->m_lrcTiming.at(d->m_lyricLineIndex + 1) && pos < d->
+    if (d->m_lyricLineIndex < d->m_lrcTiming.length() - 2 && pos >= d->
+        m_lrcTiming.at(d->m_lyricLineIndex + 1) && pos < d->
         m_lrcTiming.at(d->m_lyricLineIndex + 2))
     {
-        d->m_lyricLineIndex++;
+        setLyricLineIndex(d->m_lyricLineIndex + 1);
     }
     else
     {
-        d->m_lyricLineIndex = findPositionIndex(d->m_lrcTiming, pos);
+        setLyricLineIndex(findPositionIndex(d->m_lrcTiming, pos));
     }
-    Q_EMIT signalTimingUpdated(d->m_lyricLineIndex);
 }
 
 int LyricService::findPositionIndex(const QList<int64_t>& lrcTiming
@@ -111,5 +106,21 @@ QList<int64_t> LyricService::lrcTiming() const
 QStringList LyricService::lrcText() const
 {
     return d->m_lyrics;
+}
+
+void LyricService::setLyricLineIndex(const int index)
+{
+    if (index > d->m_lrcTiming.length() - 1 || index < 0)
+    {
+        LOG_ERROR(QString("Invalid index [%1]").arg(index));
+    }
+    if (d->m_lyricLineIndex != index)
+    {
+        d->m_lyricLineIndex = index;
+        // LOG_INFO(QString("length[lrc] = %1, length[timing] = %2, lineIndex = %3"
+        //          ).arg(d->m_lyrics.length()).arg(d->m_lrcTiming.length()).arg(d
+        //              ->m_lyricLineIndex));
+        Q_EMIT signalTimingUpdated(d->m_lyricLineIndex);
+    }
 }
 }
