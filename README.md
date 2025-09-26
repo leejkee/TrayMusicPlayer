@@ -17,7 +17,7 @@
 
 ## 运行
 - 部分功能演示(Windows 11)  
-  ![show](docs/img/show-windows11.gif)
+  ![show](docs/img/windows-show.gif)
 
 - Linux(Arch linux with cosmic)  
   ![show_linux](docs/img/show-view-linux.png)  
@@ -112,6 +112,7 @@ cmake --build build
 
 ## ToDo
 - [x] 可扩展的设置页面嵌入
+- [x] 内置lrc歌词解析支持
 - [ ] 可贴边的浮动歌词支持
 - [ ] 更美观的主题切换支持
 - [ ] 更用户友好的随机数生成算法
