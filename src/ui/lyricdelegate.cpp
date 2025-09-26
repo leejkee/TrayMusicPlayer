@@ -72,6 +72,9 @@ void LyricDelegate::setCurrentLineIndex(const int lineIndex)
     d->currentLineIndex = lineIndex;
 }
 
-
+int LyricDelegate::currentLineIndex() const
+{
+    return d->currentLineIndex;
+}
 
 }

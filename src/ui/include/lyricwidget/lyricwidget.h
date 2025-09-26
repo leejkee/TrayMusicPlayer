@@ -28,5 +28,7 @@ public Q_SLOTS:
 
 private:
     std::unique_ptr<LyricWidgetPrivate> d;
+
+    void handleAutoScrollToCenter();
 };
 }

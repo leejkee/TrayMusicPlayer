@@ -18,13 +18,14 @@ class LyricDelegate final : public QStyledItemDelegate
 
     [[nodiscard]] QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
+    int currentLineIndex() const;
+
     static void drawText(QPainter* painter
                          , const QFont& font
                          , const QColor& color
                          , const QRect& rect
                          , const QString& text);
 
-protected:
 
 public Q_SLOTS:
     void setCurrentLineIndex(int lineIndex);
