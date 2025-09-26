@@ -3,7 +3,6 @@ cmake_minimum_required(VERSION 3.20)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_AUTOMOC ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 project(TrayMusicPlayer
@@ -13,7 +12,7 @@ project(TrayMusicPlayer
 )
 
 #option(TRAY_TEST "Build the Test module" ON)
-set(TRAY_TEST OFF)
+set(TRAY_TEST ON)
 
 find_package(Qt6 REQUIRED COMPONENTS
     Multimedia
@@ -23,11 +22,11 @@ find_package(Qt6 REQUIRED COMPONENTS
     SvgWidgets
     Test
 )
-add_subdirectory(tools)
-add_subdirectory(core)
-add_subdirectory(ui)
-add_subdirectory(app)
-add_subdirectory(resource)
+
+include(CTest)
+enable_testing()
+add_subdirectory(src)
+add_subdirectory(3rdParty)
 
 if (TRAY_TEST)
     add_subdirectory(test)

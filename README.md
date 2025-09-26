@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/img/tray-logo.svg" alt="Tray Core Module Icon" width="150">
+  <img src="docs/img/MusicPlayerLogo.svg" alt="Tray Core Module Icon" width="150">
   <h3 align="center">TrayMusicPlayer</h3>
   <p align="center">
     一个实现了播放列表管理并包含系统托盘的本地音乐播放器
@@ -17,7 +17,7 @@
 
 ## 运行
 - 部分功能演示(Windows 11)  
-  ![show](docs/img/show-windows11.gif)
+  ![show](docs/img/windows-show.gif)
 
 - Linux(Arch linux with cosmic)  
   ![show_linux](docs/img/show-view-linux.png)  
@@ -41,6 +41,7 @@
 Windows 推荐使用本项目提供的taglib依赖处理方案，将taglib作为`git submodule`加入工程，在`dependencies`目录中将其作为一个CMake工程进行处理。  
 因为taglib官方仅提供CMake install之后将其作为CMake子模块加入项目
 - tips: [taglib官方编译教程](https://github.com/taglib/taglib/blob/master/INSTALL.md)
+- Windows平台上，你需要将qt提供的c++编译器加入**path**, 以便于编译器的identification可以通过，cmake需要使用测试程序来验证编译器，否则可能会无法开始编译
 
 #### 1. 使用Qt6官方提供的`MinGW-w64的g++工具链、CMake、 Ninja生成器`
 
@@ -111,6 +112,7 @@ cmake --build build
 
 ## ToDo
 - [x] 可扩展的设置页面嵌入
+- [x] 内置lrc歌词解析支持
 - [ ] 可贴边的浮动歌词支持
 - [ ] 更美观的主题切换支持
 - [ ] 更用户友好的随机数生成算法
