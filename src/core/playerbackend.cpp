@@ -7,7 +7,6 @@
 #include <QMediaPlayer>
 #include <QAudioOutput>
 
-
 namespace Tray::Core
 {
 PlayerBackend::PlayerBackend(QObject* parent)
@@ -77,17 +76,14 @@ void PlayerBackend::setVolume(const float v) const
 
 void PlayerBackend::playTg()
 {
-    const bool isPlaying = m_mediaPlayer->isPlaying();
-    if (isPlaying)
+    if (m_mediaPlayer->isPlaying())
     {
-        m_mediaPlayer->pause();
+        pause();
     }
     else
     {
-        m_mediaPlayer->play();
+        play();
     }
-    LOG_INFO(QString("playing status changed: %1").arg(!isPlaying));
-    Q_EMIT signalPlayingChanged(!isPlaying);
 }
 
 void PlayerBackend::pause()
