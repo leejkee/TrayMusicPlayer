@@ -5,11 +5,9 @@
 #include <musicmetadata.h>
 #include <QObject>
 #include <QVector>
-#include <memory>
 
 namespace Tray::Core
 {
-class PlaylistPrivate;
 class Playlist final : public QObject
 {
     Q_OBJECT
@@ -41,13 +39,15 @@ public:
     }
 
     void loadPlaylist(const QString& listKey
-                       , const QList<MusicMetaData>& playlist);
+                      , std::shared_ptr<QList<MusicMetaData>> playlist);
 
-    void nextMusic();
+    qsizetype nextMusic();
 
-    void preMusic();
+    qsizetype preMusic();
 
-    [[nodiscard]] QString getCurrentMusicPath() const;
+    MusicMetaData getMusic(qsizetype index) const;
+
+    // [[nodiscard]] QString getCurrentMusicPath() const;
 
     [[nodiscard]] qsizetype getCurrentMusicIndex() const;
 
@@ -60,18 +60,15 @@ public:
     [[nodiscard]] MusicMetaData currentMusic() const;
 
 Q_SIGNALS:
-    void signalCurrentMusicChanged(int index, const Tray::Core::MusicMetaData& music);
-
     void signalPlayModeChanged(int);
 
     void signalNotifyUiCurrentPlaylistKeyChanged(const QString& key);
 
-public Q_SLOTS:
-    void handleCurrentListChanged(const QString& listKey
-                           , const QList<Tray::Core::MusicMetaData>& playlist);
-
 private:
-    std::unique_ptr<PlaylistPrivate> d;
+    qsizetype m_index;
+    PlayMode m_playMode;
+    std::shared_ptr<QList<MusicMetaData> > m_musicList;
+    QString m_currentListKey;
 
     [[nodiscard]] qsizetype getNextMusicIndex() const;
 

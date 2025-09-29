@@ -22,7 +22,7 @@ Q_SIGNALS:
     void signalProgressValueChanged(int value);
 
 public Q_SLOTS:
-    void updateLabelR(int seconds) const;
+    void updateLabelR(qint64 ms) const;
 
     /// \brief Updates the position of the progress slider and the timestamp label.
     ///

@@ -3,10 +3,9 @@
 //
 #include <lyricservice/lyricservice.h>
 #include <lyricparser.h>
+#include <log/log.h>
 #include <QFile>
 #include <algorithm>
-
-#include "log/log.h"
 
 namespace Tray::Core
 {

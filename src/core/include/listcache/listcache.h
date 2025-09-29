@@ -6,7 +6,7 @@
 #include <musicmetadata.h>
 #include <QObject>
 #include <QHash>
-
+#include <functional>
 
 namespace Tray::Core
 {
@@ -22,24 +22,23 @@ public:
               , const QStringList& userListKeys
               , QObject* parent = nullptr);
 
-public Q_SLOTS:
-    void init(const QStringList& localDir, const QStringList& userListKeys);
-
     /// Retrieves the cached list of songs by list name.
     /// @param listName The key/name of the song list.
     /// @return The list of songs associated with the given name,
     ///         or an empty list if not found.
-    [[nodiscard]] QList<Tray::Core::MusicMetaData> findList(const QString& listName) const;
+    [[nodiscard]] std::shared_ptr<QList<MusicMetaData>> getPlaylist(
+        const QString& listName) const;
 
+public Q_SLOTS:
     /// Adds or appends a user-defined playlist to the cache.
     /// @param userListKeys The keys of user playlist
     /// This function will read playlists from Database
     void initUserPlaylists(const QStringList& userListKeys);
 
     /// Retrieves the title list of songs by list name
-    /// @param name The name of the song list
+    /// @param key The name of the song list
     /// @return The title list of songs associated with the given name, using findList()
-    [[nodiscard]] QStringList getMusicTitleList(const QString& name) const;
+    [[nodiscard]] QStringList getMusicTitleList(const QString& key) const;
 
     /// Loads local music files from the given directories into the cache.
     /// @param localDir A list of directories to scan for music files.
@@ -67,12 +66,11 @@ public Q_SLOTS:
 
     void respondMusicTitleList(const QString& key);
 
-    void handleSwitchPlaylistAndPlayIndex(const QString& key, int index);
-
 Q_SIGNALS:
     // emitted when cache modified
-    void signalNotifyPlayListCacheModified(const QString& key
-                                           , const QList<Tray::Core::MusicMetaData>& list);
+    void signalPlaylistCacheModified(const QString& key
+                                     , std::shared_ptr<QList<MusicMetaData>>
+                                     list);
 
     void signalNotifyUiCacheModified(const QString& key
                                      , const QStringList& list);
@@ -84,24 +82,15 @@ Q_SIGNALS:
 
     void signalUserPlaylistDeleted(const QString& key);
 
-    // void signalInitCompleted();
-
-    void signalRespondPlayListSwitchAndPlayIndex(
-        const QString& key
-        , const QList<Tray::Core::MusicMetaData>& list
-        , int index);
-
 private:
     static inline const QStringList MUSIC_FILTERS = {
         QStringLiteral("*.mp3")
         , QStringLiteral("*.flac")
     };
 
-    /// @brief Sets the playlist associated with a given key.
-    /// @param key The unique key identifying the playlist to be updated.
-    /// @param list The vector of Song objects that will replace the current playlist content.
-    void setList(const QString& key, const QList<MusicMetaData>& list);
+    QHash<QString, std::shared_ptr<QList<MusicMetaData>>> m_listCache;
 
-    QHash<QString, QList<MusicMetaData>> m_listCache;
+    void modifyCache(const QString& key
+                     , std::function<void(QList<MusicMetaData>&)> f);
 };
 }

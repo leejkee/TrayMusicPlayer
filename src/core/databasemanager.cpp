@@ -90,8 +90,7 @@ bool DatabaseManager::createTable(const QString& tableName)
                                 "%5 %6 %7,"
                                 "%8 %6 %7,"
                                 "%9 %6 %7,"
-                                "%10 %6 %7,"
-                                "%11 %3 %7)")
+                                "%10 %6 %7)")
            .arg(tableName
                 , FIELD_ID
                 , TYPE_INTEGER
@@ -101,8 +100,7 @@ bool DatabaseManager::createTable(const QString& tableName)
                 , CONSTRAINT_NOTNULL
                 , FIELD_ABSOLUTE_PATH
                 , FIELD_MUSIC_NAME
-                , FIELD_ARTIST
-                , FIELD_DURATION);
+                , FIELD_ARTIST);
 
     if (!query.exec(sql))
     {
@@ -141,19 +139,17 @@ bool DatabaseManager::insertSong(const QString& tableName
 
     QSqlQuery query(m_databaseConnection);
     query.
-            prepare(QString("INSERT INTO %1 (%2, %3, %4, %5, %6) VALUES (?, ?, ?, ?, ?)")
+            prepare(QString("INSERT INTO %1 (%2, %3, %4, %5) VALUES (?, ?, ?, ?)")
                    .arg(tableName
                         , FIELD_FULL_NAME
                         , FIELD_ABSOLUTE_PATH
                         , FIELD_MUSIC_NAME
-                        , FIELD_ARTIST
-                        , FIELD_DURATION));
+                        , FIELD_ARTIST));
 
     query.addBindValue(song.m_title);
     query.addBindValue(song.m_path);
     query.addBindValue(song.m_name);
     query.addBindValue(song.m_artist);
-    query.addBindValue(song.m_duration);
 
     if (!query.exec())
     {
@@ -196,12 +192,11 @@ QList<MusicMetaData> DatabaseManager::readAllSongsFromTable(
     }
 
     QSqlQuery query(m_databaseConnection);
-    const QString sql = QString("SELECT %1, %2, %3, %4, %5 FROM %6")
+    const QString sql = QString("SELECT %1, %2, %3, %4 FROM %5")
            .arg(FIELD_FULL_NAME
                 , FIELD_ABSOLUTE_PATH
                 , FIELD_MUSIC_NAME
                 , FIELD_ARTIST
-                , FIELD_DURATION
                 , tableName);
 
     if (!query.exec(sql))
@@ -218,7 +213,6 @@ QList<MusicMetaData> DatabaseManager::readAllSongsFromTable(
         song.m_path = query.value(rec.indexOf(FIELD_ABSOLUTE_PATH)).toString();
         song.m_name = query.value(rec.indexOf(FIELD_MUSIC_NAME)).toString();
         song.m_artist = query.value(rec.indexOf(FIELD_ARTIST)).toString();
-        song.m_duration = query.value(rec.indexOf(FIELD_DURATION)).toInt();
         result.append(song);
     }
     return result;

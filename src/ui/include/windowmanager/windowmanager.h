@@ -59,7 +59,7 @@ Q_SIGNALS:
     void signalUserPlaylistButtonRemoved(const QString&);
 
 public Q_SLOTS:
-    void updateCurrentMusic(int index, const QString& name, int duration);
+    void updateCurrentMusic(int index, const QString& name);
 
     void updatePlayingStatus(bool b);
 
@@ -91,6 +91,8 @@ public Q_SLOTS:
     void updateLyricLineIndex(int index);
 
     void updateVolumeValue(float volume);
+
+    void updateMusicDuration(qint64 duration);
 
 private:
     std::unique_ptr<WindowManagerPrivate> d;

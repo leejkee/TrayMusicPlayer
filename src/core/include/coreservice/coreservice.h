@@ -60,11 +60,9 @@ Q_SIGNALS:
      *        display the song title, and set duration for progress tracking.
      * @param index The index of the currently playing song within its playlist.
      * @param listKey The identifier (key) of the current playlist.
-     * @param duration The total duration of the current song in milliseconds.
      */
-    void signalCurrentMusicSourceChanged(int index
-                                         , const QString& listKey
-                                         , int duration);
+    void signalCurrentMusicSourceChanged(qsizetype index
+                                         , const QString& listKey);
 
     /*!
      * @brief Emitted when the playback status changes, to notify the UI about play/pause state.
@@ -130,6 +128,8 @@ Q_SIGNALS:
     void signalMuteChanged(bool b);
 
     void signalVolumeChanged(float volume);
+
+    void signalDurationChanged(qint64 duration);
 
 public Q_SLOTS:
     /* Player Controller Begin */
@@ -253,6 +253,11 @@ public Q_SLOTS:
      * @param path The directory path to remove from scanning.
      */
     void removeLocalMusicPath(const QString& path);
+
+private Q_SLOTS:
+    void handleMusicChanged(qsizetype index
+                            , const QString& musicTitle
+                            , const QString& musicPath);
 
 private:
     std::unique_ptr<CoreServicePrivate> d;

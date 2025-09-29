@@ -171,7 +171,7 @@ void PlayerWidget::updateMusicName(const QString& songName)
     d->m_labelMusicName->setMarqueeText(formattedText);
 }
 
-void PlayerWidget::updateMusicDuration(const int s)
+void PlayerWidget::updateMusicDuration(const qint64 s)
 {
     d->m_progressWidget->updateLabelR(s);
 }
