@@ -2,21 +2,19 @@
 // Created by 31305 on 2025/8/26.
 //
 #include <coreservice/coreservice.h>
-#include <player/player.h>
-#include <playlist/playlist.h>
+#include <playerbackend/playerbackend.h>
 #include <listcache/listcache.h>
 #include <settings/settings.h>
 #include <log/log.h>
 #include <lyricservice/lyricservice.h>
-#include "musicmetadata.h"
 
 namespace Tray::Core
 {
 class CoreServicePrivate
 {
 public:
-    Player* m_player;
-    Playlist* m_playlist;
+    PlayerBackend* m_playerBackend;
+    // Playlist* m_playlist;
     Settings* m_settings;
     ListCache* m_listCache;
     LyricService* m_lyricService;
@@ -27,8 +25,7 @@ CoreService::CoreService(QObject* parent)
       d(std::make_unique<CoreServicePrivate>())
 {
     d->m_settings = new Settings(this);
-    d->m_player = new Player(this);
-    d->m_playlist = new Playlist(this);
+    d->m_playerBackend = new PlayerBackend(this);
     d->m_lyricService = new LyricService(this);
     d->m_listCache = new ListCache(d->m_settings->getLocalMusicDirectories()
                                    , d->m_settings->getKeysUserPlaylist()
@@ -39,29 +36,21 @@ CoreService::CoreService(QObject* parent)
 
 void CoreService::initConnections()
 {
-    connect(d->m_player
-            , &Player::signalPlayingChanged
+    connect(d->m_playerBackend
+            , &PlayerBackend::signalPlayingChanged
             , this
             , [this](const bool b)
             {
                 Q_EMIT signalPlayingStatusChanged(b);
             });
 
-    connect(d->m_playlist
-            , &Playlist::signalCurrentMusicChanged
+    connect(d->m_playerBackend
+            , &PlayerBackend::signalCurrentMusicChanged
             , this
-            , [this](const int index, const MusicMetaData& music)
-            {
-                Q_EMIT signalCurrentMusicSourceChanged(index
-                    , music.m_title
-                    , music.m_duration);
-                d->m_lyricService->updateLRC(music.m_path);
-                Q_EMIT signalLyricChanged(music.m_title, d->m_lyricService->lrcText()
-                                          , d->m_lyricService->lrcTiming());
-            });
+            , &CoreService::handleMusicChanged);
 
-    connect(d->m_player
-            , &Player::signalPositionChanged
+    connect(d->m_playerBackend
+            , &PlayerBackend::signalPositionChanged
             , this
             , [this](const qint64 pos)
             {
@@ -69,31 +58,27 @@ void CoreService::initConnections()
                 Q_EMIT signalPlayerPositionChanged(pos);
             });
 
-    connect(d->m_playlist
-            , &Playlist::signalPlayModeChanged
-            , this
-            , [this](const int mode)
-            {
-                Q_EMIT signalPlayModeChanged(mode);
-            });
 
-    connect(d->m_player
-            , &Player::signalMusicOver
+    connect(d->m_playerBackend
+            , &PlayerBackend::signalMusicOver
             , this
             , &CoreService::nextMusic);
 
-    connect(d->m_player
-            , &Player::signalMuteChanged
+    connect(d->m_playerBackend
+            , &PlayerBackend::signalMuteChanged
             , this
             , [this](const bool b)
             {
                 Q_EMIT signalMuteChanged(b);
             });
 
-    connect(d->m_player, &Player::signalVolumeChanged, this, [this](const float v)
-    {
-        Q_EMIT signalVolumeChanged(v);
-    });
+    connect(d->m_playerBackend
+            , &PlayerBackend::signalVolumeChanged
+            , this
+            , [this](const float v)
+            {
+                Q_EMIT signalVolumeChanged(v);
+            });
 
 
     /// User playlist Add/Remove
@@ -137,9 +122,9 @@ void CoreService::initConnections()
 
     /// List cache changed
     connect(d->m_listCache
-            , &ListCache::signalNotifyPlayListCacheModified
-            , d->m_playlist
-            , &Playlist::handleCurrentListChanged);
+            , &ListCache::signalPlaylistCacheModified
+            , d->m_playerBackend
+            , &PlayerBackend::handlePlaylistCacheChanged);
 
     connect(d->m_listCache
             , &ListCache::signalNotifyUiCacheModified
@@ -167,8 +152,8 @@ void CoreService::initConnections()
             });
     /// Local paths
 
-    connect(d->m_playlist
-            , &Playlist::signalNotifyUiCurrentPlaylistKeyChanged
+    connect(d->m_playerBackend
+            , &PlayerBackend::signalCurrentPlaylistKeyChanged
             , this
             , [this](const QString& key)
             {
@@ -182,6 +167,14 @@ void CoreService::initConnections()
             {
                 Q_EMIT signalLyricLineIndexChanged(index);
             });
+
+    connect(d->m_playerBackend
+            , &PlayerBackend::signalDurationChanged
+            , this
+            , [this](const qint64 duration)
+            {
+                Q_EMIT signalDurationChanged(duration);
+            });
 }
 
 CoreService::~CoreService() = default;
@@ -194,49 +187,49 @@ CoreService::~CoreService() = default;
 // 1) Player volume control
 void CoreService::setVolume(const int volume)
 {
-    d->m_player->setVolume(static_cast<float>(volume) / 100);
+    d->m_playerBackend->setVolume(static_cast<float>(volume) / 100);
 }
 
 // 2) Player playback control
 void CoreService::playToggle()
 {
-    d->m_player->playTg();
+    d->m_playerBackend->playTg();
 }
 
 // 3) Start playback
 void CoreService::play()
 {
-    d->m_player->play();
+    d->m_playerBackend->play();
 }
 
 // 4) Pause playback
 void CoreService::pause()
 {
-    d->m_player->pause();
+    d->m_playerBackend->pause();
 }
 
 // 5) Mute controls
 void CoreService::muteToggle()
 {
-    d->m_player->muteTg();
+    d->m_playerBackend->muteTg();
 }
 
 // 6) Mute on
 void CoreService::muteOn()
 {
-    d->m_player->muteOn();
+    d->m_playerBackend->muteOn();
 }
 
 // 7) Mute off
 void CoreService::muteOff()
 {
-    d->m_player->muteOff();
+    d->m_playerBackend->muteOff();
 }
 
 // 8) Position control
 void CoreService::setPlayerPosition(const qint64 position)
 {
-    d->m_player->setMusicPosition(position);
+    d->m_playerBackend->setMusicPosition(position);
 }
 
 /*!
@@ -248,39 +241,31 @@ void CoreService::setPlayerPosition(const qint64 position)
 void CoreService::handlePlaylistItemSelection(const QString& listKey
                                               , const int index)
 {
-    // check playlist ?
-    if (d->m_playlist->getListKey() != listKey)
-    {
-        // yes, switch to new playlist
-        LOG_INFO("Current list is not [" + listKey + "], switch to it");
-        d->m_listCache->handleSwitchPlaylistAndPlayIndex(listKey, index);
-        d->m_playlist->loadPlaylist(listKey, d->m_listCache->findList(listKey));
-    }
-    d->m_playlist->setCurrentMusicIndex(index);
-    d->m_player->setMusicSource(d->m_playlist->getCurrentMusicPath());
-    play();
+    d->m_playerBackend->handlePlaylistItemSelection(listKey
+                                                    , d->m_listCache->
+                                                    getPlaylist(listKey)
+                                                    , index);
+    d->m_playerBackend->play();
 }
 
 // 10) Next track
 void CoreService::nextMusic()
 {
-    d->m_playlist->nextMusic();
-    d->m_player->setMusicSource(d->m_playlist->getCurrentMusicPath());
-    play();
+    d->m_playerBackend->nextMusic();
+    d->m_playerBackend->play();
 }
 
 // 11) Previous track
 void CoreService::preMusic()
 {
-    d->m_playlist->preMusic();
-    d->m_player->setMusicSource(d->m_playlist->getCurrentMusicPath());
-    play();
+    d->m_playerBackend->preMusic();
+    d->m_playerBackend->play();
 }
 
 // 12) Playback mode cycling
 void CoreService::changePlayMode()
 {
-    d->m_playlist->changePlayMode();
+    d->m_playerBackend->changePlayMode();
 }
 
 // 13) Playlist display
@@ -362,5 +347,16 @@ void CoreService::appendLocalMusicPath(const QString& path)
 void CoreService::removeLocalMusicPath(const QString& path)
 {
     d->m_settings->removeLocalMusicDirectory(path);
+}
+
+void CoreService::handleMusicChanged(const qsizetype index
+                                     , const QString& musicTitle
+                                     , const QString& musicPath)
+{
+    Q_EMIT signalCurrentMusicSourceChanged(index, musicTitle);
+    d->m_lyricService->updateLRC(musicPath);
+    Q_EMIT signalLyricChanged(musicTitle
+                              , d->m_lyricService->lrcText()
+                              , d->m_lyricService->lrcTiming());
 }
 }

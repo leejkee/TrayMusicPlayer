@@ -38,7 +38,6 @@ private:
             QStringLiteral("absolutePath");
     static inline const auto FIELD_MUSIC_NAME = QStringLiteral("songName");
     static inline const auto FIELD_ARTIST = QStringLiteral("artist");
-    static inline const auto FIELD_DURATION = QStringLiteral("duration");
     static inline const auto TYPE_INTEGER = QStringLiteral("INTEGER");
     static inline const auto TYPE_TEXT = QStringLiteral("TEXT");
     static inline const auto CONSTRAINT_NOTNULL = QStringLiteral("NOT NULL");

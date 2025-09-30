@@ -58,10 +58,10 @@ void ProgressBar::updateSliderPosition(const qint64 position)
 }
 
 // update when music changed
-void ProgressBar::updateLabelR(const int seconds) const
+void ProgressBar::updateLabelR(const qint64 ms) const
 {
-    d->m_sliderP->setMaximum(seconds * 1000);
-    d->m_labelRight->setText(convertSecondsToTime(seconds));
+    d->m_sliderP->setMaximum(ms);
+    d->m_labelRight->setText(convertSecondsToTime(ms / 1000));
 }
 
 QString ProgressBar::convertSecondsToTime(const int seconds)
@@ -70,4 +70,5 @@ QString ProgressBar::convertSecondsToTime(const int seconds)
     const int s = seconds % 60;
     return QString::asprintf("%02d:%02d", m, s);
 }
+
 } // namespace Tray::Ui::Panel

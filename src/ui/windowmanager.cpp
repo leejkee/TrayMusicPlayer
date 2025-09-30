@@ -261,12 +261,11 @@ void WindowManager::initDefaultSettings(const WindowInitData& initData)
 
 
 void WindowManager::updateCurrentMusic(const int index
-                                       , const QString& name
-                                       , const int duration)
+                                       , const QString& name)
 {
     d->m_viewWidget->updateCurrentIndex(index);
     d->m_playerWidget->updateMusicName(name);
-    d->m_playerWidget->updateMusicDuration(duration);
+    // d->m_playerWidget->updateMusicDuration(duration);
 }
 
 void WindowManager::updatePlayingStatus(const bool b)
@@ -344,5 +343,10 @@ void WindowManager::updateLyricLineIndex(const int index)
 void WindowManager::updateVolumeValue(const float volume)
 {
     d->m_playerWidget->updateVolumeValue(volume);
+}
+
+void WindowManager::updateMusicDuration(const qint64 duration)
+{
+    d->m_playerWidget->updateMusicDuration(duration);
 }
 }

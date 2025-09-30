@@ -1,6 +1,3 @@
-[submodule "3rdParty/taglib"]
-	path = 3rdParty/taglib
-	url = https://github.com/taglib/taglib.git
 [submodule "3rdParty/lyric-parser"]
 	path = 3rdParty/lyric-parser
 	url = https://github.com/leejkee/lyric-parser

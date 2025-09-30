@@ -24,7 +24,7 @@ public Q_SLOTS:
 
     void updateMusicName(const QString& songName);
 
-    void updateMusicDuration(int s);
+    void updateMusicDuration(qint64 s);
 
     void setRotationStatus(bool);
 
