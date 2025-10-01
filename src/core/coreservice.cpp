@@ -20,7 +20,7 @@ public:
     LyricService* m_lyricService;
 };
 
-CoreService::CoreService(QObject* parent)
+CoreService::CoreService( QObject* parent)
     : QObject(parent),
       d(std::make_unique<CoreServicePrivate>())
 {

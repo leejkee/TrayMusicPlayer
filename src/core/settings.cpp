@@ -1,6 +1,5 @@
-#include <QCoreApplication>
+#include <QtWidgets/QApplication>
 #include <settings/settings.h>
-#include <include/common/trayconfig.h>
 #include <log/log.h>
 #include <utils/jsonutils.h>
 #include <QFile>
@@ -26,7 +25,8 @@ public:
 
             static inline const auto USER_LISTS = QStringLiteral("UserLists");
 
-            static inline const auto PRELOAD_LIST = QStringLiteral("PreloadList");
+            static inline const auto PRELOAD_LIST =
+                    QStringLiteral("PreloadList");
         };
 
         struct Audio
@@ -60,13 +60,15 @@ public:
         Playlist playlist;
     };
 
-#define SETTING_RELEASE 0
+#define SETTING_RELEASE 1
 
-    static inline const auto SETTINGS_DIRECTORY = QStringLiteral("settings/");
+    static inline const auto SETTINGS_DIRECTORY = QStringLiteral("/settings/");
 
     static inline const auto SETTINGS_FILE = QStringLiteral("init.json");
 
     static inline const auto LOCAL_KEY = QStringLiteral("Local");
+
+    static inline const SettingsData DEFAULT_SETTINGS{20, {LOCAL_KEY, {}, {}}};
 
     QString m_settingFilePath;
 
@@ -98,29 +100,33 @@ void Settings::parseJson()
 
     if (jsonObj.contains(SettingsPrivate::Key::PLAYLIST_KEY))
     {
-        const QJsonObject obj = jsonObj.value(SettingsPrivate::Key::PLAYLIST_KEY).
-                                        toObject();
+        const QJsonObject obj = jsonObj.
+                                value(SettingsPrivate::Key::PLAYLIST_KEY).
+                                toObject();
         d->m_data.playlist.musicPaths = Utils::getJsonValue<QStringList>(obj
-                                                  , SettingsPrivate::Key::Playlist::MUSIC_PATHS);
+            , SettingsPrivate::Key::Playlist::MUSIC_PATHS);
         d->m_data.playlist.userLists = Utils::getJsonValue<QStringList>(obj
-                                                 , SettingsPrivate::Key::Playlist::USER_LISTS);
+            , SettingsPrivate::Key::Playlist::USER_LISTS);
         d->m_data.playlist.preloadListKey = Utils::getJsonValue<QString>(obj
-                                                 , SettingsPrivate::Key::Playlist::PRELOAD_LIST);
+            , SettingsPrivate::Key::Playlist::PRELOAD_LIST);
     }
     else
     {
-        LOG_ERROR("The Key 'Music' is missing in init.json, using default value");
+        LOG_ERROR("The Key 'Music' is missing in init.json, using default value")
+        ;
     }
 
     if (jsonObj.contains(SettingsPrivate::Key::AUDIO_KEY))
     {
         const QJsonObject obj = jsonObj.value(SettingsPrivate::Key::AUDIO_KEY).
                                         toObject();
-        d->m_data.audio.defaultVolume = Utils::getJsonValue<int>(obj, SettingsPrivate::Key::Audio::DEFAULT_VOLUME);
+        d->m_data.audio.defaultVolume = Utils::getJsonValue<int>(obj
+            , SettingsPrivate::Key::Audio::DEFAULT_VOLUME);
     }
     else
     {
-        LOG_ERROR("The Key 'Audio' is missing in init.json, using default value");
+        LOG_ERROR("The Key 'Audio' is missing in init.json, using default value")
+        ;
     }
 }
 
@@ -129,10 +135,7 @@ bool Settings::initJsonFile(const QString& filePath) const
 {
     if (!QFile::exists(filePath))
     {
-        d->m_data.audio.defaultVolume = 20;
-        d->m_data.playlist.musicPaths.clear();
-        d->m_data.playlist.userLists.clear();
-        d->m_data.playlist.preloadListKey = SettingsPrivate::LOCAL_KEY;
+        d->m_data = SettingsPrivate::DEFAULT_SETTINGS;
         return saveToJson();
     }
     return true;
@@ -145,13 +148,16 @@ Settings::Settings(QObject* parent)
       d(std::make_unique<SettingsPrivate>())
 {
 #if SETTING_RELEASE
-    d->m_path = QCoreApplication::applicationDirPath() +
+    d->m_settingFilePath = QApplication::applicationDirPath() +
             SettingsPrivate::SETTINGS_DIRECTORY +
             SettingsPrivate::SETTINGS_FILE;
 #else
-    d->m_settingFilePath = PROJECT_PATH + SettingsPrivate::SETTINGS_DIRECTORY +
+    d->m_settingFilePath =
+            QString("C:/Users/31305/Documents/Workspace/TrayMusicPlayer") +
+            SettingsPrivate::SETTINGS_DIRECTORY +
             SettingsPrivate::SETTINGS_FILE;
 #endif
+    LOG_INFO(QString("Init.json: %1").arg(d->m_settingFilePath));
     if (!initJsonFile(d->m_settingFilePath))
     {
         LOG_ERROR("Failed to init Json file");
@@ -169,7 +175,8 @@ bool Settings::saveToJson() const
             QJsonArray::fromStringList(d->m_data.playlist.musicPaths);
     listJson[SettingsPrivate::Key::Playlist::USER_LISTS] =
             QJsonArray::fromStringList(d->m_data.playlist.userLists);
-    listJson[SettingsPrivate::Key::Playlist::PRELOAD_LIST] = QJsonValue(d->m_data.playlist.preloadListKey);
+    listJson[SettingsPrivate::Key::Playlist::PRELOAD_LIST] =
+            QJsonValue(d->m_data.playlist.preloadListKey);
     audioJson[SettingsPrivate::Key::Audio::DEFAULT_VOLUME] =
             QJsonValue(d->m_data.audio.defaultVolume);
 
@@ -282,7 +289,8 @@ void Settings::changeDefaultVolume(const int volume)
         }
         else
         {
-            LOG_ERROR(QString("Could not change default volume: %1").arg(volume));
+            LOG_ERROR(QString("Could not change default volume: %1").arg(volume
+                      ));
         }
     }
 }
@@ -302,5 +310,4 @@ void Settings::changePreloadKey(const QString& key)
         }
     }
 }
-
 }

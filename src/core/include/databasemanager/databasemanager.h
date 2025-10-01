@@ -45,8 +45,11 @@ private:
             QStringLiteral("PRIMARY KEY AUTOINCREMENT");
     static inline const auto DB_PATH = QStringLiteral("data/music.db");
 
+
     QSqlDatabase m_databaseConnection;
+
     QString m_connectionName;
+
 
     static bool isValidTableName(const QString& tableName);
 };

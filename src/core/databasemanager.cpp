@@ -2,12 +2,12 @@
 // Created by cww on 25-4-16.
 //
 #include <databasemanager/databasemanager.h>
-#include <common/trayconfig.h>
 #include <log/log.h>
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QSqlRecord>
 #include <QRegularExpression>
+#include <QtWidgets/QApplication>
 #include <QUuid>
 #include <QDir>
 
@@ -17,16 +17,22 @@ namespace Tray::Core
 DatabaseManager::DatabaseManager(const QString& connectionName, QObject* parent)
     : QObject(parent)
 {
-    setObjectName("DatabaseManager");
+#define DB_RELEASE 1
+#if DB_RELEASE
+    const auto APP_DIR = QApplication::applicationDirPath();
+#else
+    const auto APP_DIR =
+            QStringLiteral("C:/Users/31305/Documents/Workspace/TrayMusicPlayer/");
+#endif
     m_connectionName = connectionName.isEmpty()
                        ? ("TrayDB_" + QUuid::createUuid().
                            toString(QUuid::WithoutBraces))
                        : connectionName;
-    const QFileInfo dbFileInfo(PROJECT_PATH + DB_PATH);
+    const QFileInfo dbFileInfo(APP_DIR + DB_PATH);
     if (const QDir dbDir = dbFileInfo.absoluteDir(); !dbDir.exists())
     {
-
-        LOG_INFO(QString("Database directory does not exist, creating: %1").arg(dbDir.absolutePath()));
+        LOG_INFO(QString("Database directory does not exist, creating: %1").arg(
+                     dbDir.absolutePath()));
         if (!dbDir.mkpath("."))
         {
             LOG_WARNING("Could not create database directory!");
@@ -41,16 +47,19 @@ DatabaseManager::DatabaseManager(const QString& connectionName, QObject* parent)
     {
         m_databaseConnection = QSqlDatabase::addDatabase("QSQLITE"
             , m_connectionName);
-        m_databaseConnection.setDatabaseName(PROJECT_PATH + DB_PATH);
+        m_databaseConnection.setDatabaseName(APP_DIR + DB_PATH);
     }
 
     if (!m_databaseConnection.open())
     {
-        LOG_ERROR(QString("Cannot open Database [%1]: Init failed, %2").arg(PROJECT_PATH + DB_PATH, m_databaseConnection.lastError().text()));
+        LOG_ERROR(QString("Cannot open Database [%1]: Init failed, %2").arg(
+                      APP_DIR + DB_PATH, m_databaseConnection.lastError().text()
+                  ));
     }
     else
     {
-        LOG_INFO(QString("Open Database [%1] successfully: connectionName: %2").arg(PROJECT_PATH + DB_PATH, m_connectionName));
+        LOG_INFO(QString("Open Database [%1] successfully: connectionName: %2").
+                 arg(APP_DIR + DB_PATH, m_connectionName));
     }
 }
 
@@ -104,7 +113,8 @@ bool DatabaseManager::createTable(const QString& tableName)
 
     if (!query.exec(sql))
     {
-        LOG_ERROR(QString("Create table failed: %1: %2").arg(tableName, query.lastError().text()));
+        LOG_ERROR(QString("Create table failed: %1: %2").arg(tableName, query.
+                      lastError().text()));
         return false;
     }
     return true;
@@ -121,10 +131,12 @@ bool DatabaseManager::deleteTable(const QString& tableName)
     if (const QString sql = QString("DROP TABLE IF EXISTS %1").arg(tableName); !
         query.exec(sql))
     {
-        LOG_ERROR(QString("Drop table failed: %1: %2").arg(tableName, query.lastError().text()));
+        LOG_ERROR(QString("Drop table failed: %1: %2").arg(tableName, query.
+                      lastError().text()));
         return false;
     }
-    LOG_INFO(QString("Table dropped successfully (or did not exist): %1").arg(tableName));
+    LOG_INFO(QString("Table dropped successfully (or did not exist): %1").arg(
+                 tableName));
     return true;
 }
 
@@ -153,7 +165,8 @@ bool DatabaseManager::insertSong(const QString& tableName
 
     if (!query.exec())
     {
-        LOG_ERROR(QString("Insert song failed: %1").arg(query.lastError().text()));
+        LOG_ERROR(QString("Insert song failed: %1").arg(query.lastError().text()
+                  ));
         return false;
     }
     return true;
@@ -175,7 +188,8 @@ bool DatabaseManager::deleteSongWithTitle(const QString& tableName
 
     if (!query.exec())
     {
-        LOG_ERROR(QString("Delete song failed: %1").arg(query.lastError().text()));
+        LOG_ERROR(QString("Delete song failed: %1").arg(query.lastError().text()
+                  ));
         return false;
     }
     return true;

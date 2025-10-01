@@ -87,6 +87,7 @@ private:
         QStringLiteral("*.mp3")
         , QStringLiteral("*.flac")
     };
+    static inline const auto LOCAL_LIST_KEY = QStringLiteral("Local");
 
     QHash<QString, std::shared_ptr<QList<MusicMetaData>>> m_listCache;
 
