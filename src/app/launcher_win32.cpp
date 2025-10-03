@@ -14,18 +14,6 @@ int WINAPI wWinMain(HINSTANCE hInstance
     if (0 == GetCurrentDirectoryW(MAX_PATH, currentDir))
         return -1;
 
-    wchar_t configFilePath[MAX_PATH];
-    if (!PathCombineW(configFilePath, currentDir, L"settings\\init.json"))
-        return -1;
-
-    if (!PathFileExistsW(configFilePath))
-    {
-        MessageBoxW(nullptr
-                    , configFilePath
-                    , L"Config file not found: settings/init.json"
-                    , MB_OK | MB_ICONERROR);
-        return -1;
-    }
 
     wchar_t workDir[MAX_PATH];
     if (!PathCombineW(workDir, currentDir, L"bin"))
@@ -56,24 +44,51 @@ int WINAPI wWinMain(HINSTANCE hInstance
     STARTUPINFOW si{sizeof(si)};
     PROCESS_INFORMATION pi{};
 
-    if (!CreateProcessW(exePath
-                        , configFilePath
-                        , nullptr
-                        , nullptr
-                        , FALSE
-                        , 0
-                        , nullptr
-                        , workDir
-                        , &si
-                        , &pi))
-    {
-        MessageBoxW(nullptr
-                    , exePath
-                    , L"Failed to start traymusic.exe!"
-                    , MB_OK | MB_ICONERROR);
+    wchar_t configFilePath[MAX_PATH];
+    if (!PathCombineW(configFilePath, currentDir, L"settings\\init.json"))
         return -1;
-    }
 
+    if (PathFileExistsW(configFilePath))
+    {
+        if (!CreateProcessW(exePath
+                            , configFilePath
+                            , nullptr
+                            , nullptr
+                            , FALSE
+                            , 0
+                            , nullptr
+                            , workDir
+                            , &si
+                            , &pi))
+        {
+            MessageBoxW(nullptr
+                        , exePath
+                        , L"Failed to start traymusic.exe!"
+                        , MB_OK | MB_ICONERROR);
+            return -1;
+        }
+    }
+    else
+    {
+        if (!CreateProcessW(exePath
+                            , nullptr
+                            , nullptr
+                            , nullptr
+                            , FALSE
+                            , 0
+                            , nullptr
+                            , workDir
+                            , &si
+                            , &pi))
+        {
+            MessageBoxW(nullptr
+                        , exePath
+                        , L"Failed to start traymusic.exe!"
+                        , MB_OK | MB_ICONERROR);
+            return -1;
+        }
+
+    }
     CloseHandle(pi.hProcess);
     CloseHandle(pi.hThread);
     return 0;
