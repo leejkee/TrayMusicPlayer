@@ -38,30 +38,8 @@
 - `Git`
 
 ### Windows
-Windows 推荐使用本项目提供的taglib依赖处理方案，将taglib作为`git submodule`加入工程，在`dependencies`目录中将其作为一个CMake工程进行处理。  
-因为taglib官方仅提供CMake install之后将其作为CMake子模块加入项目
-- tips: [taglib官方编译教程](https://github.com/taglib/taglib/blob/master/INSTALL.md)
-- Windows平台上，你需要将qt提供的c++编译器加入**path**, 以便于编译器的identification可以通过，cmake需要使用测试程序来验证编译器，否则可能会无法开始编译
 
 #### 1. 使用Qt6官方提供的`MinGW-w64的g++工具链、CMake、 Ninja生成器`
-
-- 编译`taglib`库
-
-```shell
-git submodule update --init --recursive
-```
-
-```shell
-cd dependencies
-```
-
-```shell
-cmake -B build --preset windows-base -S .
-```
-
-```shell
-cmake --build build
-```
 
 - 构建本项目, 进入项目根目录
 
@@ -81,22 +59,19 @@ build
 cmake --build build
 ```
 
-#### 2. 使用`MSVC`编译，链接Qt官方提供的基于MSVC2022构建的Qt6库
-
-待支持
-
-
-### Linux
-linux可以选择使用已经安装的taglib库，也可以选择使用本项目提供的从源码编译的方式
-
-#### 使用g++编译
-- 编译taglib
-```shell
-cd dependencies
-cmake -B build --preset linux-base -S .
-cmake --build build
+- 编译并打包项目，对于windows平台提供了额外的launcher启动程序，以保持release目录整洁，qt的dll被存放在bin目录
+```cmake
+cmake --build build/window-mingw-release --config Release --target package_release
 ```
 
+#### 2. 使用`MSVC`编译，链接Qt官方提供的基于MSVC2022构建的Qt6库
+
+待测试
+
+
+### Linux (待测试)
+
+#### 使用g++编译
 - 构建本项目，进入项目根目录  
 release
 ```shell

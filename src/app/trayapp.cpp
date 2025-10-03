@@ -38,7 +38,7 @@ public:
 };
 
 
-TrayApp::TrayApp(QWidget* parent)
+TrayApp::TrayApp(const QString& configPath, QWidget* parent)
     : QMainWindow(parent),
       d(std::make_unique<TrayAppPrivate>())
 {
@@ -65,7 +65,7 @@ TrayApp::TrayApp(QWidget* parent)
     d->m_systemTrayIcon->setToolTip(TrayAppPrivate::WINDOW_TITLE);
     d->m_systemTrayIcon->show();
 
-    d->m_core = new Core::CoreService(this);
+    d->m_core = new Core::CoreService(configPath, this);
     const QString preloadKey = d->m_core->getPreloadKey();
     const Ui::WindowManager::WindowInitData initData{
         preloadKey
@@ -83,6 +83,11 @@ TrayApp::TrayApp(QWidget* parent)
 
     initConnections();
     connectCoreWindow();
+}
+
+TrayApp::TrayApp(QWidget* parent)
+    : TrayApp({}, parent)
+{
 }
 
 TrayApp::~TrayApp() = default;

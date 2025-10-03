@@ -14,6 +14,8 @@ class Settings final : public QObject
 public:
     explicit Settings(QObject* parent = nullptr);
 
+    explicit Settings(const QString& configFilePath, QObject* parent = nullptr);
+
     Settings(const Settings&) = delete;
 
     Settings& operator=(const Settings&) = delete;
@@ -51,7 +53,61 @@ public Q_SLOTS:
     void changePreloadKey(const QString& key);
 
 private:
-    std::unique_ptr<SettingsPrivate> d;
+
+    struct Key
+    {
+        static inline const auto PLAYLIST_KEY = QStringLiteral("Playlist");
+
+        static inline const auto AUDIO_KEY = QStringLiteral("Audio");
+
+        struct Playlist
+        {
+            static inline const auto MUSIC_PATHS = QStringLiteral("MusicPaths");
+
+            static inline const auto USER_LISTS = QStringLiteral("UserLists");
+
+            static inline const auto PRELOAD_LIST =
+                    QStringLiteral("PreloadList");
+        };
+
+        struct Audio
+        {
+            static inline const auto DEFAULT_VOLUME =
+                    QStringLiteral("DefaultVolume");
+        };
+    };
+
+    struct SettingsData
+    {
+        struct Audio
+        {
+            int defaultVolume;
+        };
+
+        struct Playlist
+        {
+            QString preloadListKey;
+            QStringList musicPaths;
+            QStringList userLists;
+        };
+
+        // struct RememberSet
+        // {
+        //     QString theLastListKey;
+        //     QString theLastMusic;
+        // };
+
+        Audio audio;
+        Playlist playlist;
+    };
+
+    static inline const auto LOCAL_KEY = QStringLiteral("Local");
+
+    static inline const SettingsData DEFAULT_SETTINGS{20, {LOCAL_KEY, {}, {}}};
+
+    QString m_settingFilePath;
+
+    SettingsData m_data;
 
     /// @brief Initializes the JSON settings file if it does not exist.
     ///
@@ -61,7 +117,7 @@ private:
     ///
     /// @param filePath The absolute path to the settings file.
     /// @return `true` if the file exists or was successfully created; otherwise, `false`.
-    [[nodiscard]] bool initJsonFile(const QString& filePath) const;
+    [[nodiscard]] bool initJsonFile(const QString& filePath);
 
     /// @brief Parses the application's settings from a JSON file.
     ///
@@ -75,6 +131,5 @@ private:
     void parseJson();
 
     [[nodiscard]] bool saveToJson() const;
-
 };
 }

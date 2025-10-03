@@ -20,11 +20,16 @@ public:
     LyricService* m_lyricService;
 };
 
-CoreService::CoreService( QObject* parent)
+CoreService::CoreService(QObject* parent)
+    : CoreService({}, parent)
+{
+}
+
+CoreService::CoreService(const QString& configFilePath, QObject* parent)
     : QObject(parent),
       d(std::make_unique<CoreServicePrivate>())
 {
-    d->m_settings = new Settings(this);
+    d->m_settings = new Settings(configFilePath, this);
     d->m_playerBackend = new PlayerBackend(this);
     d->m_lyricService = new LyricService(this);
     d->m_listCache = new ListCache(d->m_settings->getLocalMusicDirectories()
@@ -32,7 +37,6 @@ CoreService::CoreService( QObject* parent)
                                    , this);
     initConnections();
 }
-
 
 void CoreService::initConnections()
 {

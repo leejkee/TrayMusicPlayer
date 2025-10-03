@@ -16,6 +16,7 @@ class TrayApp final : public QMainWindow
 
 public:
     explicit TrayApp(QWidget* parent = nullptr);
+    explicit TrayApp(const QString& configPath, QWidget* parent = nullptr);
 
     ~TrayApp() override;
 

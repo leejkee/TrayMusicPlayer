@@ -11,19 +11,13 @@
 #include <QUuid>
 #include <QDir>
 
-
 namespace Tray::Core
 {
 DatabaseManager::DatabaseManager(const QString& connectionName, QObject* parent)
     : QObject(parent)
 {
-#define DB_RELEASE 1
-#if DB_RELEASE
-    const auto APP_DIR = QApplication::applicationDirPath();
-#else
-    const auto APP_DIR =
-            QStringLiteral("C:/Users/31305/Documents/Workspace/TrayMusicPlayer/");
-#endif
+    const auto APP_DIR = QDir(QApplication::applicationDirPath()).
+            absoluteFilePath("../");
     m_connectionName = connectionName.isEmpty()
                        ? ("TrayDB_" + QUuid::createUuid().
                            toString(QUuid::WithoutBraces))

@@ -16,6 +16,8 @@ class CoreService final : public QObject
 public:
     explicit CoreService(QObject* parent = nullptr);
 
+    explicit CoreService(const QString& configFilePath, QObject* parent = nullptr);
+
     /*!
      * @brief Initializes signal/slot connections between core components.
      */
