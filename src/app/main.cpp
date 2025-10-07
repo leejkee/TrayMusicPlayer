@@ -1,4 +1,3 @@
-#include <filesystem>
 #include <QtWidgets/QApplication>
 #include <QMessageBox>
 #include <QSystemTrayIcon>

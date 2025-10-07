@@ -31,7 +31,7 @@ TopBarWidget::TopBarWidget(QWidget* parent)
                                             , this);
     d->m_settingsButton = new Panel::StyleButton({}
                                                  , {30, 30}
-                                                 , Res::SettingSVG
+                                                 , Res::SettingBtnSVG
                                                  , Res::BUTTON_SQUARE_QSS
                                                  , this);
 

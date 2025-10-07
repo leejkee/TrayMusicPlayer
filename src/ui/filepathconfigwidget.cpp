@@ -33,7 +33,7 @@ FilePathConfigWidget::FilePathConfigWidget(QWidget* parent)
                                                 FilepathConfigWidgetPrivate::BUTTON_SIZE
                                                 , FilepathConfigWidgetPrivate::BUTTON_SIZE
                                             }
-                                            , Res::AddSVG
+                                            , Res::AddBtnSVG
                                             , Res::BUTTON_SQUARE_QSS
                                             , this);
     d->m_listWidget = new QListWidget(this);
@@ -42,7 +42,7 @@ FilePathConfigWidget::FilePathConfigWidget(QWidget* parent)
                                                    FilepathConfigWidgetPrivate::BUTTON_SIZE
                                                    , FilepathConfigWidgetPrivate::BUTTON_SIZE
                                                }
-                                               , Res::RemoveSVG
+                                               , Res::RemoveBtnSVG
                                                , Res::BUTTON_SQUARE_QSS
                                                , this);
     d->m_messageLabel = new QLabel(this);

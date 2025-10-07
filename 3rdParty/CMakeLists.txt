@@ -1,3 +1,2 @@
 cmake_minimum_required(VERSION 3.20)
-add_subdirectory(catch2)
 add_subdirectory(lyric-parser)

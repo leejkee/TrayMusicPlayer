@@ -35,18 +35,18 @@ MusicListWidget::MusicListWidget(QWidget* parent)
     d->m_localListButton = new
             Panel::StyleButton(MusicListWidgetPrivate::LOCAL_LIST_KEY
                                , {30, 0}
-                               , Res::MusicListSVG
+                               , Res::PlaylistIconSVG
                                , Res::BUTTON_NORMAL_QSS
                                , this);
     d->m_expandButton = new
             Panel::StyleButton(MusicListWidgetPrivate::EXPAND_BTN_TEXT
                                , {60, 30}
-                               , Res::UpSVG
+                               , Res::ExpendSVG
                                , Res::BUTTON_EXPAND_QSS
                                , this);
     d->m_addButton = new Panel::StyleButton({}
                                             , {}
-                                            , Res::AddSVG
+                                            , Res::AddBtnSVG
                                             , Res::BUTTON_ADD_QSS
                                             , this);
     const auto buttonLayout = new QHBoxLayout;
@@ -115,11 +115,11 @@ void MusicListWidget::toggleExpand() const
     d->m_buttonWidget->setVisible(!isV);
     if (!isV)
     {
-        d->m_expandButton->setIcon(QIcon(Res::UpSVG));
+        d->m_expandButton->setIcon(QIcon(Res::ExpendSVG));
     }
     else
     {
-        d->m_expandButton->setIcon(QIcon(Res::DownSVG));
+        d->m_expandButton->setIcon(QIcon(Res::CollapseSVG));
     }
 }
 
@@ -143,7 +143,7 @@ void MusicListWidget::appendUserButton(const QString& playlistName)
 {
     auto* button = new Panel::StyleButton(playlistName
                                           , {30, 0}
-                                          , Res::MusicListSVG
+                                          , Res::PlaylistIconSVG
                                           , Res::BUTTON_NORMAL_QSS
                                           , this);
     d->m_UserButtonHash[playlistName] = button;

@@ -8,6 +8,7 @@
 #include <lyricwidget/lyricview.h>
 #include <log/log.h>
 #include <traysvg.h>
+#include <trayqss.h>
 #include <QTimer>
 #include <QLabel>
 #include <QVBoxLayout>
@@ -42,8 +43,8 @@ LyricWidget::LyricWidget(QWidget* parent)
     d->m_layout = new QVBoxLayout;
     d->m_backButton = new Panel::StyleButton({}
                                              , {30, 30}
-                                             , Res::DownSVG
-                                             , {}
+                                             , Res::CollapseSVG
+                                             , Res::BUTTON_NORMAL_QSS
                                              , this);
     d->m_titleLabel = new QLabel(this);
     d->m_titleLabel->setAlignment(Qt::AlignCenter);

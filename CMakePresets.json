@@ -12,13 +12,12 @@
       "hidden": true,
       "generator": "Ninja",
       "cacheVariables": {
-        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
-        "CMAKE_PREFIX_PATH": "C:/Qt/6.8.2/mingw_64;",
-        "CMAKE_CXX_COMPILER": "C:/Qt/Tools/mingw1310_64/bin/g++.exe",
-        "CMAKE_MAKE_PROGRAM": "C:/Qt/Tools/Ninja/ninja.exe"
+        "CMAKE_PREFIX_PATH": "C:/Qt/6.8.2/msvc2022_64;",
+        "CMAKE_CXX_COMPILER": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+        "CMAKE_MAKE_PROGRAM": "C:\\Users\\31305\\AppData\\Local\\Microsoft\\WinGet\\Packages\\Ninja-build.Ninja_Microsoft.Winget.Source_8wekyb3d8bbwe\\ninja.exe"
       },
       "environment": {
-        "PATH": "C:/Qt/6.8.2/mingw_64/bin;"
+        "PATH": "C:/Qt/6.8.2/msvc2022_64/bin;$penv{PATH}"
       },
       "condition": {
         "type": "equals",
@@ -49,18 +48,18 @@
 
 
     {
-      "name": "windows-mingw-debug",
+      "name": "windows-debug",
       "inherits": "windows-base",
-      "binaryDir": "${sourceDir}/build/window-mingw-debug",
+      "binaryDir": "${sourceDir}/build/windows-debug",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug"
       }
     },
 
     {
-      "name": "windows-mingw-release",
+      "name": "windows-release",
       "inherits": "windows-base",
-      "binaryDir": "${sourceDir}/build/window-mingw-release",
+      "binaryDir": "${sourceDir}/build/windows-release",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release"
       }

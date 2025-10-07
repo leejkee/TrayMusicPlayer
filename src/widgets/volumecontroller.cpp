@@ -81,7 +81,7 @@ void VolumeController::setVolumeButtonIcon(const bool isMuted)
 {
     if (isMuted)
     {
-        d->m_buttonMute->setIcon(QIcon(Res::VolumeMuteSVG));
+        d->m_buttonMute->setIcon(QIcon(Res::MuteBtnSVG));
     }
     else
     {

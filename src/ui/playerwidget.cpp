@@ -86,17 +86,17 @@ void PlayerWidget::initCenterLayout()
 {
     d->m_pushButtonPlay = new Panel::StyleButton({}
                                                  , {30, 30}
-                                                 , Res::PlayIconSVG
+                                                 , Res::PlayBtnSVG
                                                  , Res::BUTTON_NORMAL_QSS
                                                  , this);
     d->m_pushButtonPre = new Panel::StyleButton({}
                                                 , {30, 30}
-                                                , Res::PreIconSVG
+                                                , Res::PreBtnSVG
                                                 , Res::BUTTON_NORMAL_QSS
                                                 , this);
     d->m_pushButtonNext = new Panel::StyleButton({}
                                                  , {30, 30}
-                                                 , Res::NextIconSVG
+                                                 , Res::NextBtnSVG
                                                  , Res::BUTTON_NORMAL_QSS
                                                  , this);
     d->m_checkPlayMode = new Panel::StyleButton({}
@@ -250,11 +250,11 @@ void PlayerWidget::setPlayButtonIcon(const bool playStatus)
 {
     if (playStatus)
     {
-        d->m_pushButtonPlay->setIcon(QIcon(Res::PauseIconSVG));
+        d->m_pushButtonPlay->setIcon(QIcon(Res::PauseBtnSVG));
     }
     else
     {
-        d->m_pushButtonPlay->setIcon(QIcon(Res::PlayIconSVG));
+        d->m_pushButtonPlay->setIcon(QIcon(Res::PlayBtnSVG));
     }
 }
 
@@ -294,7 +294,7 @@ void PlayerWidget::updatePlayModeIcon(const int mode)
 void PlayerWidget::setVolumeCtrlButtonIcon(const bool isMuted)
 {
     d->m_pushButtonVolume->setIcon(QIcon(isMuted
-                                         ? Res::VolumeMuteSVG
+                                         ? Res::MuteBtnSVG
                                          : Res::VolumeBtnSVG));
     d->m_volumeController->setVolumeButtonIcon(isMuted);
 }

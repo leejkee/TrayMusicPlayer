@@ -12,7 +12,7 @@ project(TrayMusicPlayer
 )
 
 #option(TRAY_TEST "Build the Test module" ON)
-set(TRAY_TEST ON)
+set(TRAY_TEST OFF)
 
 find_package(Qt6 REQUIRED COMPONENTS
     Multimedia

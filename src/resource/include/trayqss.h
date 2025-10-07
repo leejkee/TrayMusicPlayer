@@ -8,15 +8,17 @@
 namespace Tray::Res
 {
 inline const auto BUTTON_ADD_QSS =
-        QStringLiteral(":/qss/MusicListButton/ButtonAddList.qss");
+        QStringLiteral(":/qss/StyleButton/ButtonAddList.qss");
 inline const auto BUTTON_EXPAND_QSS =
-        QStringLiteral(":/qss/MusicListButton/ButtonExpand.qss");
+        QStringLiteral(":/qss/StyleButton/ButtonExpand.qss");
 inline const auto BUTTON_NORMAL_QSS =
-        QStringLiteral(":/qss/MusicListButton/ButtonNormal.qss");
+        QStringLiteral(":/qss/StyleButton/ButtonNormal.qss");
 inline const auto BUTTON_VOLUME_QSS =
-        QStringLiteral(":/qss/MusicListButton/ButtonVolume.qss");
+        QStringLiteral(":/qss/StyleButton/ButtonVolume.qss");
 inline const auto BUTTON_SQUARE_QSS =
-        QStringLiteral(":/qss/MusicListButton/ButtonSquare.qss");
+        QStringLiteral(":/qss/StyleButton/ButtonSquare.qss");
+inline const auto BUTTON_COLLAPSE_QSS =
+        QStringLiteral(":/qss/StyleButton/ButtonCollapse.qss");
 inline const auto LIST_VIEW_QSS =
         QStringLiteral(":/qss/ListView/PlayListView.qss");
 inline const auto VOLUME_SLIDER_QSS =
@@ -24,13 +26,13 @@ inline const auto VOLUME_SLIDER_QSS =
 inline const auto VOLUME_MENU_QSS =
         QStringLiteral(":/qss/QMenu/VolumeMenu.qss");
 inline const auto PLAY_MODE_QSS =
-        QStringLiteral(":/qss/MusicListButton/ButtonPlayMode.qss");
+        QStringLiteral(":/qss/StyleButton/ButtonPlayMode.qss");
 inline const auto PROGRESS_BAR_QSS =
         QStringLiteral(":/qss/Slider/ProgressBar.qss");
 inline const auto VOLUME_CONTROLLER_QSS =
         QStringLiteral(":/qss/Slider/VolumeController.qss");
 inline const auto CONFIG_ACTION_QSS =
-        QStringLiteral(":/qss/MusicListButton/ButtonAction.qss");
+        QStringLiteral(":/qss/StyleButton/ButtonAction.qss");
 inline const auto VIEW_SPLITTER_QSS =
         QStringLiteral(":/qss/Splitter/Splitter.qss");
 inline const auto HORIZONTAL_LINE_QSS = QStringLiteral(":/qss/QFrame/Line.qss");

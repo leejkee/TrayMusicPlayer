@@ -52,7 +52,7 @@ ViewWidget::ViewWidget(QWidget* parent)
                                                     ViewWidgetPrivate::PLAYALL_BTN_HEIGHT
                                                     , ViewWidgetPrivate::PLAYALL_BTN_WIDTH
                                                 }
-                                                , Res::PlayIconSVG
+                                                , Res::PlayBtnSVG
                                                 , Res::BUTTON_NORMAL_QSS
                                                 , this);
 
