@@ -52,7 +52,14 @@ const QString message {__VA_ARGS__}; \
 Tray::Log::log(level, GET_MODULE_NAME(), message); \
 } while (0)
 
+#ifdef MODE_DEBUG
 #define LOG_DEBUG(...)   LOG_MESSAGE(Tray::Log::LogLevel::Debug, __VA_ARGS__)
 #define LOG_INFO(...)    LOG_MESSAGE(Tray::Log::LogLevel::Info, __VA_ARGS__)
 #define LOG_WARNING(...) LOG_MESSAGE(Tray::Log::LogLevel::Warning, __VA_ARGS__)
 #define LOG_ERROR(...)   LOG_MESSAGE(Tray::Log::LogLevel::Error, __VA_ARGS__)
+#elif defined(MODE_RELEASE)
+#define LOG_DEBUG(...)   ((void)0)
+#define LOG_INFO(...)    ((void)0)
+#define LOG_WARNING(...) ((void)0)
+#define LOG_ERROR(...)   ((void)0)
+#endif

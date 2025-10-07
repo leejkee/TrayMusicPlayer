@@ -127,8 +127,8 @@ void MusicListWidget::newUserPlaylist()
 {
     bool ok;
     const QString playlistName = QInputDialog::getText(this
-        , "New a music list"
-        , "Music list name:"
+        , "Create a new playlist"
+        , "Press the name:"
         , QLineEdit::Normal
         , ""
         , &ok);
