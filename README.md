@@ -42,7 +42,7 @@ cmake -B build --preset windows-release -S .
 
 - 编译并打包项目
 ```cmake
-cmake --build build/window-release --config Release --target package_release
+cmake --build build/windows-release --config Release --target package_release
 ```
 > 最终在`build/windows-release`生成打包完成的`TrayMusicPlayer_Windows_Portable_v<version>.zip`
 
