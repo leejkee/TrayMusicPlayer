@@ -11,7 +11,7 @@ namespace Tray::Core
 Playlist::Playlist(QObject* parent)
     : QObject(parent)
 {
-    m_index = -1;
+    m_index = 0;
     m_playMode = PlayMode::Sequential;
     setObjectName(QStringLiteral("PlayList"));
     LOG_INFO("Playlist initialized with empty, Sequential mode");

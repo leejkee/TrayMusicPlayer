@@ -151,7 +151,8 @@ void PlayerBackend::preMusic()
 
 void PlayerBackend::changeMusic(const qsizetype index)
 {
-    const auto music = m_playlist->getMusic(index);
+    m_playlist->setCurrentMusicIndex(index);
+    const auto music = m_playlist->currentMusic();
     setMusicSource(music.m_path);
     Q_EMIT signalCurrentMusicChanged(index, music.m_title, music.m_path);
 }
