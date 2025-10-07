@@ -27,6 +27,25 @@
     },
 
     {
+      "name": "Mingw-base",
+      "hidden": true,
+      "generator": "Ninja",
+      "cacheVariables": {
+        "CMAKE_PREFIX_PATH": "C:/Qt/6.8.2/mingw_64;",
+        "CMAKE_CXX_COMPILER": "C:\\Qt\\Tools\\mingw1310_64\\bin\\g++.exe",
+        "CMAKE_MAKE_PROGRAM": "C:\\Users\\31305\\AppData\\Local\\Microsoft\\WinGet\\Packages\\Ninja-build.Ninja_Microsoft.Winget.Source_8wekyb3d8bbwe\\ninja.exe"
+      },
+      "environment": {
+        "PATH": "C:/Qt/6.8.2/mingw_64/bin;$penv{PATH}"
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      }
+    },
+
+    {
       "name": "linux-base",
       "hidden": true,
       "generator": "Ninja",
@@ -60,6 +79,24 @@
       "name": "windows-release",
       "inherits": "windows-base",
       "binaryDir": "${sourceDir}/build/windows-release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+
+    {
+      "name": "Mingw-debug",
+      "inherits": "Mingw-base",
+      "binaryDir": "${sourceDir}/build/Mingw-debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+
+    {
+      "name": "Mingw-release",
+      "inherits": "Mingw-base",
+      "binaryDir": "${sourceDir}/build/Mingw-release",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release"
       }
