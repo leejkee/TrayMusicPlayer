@@ -15,6 +15,7 @@ public:
     QStringList m_lyrics;
     QList<int64_t> m_lrcTiming;
     int m_lyricLineIndex{0};
+    bool m_hasLyric{false};
 };
 
 LyricService::LyricService(QObject* parent)
@@ -30,9 +31,11 @@ void LyricService::updateLRC(const QString& musicPath)
     d->m_lyrics.clear();
     d->m_lrcTiming.clear();
     d->m_lyricLineIndex = 0;
+    d->m_hasLyric = false;
 
     if (QString lrcPath; findLRC(musicPath, lrcPath))
     {
+        d->m_hasLyric = true;
         Badfish::AudioToolkit::LyricParser lyricParser;
         lyricParser.load_file(lrcPath.toStdString());
         for (const auto& lyric : lyricParser.get_lrc())
@@ -66,21 +69,24 @@ bool LyricService::findLRC(const QString& musicPath, QString& lrcPath)
     {
         return true;
     }
-    LOG_ERROR(QString("File [%1] doesn't exist.").arg(lrcPath));
+    LOG_INFO(QString("File [%1] doesn't exist.").arg(lrcPath));
     return false;
 }
 
 void LyricService::handlePlayerPositionChange(const qint64 pos)
 {
-    if (d->m_lyricLineIndex < d->m_lrcTiming.length() - 2 && pos >= d->
-        m_lrcTiming.at(d->m_lyricLineIndex + 1) && pos < d->
-        m_lrcTiming.at(d->m_lyricLineIndex + 2))
+    if (d->m_hasLyric)
     {
-        setLyricLineIndex(d->m_lyricLineIndex + 1);
-    }
-    else
-    {
-        setLyricLineIndex(findPositionIndex(d->m_lrcTiming, pos));
+        if (d->m_lyricLineIndex < d->m_lrcTiming.length() - 2 && pos >= d->
+            m_lrcTiming.at(d->m_lyricLineIndex + 1) && pos < d->
+            m_lrcTiming.at(d->m_lyricLineIndex + 2))
+        {
+            setLyricLineIndex(d->m_lyricLineIndex + 1);
+        }
+        else
+        {
+            setLyricLineIndex(findPositionIndex(d->m_lrcTiming, pos));
+        }
     }
 }
 
