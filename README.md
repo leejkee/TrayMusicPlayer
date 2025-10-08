@@ -23,8 +23,8 @@
   ![show_linux](docs/img/show-view-linux.png)  
 
 ## 快速使用
-> - `本地目录添加` 点击右上角`设置`图标，添加本地音乐路径，点击`Local`按钮加载本地歌单
-> - `lrc歌词文件` 除扩展名外应与音乐文件同名且位于同一目录，中文显示乱码可以选择使用[**转码工具（推荐）**](https://github.com/leejkee/scripts/tree/main/Python-scripts/convert-encoding-utf8)转码为UTF8编码，本项目不包含内置转码功能
+> - `本地目录添加` 点击右上角`设置`图标，添加本地音乐，点击`Local`按钮加载本地歌单
+> - `lrc歌词文件` 除扩展名外应与音乐文件同名且位于同一目录
 
 ## 从源码构建
 ### 配置
