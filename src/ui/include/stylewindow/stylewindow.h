@@ -5,15 +5,15 @@
 #include <QWidget>
 namespace Tray::Ui
 {
-class StyleWindow final : public QWidget
-{
-    Q_OBJECT
-public:
-    explicit StyleWindow(QWidget *parent = nullptr);
-    ~StyleWindow();
-    void setCentralWidget(QWidget *centralWidget);
-private:
-    QWidget *titleBar;
-};
-
+// class StyleWindow final : public QWidget
+// {
+//     Q_OBJECT
+// public:
+//     explicit StyleWindow(QWidget *parent = nullptr);
+//     ~StyleWindow();
+//     void setCentralWidget(QWidget *centralWidget);
+// private:
+//     QWidget *titleBar;
+// };
+//
 }

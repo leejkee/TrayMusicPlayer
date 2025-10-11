@@ -5,8 +5,8 @@
 #include <stylebutton/stylebutton.h>
 #include <traysvg.h>
 #include <trayqss.h>
-#include <QSvgWidget>
 #include <QHBoxLayout>
+#include <QLabel>
 #include <QFrame>
 
 namespace Tray::Ui
@@ -14,7 +14,7 @@ namespace Tray::Ui
 class TopBarWidgetPrivate
 {
 public:
-    QSvgWidget* m_svgWidget;
+    QLabel* m_logoLabel;
     Panel::StyleButton* m_preButton;
     QFrame* m_splitFrame;
     Panel::StyleButton* m_settingsButton;
@@ -28,8 +28,13 @@ TopBarWidget::TopBarWidget(QWidget* parent)
     : QWidget(parent),
       d(std::make_unique<TopBarWidgetPrivate>())
 {
-    d->m_svgWidget = new QSvgWidget(Res::LogoSVG);
-    d->m_svgWidget->setFixedSize(120, 25);
+    d->m_logoLabel = new QLabel(this);
+    d->m_logoLabel->setPixmap(QPixmap(Res::LogoSVG).scaled(110
+                                  , 25
+                                  , Qt::IgnoreAspectRatio
+                                  , Qt::SmoothTransformation));
+    // d->m_logoLabel->setFixedSize(120, 25);
+
     d->m_preButton = new Panel::StyleButton({}
                                             , {30, 30}
                                             , Res::BackPageSVG
@@ -66,7 +71,7 @@ TopBarWidget::TopBarWidget(QWidget* parent)
     auto* layout = new QHBoxLayout(this);
     layout->setSpacing(0);
     layout->setContentsMargins(0, 0, 0, 0);
-    layout->addWidget(d->m_svgWidget);
+    layout->addWidget(d->m_logoLabel);
     layout->addItem(spacerH);
     layout->addWidget(d->m_preButton);
     layout->addWidget(d->m_settingsButton);
