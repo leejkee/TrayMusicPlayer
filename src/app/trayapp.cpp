@@ -43,28 +43,7 @@ TrayApp::TrayApp(const QString& configPath, QWidget* parent)
       d(std::make_unique<TrayAppPrivate>())
 {
     Init_qrc();
-    d->m_trayIconMenu = new QMenu(this);
-    d->m_systemTrayIcon = new QSystemTrayIcon(this);
-    d->m_minimizeAction = new
-            QAction(QCoreApplication::translate("TrayUI", "Minimize"), this);
-    d->m_maximizeAction = new
-            QAction(QCoreApplication::translate("TrayUI", "Maximize"), this);
-    d->m_restoreAction = new
-            QAction(QCoreApplication::translate("TrayUI", "Restore"), this);
-    d->m_quitAction = new QAction(QCoreApplication::translate("TrayUI", "Quit")
-                                  , this);
-    d->m_trayIconMenu->addAction(d->m_minimizeAction);
-    d->m_trayIconMenu->addAction(d->m_maximizeAction);
-    d->m_trayIconMenu->addAction(d->m_restoreAction);
-    d->m_trayIconMenu->addSeparator();
-    d->m_trayIconMenu->addAction(d->m_quitAction);
-    d->m_systemTrayIcon->setContextMenu(d->m_trayIconMenu);
-    const auto icon = QIcon(Res::TrayIconSVG);
-    d->m_systemTrayIcon->setIcon(icon);
-    setWindowIcon(icon);
-    d->m_systemTrayIcon->setToolTip(TrayAppPrivate::WINDOW_TITLE);
-    d->m_systemTrayIcon->show();
-
+    initAppIcons();
     d->m_core = new Core::CoreService(configPath, this);
     const QString preloadKey = d->m_core->getPreloadKey();
     const Ui::WindowManager::WindowInitData initData{
@@ -75,13 +54,11 @@ TrayApp::TrayApp(const QString& configPath, QWidget* parent)
         , d->m_core->getDefaultVolume()
     };
     d->m_windowManager = new Ui::WindowManager(initData, this);
-
     setCentralWidget(d->m_windowManager);
     setMinimumWidth(TrayAppPrivate::MAIN_MINIMUM_WIDTH);
     setMinimumHeight(TrayAppPrivate::MAIN_MINIMUM_HEIGHT);
-    setWindowTitle(TrayAppPrivate::WINDOW_TITLE);
-
-    initConnections();
+    setWindowFlags(Qt::FramelessWindowHint | Qt::CustomizeWindowHint);
+    setAttribute(Qt::WA_TranslucentBackground);
     connectCoreWindow();
 }
 
@@ -92,22 +69,6 @@ TrayApp::TrayApp(QWidget* parent)
 
 TrayApp::~TrayApp() = default;
 
-void TrayApp::initConnections()
-{
-    // quit the application
-    connect(d->m_quitAction, &QAction::triggered, qApp, &QApplication::quit);
-
-    // resize the main window
-    connect(d->m_maximizeAction
-            , &QAction::triggered
-            , this
-            , &TrayApp::showMaximized);
-    connect(d->m_minimizeAction, &QAction::triggered, this, &TrayApp::hide);
-    connect(d->m_restoreAction
-            , &QAction::triggered
-            , this
-            , &TrayApp::showNormal);
-}
 
 void TrayApp::connectCoreWindow()
 {
@@ -180,7 +141,6 @@ void TrayApp::connectCoreWindow()
             , &Ui::WindowManager::signalRemoveMusicFromList
             , d->m_core
             , &Core::CoreService::removeMusicFromList);
-
 
     connect(d->m_core
             , &Core::CoreService::signalCurrentTitleListChanged
@@ -267,6 +227,44 @@ void TrayApp::connectCoreWindow()
             , d->m_windowManager
             , &Ui::WindowManager::updateMusicDuration);
 }
+
+void TrayApp::initAppIcons()
+{
+    d->m_trayIconMenu = new QMenu(this);
+    d->m_systemTrayIcon = new QSystemTrayIcon(this);
+    d->m_minimizeAction = new
+            QAction(QCoreApplication::translate("TrayUI", "Minimize"), this);
+    d->m_maximizeAction = new
+            QAction(QCoreApplication::translate("TrayUI", "Maximize"), this);
+    d->m_restoreAction = new
+            QAction(QCoreApplication::translate("TrayUI", "Restore"), this);
+    d->m_quitAction = new QAction(QCoreApplication::translate("TrayUI", "Quit")
+                                  , this);
+    d->m_trayIconMenu->addAction(d->m_minimizeAction);
+    d->m_trayIconMenu->addAction(d->m_maximizeAction);
+    d->m_trayIconMenu->addAction(d->m_restoreAction);
+    d->m_trayIconMenu->addSeparator();
+    d->m_trayIconMenu->addAction(d->m_quitAction);
+    d->m_systemTrayIcon->setContextMenu(d->m_trayIconMenu);
+    const auto icon = QIcon(Res::TrayIconSVG);
+    d->m_systemTrayIcon->setIcon(icon);
+    // setWindowIcon(icon);
+    d->m_systemTrayIcon->setToolTip(TrayAppPrivate::WINDOW_TITLE);
+    d->m_systemTrayIcon->show();
+    // quit the application
+    connect(d->m_quitAction, &QAction::triggered, qApp, &QApplication::quit);
+    // resize the main window
+    connect(d->m_maximizeAction
+            , &QAction::triggered
+            , this
+            , &TrayApp::showMaximized);
+    connect(d->m_minimizeAction, &QAction::triggered, this, &TrayApp::hide);
+    connect(d->m_restoreAction
+            , &QAction::triggered
+            , this
+            , &TrayApp::showNormal);
+}
+
 
 void TrayApp::closeEvent(QCloseEvent* event)
 {

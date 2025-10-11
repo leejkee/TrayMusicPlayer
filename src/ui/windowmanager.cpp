@@ -13,6 +13,8 @@
 #include <QSplitter>
 #include <QStackedWidget>
 #include <QVBoxLayout>
+#include <QPainter>
+#include <QPainterPath>
 
 namespace Tray::Ui
 {
@@ -44,6 +46,7 @@ WindowManager::WindowManager(const WindowInitData& initData, QWidget* parent)
     : QWidget(parent),
       d(std::make_unique<WindowManagerPrivate>())
 {
+    this->setObjectName(QObject::tr("WindowManager"));
     d->m_windowManagerLayout = new QVBoxLayout;
     d->m_mainStackedWidget = new QStackedWidget(this);
     d->m_playerWidget = new PlayerWidget(this);
@@ -89,13 +92,44 @@ WindowManager::WindowManager(const WindowInitData& initData, QWidget* parent)
 
     d->m_viewStackedWidget->addWidget(d->m_viewWidget);
     d->m_viewStackedWidget->addWidget(d->m_settingsWidget);
+    setStyleSheet(
+        "QWidget#WindowManager {"
+        "    background-color: transparent;" // 你想要的背景色
+        "    border-radius: 15px;"       // 你想要的圆角半径
+        "}"
+    );
     createConnections();
     initDefaultSettings(initData);
 }
 
 WindowManager::~WindowManager() = default;
 
-
+void WindowManager::paintEvent(QPaintEvent* event)
+{
+    Q_UNUSED(event);
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing, true);
+    QPainterPath painterPath;
+    painterPath.addRoundedRect(this->rect(), 5, 5);
+    painter.setClipPath(painterPath);
+    painter.fillRect(this->rect(), Qt::white);
+}
+//
+// void WindowManager::resizeEvent(QResizeEvent* event)
+// {
+//     // 调用父类的实现
+//     QWidget::resizeEvent(event);
+//
+//     // 创建一个与窗口大小相同的圆角矩形路径
+//     QPainterPath path;
+//     path.addRoundedRect(this->rect(), 5.0, 5.0); // 圆角半径与 paintEvent 一致
+//
+//     // 使用该路径创建一个区域 (Region)
+//     const auto mask = QRegion(path.toFillPolygon().toPolygon());
+//
+//     // 设置遮罩
+//     this->setMask(mask);
+// }
 
 void WindowManager::createConnections()
 {
@@ -238,15 +272,21 @@ void WindowManager::createConnections()
                 d->m_mainStackedWidget->setCurrentWidget(d->m_lyricWidget);
             });
 
-    connect(d->m_playerWidget, &PlayerWidget::signalSetMusicPosition, this, [this](const qint64 value)
-    {
-        Q_EMIT signalSetPlayerPosition(value);
-    });
+    connect(d->m_playerWidget
+            , &PlayerWidget::signalSetMusicPosition
+            , this
+            , [this](const qint64 value)
+            {
+                Q_EMIT signalSetPlayerPosition(value);
+            });
 
-    connect(d->m_playerWidget, &PlayerWidget::signalSetMute, this, [this]
-    {
-        Q_EMIT signalMuteTg();
-    });
+    connect(d->m_playerWidget
+            , &PlayerWidget::signalSetMute
+            , this
+            , [this]
+            {
+                Q_EMIT signalMuteTg();
+            });
 }
 
 void WindowManager::initDefaultSettings(const WindowInitData& initData)
@@ -329,7 +369,8 @@ void WindowManager::handleLocalPathSettingsUpdated(
     d->m_settingsWidget->updateLocalPaths(localPaths);
 }
 
-void WindowManager::updateLyric(const QString& musicTitle, const QStringList& lyricText
+void WindowManager::updateLyric(const QString& musicTitle
+                                , const QStringList& lyricText
                                 , const QList<int64_t>& lyricsTiming)
 {
     d->m_lyricWidget->updateLyric(musicTitle, lyricText, lyricsTiming);

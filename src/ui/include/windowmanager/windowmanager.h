@@ -27,6 +27,11 @@ public:
 
     ~WindowManager() override;
 
+protected:
+    void paintEvent(QPaintEvent* event) override;
+//
+//     void resizeEvent(QResizeEvent* event) override;
+
 Q_SIGNALS:
     void signalPlayToggle();
 

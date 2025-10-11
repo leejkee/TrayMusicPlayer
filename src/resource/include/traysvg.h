@@ -30,6 +30,8 @@ namespace Tray::Res {
     inline const auto OptionsMenuSVG = QStringLiteral(":/svg/Menu.svg");
     inline const auto AppearanceActionSVG = QStringLiteral(":/svg/AppearanceBtn.svg");
     inline const auto DirectoryActionSVG = QStringLiteral(":/svg/DirectoryBtn.svg");
-
+    inline const auto MaximizeBtnSVG = QStringLiteral(":/svg/MaximizeBtn.svg");
+    inline const auto MinimizeBtnSVG = QStringLiteral(":/svg/MinimizeBtn.svg");
+    inline const auto ExitBtnSVG = QStringLiteral(":/svg/ExitBtn.svg");
 }
 

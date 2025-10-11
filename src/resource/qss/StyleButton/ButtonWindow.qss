@@ -1,0 +1,15 @@
+/*
+ * ButtonWindow - Qt Style Sheet
+ * Created: 2025/10/9
+ */
+
+/* Base styling */
+QPushButton {
+    qproperty-iconSize: 18px;
+    border: 2px solid transparent;
+    padding: 0;
+}
+QPushButton:hover {
+    border: 2px solid transparent;
+    background-color: lightgray;
+}

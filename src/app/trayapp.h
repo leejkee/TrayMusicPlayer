@@ -30,8 +30,8 @@ protected:
 private:
     std::unique_ptr<TrayAppPrivate> d;
 
-    void initConnections();
-
     void connectCoreWindow();
+
+    void initAppIcons();
 };
 }

@@ -19,6 +19,8 @@ inline const auto BUTTON_SQUARE_QSS =
         QStringLiteral(":/qss/StyleButton/ButtonSquare.qss");
 inline const auto BUTTON_COLLAPSE_QSS =
         QStringLiteral(":/qss/StyleButton/ButtonCollapse.qss");
+inline const auto BUTTON_WINDOW_QSS =
+        QStringLiteral(":/qss/StyleButton/ButtonWindow.qss");
 inline const auto LIST_VIEW_QSS =
         QStringLiteral(":/qss/ListView/PlayListView.qss");
 inline const auto VOLUME_SLIDER_QSS =

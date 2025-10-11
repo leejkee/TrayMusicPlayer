@@ -7,6 +7,7 @@
 #include <trayqss.h>
 #include <QSvgWidget>
 #include <QHBoxLayout>
+#include <QFrame>
 
 namespace Tray::Ui
 {
@@ -15,15 +16,20 @@ class TopBarWidgetPrivate
 public:
     QSvgWidget* m_svgWidget;
     Panel::StyleButton* m_preButton;
+    QFrame* m_splitFrame;
     Panel::StyleButton* m_settingsButton;
+    Panel::StyleButton* m_minimizeButton;
+    Panel::StyleButton* m_maximizeButton;
+    Panel::StyleButton* m_exitButton;
     bool m_preButtonIsVisible = false;
 };
 
 TopBarWidget::TopBarWidget(QWidget* parent)
-    : QWidget(parent), d(std::make_unique<TopBarWidgetPrivate>())
+    : QWidget(parent),
+      d(std::make_unique<TopBarWidgetPrivate>())
 {
     d->m_svgWidget = new QSvgWidget(Res::LogoSVG);
-    d->m_svgWidget->setFixedSize(130, 25);
+    d->m_svgWidget->setFixedSize(120, 25);
     d->m_preButton = new Panel::StyleButton({}
                                             , {30, 30}
                                             , Res::BackPageSVG
@@ -35,16 +41,40 @@ TopBarWidget::TopBarWidget(QWidget* parent)
                                                  , Res::BUTTON_SQUARE_QSS
                                                  , this);
 
+    d->m_minimizeButton = new Panel::StyleButton({}
+                                                 , {35, 35}
+                                                 , Res::MinimizeBtnSVG
+                                                 , Res::BUTTON_WINDOW_QSS
+                                                 , this);
+    d->m_maximizeButton = new Panel::StyleButton({}
+                                                 , {35, 35}
+                                                 , Res::MaximizeBtnSVG
+                                                 , Res::BUTTON_WINDOW_QSS
+                                                 , this);
+    d->m_exitButton = new Panel::StyleButton({}
+                                             , {35, 35}
+                                             , Res::ExitBtnSVG
+                                             , Res::BUTTON_WINDOW_QSS
+                                             , this);
+    d->m_splitFrame = new QFrame(this);
+    d->m_splitFrame->setFrameShape(QFrame::VLine);
+    d->m_splitFrame->setFrameShadow(QFrame::Sunken);
     auto* spacerH = new QSpacerItem(-1
-                                         , 0
-                                         , QSizePolicy::Expanding
-                                         , QSizePolicy::Minimum);
+                                    , 0
+                                    , QSizePolicy::Expanding
+                                    , QSizePolicy::Minimum);
     auto* layout = new QHBoxLayout(this);
+    layout->setSpacing(0);
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->addWidget(d->m_svgWidget);
     layout->addItem(spacerH);
     layout->addWidget(d->m_preButton);
     layout->addWidget(d->m_settingsButton);
-    setFixedHeight(40);
+    layout->addWidget(d->m_splitFrame);
+    layout->addWidget(d->m_minimizeButton);
+    layout->addWidget(d->m_maximizeButton);
+    layout->addWidget(d->m_exitButton);
+    setFixedHeight(35);
 
     connect(d->m_preButton
             , &Panel::StyleButton::clicked
