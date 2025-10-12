@@ -1,69 +1,50 @@
 //
 // Created by cww on 25-4-10.
 //
+#include <QMouseEvent>
 #include <topbarwidget/topbarwidget.h>
-#include <stylebutton/stylebutton.h>
 #include <traysvg.h>
 #include <trayqss.h>
-#include <QHBoxLayout>
-#include <QLabel>
-#include <QFrame>
 
 namespace Tray::Ui
 {
-class TopBarWidgetPrivate
-{
-public:
-    QLabel* m_logoLabel;
-    Panel::StyleButton* m_preButton;
-    QFrame* m_splitFrame;
-    Panel::StyleButton* m_settingsButton;
-    Panel::StyleButton* m_minimizeButton;
-    Panel::StyleButton* m_maximizeButton;
-    Panel::StyleButton* m_exitButton;
-    bool m_preButtonIsVisible = false;
-};
-
 TopBarWidget::TopBarWidget(QWidget* parent)
-    : QWidget(parent),
-      d(std::make_unique<TopBarWidgetPrivate>())
+    : QWidget(parent)
 {
-    d->m_logoLabel = new QLabel(this);
-    d->m_logoLabel->setPixmap(QPixmap(Res::LogoSVG).scaled(110
-                                  , 25
-                                  , Qt::IgnoreAspectRatio
-                                  , Qt::SmoothTransformation));
-    // d->m_logoLabel->setFixedSize(120, 25);
-
-    d->m_preButton = new Panel::StyleButton({}
-                                            , {30, 30}
-                                            , Res::BackPageSVG
-                                            , Res::BUTTON_SQUARE_QSS
-                                            , this);
-    d->m_settingsButton = new Panel::StyleButton({}
-                                                 , {30, 30}
-                                                 , Res::SettingBtnSVG
-                                                 , Res::BUTTON_SQUARE_QSS
-                                                 , this);
-
-    d->m_minimizeButton = new Panel::StyleButton({}
-                                                 , {35, 35}
-                                                 , Res::MinimizeBtnSVG
-                                                 , Res::BUTTON_WINDOW_QSS
-                                                 , this);
-    d->m_maximizeButton = new Panel::StyleButton({}
-                                                 , {35, 35}
-                                                 , Res::MaximizeBtnSVG
-                                                 , Res::BUTTON_WINDOW_QSS
-                                                 , this);
-    d->m_exitButton = new Panel::StyleButton({}
-                                             , {35, 35}
-                                             , Res::ExitBtnSVG
-                                             , Res::BUTTON_WINDOW_QSS
-                                             , this);
-    d->m_splitFrame = new QFrame(this);
-    d->m_splitFrame->setFrameShape(QFrame::VLine);
-    d->m_splitFrame->setFrameShadow(QFrame::Sunken);
+    setObjectName("TopBarWidget");
+    m_logoLabel = new QLabel(this);
+    m_logoLabel->setPixmap(QPixmap(Res::LogoSVG).scaled(110
+                               , 25
+                               , Qt::IgnoreAspectRatio
+                               , Qt::SmoothTransformation));
+    m_preButton = new Panel::StyleButton({}
+                                         , {30, 30}
+                                         , Res::BackPageSVG
+                                         , Res::BUTTON_SQUARE_QSS
+                                         , this);
+    m_settingsButton = new Panel::StyleButton({}
+                                              , {30, 30}
+                                              , Res::SettingBtnSVG
+                                              , Res::BUTTON_SQUARE_QSS
+                                              , this);
+    m_minimizeButton = new Panel::StyleButton({}
+                                              , {ButtonWidth, BarHeight}
+                                              , Res::MinimizeBtnSVG
+                                              , Res::BUTTON_WINDOW_QSS
+                                              , this);
+    m_maximizeButton = new Panel::StyleButton({}
+                                              , {ButtonWidth, BarHeight}
+                                              , Res::MaximizeBtnSVG
+                                              , Res::BUTTON_WINDOW_QSS
+                                              , this);
+    m_exitButton = new Panel::StyleButton({}
+                                          , {ButtonWidth, BarHeight}
+                                          , Res::ExitBtnSVG
+                                          , Res::BUTTON_WINDOW_QSS
+                                          , this);
+    m_splitFrame = new QFrame(this);
+    m_splitFrame->setFrameShape(QFrame::VLine);
+    m_splitFrame->setFrameShadow(QFrame::Sunken);
     auto* spacerH = new QSpacerItem(-1
                                     , 0
                                     , QSizePolicy::Expanding
@@ -71,37 +52,139 @@ TopBarWidget::TopBarWidget(QWidget* parent)
     auto* layout = new QHBoxLayout(this);
     layout->setSpacing(0);
     layout->setContentsMargins(0, 0, 0, 0);
-    layout->addWidget(d->m_logoLabel);
+    layout->addWidget(m_logoLabel);
     layout->addItem(spacerH);
-    layout->addWidget(d->m_preButton);
-    layout->addWidget(d->m_settingsButton);
-    layout->addWidget(d->m_splitFrame);
-    layout->addWidget(d->m_minimizeButton);
-    layout->addWidget(d->m_maximizeButton);
-    layout->addWidget(d->m_exitButton);
-    setFixedHeight(35);
+    layout->addWidget(m_preButton);
+    layout->addWidget(m_settingsButton);
+    layout->addWidget(m_splitFrame);
+    layout->addWidget(m_minimizeButton);
+    layout->addWidget(m_maximizeButton);
+    layout->addWidget(m_exitButton);
+    setFixedHeight(BarHeight);
 
-    connect(d->m_preButton
+    connect(m_preButton
             , &Panel::StyleButton::clicked
             , this
             , [this]()
             {
                 Q_EMIT signalPreButtonClicked();
             });
-    connect(d->m_settingsButton
+    connect(m_settingsButton
             , &Panel::StyleButton::clicked
             , this
             , [this]()
             {
                 Q_EMIT signalSettingsButtonClicked();
             });
+
+    connect(m_minimizeButton
+            , &QPushButton::clicked
+            , this
+            , &TopBarWidget::handleWindowMinimize);
+
+    connect(m_maximizeButton
+            , &QPushButton::clicked
+            , this
+            , &TopBarWidget::handleWindowMaximize);
+
+    connect(m_exitButton
+            , &QPushButton::clicked
+            , this
+            , [this]
+            {
+                Q_EMIT signalExitButtonClicked();
+            });
 }
 
 TopBarWidget::~TopBarWidget() = default;
 
-void TopBarWidget::setPreBtnShow(const bool b)
+
+void TopBarWidget::setRadius(const int radius)
 {
-    d->m_preButtonIsVisible = b;
-    d->m_preButton->setEnabled(b);
+    m_logoLabel->
+            setStyleSheet(QString("border-top-left-radius: %1px;").arg(radius));
+    m_exitButton->
+            setStyleSheet(QString(Res::BUTTON_RADIUS_TEMPLATE_QSS).arg(radius));
+    this->setStyleSheet(
+                        QString("QWidget#%1 { border-top-left-radius: %2px; border-top-right-radius: %2px; } ")
+                       .arg(objectName()).arg(radius)
+                       );
+}
+
+void TopBarWidget::mouseMoveEvent(QMouseEvent* event)
+{
+    if (m_isDragging && (event->buttons() & Qt::LeftButton))
+    {
+        if (QWidget* mainW = this->window())
+        {
+            const auto delta = event->globalPosition().toPoint() - m_dragPos;
+            mainW->move(mainW->pos() + delta);
+            m_dragPos = event->globalPosition().toPoint();
+        }
+        event->accept();
+    }
+}
+
+void TopBarWidget::mousePressEvent(QMouseEvent* event)
+{
+    if (event->button() != Qt::LeftButton)
+    {
+        return;
+    }
+
+    if (m_minimizeButton && m_minimizeButton->geometry().contains(event->pos()))
+    {
+        return;
+    }
+
+    if (m_maximizeButton && m_maximizeButton->geometry().contains(event->pos()))
+    {
+        return;
+    }
+
+    if (m_exitButton && m_exitButton->geometry().contains(event->pos()))
+    {
+        return;
+    }
+
+    if (m_settingsButton && m_settingsButton->geometry().contains(event->pos()))
+    {
+        return;
+    }
+
+    if (m_preButton && m_preButton->geometry().contains(event->pos()))
+    {
+        return;
+    }
+
+    m_isDragging = true;
+    m_dragPos = event->globalPosition().toPoint();
+    event->accept();
+}
+
+void TopBarWidget::mouseReleaseEvent(QMouseEvent* event)
+{
+    m_isDragging = false;
+    QWidget::mouseReleaseEvent(event);
+}
+
+void TopBarWidget::handleWindowMinimize() const
+{
+    if (auto* mainW = this->window(); !mainW->isMinimized())
+    {
+        mainW->showMinimized();
+    }
+}
+
+void TopBarWidget::handleWindowMaximize() const
+{
+    if (auto* mainW = this->window(); !mainW->isMaximized())
+    {
+        mainW->showMaximized();
+    }
+    else
+    {
+        mainW->showNormal();
+    }
 }
 }

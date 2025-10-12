@@ -102,7 +102,7 @@ void PlayerWidget::initCenterLayout()
     d->m_checkPlayMode = new Panel::StyleButton({}
                                                 , {30, 30}
                                                 , Res::SequentialModeSVG
-                                                , Res::BUTTON_NORMAL_QSS
+                                                , Res::PLAY_MODE_QSS
                                                 , this);
     d->m_progressWidget = new Panel::ProgressBar(this);
 

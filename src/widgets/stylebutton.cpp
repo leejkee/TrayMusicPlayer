@@ -27,7 +27,7 @@ StyleButton::StyleButton(const QString& id
 {
     setId(id);
     setButtonIcon(iconPath);
-    setQss(qssPath);
+    setStyleSheet(qssPath);
     if (!size.isEmpty())
     {
         d->m_size = size;

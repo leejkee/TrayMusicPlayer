@@ -53,6 +53,7 @@ WindowManager::WindowManager(const WindowInitData& initData, QWidget* parent)
     d->m_primaryWidget = new QWidget(this);
     d->m_primaryWidgetLayout = new QVBoxLayout;
     d->m_topBarWidget = new TopBarWidget(this);
+    d->m_topBarWidget->setRadius(5);
     d->m_musicListWidget = new MusicListWidget(this);
     d->m_viewAndPlaylistsSplitter = new QSplitter(Qt::Horizontal, this);
     d->m_viewAndPlaylistsSplitter->
@@ -92,12 +93,6 @@ WindowManager::WindowManager(const WindowInitData& initData, QWidget* parent)
 
     d->m_viewStackedWidget->addWidget(d->m_viewWidget);
     d->m_viewStackedWidget->addWidget(d->m_settingsWidget);
-    setStyleSheet(
-        "QWidget#WindowManager {"
-        "    background-color: transparent;" // 你想要的背景色
-        "    border-radius: 15px;"       // 你想要的圆角半径
-        "}"
-    );
     createConnections();
     initDefaultSettings(initData);
 }
@@ -114,6 +109,7 @@ void WindowManager::paintEvent(QPaintEvent* event)
     painter.setClipPath(painterPath);
     painter.fillRect(this->rect(), Qt::white);
 }
+
 //
 // void WindowManager::resizeEvent(QResizeEvent* event)
 // {
