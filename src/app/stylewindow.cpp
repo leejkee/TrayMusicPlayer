@@ -12,7 +12,6 @@
 inline void Init_qrc()
 {
     Q_INIT_RESOURCE(svg);
-    Q_INIT_RESOURCE(qss);
 }
 
 namespace Tray

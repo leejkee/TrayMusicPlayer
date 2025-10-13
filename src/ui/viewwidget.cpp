@@ -49,8 +49,8 @@ ViewWidget::ViewWidget(QWidget* parent)
     d->m_playAllButton = new Panel::StyleButton(
                                                 ViewWidgetPrivate::PLAY_ALL_KEY
                                                 , {
-                                                    ViewWidgetPrivate::PLAYALL_BTN_HEIGHT
-                                                    , ViewWidgetPrivate::PLAYALL_BTN_WIDTH
+                                                    ViewWidgetPrivate::PLAYALL_BTN_WIDTH
+                                                    , ViewWidgetPrivate::PLAYALL_BTN_HEIGHT
                                                 }
                                                 , Res::PlayBtnSVG
                                                 , Res::BUTTON_NORMAL_QSS
@@ -71,7 +71,7 @@ ViewWidget::ViewWidget(QWidget* parent)
     d->m_playlistView->setModel(d->m_dataModel);
     d->m_playlistView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     d->m_playlistView->setContextMenuPolicy(Qt::CustomContextMenu);
-    setListViewQss(Res::LIST_VIEW_QSS);
+    d->m_playlistView->setStyleSheet(Res::LIST_VIEW_QSS);
     d->m_playlistView->viewport()->setMouseTracking(true);
     d->m_playlistView->setItemDelegate(d->m_viewDelegate);
     auto* Layout = new QVBoxLayout;
@@ -119,25 +119,6 @@ void ViewWidget::createConnections()
             , &ViewDelegate::signalViewItemOptionsMenu
             , this
             , &ViewWidget::handleMenuPop);
-}
-
-void ViewWidget::setListViewQss(const QString& qssPath)
-{
-    if (qssPath.isEmpty())
-    {
-        LOG_WARNING("Empty qssPath");
-    }
-    if (QFile file(qssPath); file.open(QFile::ReadOnly))
-    {
-        const QString qss = QString::fromUtf8(file.readAll()).trimmed();
-        file.close();
-        d->m_playlistView->setStyleSheet(qss);
-        LOG_INFO(QString("QSS [%1] has been loaded.").arg(qssPath));
-    }
-    else
-    {
-        LOG_WARNING(QString("Load QSS for ListView [%1] failed.").arg(qssPath));
-    }
 }
 
 void ViewWidget::handleMenuPop(const QPoint& pos, const QModelIndex& index)

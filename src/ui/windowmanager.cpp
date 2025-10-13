@@ -53,8 +53,7 @@ WindowManager::WindowManager(const WindowInitData& initData, QWidget* parent)
     d->m_primaryWidgetLayout = new QVBoxLayout;
     d->m_musicListWidget = new MusicListWidget(this);
     d->m_viewAndPlaylistsSplitter = new QSplitter(Qt::Horizontal, this);
-    d->m_viewAndPlaylistsSplitter->
-       setStyleSheet(Res::readQss(Res::VIEW_SPLITTER_QSS));
+    d->m_viewAndPlaylistsSplitter->setStyleSheet(Res::VIEW_SPLITTER_QSS);
     d->m_viewStackedWidget = new QStackedWidget(this);
     d->m_viewWidget = new ViewWidget(this);
     d->m_lyricWidget = new LyricWidget(this);
@@ -63,9 +62,8 @@ WindowManager::WindowManager(const WindowInitData& initData, QWidget* parent)
     d->m_lineSplitterUp->setFrameShape(QFrame::HLine);
     d->m_lineSplitterDown = new QFrame(this);
     d->m_lineSplitterDown->setFrameShape(QFrame::HLine);
-    d->m_lineSplitterUp->setStyleSheet(Res::readQss(Res::HORIZONTAL_LINE_QSS));
-    d->m_lineSplitterDown->
-       setStyleSheet(Res::readQss(Res::HORIZONTAL_LINE_QSS));
+    d->m_lineSplitterUp->setStyleSheet(Res::HORIZONTAL_LINE_QSS);
+    d->m_lineSplitterDown->setStyleSheet(Res::HORIZONTAL_LINE_QSS);
 
     setLayout(d->m_windowManagerLayout);
     d->m_windowManagerLayout->addWidget(d->m_mainStackedWidget);

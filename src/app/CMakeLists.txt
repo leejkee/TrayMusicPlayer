@@ -18,7 +18,6 @@ target_link_libraries(tray_music_app PRIVATE
 
 target_compile_features(tray_music_app PRIVATE cxx_std_17)
 
-
 set_property(TARGET tray_music_app PROPERTY AUTOMOC ON)
 
 set_target_properties(tray_music_app PROPERTIES
