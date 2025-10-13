@@ -44,4 +44,6 @@ if (WIN32)
             OUTPUT_NAME "TrayMusicLauncher"
     )
     target_compile_features(tray_launcher PRIVATE cxx_std_17)
+
+    include(${PROJECT_SOURCE_DIR}/cmake/windows_install.cmake)
 endif ()

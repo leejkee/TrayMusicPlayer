@@ -36,8 +36,7 @@ void LyricService::updateLRC(const QString& musicPath)
     if (QString lrcPath; findLRC(musicPath, lrcPath))
     {
         d->m_hasLyric = true;
-        Badfish::AudioToolkit::LyricParser lyricParser;
-        lyricParser.load_file(lrcPath.toStdString());
+        const AudioToolKits::LyricParser lyricParser{lrcPath.toStdString()};
         for (const auto& lyric : lyricParser.get_lrc())
         {
             d->m_lyrics.append(QString::fromStdString(lyric.m_text));

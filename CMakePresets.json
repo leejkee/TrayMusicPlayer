@@ -33,10 +33,10 @@
       "cacheVariables": {
         "CMAKE_PREFIX_PATH": "C:/Qt/6.8.2/mingw_64;",
         "CMAKE_CXX_COMPILER": "C:\\Qt\\Tools\\mingw1310_64\\bin\\g++.exe",
-        "CMAKE_MAKE_PROGRAM": "C:\\Users\\31305\\AppData\\Local\\Microsoft\\WinGet\\Packages\\Ninja-build.Ninja_Microsoft.Winget.Source_8wekyb3d8bbwe\\ninja.exe"
+        "CMAKE_MAKE_PROGRAM": "C:\\Qt\\Tools\\Ninja\\ninja.exe"
       },
       "environment": {
-        "PATH": "C:/Qt/6.8.2/mingw_64/bin;$penv{PATH}"
+        "PATH": "C:/Qt/6.8.2/mingw_64/bin"
       },
       "condition": {
         "type": "equals",
