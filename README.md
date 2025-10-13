@@ -33,18 +33,30 @@
 - `CMake`
 
 ### Windows
-- 配置
+- 下载源码
 ```shell
 git clone --recurse-submodules https://github.com/leejkee/TrayMusicPlayer.git
 cd TrayMusicPlayer
-cmake -B build --preset windows-release -S .
 ```
 
 - 编译并打包项目
+> 重命名`CMakePresets.json.example`为`CMakeUserPresets.json`
+
+> 配置工具链的路径，修改 `CMAKE_PREFIX_PATH`, `CMAKE_CXX_COMPILER`, `CMAKE_MAKE_PROGRAM`, `PATH` 为你电脑上的值
+
+* MSVC
 ```cmake
-cmake --build build/windows-release --config Release --target package_release
+cmake --preset windows-release
+cmake --build build/windows-release --config Release --target package
 ```
-> 最终在`build/windows-release`生成打包完成的`TrayMusicPlayer_Windows_Portable_v<version>.zip`
+
+* Mingw
+```cmake
+cmake --preset Mingw-release
+cmake --build build/Mingw-release --config Release --target package
+```
+
+> 打包好的压缩包在`build/windows-release`
 
 ### Linux
 ```shell
