@@ -5,7 +5,6 @@
 #include <traysvg.h>
 #include <QListView>
 #include <QPainter>
-#include <QSvgRenderer>
 #include <QMouseEvent>
 #include <QApplication>
 
@@ -17,11 +16,20 @@ ViewDelegate::ViewDelegate(QObject* parent)
       m_previousIndex(UNINITIALIZED_VALUE),
       m_isPlaying(false),
       m_renderCurrentPlaylist(false),
-      m_hoverIndex({}),
-      m_svgPlayingRenderer(new QSvgRenderer(Res::ViewPlaySVG)),
-      m_svgPauseRenderer(new QSvgRenderer(Res::ViewPauseSVG)),
-      m_svgOptionsMenuRender(new QSvgRenderer(Res::OptionsMenuSVG))
+      m_hoverIndex({})
 {
+    m_optionsPixmap = QPixmap(Res::OptionsMenuSVG).scaled(VIEW_BUTTON_SIZE
+        , VIEW_BUTTON_SIZE
+        , Qt::IgnoreAspectRatio
+        , Qt::SmoothTransformation);
+    m_pausePixmap = QPixmap(Res::ViewPauseSVG).scaled(VIEW_BUTTON_SIZE
+        , VIEW_BUTTON_SIZE
+        , Qt::IgnoreAspectRatio
+        , Qt::SmoothTransformation);
+    m_playingPixmap = QPixmap(Res::ViewPlaySVG).scaled(VIEW_BUTTON_SIZE
+        , VIEW_BUTTON_SIZE
+        , Qt::IgnoreAspectRatio
+        , Qt::SmoothTransformation);
 }
 
 void ViewDelegate::drawText(QPainter* painter
@@ -76,21 +84,21 @@ void ViewDelegate::paint(QPainter* painter
     // draw Buttons
     if (isHovered)
     {
-        m_svgOptionsMenuRender->render(painter, buttonOptionsRect);
+        painter->drawPixmap(buttonOptionsRect, m_optionsPixmap);
         if (isCurrent && m_renderCurrentPlaylist)
         {
             if (m_isPlaying)
             {
-                m_svgPauseRenderer->render(painter, buttonPlayRect);
+                painter->drawPixmap(buttonPlayRect, m_pausePixmap);
             }
             else
             {
-                m_svgPlayingRenderer->render(painter, buttonPlayRect);
+                painter->drawPixmap(buttonPlayRect, m_playingPixmap);
             }
         }
         else
         {
-            m_svgPlayingRenderer->render(painter, buttonPlayRect);
+            painter->drawPixmap(buttonPlayRect, m_playingPixmap);
         }
     }
     else
@@ -99,11 +107,11 @@ void ViewDelegate::paint(QPainter* painter
         {
             if (m_isPlaying)
             {
-                m_svgPauseRenderer->render(painter, buttonPlayRect);
+                painter->drawPixmap(buttonPlayRect, m_pausePixmap);
             }
             else
             {
-                m_svgPlayingRenderer->render(painter, buttonPlayRect);
+                painter->drawPixmap(buttonPlayRect, m_playingPixmap);
             }
         }
     }

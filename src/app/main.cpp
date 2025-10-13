@@ -1,7 +1,6 @@
 #include <QtWidgets/QApplication>
 #include <QMessageBox>
-#include <QSystemTrayIcon>
-#include "trayapp.h"
+#include "stylewindow.h"
 
 int main(int argc, char** argv)
 {
@@ -38,9 +37,8 @@ int main(int argc, char** argv)
     {
         cmdline = QString(argv[1]);
     }
-    Tray::TrayApp trayapp(cmdline);
-    trayapp.show();
+    Tray::StyleWindow w(cmdline);
+    w.show();
     QApplication::setQuitOnLastWindowClosed(false);
-
     return QApplication::exec();
 }

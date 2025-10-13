@@ -94,6 +94,10 @@ public Q_SLOTS:
 
     void updateMusicDuration(qint64 duration);
 
+    void showViewWidget();
+
+    void showSettingsWidget();
+
 private:
     std::unique_ptr<WindowManagerPrivate> d;
 

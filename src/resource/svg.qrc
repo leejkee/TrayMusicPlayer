@@ -25,5 +25,8 @@
         <file>svg/Menu.svg</file>
         <file>svg/AppearanceBtn.svg</file>
         <file>svg/DirectoryBtn.svg</file>
+        <file>svg/MaximizeBtn.svg</file>
+        <file>svg/MinimizeBtn.svg</file>
+        <file>svg/ExitBtn.svg</file>
     </qresource>
 </RCC>

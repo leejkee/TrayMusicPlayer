@@ -25,7 +25,7 @@ VolumeController::VolumeController(QWidget* parent)
     d->m_sliderV = new StyleSlider(Qt::Vertical, this);
     d->m_sliderV->setRange(0, 100);
     d->m_sliderV->setSingleStep(5);
-    d->m_sliderV->setStyleSheet(Res::readQss(Res::VOLUME_CONTROLLER_QSS));
+    d->m_sliderV->setStyleSheet(Res::VOLUME_CONTROLLER_QSS);
 
     QHBoxLayout* hSliderLayout = new QHBoxLayout;
     hSliderLayout->addStretch();

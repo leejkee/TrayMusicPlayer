@@ -58,9 +58,9 @@ private:
 
     QModelIndex m_hoverIndex;
 
-    QSvgRenderer* m_svgPlayingRenderer;
-    QSvgRenderer* m_svgPauseRenderer;
-    QSvgRenderer* m_svgOptionsMenuRender;
+    QPixmap m_optionsPixmap;
+    QPixmap m_pausePixmap;
+    QPixmap m_playingPixmap;
 
     constexpr static int VIEW_BUTTON_SIZE = 15;
     constexpr static int VIEW_PLAY_BUTTON_PADDING = 10;

@@ -27,7 +27,7 @@ StyleButton::StyleButton(const QString& id
 {
     setId(id);
     setButtonIcon(iconPath);
-    setQss(qssPath);
+    setStyleSheet(qssPath);
     if (!size.isEmpty())
     {
         d->m_size = size;
@@ -45,21 +45,21 @@ StyleButton::StyleButton(QWidget* parent)
 StyleButton::~StyleButton() = default;
 
 
-bool StyleButton::eventFilter(QObject* watched, QEvent* event)
-{
-    if (watched == this)
-    {
-        if (event->type() == QEvent::Enter)
-        {
-            setCursor(Qt::PointingHandCursor);
-        }
-        else if (event->type() == QEvent::Leave)
-        {
-            setCursor(Qt::ArrowCursor);
-        }
-    }
-    return QPushButton::eventFilter(watched, event);
-}
+// bool StyleButton::eventFilter(QObject* watched, QEvent* event)
+// {
+//     if (watched == this)
+//     {
+//         if (event->type() == QEvent::Enter)
+//         {
+//             setCursor(Qt::PointingHandCursor);
+//         }
+//         else if (event->type() == QEvent::Leave)
+//         {
+//             setCursor(Qt::ArrowCursor);
+//         }
+//     }
+//     return QPushButton::eventFilter(watched, event);
+// }
 
 void StyleButton::setQss(const QString& qssPath)
 {

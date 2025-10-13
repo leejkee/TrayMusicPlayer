@@ -64,6 +64,5 @@ public Q_SLOTS:
 private:
     std::unique_ptr<ViewWidgetPrivate> d;
     void createConnections();
-    void setListViewQss(const QString& qssPath);
 };
 }

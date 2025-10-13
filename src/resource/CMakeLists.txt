@@ -1,8 +1,9 @@
 cmake_minimum_required(VERSION 3.20)
 
 add_library(tray_qrc STATIC
-        qss.qrc
         svg.qrc
+        include/trayqss.h
+        include/traysvg.h
 )
 
 target_include_directories(tray_qrc PUBLIC

@@ -13,6 +13,8 @@
 #include <QSplitter>
 #include <QStackedWidget>
 #include <QVBoxLayout>
+#include <QPainter>
+#include <QPainterPath>
 
 namespace Tray::Ui
 {
@@ -29,7 +31,6 @@ public:
     QWidget* m_primaryWidget;
     // LyricWidget *m_lyricWidget;
     QVBoxLayout* m_primaryWidgetLayout;
-    TopBarWidget* m_topBarWidget;
     MusicListWidget* m_musicListWidget;
     QSplitter* m_viewAndPlaylistsSplitter;
     QStackedWidget* m_viewStackedWidget;
@@ -44,16 +45,15 @@ WindowManager::WindowManager(const WindowInitData& initData, QWidget* parent)
     : QWidget(parent),
       d(std::make_unique<WindowManagerPrivate>())
 {
+    this->setObjectName(QObject::tr("WindowManager"));
     d->m_windowManagerLayout = new QVBoxLayout;
     d->m_mainStackedWidget = new QStackedWidget(this);
     d->m_playerWidget = new PlayerWidget(this);
     d->m_primaryWidget = new QWidget(this);
     d->m_primaryWidgetLayout = new QVBoxLayout;
-    d->m_topBarWidget = new TopBarWidget(this);
     d->m_musicListWidget = new MusicListWidget(this);
     d->m_viewAndPlaylistsSplitter = new QSplitter(Qt::Horizontal, this);
-    d->m_viewAndPlaylistsSplitter->
-       setStyleSheet(Res::readQss(Res::VIEW_SPLITTER_QSS));
+    d->m_viewAndPlaylistsSplitter->setStyleSheet(Res::VIEW_SPLITTER_QSS);
     d->m_viewStackedWidget = new QStackedWidget(this);
     d->m_viewWidget = new ViewWidget(this);
     d->m_lyricWidget = new LyricWidget(this);
@@ -62,9 +62,8 @@ WindowManager::WindowManager(const WindowInitData& initData, QWidget* parent)
     d->m_lineSplitterUp->setFrameShape(QFrame::HLine);
     d->m_lineSplitterDown = new QFrame(this);
     d->m_lineSplitterDown->setFrameShape(QFrame::HLine);
-    d->m_lineSplitterUp->setStyleSheet(Res::readQss(Res::HORIZONTAL_LINE_QSS));
-    d->m_lineSplitterDown->
-       setStyleSheet(Res::readQss(Res::HORIZONTAL_LINE_QSS));
+    d->m_lineSplitterUp->setStyleSheet(Res::HORIZONTAL_LINE_QSS);
+    d->m_lineSplitterDown->setStyleSheet(Res::HORIZONTAL_LINE_QSS);
 
     setLayout(d->m_windowManagerLayout);
     d->m_windowManagerLayout->addWidget(d->m_mainStackedWidget);
@@ -78,7 +77,7 @@ WindowManager::WindowManager(const WindowInitData& initData, QWidget* parent)
     d->m_mainStackedWidget->addWidget(d->m_lyricWidget);
 
     d->m_primaryWidget->setLayout(d->m_primaryWidgetLayout);
-    d->m_primaryWidgetLayout->addWidget(d->m_topBarWidget);
+    // d->m_primaryWidgetLayout->addWidget(d->m_topBarWidget);
     d->m_primaryWidgetLayout->addWidget(d->m_lineSplitterUp);
     d->m_primaryWidgetLayout->addWidget(d->m_viewAndPlaylistsSplitter);
     d->m_primaryWidgetLayout->setContentsMargins(0, 0, 0, 0);
@@ -96,25 +95,8 @@ WindowManager::WindowManager(const WindowInitData& initData, QWidget* parent)
 WindowManager::~WindowManager() = default;
 
 
-
 void WindowManager::createConnections()
 {
-    /* TopBar */
-    connect(d->m_topBarWidget
-            , &TopBarWidget::signalSettingsButtonClicked
-            , this
-            , [this]()
-            {
-                d->m_viewStackedWidget->setCurrentWidget(d->m_settingsWidget);
-            });
-    connect(d->m_topBarWidget
-            , &TopBarWidget::signalPreButtonClicked
-            , this
-            , [this]()
-            {
-                d->m_viewStackedWidget->setCurrentWidget(d->m_viewWidget);
-            });
-
     /* PlayerWidget */
     connect(d->m_playerWidget
             , &PlayerWidget::signalPlayToggle
@@ -238,15 +220,21 @@ void WindowManager::createConnections()
                 d->m_mainStackedWidget->setCurrentWidget(d->m_lyricWidget);
             });
 
-    connect(d->m_playerWidget, &PlayerWidget::signalSetMusicPosition, this, [this](const qint64 value)
-    {
-        Q_EMIT signalSetPlayerPosition(value);
-    });
+    connect(d->m_playerWidget
+            , &PlayerWidget::signalSetMusicPosition
+            , this
+            , [this](const qint64 value)
+            {
+                Q_EMIT signalSetPlayerPosition(value);
+            });
 
-    connect(d->m_playerWidget, &PlayerWidget::signalSetMute, this, [this]
-    {
-        Q_EMIT signalMuteTg();
-    });
+    connect(d->m_playerWidget
+            , &PlayerWidget::signalSetMute
+            , this
+            , [this]
+            {
+                Q_EMIT signalMuteTg();
+            });
 }
 
 void WindowManager::initDefaultSettings(const WindowInitData& initData)
@@ -329,7 +317,8 @@ void WindowManager::handleLocalPathSettingsUpdated(
     d->m_settingsWidget->updateLocalPaths(localPaths);
 }
 
-void WindowManager::updateLyric(const QString& musicTitle, const QStringList& lyricText
+void WindowManager::updateLyric(const QString& musicTitle
+                                , const QStringList& lyricText
                                 , const QList<int64_t>& lyricsTiming)
 {
     d->m_lyricWidget->updateLyric(musicTitle, lyricText, lyricsTiming);
@@ -348,5 +337,15 @@ void WindowManager::updateVolumeValue(const float volume)
 void WindowManager::updateMusicDuration(const qint64 duration)
 {
     d->m_playerWidget->updateMusicDuration(duration);
+}
+
+void WindowManager::showViewWidget()
+{
+    d->m_viewStackedWidget->setCurrentWidget(d->m_viewWidget);
+}
+
+void WindowManager::showSettingsWidget()
+{
+    d->m_viewStackedWidget->setCurrentWidget(d->m_settingsWidget);
 }
 }

@@ -29,8 +29,8 @@ public:
 
     void setButtonIcon(const QString& iconPath);
 
-protected:
-    bool eventFilter(QObject* watched, QEvent* event) override;
+// protected:
+//     bool eventFilter(QObject* watched, QEvent* event) override;
 
 Q_SIGNALS:
     void signalButtonClicked(const QString& listName);

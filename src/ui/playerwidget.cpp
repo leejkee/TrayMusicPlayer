@@ -102,7 +102,7 @@ void PlayerWidget::initCenterLayout()
     d->m_checkPlayMode = new Panel::StyleButton({}
                                                 , {30, 30}
                                                 , Res::SequentialModeSVG
-                                                , Res::BUTTON_NORMAL_QSS
+                                                , Res::PLAY_MODE_QSS
                                                 , this);
     d->m_progressWidget = new Panel::ProgressBar(this);
 
@@ -131,8 +131,7 @@ void PlayerWidget::initVolumeControl()
     auto* action = new QWidgetAction(this);
     action->setDefaultWidget(d->m_volumeController);
     d->m_menuVolume->addAction(action);
-    // d->m_menuVolume->setStyleSheet("QMenu { background-color: white; border: 1px solid gray; border-radius: 6px; }");
-    d->m_menuVolume->setStyleSheet(Res::readQss(Res::VOLUME_MENU_QSS));
+    d->m_menuVolume->setStyleSheet(Res::VOLUME_MENU_QSS);
 }
 
 void PlayerWidget::initMainLayout()
