@@ -151,6 +151,14 @@ inline const auto PLAY_MODE_QSS = QStringLiteral(R"(
     }
 )");
 
+// inline const auto WINDOW_QSS = QStringLiteral(R"(
+//     QWidget#StyleWindow {
+//         background-color: white;
+//         border-radius: 10px;
+//         border: 10px solid #CCCCCC;
+//     }
+// )");
+
 inline const auto LIST_VIEW_QSS =
         QStringLiteral(":/qss/ListView/PlayListView.qss");
 inline const auto VOLUME_SLIDER_QSS =

@@ -2,7 +2,7 @@
 // Created by cww on 25-2-13.
 //
 #pragma once
-#include <QMainWindow>
+#include "stylewindow/stylewindow.h"
 #include <memory>
 
 
@@ -10,10 +10,9 @@ namespace Tray
 {
 class TrayAppPrivate;
 
-class TrayApp final : public QMainWindow
+class TrayApp final : public Ui::StyleWindow
 {
     Q_OBJECT
-
 public:
     explicit TrayApp(QWidget* parent = nullptr);
     explicit TrayApp(const QString& configPath, QWidget* parent = nullptr);

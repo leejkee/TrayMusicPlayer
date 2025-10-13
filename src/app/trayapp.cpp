@@ -39,7 +39,7 @@ public:
 
 
 TrayApp::TrayApp(const QString& configPath, QWidget* parent)
-    : QMainWindow(parent),
+    : StyleWindow(parent),
       d(std::make_unique<TrayAppPrivate>())
 {
     Init_qrc();
@@ -53,12 +53,12 @@ TrayApp::TrayApp(const QString& configPath, QWidget* parent)
         , d->m_core->getTitleList(preloadKey)
         , d->m_core->getDefaultVolume()
     };
-    d->m_windowManager = new Ui::WindowManager(initData, this);
-    setCentralWidget(d->m_windowManager);
+    d->m_windowManager = new Ui::WindowManager(initData);
+    setWidget(d->m_windowManager);
     setMinimumWidth(TrayAppPrivate::MAIN_MINIMUM_WIDTH);
     setMinimumHeight(TrayAppPrivate::MAIN_MINIMUM_HEIGHT);
     setWindowFlags(Qt::FramelessWindowHint | Qt::CustomizeWindowHint);
-    setAttribute(Qt::WA_TranslucentBackground);
+    // setAttribute(Qt::WA_TranslucentBackground);
     connectCoreWindow();
 }
 
@@ -288,6 +288,6 @@ void TrayApp::setVisible(const bool visible)
     d->m_restoreAction->setEnabled(isMaximized() || !visible);
     d->m_minimizeAction->setEnabled(visible);
     d->m_maximizeAction->setEnabled(!isMaximized());
-    QMainWindow::setVisible(visible);
+        QWidget::setVisible(visible);
 }
 }

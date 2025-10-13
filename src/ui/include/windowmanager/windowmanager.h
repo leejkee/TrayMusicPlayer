@@ -27,11 +27,6 @@ public:
 
     ~WindowManager() override;
 
-protected:
-    void paintEvent(QPaintEvent* event) override;
-//
-//     void resizeEvent(QResizeEvent* event) override;
-
 Q_SIGNALS:
     void signalPlayToggle();
 
@@ -98,6 +93,10 @@ public Q_SLOTS:
     void updateVolumeValue(float volume);
 
     void updateMusicDuration(qint64 duration);
+
+    void showViewWidget();
+
+    void showSettingsWidget();
 
 private:
     std::unique_ptr<WindowManagerPrivate> d;

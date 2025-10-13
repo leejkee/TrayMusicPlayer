@@ -5,8 +5,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
 qt_add_executable(tray_music_app
         MANUAL_FINALIZATION
         main.cpp
-        trayapp.cpp
-        trayapp.h
+        stylewindow.cpp
+        stylewindow.h
 )
 
 target_link_libraries(tray_music_app PRIVATE

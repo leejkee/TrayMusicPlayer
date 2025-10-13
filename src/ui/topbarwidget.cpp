@@ -98,7 +98,6 @@ TopBarWidget::TopBarWidget(QWidget* parent)
 
 TopBarWidget::~TopBarWidget() = default;
 
-
 void TopBarWidget::setRadius(const int radius)
 {
     m_logoLabel->
@@ -117,9 +116,32 @@ void TopBarWidget::mouseMoveEvent(QMouseEvent* event)
     {
         if (QWidget* mainW = this->window())
         {
-            const auto delta = event->globalPosition().toPoint() - m_dragPos;
-            mainW->move(mainW->pos() + delta);
-            m_dragPos = event->globalPosition().toPoint();
+            if (mainW->isMaximized())
+            {
+                const int normalWidth = mainW->normalGeometry().width();
+
+                const QPoint globalMousePos = event->globalPosition().toPoint();
+
+                const float widthRatio = (mainW->width() > 0)
+                                         ? static_cast<float>(globalMousePos.
+                                             x()) / mainW->width()
+                                         : 0.5f;
+
+                const int newX = globalMousePos.x() - normalWidth * widthRatio;
+                const int newY = globalMousePos.y() - event->position().y();
+
+                mainW->showNormal();
+                mainW->move(newX, newY);
+
+                m_dragPos = globalMousePos;
+            }
+            else
+            {
+                const auto delta = event->globalPosition().toPoint() -
+                        m_dragPos;
+                mainW->move(mainW->pos() + delta);
+                m_dragPos = event->globalPosition().toPoint();
+            }
         }
         event->accept();
     }

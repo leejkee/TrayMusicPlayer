@@ -31,7 +31,6 @@ public:
     QWidget* m_primaryWidget;
     // LyricWidget *m_lyricWidget;
     QVBoxLayout* m_primaryWidgetLayout;
-    TopBarWidget* m_topBarWidget;
     MusicListWidget* m_musicListWidget;
     QSplitter* m_viewAndPlaylistsSplitter;
     QStackedWidget* m_viewStackedWidget;
@@ -52,8 +51,6 @@ WindowManager::WindowManager(const WindowInitData& initData, QWidget* parent)
     d->m_playerWidget = new PlayerWidget(this);
     d->m_primaryWidget = new QWidget(this);
     d->m_primaryWidgetLayout = new QVBoxLayout;
-    d->m_topBarWidget = new TopBarWidget(this);
-    d->m_topBarWidget->setRadius(5);
     d->m_musicListWidget = new MusicListWidget(this);
     d->m_viewAndPlaylistsSplitter = new QSplitter(Qt::Horizontal, this);
     d->m_viewAndPlaylistsSplitter->
@@ -82,7 +79,7 @@ WindowManager::WindowManager(const WindowInitData& initData, QWidget* parent)
     d->m_mainStackedWidget->addWidget(d->m_lyricWidget);
 
     d->m_primaryWidget->setLayout(d->m_primaryWidgetLayout);
-    d->m_primaryWidgetLayout->addWidget(d->m_topBarWidget);
+    // d->m_primaryWidgetLayout->addWidget(d->m_topBarWidget);
     d->m_primaryWidgetLayout->addWidget(d->m_lineSplitterUp);
     d->m_primaryWidgetLayout->addWidget(d->m_viewAndPlaylistsSplitter);
     d->m_primaryWidgetLayout->setContentsMargins(0, 0, 0, 0);
@@ -99,52 +96,9 @@ WindowManager::WindowManager(const WindowInitData& initData, QWidget* parent)
 
 WindowManager::~WindowManager() = default;
 
-void WindowManager::paintEvent(QPaintEvent* event)
-{
-    Q_UNUSED(event);
-    QPainter painter(this);
-    painter.setRenderHint(QPainter::Antialiasing, true);
-    QPainterPath painterPath;
-    painterPath.addRoundedRect(this->rect(), 5, 5);
-    painter.setClipPath(painterPath);
-    painter.fillRect(this->rect(), Qt::white);
-}
-
-//
-// void WindowManager::resizeEvent(QResizeEvent* event)
-// {
-//     // 调用父类的实现
-//     QWidget::resizeEvent(event);
-//
-//     // 创建一个与窗口大小相同的圆角矩形路径
-//     QPainterPath path;
-//     path.addRoundedRect(this->rect(), 5.0, 5.0); // 圆角半径与 paintEvent 一致
-//
-//     // 使用该路径创建一个区域 (Region)
-//     const auto mask = QRegion(path.toFillPolygon().toPolygon());
-//
-//     // 设置遮罩
-//     this->setMask(mask);
-// }
 
 void WindowManager::createConnections()
 {
-    /* TopBar */
-    connect(d->m_topBarWidget
-            , &TopBarWidget::signalSettingsButtonClicked
-            , this
-            , [this]()
-            {
-                d->m_viewStackedWidget->setCurrentWidget(d->m_settingsWidget);
-            });
-    connect(d->m_topBarWidget
-            , &TopBarWidget::signalPreButtonClicked
-            , this
-            , [this]()
-            {
-                d->m_viewStackedWidget->setCurrentWidget(d->m_viewWidget);
-            });
-
     /* PlayerWidget */
     connect(d->m_playerWidget
             , &PlayerWidget::signalPlayToggle
@@ -385,5 +339,15 @@ void WindowManager::updateVolumeValue(const float volume)
 void WindowManager::updateMusicDuration(const qint64 duration)
 {
     d->m_playerWidget->updateMusicDuration(duration);
+}
+
+void WindowManager::showViewWidget()
+{
+    d->m_viewStackedWidget->setCurrentWidget(d->m_viewWidget);
+}
+
+void WindowManager::showSettingsWidget()
+{
+    d->m_viewStackedWidget->setCurrentWidget(d->m_settingsWidget);
 }
 }
