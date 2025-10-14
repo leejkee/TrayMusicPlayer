@@ -45,7 +45,7 @@ public:
 
     qsizetype preMusic();
 
-    MusicMetaData getMusic(qsizetype index) const;
+    [[nodiscard]] MusicMetaData getMusic(qsizetype index) const;
 
     // [[nodiscard]] QString getCurrentMusicPath() const;
 

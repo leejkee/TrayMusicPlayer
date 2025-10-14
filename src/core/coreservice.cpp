@@ -84,6 +84,14 @@ void CoreService::initConnections()
                 Q_EMIT signalVolumeChanged(v);
             });
 
+    connect(d->m_playerBackend
+            , &PlayerBackend::signalPlayModeChanged
+            , this
+            , [this] (const int mode)
+            {
+                Q_EMIT signalPlayModeChanged(mode);
+            });
+
 
     /// User playlist Add/Remove
     // listCache --> settings
