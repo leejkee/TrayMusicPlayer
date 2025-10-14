@@ -20,7 +20,7 @@
   ![show](docs/img/windows-show.gif)
 
 - Linux(Arch linux with cosmic)  
-  ![show_linux](docs/img/show-view-linux.png)  
+  ![show_linux](docs/img/linux-show.png)  
 
 ## 快速使用
 > - `本地目录添加` 点击右上角`设置`图标，添加本地音乐，点击`Local`按钮加载本地歌单

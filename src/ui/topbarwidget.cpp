@@ -137,8 +137,8 @@ void TopBarWidget::mouseMoveEvent(QMouseEvent* event)
             }
             else
             {
-                const auto delta = event->globalPosition().toPoint() -
-                        m_dragPos;
+                const auto mousePos = event->globalPosition().toPoint();
+                const auto delta = mousePos - m_dragPos;
                 mainW->move(mainW->pos() + delta);
                 m_dragPos = event->globalPosition().toPoint();
             }

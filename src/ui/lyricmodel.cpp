@@ -2,6 +2,7 @@
 // Created by 31305 on 2025/8/8.
 //
 #include <lyricwidget/lyricmodel.h>
+#include <QVariant>
 
 namespace Tray::Ui
 {
@@ -42,7 +43,7 @@ QVariant LyricModel::data(const QModelIndex& index, const int role) const
     case Qt::DisplayRole:
         return lyricText;
     case Qt::UserRole:
-        return lyricTiming;
+        return QVariant::fromValue(static_cast<qint64>(lyricTiming));
     default:
         return {};
     }
